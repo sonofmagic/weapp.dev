@@ -1,0 +1,25 @@
+{
+  "order": 1,
+  "status": "stable",
+  "packageName": "weapp-tailwindcss",
+  "github": "sonofmagic/weapp-tailwindcss",
+  "docsUrl": "https://tw.icebreaker.top/",
+  "futureDocsPath": "/docs/weapp-tailwindcss/",
+  "logo": "/brands/weapp-tailwindcss.svg",
+  "accent": "#0ea5e9",
+  "platforms": ["WeChat", "Alipay", "Douyin", "uni-app", "Taro", "Mpx"],
+  "locales": {
+    "zh-CN": {
+      "name": "weapp-tailwindcss",
+      "tagline": "把 Tailwind CSS 的原子化体验带到全端",
+      "description": "在小程序和跨端框架中使用熟悉的 Tailwind CSS 工作流，覆盖样式生成、转义、运行时变量与多平台差异。",
+      "capabilities": ["Tailwind CSS v4", "多端模板转译", "跨框架集成", "编译性能优化"]
+    },
+    "en": {
+      "name": "weapp-tailwindcss",
+      "tagline": "Bring Tailwind CSS to every mini-app platform",
+      "description": "Use a familiar Tailwind CSS workflow across mini-apps and cross-platform frameworks, with platform-aware transforms, runtime values, and optimized builds.",
+      "capabilities": ["Tailwind CSS v4", "Template transforms", "Framework integrations", "Build optimization"]
+    }
+  }
+}

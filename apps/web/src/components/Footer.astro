@@ -1,0 +1,45 @@
+---
+import { GitFork, Rss } from '@lucide/astro'
+import type { Locale } from '../types/project'
+import type { ProjectEntry } from '../lib/projects'
+import { localizePath, projectPath, siteCopy } from '../i18n/ui'
+
+interface Props {
+  locale: Locale
+  projects: ProjectEntry[]
+}
+
+const { locale, projects } = Astro.props
+const copy = siteCopy[locale]
+---
+
+<footer class="site-footer">
+  <div class="shell footer-grid">
+    <div class="footer-brand">
+      <a class="wordmark" href={localizePath(locale)}>
+        <span class="wordmark-symbol" aria-hidden="true">w/</span>
+        <span>weapp.dev</span>
+      </a>
+      <p>{copy.footer.description}</p>
+    </div>
+    <div>
+      <h2>{copy.footer.projects}</h2>
+      {projects.map(project => <a href={projectPath(locale, project.id)}>{project.data.locales[locale].name}</a>)}
+    </div>
+    <div>
+      <h2>{copy.footer.resources}</h2>
+      <a href="https://github.com/sonofmagic/weapp.dev">
+        <GitFork size={16} stroke-width={1.8} aria-hidden="true" />
+        {copy.footer.source}
+      </a>
+      <a href="/releases.xml">
+        <Rss size={16} stroke-width={1.8} aria-hidden="true" />
+        {copy.footer.releases}
+      </a>
+    </div>
+  </div>
+  <div class="shell footer-bottom">
+    <span>© {new Date().getFullYear()} {copy.footer.copyright}</span>
+    <a href="https://github.com/sonofmagic/weapp.dev/blob/main/LICENSE">MIT License</a>
+  </div>
+</footer>

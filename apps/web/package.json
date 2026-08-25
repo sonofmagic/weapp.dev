@@ -1,0 +1,38 @@
+{
+  "name": "@weapp.dev/web",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "pnpm metrics && astro build && tsx scripts/validate-build.ts",
+    "check": "astro check && tsc --noEmit -p tsconfig.worker.json",
+    "deploy": "pnpm build && wrangler deploy",
+    "deploy:dry-run": "pnpm build && wrangler deploy --dry-run",
+    "dev": "astro dev",
+    "lint": "eslint .",
+    "lint:styles": "stylelint 'src/**/*.css'",
+    "metrics": "tsx scripts/generate-metrics.ts",
+    "metrics:update-fallback": "tsx scripts/generate-metrics.ts --update-fallback",
+    "preview": "astro preview",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "types": "wrangler types --check"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.7.3",
+    "@fontsource-variable/geist": "5.2.8",
+    "@fontsource-variable/geist-mono": "5.2.8",
+    "@lucide/astro": "1.34.0",
+    "astro": "6.3.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@axe-core/playwright": "4.10.2",
+    "@playwright/test": "1.55.0",
+    "node-html-parser": "9.0.1",
+    "tsx": "4.20.5",
+    "typescript": "6.0.3",
+    "vitest": "4.0.18",
+    "wrangler": "4.125.0"
+  }
+}

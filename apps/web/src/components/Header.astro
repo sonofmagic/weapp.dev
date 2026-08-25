@@ -1,0 +1,71 @@
+---
+import { GitFork, Languages, Menu, Moon, Sun } from '@lucide/astro'
+import type { Locale } from '../types/project'
+import type { ProjectEntry } from '../lib/projects'
+import { alternatePath, localizePath, projectPath, siteCopy } from '../i18n/ui'
+
+interface Props {
+  locale: Locale
+  projects: ProjectEntry[]
+  currentPath: string
+}
+
+const { locale, projects, currentPath } = Astro.props
+const copy = siteCopy[locale]
+const home = localizePath(locale)
+const languageUrl = alternatePath(locale, currentPath)
+---
+
+<header class="site-header">
+  <div class="shell header-inner">
+    <a class="wordmark" href={home}>
+      <span class="wordmark-symbol" aria-hidden="true">w/</span>
+      <span>weapp.dev</span>
+    </a>
+
+    <nav class="desktop-nav" aria-label="Primary navigation">
+      <details class="project-menu">
+        <summary>{copy.nav.projects}</summary>
+        <div class="project-menu-panel">
+          {projects.map(project => (
+            <a href={projectPath(locale, project.id)}>
+              <img src={project.data.logo} width="30" height="30" alt="" />
+              <span>
+                <strong>{project.data.locales[locale].name}</strong>
+                <small>{project.data.locales[locale].tagline}</small>
+              </span>
+            </a>
+          ))}
+        </div>
+      </details>
+      <a href={`${home}#principles`}>{copy.nav.principles}</a>
+      <a href={`${home}#releases`}>{copy.nav.releases}</a>
+      <a href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noreferrer">
+        <GitFork size={17} stroke-width={1.8} aria-hidden="true" />
+        {copy.nav.github}
+      </a>
+    </nav>
+
+    <div class="header-tools">
+      <a class="icon-button language-button" href={languageUrl} aria-label={copy.alternateLanguage} title={copy.alternateLanguage}>
+        <Languages size={19} stroke-width={1.8} aria-hidden="true" />
+        <span>{locale === 'zh-CN' ? 'EN' : '中'}</span>
+      </a>
+      <button class="icon-button theme-toggle" type="button" data-theme-toggle aria-label={copy.nav.theme} title={copy.nav.theme}>
+        <Sun class="theme-icon-light" size={19} stroke-width={1.8} aria-hidden="true" />
+        <Moon class="theme-icon-dark" size={19} stroke-width={1.8} aria-hidden="true" />
+      </button>
+      <details class="mobile-menu">
+        <summary class="icon-button" aria-label={copy.nav.openMenu}>
+          <Menu size={20} stroke-width={1.8} aria-hidden="true" />
+        </summary>
+        <nav aria-label="Mobile navigation">
+          {projects.map(project => <a href={projectPath(locale, project.id)}>{project.data.locales[locale].name}</a>)}
+          <a href={`${home}#principles`}>{copy.nav.principles}</a>
+          <a href={`${home}#releases`}>{copy.nav.releases}</a>
+          <a href="https://github.com/sonofmagic/weapp.dev">{copy.nav.github}</a>
+        </nav>
+      </details>
+    </div>
+  </div>
+</header>

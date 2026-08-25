@@ -1,0 +1,81 @@
+---
+import { ArrowLeft, ArrowUpRight, BookOpen, GitFork, Package, Star } from '@lucide/astro'
+import type { Locale, ProjectMetrics } from '../types/project'
+import type { ProjectEntry } from '../lib/projects'
+import { formatCompactNumber, formatReleaseDate } from '../lib/metrics'
+import { localizePath, siteCopy } from '../i18n/ui'
+
+interface Props {
+  locale: Locale
+  project: ProjectEntry
+  metrics: ProjectMetrics
+}
+
+const { locale, project, metrics } = Astro.props
+const copy = siteCopy[locale]
+const content = project.data.locales[locale]
+const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
+---
+
+<main id="main-content" class="project-page" style={`--project-accent: ${project.data.accent}`}>
+  <section class="project-hero shell">
+    <div class="project-hero-copy">
+      <a class="back-link" href={`${localizePath(locale)}#projects`}>
+        <ArrowLeft size={17} stroke-width={1.9} aria-hidden="true" />
+        {copy.project.back}
+      </a>
+      <p class="project-status">{copy.projects.status[project.data.status]}</p>
+      <h1>{content.name}</h1>
+      <p class="project-hero-tagline">{content.tagline}</p>
+      <p class="project-description">{content.description}</p>
+      <div class="button-row">
+        <a class="button button-primary" href={project.data.docsUrl} target="_blank" rel="noreferrer">
+          <BookOpen size={18} stroke-width={1.9} aria-hidden="true" />
+          {copy.project.docs}
+        </a>
+        <a class="button button-secondary" href={`https://github.com/${project.data.github}`} target="_blank" rel="noreferrer">
+          <GitFork size={18} stroke-width={1.9} aria-hidden="true" />
+          {copy.project.source}
+        </a>
+      </div>
+    </div>
+    <div class="project-hero-visual">
+      <img src={project.data.logo} width="180" height="180" alt={`${content.name} logo`} />
+      <code>{project.data.packageName}</code>
+    </div>
+  </section>
+
+  <section class="project-metrics-band">
+    <div class="shell project-metrics-grid">
+      <div><span>{copy.project.version}</span><strong>v{metrics.version}</strong><small>{formatReleaseDate(metrics.releasedAt, numberLocale)}</small></div>
+      <div><span>{copy.project.downloads}</span><strong>{formatCompactNumber(metrics.weeklyDownloads, numberLocale)}</strong><Package size={21} stroke-width={1.7} aria-hidden="true" /></div>
+      <div><span>{copy.project.stars}</span><strong>{formatCompactNumber(metrics.stars, numberLocale)}</strong><Star size={21} stroke-width={1.7} aria-hidden="true" /></div>
+    </div>
+  </section>
+
+  <section class="section shell project-details-grid">
+    <div>
+      <h2>{copy.project.capabilities}</h2>
+      <ul class="capability-grid">
+        {content.capabilities.map(capability => <li>{capability}</li>)}
+      </ul>
+    </div>
+    <div>
+      <h2>{copy.project.platforms}</h2>
+      <div class="platform-cloud">
+        {project.data.platforms.map(platform => <span>{platform}</span>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section shell future-docs">
+    <div>
+      <p class="eyebrow">{copy.project.futureDocs}</p>
+      <h2><code>{project.data.futureDocsPath}</code></h2>
+      <p>{copy.project.futureDocsNote}</p>
+    </div>
+    <a class="icon-link large-icon-link" href={project.data.docsUrl} aria-label={copy.project.docs} target="_blank" rel="noreferrer">
+      <ArrowUpRight size={25} stroke-width={1.7} aria-hidden="true" />
+    </a>
+  </section>
+</main>

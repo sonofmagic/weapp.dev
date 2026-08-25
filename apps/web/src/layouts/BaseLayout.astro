@@ -1,0 +1,80 @@
+---
+import '@fontsource-variable/geist/index.css'
+import '@fontsource-variable/geist-mono/index.css'
+import '../styles/global.css'
+import type { Locale } from '../types/project'
+import { alternatePath } from '../i18n/ui'
+
+interface Props {
+  locale: Locale
+  title: string
+  description: string
+  image?: string
+  type?: 'website' | 'article'
+}
+
+const {
+  locale,
+  title,
+  description,
+  image = '/og.svg',
+  type = 'website',
+} = Astro.props
+const canonical = new URL(Astro.url.pathname, Astro.site)
+const alternate = new URL(alternatePath(locale, Astro.url.pathname), Astro.site)
+const imageUrl = new URL(image, Astro.site)
+const languageTag = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
+const alternateTag = locale === 'zh-CN' ? 'en-US' : 'zh-CN'
+const skipLabel = locale === 'zh-CN' ? '跳到主要内容' : 'Skip to main content'
+---
+
+<!doctype html>
+<html lang={languageTag}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#f4f6f4" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#101312" media="(prefers-color-scheme: dark)" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang={languageTag} href={canonical} />
+    <link rel="alternate" hreflang={alternateTag} href={alternate} />
+    <link rel="alternate" hreflang="x-default" href={locale === 'zh-CN' ? canonical : alternate} />
+    <link rel="alternate" type="application/rss+xml" title="weapp.dev releases" href="/releases.xml" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="weapp.dev" />
+    <meta property="og:locale" content={locale === 'zh-CN' ? 'zh_CN' : 'en_US'} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={imageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <title>{title}</title>
+    <script is:inline>
+      (() => {
+        const saved = localStorage.getItem('weapp-theme')
+        const preferred = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+        document.documentElement.dataset.theme = saved === 'dark' || saved === 'light' ? saved : preferred
+      })()
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">{skipLabel}</a>
+    <slot />
+    <script is:inline>
+      document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
+        button.addEventListener('click', () => {
+          const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'
+          document.documentElement.dataset.theme = next
+          localStorage.setItem('weapp-theme', next)
+          button.setAttribute('aria-pressed', String(next === 'dark'))
+        })
+      })
+    </script>
+  </body>
+</html>

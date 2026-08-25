@@ -1,0 +1,23 @@
+---
+import { ArrowLeft } from '@lucide/astro'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Header from '../../components/Header.astro'
+import Footer from '../../components/Footer.astro'
+import { getProjects } from '../../lib/projects'
+import { siteCopy } from '../../i18n/ui'
+
+const locale = 'en' as const
+const copy = siteCopy[locale]
+const projects = await getProjects()
+---
+
+<BaseLayout locale={locale} title={`${copy.notFound.title} | weapp.dev`} description={copy.notFound.description}>
+  <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />
+  <main id="main-content" class="not-found shell">
+    <strong>404</strong>
+    <h1>{copy.notFound.title}</h1>
+    <p>{copy.notFound.description}</p>
+    <a class="button button-primary" href="/en/"><ArrowLeft size={18} stroke-width={1.9} />{copy.notFound.action}</a>
+  </main>
+  <Footer locale={locale} projects={projects} />
+</BaseLayout>

@@ -1,0 +1,2 @@
+apps/web/worker-configuration.d.ts -whitespace
+patches/*.patch -whitespace

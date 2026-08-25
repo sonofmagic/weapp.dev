@@ -1,0 +1,27 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "weapp-dev",
+  "main": "./src/worker.ts",
+  "compatibility_date": "2026-08-26",
+  "assets": {
+    "directory": "./dist/",
+    "binding": "ASSETS",
+    "run_worker_first": true,
+    "not_found_handling": "404-page",
+    "html_handling": "auto-trailing-slash"
+  },
+  "routes": [
+    {
+      "pattern": "weapp.dev",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.weapp.dev",
+      "custom_domain": true
+    }
+  ],
+  "observability": {
+    "enabled": true,
+    "head_sampling_rate": 0.1
+  }
+}

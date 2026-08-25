@@ -1,0 +1,13 @@
+diff --git a/dist/tooling-CdZRpvYw.mjs b/dist/tooling-CdZRpvYw.mjs
+index 17d944d4f1daf95186d5d5554456799da1f69745..fc232f83b74c42a8d476ae6246be7458c46794a6 100644
+--- a/dist/tooling-CdZRpvYw.mjs
++++ b/dist/tooling-CdZRpvYw.mjs
+@@ -31,7 +31,7 @@ const windowsPathSeparatorPattern = /\\/g;
+ const relativeCurrentDirPattern = /^\.\//;
+ const globTokenPattern = /[*?[{]/;
+ const trailingSlashPattern = /\/+$/;
+-const monorepoTsconfigPath = fileURLToPath(new URL("../../tsconfig.base.json", import.meta.url));
++const monorepoTsconfigPath = fileURLToPath(new URL("../tsconfig.base.json", import.meta.url));
+ function escapeForShell(value) {
+ 	return `'${value.replaceAll("'", "'\\''")}'`;
+ }

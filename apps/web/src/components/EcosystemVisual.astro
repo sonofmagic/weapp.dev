@@ -1,0 +1,25 @@
+---
+interface Props {
+  label: string
+}
+
+const { label } = Astro.props
+---
+
+<figure class="ecosystem-visual" aria-label={label}>
+  <div class="ecosystem-core">
+    <span class="wordmark-symbol">w/</span>
+    <strong>weapp.dev</strong>
+    <small>open source stack</small>
+  </div>
+  <div class="ecosystem-project ecosystem-project-tailwind">
+    <img src="/brands/weapp-tailwindcss.svg" width="180" height="180" alt="weapp-tailwindcss" />
+    <span>weapp-tailwindcss</span>
+  </div>
+  <div class="ecosystem-project ecosystem-project-vite">
+    <img src="/brands/weapp-vite.svg" width="36" height="35" alt="weapp-vite" />
+    <span>weapp-vite</span>
+  </div>
+  <div class="ecosystem-link ecosystem-link-one" aria-hidden="true"></div>
+  <div class="ecosystem-link ecosystem-link-two" aria-hidden="true"></div>
+</figure>

@@ -1,0 +1,37 @@
+{
+  "name": "weapp.dev",
+  "type": "module",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.33.4",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "build": "turbo run build",
+    "check": "turbo run lint lint:styles check test",
+    "dev": "turbo run dev --filter=@weapp.dev/web",
+    "lint": "turbo run lint lint:styles",
+    "metrics": "pnpm --filter @weapp.dev/web metrics",
+    "preview": "pnpm --filter @weapp.dev/web preview",
+    "repo:check": "repo check",
+    "repo:doctor": "repo doctor",
+    "repo:init": "repo init",
+    "repo:new": "repo new",
+    "test": "turbo run test",
+    "prepare": "husky",
+    "typecheck": "turbo run check"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "21.2.2",
+    "@vitest/coverage-v8": "4.1.11",
+    "eslint": "10.9.1",
+    "husky": "9.1.7",
+    "lint-staged": "17.3.0",
+    "repoctl": "5.4.2",
+    "stylelint": "17.14.1",
+    "turbo": "2.5.8",
+    "typescript": "6.0.3",
+    "vitest": "4.1.11"
+  }
+}

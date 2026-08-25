@@ -1,0 +1,25 @@
+{
+  "order": 2,
+  "status": "stable",
+  "packageName": "weapp-vite",
+  "github": "weapp-vite/weapp-vite",
+  "docsUrl": "https://vite.icebreaker.top/",
+  "futureDocsPath": "/docs/weapp-vite/",
+  "logo": "/brands/weapp-vite.svg",
+  "accent": "#2ba245",
+  "platforms": ["WeChat", "Alipay", "Douyin", "Baidu", "Kuaishou", "Web"],
+  "locales": {
+    "zh-CN": {
+      "name": "weapp-vite",
+      "tagline": "面向小程序的现代 Vite 工程化工具链",
+      "description": "用 Vite 驱动小程序开发、构建和多平台输出，并提供 Vue SFC、Wevu 运行时、自动路由与工程扩展能力。",
+      "capabilities": ["Vite 构建内核", "Vue SFC", "六平台输出", "Wevu 运行时"]
+    },
+    "en": {
+      "name": "weapp-vite",
+      "tagline": "A modern Vite toolchain for mini-app development",
+      "description": "Build, develop, and target multiple mini-app platforms with Vite, including Vue SFC support, the Wevu runtime, automatic routing, and extensible tooling.",
+      "capabilities": ["Vite-powered builds", "Vue SFC", "Six platform targets", "Wevu runtime"]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#f2f5f3"/>
+  <rect x="56" y="56" width="1088" height="518" rx="16" fill="#e4ece8" stroke="#bdcbc4" stroke-width="2"/>
+  <rect x="96" y="96" width="88" height="88" rx="14" fill="#176b55"/>
+  <text x="115" y="154" font-family="Arial, sans-serif" font-size="46" font-weight="700" fill="#f3f7f5">w/</text>
+  <text x="96" y="304" font-family="Arial, sans-serif" font-size="92" font-weight="700" fill="#101312">weapp.dev</text>
+  <text x="100" y="370" font-family="Arial, sans-serif" font-size="34" fill="#4f5b56">The open-source mini-app stack</text>
+  <circle cx="910" cy="252" r="92" fill="#d9f1e7" stroke="#176b55" stroke-width="4"/>
+  <text x="842" y="266" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#176b55">tool stack</text>
+  <rect x="764" y="402" width="292" height="76" rx="12" fill="#101312"/>
+  <text x="799" y="449" font-family="Arial, sans-serif" font-size="23" font-weight="600" fill="#f2f5f3">style + build + runtime</text>
+</svg>

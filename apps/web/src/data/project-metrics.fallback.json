@@ -1,0 +1,16 @@
+{
+  "weapp-tailwindcss": {
+    "version": "5.3.5",
+    "releasedAt": "2026-08-25T03:07:36.077Z",
+    "stars": 1849,
+    "weeklyDownloads": 11561,
+    "fetchedAt": "2026-08-26T00:00:00.000Z"
+  },
+  "weapp-vite": {
+    "version": "6.22.0",
+    "releasedAt": "2026-08-24T15:07:11.946Z",
+    "stars": 465,
+    "weeklyDownloads": 3178,
+    "fetchedAt": "2026-08-26T00:00:00.000Z"
+  }
+}

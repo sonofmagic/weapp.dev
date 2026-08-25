@@ -1,0 +1,11 @@
+node_modules
+.turbo
+.DS_Store
+coverage
+dist
+.astro
+.cache
+.wrangler
+playwright-report
+test-results
+apps/web/public/og-generated.png
