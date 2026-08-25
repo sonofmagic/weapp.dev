@@ -4,6 +4,16 @@ import type { Locale, ProjectMetrics } from '../types/project'
 import type { ProjectEntry } from '../lib/projects'
 import { formatCompactNumber, formatReleaseDate } from '../lib/metrics'
 import { localizePath, siteCopy } from '../i18n/ui'
+import {
+  buttonPrimary,
+  buttonSecondary,
+  eyebrow,
+  iconControl,
+  platformPill,
+  projectTone,
+  section,
+  shell,
+} from '../styles/classes'
 
 interface Props {
   locale: Locale
@@ -17,64 +27,66 @@ const content = project.data.locales[locale]
 const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
 ---
 
-<main id="main-content" class="project-page" style={`--project-accent: ${project.data.accent}`}>
-  <section class="project-hero shell">
-    <div class="project-hero-copy">
-      <a class="back-link" href={`${localizePath(locale)}#projects`}>
+<main id="main-content" style={`--project-accent: ${project.data.accent}`}>
+  <section class:list={[shell, 'grid min-h-[650px] grid-cols-[1fr_.72fr] items-center gap-[72px] pt-16 pb-[78px] max-[960px]:grid-cols-1 max-[960px]:gap-[42px] max-[720px]:min-h-0 max-[720px]:pt-11 max-[720px]:pb-[72px]']}>
+    <div>
+      <a class="mb-12 inline-flex items-center gap-[7px] text-[13px] font-[620] text-copy-muted hover:text-ink max-[720px]:mb-9" href={`${localizePath(locale)}#projects`}>
         <ArrowLeft size={17} stroke-width={1.9} aria-hidden="true" />
         {copy.project.back}
       </a>
-      <p class="project-status">{copy.projects.status[project.data.status]}</p>
-      <h1>{content.name}</h1>
-      <p class="project-hero-tagline">{content.tagline}</p>
-      <p class="project-description">{content.description}</p>
-      <div class="button-row">
-        <a class="button button-primary" href={project.data.docsUrl} target="_blank" rel="noreferrer">
+      <p class:list={['mb-3 font-mono text-xs font-bold uppercase', projectTone]}>{copy.projects.status[project.data.status]}</p>
+      <h1 class="mb-[18px] text-[62px] [overflow-wrap:anywhere] max-[720px]:text-[42px]">{content.name}</h1>
+      <p class="mb-3.5 text-2xl font-[630] max-[720px]:text-xl">{content.tagline}</p>
+      <p class="mb-[30px] max-w-[620px] text-[17px] text-copy-muted">{content.description}</p>
+      <div class="flex flex-wrap items-center gap-3">
+        <a class={buttonPrimary} href={project.data.docsUrl} target="_blank" rel="noreferrer">
           <BookOpen size={18} stroke-width={1.9} aria-hidden="true" />
           {copy.project.docs}
         </a>
-        <a class="button button-secondary" href={`https://github.com/${project.data.github}`} target="_blank" rel="noreferrer">
+        <a class={buttonSecondary} href={`https://github.com/${project.data.github}`} target="_blank" rel="noreferrer">
           <GitFork size={18} stroke-width={1.9} aria-hidden="true" />
           {copy.project.source}
         </a>
       </div>
     </div>
-    <div class="project-hero-visual">
-      <img src={project.data.logo} width="180" height="180" alt={`${content.name} logo`} />
-      <code>{project.data.packageName}</code>
+    <div class="grid min-h-[430px] place-items-center rounded-panel border border-line bg-[color-mix(in_srgb,var(--project-accent)_12%,var(--surface))] p-12 max-[720px]:min-h-[340px] max-[720px]:p-[34px]">
+      <img class="size-[210px] object-contain max-[720px]:size-40" src={project.data.logo} width="180" height="180" alt={`${content.name} logo`} />
+      <code class="self-end rounded-md bg-panel-raised px-[11px] py-2 text-xs text-copy-muted">{project.data.packageName}</code>
     </div>
   </section>
 
-  <section class="project-metrics-band">
-    <div class="shell project-metrics-grid">
-      <div><span>{copy.project.version}</span><strong>v{metrics.version}</strong><small>{formatReleaseDate(metrics.releasedAt, numberLocale)}</small></div>
-      <div><span>{copy.project.downloads}</span><strong>{formatCompactNumber(metrics.weeklyDownloads, numberLocale)}</strong><Package size={21} stroke-width={1.7} aria-hidden="true" /></div>
-      <div><span>{copy.project.stars}</span><strong>{formatCompactNumber(metrics.stars, numberLocale)}</strong><Star size={21} stroke-width={1.7} aria-hidden="true" /></div>
+  <section class="border-y border-line bg-panel">
+    <div class:list={[shell, 'grid grid-cols-3 max-[720px]:grid-cols-1']}>
+      <div class="relative grid min-h-[154px] border-x border-line p-[30px] max-[720px]:min-h-[126px] max-[720px]:border-b"><span class="text-xs text-copy-muted">{copy.project.version}</span><strong class="self-center font-mono text-[29px]">v{metrics.version}</strong><small class="text-xs text-copy-muted">{formatReleaseDate(metrics.releasedAt, numberLocale)}</small></div>
+      <div class="relative grid min-h-[154px] border-r border-line p-[30px] max-[720px]:min-h-[126px] max-[720px]:border-l max-[720px]:border-b"><span class="text-xs text-copy-muted">{copy.project.downloads}</span><strong class="self-center font-mono text-[29px]">{formatCompactNumber(metrics.weeklyDownloads, numberLocale)}</strong><Package class="absolute right-[26px] bottom-[27px] text-brand" size={21} stroke-width={1.7} aria-hidden="true" /></div>
+      <div class="relative grid min-h-[154px] border-r border-line p-[30px] max-[720px]:min-h-[126px] max-[720px]:border-l"><span class="text-xs text-copy-muted">{copy.project.stars}</span><strong class="self-center font-mono text-[29px]">{formatCompactNumber(metrics.stars, numberLocale)}</strong><Star class="absolute right-[26px] bottom-[27px] text-brand" size={21} stroke-width={1.7} aria-hidden="true" /></div>
     </div>
   </section>
 
-  <section class="section shell project-details-grid">
+  <section class:list={[section, shell, 'grid grid-cols-[1.2fr_.8fr] gap-[84px] max-[720px]:grid-cols-1 max-[720px]:gap-[58px]']}>
     <div>
-      <h2>{copy.project.capabilities}</h2>
-      <ul class="capability-grid">
-        {content.capabilities.map(capability => <li>{capability}</li>)}
+      <h2 class="mb-[26px] text-[28px]">{copy.project.capabilities}</h2>
+      <ul class="m-0 grid list-none grid-cols-2 gap-3 p-0 max-[720px]:grid-cols-1">
+        {content.capabilities.map(capability => (
+          <li class="min-h-[98px] rounded-panel border border-line bg-panel-raised p-[22px] font-[620]">{capability}</li>
+        ))}
       </ul>
     </div>
     <div>
-      <h2>{copy.project.platforms}</h2>
-      <div class="platform-cloud">
-        {project.data.platforms.map(platform => <span>{platform}</span>)}
+      <h2 class="mb-[26px] text-[28px]">{copy.project.platforms}</h2>
+      <div class="flex content-start flex-wrap gap-2">
+        {project.data.platforms.map(platform => <span class:list={[platformPill, 'px-[13px] py-2.5 text-[13px]']}>{platform}</span>)}
       </div>
     </div>
   </section>
 
-  <section class="section shell future-docs">
+  <section class:list={[shell, 'mb-28 flex items-center justify-between gap-10 rounded-panel border border-line bg-panel p-12 max-[720px]:mb-[78px] max-[720px]:items-start max-[720px]:px-6 max-[720px]:py-[30px]']}>
     <div>
-      <p class="eyebrow">{copy.project.futureDocs}</p>
-      <h2><code>{project.data.futureDocsPath}</code></h2>
-      <p>{copy.project.futureDocsNote}</p>
+      <p class={eyebrow}>{copy.project.futureDocs}</p>
+      <h2 class="mb-[26px] text-[28px]"><code class="text-[25px] text-brand [overflow-wrap:anywhere] max-[720px]:text-lg">{project.data.futureDocsPath}</code></h2>
+      <p class="mb-0 max-w-[600px] text-copy-muted">{copy.project.futureDocsNote}</p>
     </div>
-    <a class="icon-link large-icon-link" href={project.data.docsUrl} aria-label={copy.project.docs} target="_blank" rel="noreferrer">
+    <a class:list={[iconControl, 'size-[52px] border-line bg-panel-raised']} href={project.data.docsUrl} aria-label={copy.project.docs} target="_blank" rel="noreferrer">
       <ArrowUpRight size={25} stroke-width={1.7} aria-hidden="true" />
     </a>
   </section>

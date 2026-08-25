@@ -3,6 +3,7 @@ import { GitFork, Languages, Menu, Moon, Sun } from '@lucide/astro'
 import type { Locale } from '../types/project'
 import type { ProjectEntry } from '../lib/projects'
 import { alternatePath, localizePath, projectPath, siteCopy } from '../i18n/ui'
+import { iconControl, shell, wordmark, wordmarkSymbol } from '../styles/classes'
 
 interface Props {
   locale: Locale
@@ -16,54 +17,54 @@ const home = localizePath(locale)
 const languageUrl = alternatePath(locale, currentPath)
 ---
 
-<header class="site-header">
-  <div class="shell header-inner">
-    <a class="wordmark" href={home}>
-      <span class="wordmark-symbol" aria-hidden="true">w/</span>
+<header data-site-header class="sticky top-0 z-20 h-[68px] border-b border-[color-mix(in_srgb,var(--border)_76%,transparent)] bg-[color-mix(in_srgb,var(--background)_90%,transparent)] backdrop-blur-[18px] max-[720px]:h-[62px]">
+  <div class:list={[shell, 'flex h-full items-center justify-between']}>
+    <a class={wordmark} href={home}>
+      <span class={wordmarkSymbol} aria-hidden="true">w/</span>
       <span>weapp.dev</span>
     </a>
 
-    <nav class="desktop-nav" aria-label="Primary navigation">
-      <details class="project-menu">
-        <summary>{copy.nav.projects}</summary>
-        <div class="project-menu-panel">
+    <nav class="ml-auto mr-6 flex items-center gap-7 text-sm font-[580] max-[960px]:hidden" aria-label="Primary navigation">
+      <details class="relative">
+        <summary class="inline-flex cursor-pointer list-none items-center gap-[7px] py-2 text-copy-muted transition-colors duration-[160ms] hover:text-ink [&::-webkit-details-marker]:hidden">{copy.nav.projects}</summary>
+        <div class="absolute top-[42px] -left-[18px] w-[360px] rounded-panel border border-line bg-panel-raised p-2 shadow-panel">
           {projects.map(project => (
-            <a href={projectPath(locale, project.id)}>
-              <img src={project.data.logo} width="30" height="30" alt="" />
+            <a class="grid grid-cols-[34px_1fr] items-center gap-3 rounded-md p-3 hover:bg-panel" href={projectPath(locale, project.id)}>
+              <img class="size-[30px] object-contain" src={project.data.logo} width="30" height="30" alt="" />
               <span>
-                <strong>{project.data.locales[locale].name}</strong>
-                <small>{project.data.locales[locale].tagline}</small>
+                <strong class="block text-sm text-ink">{project.data.locales[locale].name}</strong>
+                <small class="mt-[3px] block overflow-hidden text-ellipsis whitespace-nowrap text-xs font-[450] text-copy-muted">{project.data.locales[locale].tagline}</small>
               </span>
             </a>
           ))}
         </div>
       </details>
-      <a href={`${home}#principles`}>{copy.nav.principles}</a>
-      <a href={`${home}#releases`}>{copy.nav.releases}</a>
-      <a href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noreferrer">
+      <a class="inline-flex items-center gap-[7px] py-2 text-copy-muted transition-colors duration-[160ms] hover:text-ink" href={`${home}#principles`}>{copy.nav.principles}</a>
+      <a class="inline-flex items-center gap-[7px] py-2 text-copy-muted transition-colors duration-[160ms] hover:text-ink" href={`${home}#releases`}>{copy.nav.releases}</a>
+      <a class="inline-flex items-center gap-[7px] py-2 text-copy-muted transition-colors duration-[160ms] hover:text-ink" href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noreferrer">
         <GitFork size={17} stroke-width={1.8} aria-hidden="true" />
         {copy.nav.github}
       </a>
     </nav>
 
-    <div class="header-tools">
-      <a class="icon-button language-button" href={languageUrl} aria-label={copy.alternateLanguage} title={copy.alternateLanguage}>
+    <div class="flex items-center gap-1.5">
+      <a class:list={[iconControl, 'grid-cols-[auto_auto] gap-1.5 px-[9px] w-auto font-mono text-xs font-bold max-[720px]:w-[38px] max-[720px]:px-0']} href={languageUrl} aria-label={copy.alternateLanguage} title={copy.alternateLanguage}>
         <Languages size={19} stroke-width={1.8} aria-hidden="true" />
-        <span>{locale === 'zh-CN' ? 'EN' : '中'}</span>
+        <span class="max-[720px]:hidden">{locale === 'zh-CN' ? 'EN' : '中'}</span>
       </a>
-      <button class="icon-button theme-toggle" type="button" data-theme-toggle aria-label={copy.nav.theme} title={copy.nav.theme}>
-        <Sun class="theme-icon-light" size={19} stroke-width={1.8} aria-hidden="true" />
-        <Moon class="theme-icon-dark" size={19} stroke-width={1.8} aria-hidden="true" />
+      <button class={iconControl} type="button" data-theme-toggle aria-label={copy.nav.theme} title={copy.nav.theme}>
+        <Sun class="dark:hidden" size={19} stroke-width={1.8} aria-hidden="true" />
+        <Moon class="hidden dark:block" size={19} stroke-width={1.8} aria-hidden="true" />
       </button>
-      <details class="mobile-menu">
-        <summary class="icon-button" aria-label={copy.nav.openMenu}>
+      <details class="relative hidden max-[960px]:block">
+        <summary class:list={[iconControl, 'list-none [&::-webkit-details-marker]:hidden']} aria-label={copy.nav.openMenu}>
           <Menu size={20} stroke-width={1.8} aria-hidden="true" />
         </summary>
-        <nav aria-label="Mobile navigation">
-          {projects.map(project => <a href={projectPath(locale, project.id)}>{project.data.locales[locale].name}</a>)}
-          <a href={`${home}#principles`}>{copy.nav.principles}</a>
-          <a href={`${home}#releases`}>{copy.nav.releases}</a>
-          <a href="https://github.com/sonofmagic/weapp.dev">{copy.nav.github}</a>
+        <nav class="absolute top-[46px] right-0 grid w-[min(300px,calc(100vw-32px))] rounded-panel border border-line bg-panel-raised p-2 shadow-panel" aria-label="Mobile navigation">
+          {projects.map(project => <a class="rounded-md p-3 font-semibold hover:bg-panel" href={projectPath(locale, project.id)}>{project.data.locales[locale].name}</a>)}
+          <a class="rounded-md p-3 font-semibold hover:bg-panel" href={`${home}#principles`}>{copy.nav.principles}</a>
+          <a class="rounded-md p-3 font-semibold hover:bg-panel" href={`${home}#releases`}>{copy.nav.releases}</a>
+          <a class="rounded-md p-3 font-semibold hover:bg-panel" href="https://github.com/sonofmagic/weapp.dev">{copy.nav.github}</a>
         </nav>
       </details>
     </div>

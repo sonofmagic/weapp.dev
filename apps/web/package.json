@@ -30,9 +30,11 @@
     "@axe-core/playwright": "4.10.2",
     "@playwright/test": "1.55.0",
     "node-html-parser": "9.0.1",
+    "tailwindcss": "4.3.3",
     "tsx": "4.20.5",
     "typescript": "6.0.3",
     "vitest": "4.0.18",
+    "weapp-tailwindcss": "5.3.5",
     "wrangler": "4.125.0"
   }
 }

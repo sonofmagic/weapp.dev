@@ -5,6 +5,7 @@ import Header from '../../components/Header.astro'
 import Footer from '../../components/Footer.astro'
 import { getProjects } from '../../lib/projects'
 import { siteCopy } from '../../i18n/ui'
+import { buttonPrimary, shell } from '../../styles/classes'
 
 const locale = 'en' as const
 const copy = siteCopy[locale]
@@ -13,11 +14,11 @@ const projects = await getProjects()
 
 <BaseLayout locale={locale} title={`${copy.notFound.title} | weapp.dev`} description={copy.notFound.description}>
   <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />
-  <main id="main-content" class="not-found shell">
-    <strong>404</strong>
-    <h1>{copy.notFound.title}</h1>
-    <p>{copy.notFound.description}</p>
-    <a class="button button-primary" href="/en/"><ArrowLeft size={18} stroke-width={1.9} />{copy.notFound.action}</a>
+  <main id="main-content" class:list={[shell, 'flex min-h-[620px] flex-col items-start justify-center max-[720px]:min-h-[520px]']}>
+    <strong class="font-mono text-xl text-brand">404</strong>
+    <h1 class="my-4 text-[58px] max-[720px]:text-[42px]">{copy.notFound.title}</h1>
+    <p class="mb-7 max-w-[520px] text-lg text-copy-muted">{copy.notFound.description}</p>
+    <a class={buttonPrimary} href="/en/"><ArrowLeft size={18} stroke-width={1.9} />{copy.notFound.action}</a>
   </main>
   <Footer locale={locale} projects={projects} />
 </BaseLayout>

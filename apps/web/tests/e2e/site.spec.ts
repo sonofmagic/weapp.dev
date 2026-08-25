@@ -27,7 +27,7 @@ test('theme control changes and persists the selected theme', async ({ page }) =
 test('project detail exposes docs, source, metrics, and future path', async ({ page }) => {
   await page.goto('/projects/weapp-vite/')
   await expect(page.getByRole('heading', { level: 1, name: 'weapp-vite' })).toBeVisible()
-  await expect(page.locator('.project-hero-copy').getByRole('link', { name: '阅读文档' })).toHaveAttribute('href', 'https://vite.icebreaker.top/')
+  await expect(page.getByRole('link', { name: '阅读文档' }).first()).toHaveAttribute('href', 'https://vite.icebreaker.top/')
   await expect(page.getByText('/docs/weapp-vite/')).toBeVisible()
   await expect(page.getByText('GitHub Stars')).toBeVisible()
 })

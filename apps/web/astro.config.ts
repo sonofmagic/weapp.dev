@@ -1,5 +1,9 @@
+import { fileURLToPath } from 'node:url'
 import sitemap from '@astrojs/sitemap'
 import { defineConfig } from 'astro/config'
+import { WeappTailwindcss } from 'weapp-tailwindcss/vite'
+
+const cssEntry = fileURLToPath(new URL('./src/styles/global.css', import.meta.url))
 
 export default defineConfig({
   site: 'https://weapp.dev',
@@ -23,4 +27,14 @@ export default defineConfig({
       },
     }),
   ],
+  vite: {
+    plugins: [
+      ...(WeappTailwindcss({
+        generator: {
+          target: 'web',
+        },
+        cssEntries: [cssEntry],
+      }) ?? []),
+    ],
+  },
 })

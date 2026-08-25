@@ -64,7 +64,7 @@ const skipLabel = locale === 'zh-CN' ? '跳到主要内容' : 'Skip to main cont
     </script>
   </head>
   <body>
-    <a class="skip-link" href="#main-content">{skipLabel}</a>
+    <a class="fixed top-3 left-3 z-[100] -translate-y-[160%] rounded-md bg-ink px-3.5 py-2.5 text-canvas focus:translate-y-0" href="#main-content">{skipLabel}</a>
     <slot />
     <script is:inline>
       document.querySelectorAll('[data-theme-toggle]').forEach((button) => {

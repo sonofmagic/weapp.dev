@@ -3,23 +3,27 @@ interface Props {
   label: string
 }
 
+import { wordmarkSymbol } from '../styles/classes'
+
 const { label } = Astro.props
 ---
 
-<figure class="ecosystem-visual" aria-label={label}>
-  <div class="ecosystem-core">
-    <span class="wordmark-symbol">w/</span>
-    <strong>weapp.dev</strong>
-    <small>open source stack</small>
+<figure class="isolate relative m-0 min-h-[500px] overflow-hidden rounded-panel border border-line bg-panel max-[960px]:min-h-[460px] max-[720px]:min-h-[390px]" aria-label={label}>
+  <div class="absolute inset-y-0 left-0 -z-10 w-[42%] bg-[color-mix(in_srgb,var(--accent)_10%,var(--surface))]" aria-hidden="true"></div>
+  <div class="absolute top-0 right-0 -z-10 h-[42%] w-[26%] bg-[color-mix(in_srgb,var(--highlight)_22%,var(--surface))]" aria-hidden="true"></div>
+  <div class="absolute top-1/2 left-1/2 z-[2] grid w-[210px] -translate-x-1/2 -translate-y-1/2 grid-cols-[36px_1fr] items-center gap-x-3 gap-y-1 rounded-panel border border-line bg-panel-raised p-[18px] shadow-[0_14px_38px_var(--shadow)] max-[720px]:w-[188px] max-[720px]:p-[15px]">
+    <span class:list={[wordmarkSymbol, 'row-span-2']}>w/</span>
+    <strong class="text-[17px]">weapp.dev</strong>
+    <small class="font-mono text-[11px] text-copy-muted">open source stack</small>
   </div>
-  <div class="ecosystem-project ecosystem-project-tailwind">
-    <img src="/brands/weapp-tailwindcss.svg" width="180" height="180" alt="weapp-tailwindcss" />
+  <div class="motion-safe:animate-reveal-up absolute top-[17%] left-[8%] z-[2] flex items-center gap-3 rounded-panel border border-line bg-panel-raised px-4 py-3.5 font-mono text-xs font-[650] shadow-[0_14px_38px_var(--shadow)] [animation-delay:100ms] max-[720px]:top-[12%] max-[720px]:left-[5%] max-[720px]:gap-2 max-[720px]:p-2.5 max-[720px]:text-[10px]">
+    <img class="size-11 object-contain max-[720px]:size-[34px]" src="/brands/weapp-tailwindcss.svg" width="180" height="180" alt="weapp-tailwindcss" />
     <span>weapp-tailwindcss</span>
   </div>
-  <div class="ecosystem-project ecosystem-project-vite">
-    <img src="/brands/weapp-vite.svg" width="36" height="35" alt="weapp-vite" />
+  <div class="motion-safe:animate-reveal-up absolute right-[8%] bottom-[17%] z-[2] flex items-center gap-3 rounded-panel border border-line bg-panel-raised px-4 py-3.5 font-mono text-xs font-[650] shadow-[0_14px_38px_var(--shadow)] [animation-delay:260ms] max-[720px]:right-[5%] max-[720px]:bottom-[12%] max-[720px]:gap-2 max-[720px]:p-2.5 max-[720px]:text-[10px]">
+    <img class="size-11 object-contain max-[720px]:size-[34px]" src="/brands/weapp-vite.svg" width="36" height="35" alt="weapp-vite" />
     <span>weapp-vite</span>
   </div>
-  <div class="ecosystem-link ecosystem-link-one" aria-hidden="true"></div>
-  <div class="ecosystem-link ecosystem-link-two" aria-hidden="true"></div>
+  <div class="absolute top-[35%] left-[31%] z-[1] h-0.5 w-[24%] origin-left rotate-[25deg] bg-brand after:absolute after:-top-1 after:-right-1 after:size-2.5 after:rounded-full after:bg-highlight after:content-['']" aria-hidden="true"></div>
+  <div class="absolute top-[59%] left-[59%] z-[1] h-0.5 w-[24%] origin-left rotate-[25deg] bg-brand after:absolute after:-top-1 after:-right-1 after:size-2.5 after:rounded-full after:bg-highlight after:content-['']" aria-hidden="true"></div>
 </figure>

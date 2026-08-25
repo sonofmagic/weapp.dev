@@ -3,6 +3,7 @@ import { GitFork, Rss } from '@lucide/astro'
 import type { Locale } from '../types/project'
 import type { ProjectEntry } from '../lib/projects'
 import { localizePath, projectPath, siteCopy } from '../i18n/ui'
+import { shell, wordmark, wordmarkSymbol } from '../styles/classes'
 
 interface Props {
   locale: Locale
@@ -13,33 +14,33 @@ const { locale, projects } = Astro.props
 const copy = siteCopy[locale]
 ---
 
-<footer class="site-footer">
-  <div class="shell footer-grid">
-    <div class="footer-brand">
-      <a class="wordmark" href={localizePath(locale)}>
-        <span class="wordmark-symbol" aria-hidden="true">w/</span>
+<footer class="pt-[72px] pb-7">
+  <div class:list={[shell, 'grid grid-cols-[2fr_1fr_1fr] gap-14 max-[720px]:grid-cols-2 max-[720px]:gap-x-6 max-[720px]:gap-y-[38px]']}>
+    <div class="max-[720px]:col-span-2">
+      <a class={wordmark} href={localizePath(locale)}>
+        <span class={wordmarkSymbol} aria-hidden="true">w/</span>
         <span>weapp.dev</span>
       </a>
-      <p>{copy.footer.description}</p>
+      <p class="mt-[18px] max-w-[340px] text-copy-muted">{copy.footer.description}</p>
     </div>
     <div>
-      <h2>{copy.footer.projects}</h2>
-      {projects.map(project => <a href={projectPath(locale, project.id)}>{project.data.locales[locale].name}</a>)}
+      <h2 class="mb-4 text-xs font-[650] text-copy-muted">{copy.footer.projects}</h2>
+      {projects.map(project => <a class="mb-[11px] flex w-fit items-center gap-2 text-sm hover:text-brand" href={projectPath(locale, project.id)}>{project.data.locales[locale].name}</a>)}
     </div>
     <div>
-      <h2>{copy.footer.resources}</h2>
-      <a href="https://github.com/sonofmagic/weapp.dev">
+      <h2 class="mb-4 text-xs font-[650] text-copy-muted">{copy.footer.resources}</h2>
+      <a class="mb-[11px] flex w-fit items-center gap-2 text-sm hover:text-brand" href="https://github.com/sonofmagic/weapp.dev">
         <GitFork size={16} stroke-width={1.8} aria-hidden="true" />
         {copy.footer.source}
       </a>
-      <a href="/releases.xml">
+      <a class="mb-[11px] flex w-fit items-center gap-2 text-sm hover:text-brand" href="/releases.xml">
         <Rss size={16} stroke-width={1.8} aria-hidden="true" />
         {copy.footer.releases}
       </a>
     </div>
   </div>
-  <div class="shell footer-bottom">
+  <div class:list={[shell, 'mt-16 flex justify-between gap-5 border-t border-line pt-[22px] text-xs text-copy-muted max-[720px]:flex-col']}>
     <span>© {new Date().getFullYear()} {copy.footer.copyright}</span>
-    <a href="https://github.com/sonofmagic/weapp.dev/blob/main/LICENSE">MIT License</a>
+    <a class="hover:text-brand" href="https://github.com/sonofmagic/weapp.dev/blob/main/LICENSE">MIT License</a>
   </div>
 </footer>
