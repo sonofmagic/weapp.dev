@@ -1,0 +1,31 @@
+---
+import type { Locale } from '../types/project'
+import { siteCopy } from '../i18n/ui'
+import { eyebrow, section, shell } from '../styles/classes'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const copy = siteCopy[locale].privacy
+---
+
+<main id="main-content">
+  <section class:list={[section, shell, 'grid grid-cols-[.72fr_1.28fr] gap-20 max-[960px]:grid-cols-1 max-[960px]:gap-12']}>
+    <header>
+      <p class={eyebrow}>{copy.eyebrow}</p>
+      <h1 class="mb-5 text-[58px] max-[720px]:text-[42px]">{copy.title}</h1>
+      <p class="mb-5 text-lg text-copy-muted">{copy.description}</p>
+      <p class="mb-0 font-mono text-xs text-copy-muted">{copy.updated}</p>
+    </header>
+    <div class="border-t border-line">
+      {copy.sections.map(sectionCopy => (
+        <section class="border-b border-line py-8">
+          <h2 class="mb-3 text-2xl">{sectionCopy.title}</h2>
+          <p class="mb-0 leading-[1.75] text-copy-muted">{sectionCopy.body}</p>
+        </section>
+      ))}
+    </div>
+  </section>
+</main>

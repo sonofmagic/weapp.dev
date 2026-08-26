@@ -1,6 +1,33 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 
+async function enableAnalyticsTestMode(page: import('@playwright/test').Page) {
+  await page.addInitScript(() => {
+    Object.defineProperty(window, '__WEAPP_ANALYTICS_TEST__', { value: true })
+  })
+}
+
+async function mockAnalyticsConfig(
+  page: import('@playwright/test').Page,
+  config: { provider: 'baidu' | 'ga4', consentRequired: boolean, siteId: string },
+) {
+  await page.route('**/api/analytics/config', async route => route.fulfill({
+    body: JSON.stringify(config),
+    contentType: 'application/json',
+    status: 200,
+  }))
+  await page.route('https://www.googletagmanager.com/**', async route => route.fulfill({
+    body: '',
+    contentType: 'text/javascript',
+    status: 200,
+  }))
+  await page.route('https://hm.baidu.com/**', async route => route.fulfill({
+    body: '',
+    contentType: 'text/javascript',
+    status: 200,
+  }))
+}
+
 test('renders the bilingual ecosystem home with valid metadata', async ({ page }) => {
   await page.goto('/')
   await expect(page.getByRole('heading', { level: 1, name: 'weapp.dev' })).toBeVisible()
@@ -71,4 +98,75 @@ test('keeps core content and links available without JavaScript', async ({ brows
   await expect(page.getByRole('heading', { level: 1, name: 'weapp.dev' })).toBeVisible()
   await expect(page.getByRole('link', { name: /阅读文档/ }).first()).toBeVisible()
   await context.close()
+})
+
+test('requires consent before loading GA4 in strict regions', async ({ page }) => {
+  await enableAnalyticsTestMode(page)
+  await mockAnalyticsConfig(page, {
+    provider: 'ga4',
+    consentRequired: true,
+    siteId: 'G-TEST1234',
+  })
+
+  await page.goto('/?token=secret&utm_source=e2e#projects')
+  const banner = page.getByRole('complementary', { name: '统计偏好' })
+  await expect(banner).toBeVisible()
+  await expect(page.locator('#weapp-ga4')).toHaveCount(0)
+
+  await page.getByRole('button', { name: '允许统计' }).click()
+  await expect(banner).toBeHidden()
+  await expect(page.locator('#weapp-ga4')).toHaveCount(1)
+  const dataLayer = await page.evaluate(() => window.dataLayer)
+  expect(dataLayer).toContainEqual([
+    'event',
+    'page_view',
+    expect.objectContaining({
+      page_location: 'http://127.0.0.1:4321/?utm_source=e2e',
+      page_path: '/?utm_source=e2e',
+    }),
+  ])
+})
+
+test('loads Baidu by default and supports a persistent opt-out', async ({ page }) => {
+  await enableAnalyticsTestMode(page)
+  await mockAnalyticsConfig(page, {
+    provider: 'baidu',
+    consentRequired: false,
+    siteId: 'baidu_test_id',
+  })
+
+  await page.goto('/')
+  await expect(page.locator('#weapp-baidu-tongji')).toHaveCount(1)
+  await expect(page.getByRole('complementary', { name: '统计偏好' })).toBeHidden()
+
+  await page.getByRole('button', { name: '统计偏好' }).click()
+  const dialog = page.getByRole('dialog', { name: '统计偏好' })
+  await expect(dialog).toBeVisible()
+  const enabled = dialog.getByRole('checkbox')
+  await expect(enabled).toBeChecked()
+  await enabled.uncheck()
+  await dialog.getByRole('button', { name: '保存偏好' }).click()
+
+  await page.waitForLoadState('load')
+  await expect(page.locator('#weapp-baidu-tongji')).toHaveCount(0)
+  await expect.poll(() => page.evaluate(() => localStorage.getItem('weapp-analytics-consent:v1')))
+    .toBe('{"choice":"denied","version":1}')
+})
+
+test('honors browser privacy signals', async ({ page }) => {
+  await enableAnalyticsTestMode(page)
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'globalPrivacyControl', { value: true })
+  })
+  await mockAnalyticsConfig(page, {
+    provider: 'ga4',
+    consentRequired: false,
+    siteId: 'G-TEST1234',
+  })
+
+  await page.goto('/')
+  await expect(page.locator('#weapp-ga4')).toHaveCount(0)
+  await page.getByRole('button', { name: '统计偏好' }).click()
+  await expect(page.getByText('浏览器已启用全局隐私控制')).toBeVisible()
+  await expect(page.getByRole('dialog').getByRole('checkbox')).toBeDisabled()
 })

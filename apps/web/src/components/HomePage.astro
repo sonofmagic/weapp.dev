@@ -42,11 +42,11 @@ const orbitPositions = ['top-2 left-[92px]', 'top-[104px] -left-[18px]', 'right-
       <h1 class="mb-[22px] text-[76px] font-[740] max-[720px]:mb-[18px] max-[720px]:text-5xl">{copy.hero.title}</h1>
       <p class="mb-[30px] max-w-[470px] text-xl leading-normal text-copy-muted max-[720px]:text-lg">{copy.hero.description}</p>
       <div class={buttonRow}>
-        <a class={buttonPrimary} href={`${localizePath(locale)}#projects`}>
+        <a class={buttonPrimary} href={`${localizePath(locale)}#projects`} data-analytics-event="navigate_section" data-analytics-section="projects">
           {copy.hero.primary}
           <ArrowRight size={18} stroke-width={1.9} aria-hidden="true" />
         </a>
-        <a class={buttonSecondary} href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noreferrer">
+        <a class={buttonSecondary} href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="site_source">
           <GitFork size={18} stroke-width={1.9} aria-hidden="true" />
           {copy.hero.secondary}
         </a>
@@ -91,11 +91,11 @@ const orbitPositions = ['top-2 left-[92px]', 'top-[104px] -left-[18px]', 'right-
                 <div class="grid gap-0.5"><dt class="text-xs text-copy-muted">{copy.projects.stars}</dt><dd class="m-0 font-mono text-[19px] font-[720]">{formatCompactNumber(projectMetrics.stars, numberLocale)}</dd></div>
               </dl>
               <div class={buttonRow}>
-                <a class={buttonPrimary} href={project.data.docsUrl} target="_blank" rel="noreferrer">
+                <a class={buttonPrimary} href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="docs" data-analytics-project={project.id}>
                   <BookOpen size={18} stroke-width={1.9} aria-hidden="true" />
                   {copy.projects.documentation}
                 </a>
-                <a class="inline-flex min-h-[42px] items-center gap-[7px] px-[5px] text-sm font-[680] text-ink hover:text-brand" href={projectPath(locale, project.id)}>
+                <a class="inline-flex min-h-[42px] items-center gap-[7px] px-[5px] text-sm font-[680] text-ink hover:text-brand" href={projectPath(locale, project.id)} data-analytics-event="select_project" data-analytics-project={project.id}>
                   {copy.projects.details}
                   <ArrowRight size={17} stroke-width={1.9} aria-hidden="true" />
                 </a>
@@ -159,7 +159,7 @@ const orbitPositions = ['top-2 left-[92px]', 'top-[104px] -left-[18px]', 'right-
               <p class="mb-0 text-xs text-copy-muted">{copy.releases.released} {formatReleaseDate(projectMetrics.releasedAt, numberLocale)}</p>
             </div>
             <strong class="font-mono text-sm">v{projectMetrics.version}</strong>
-            <a class:list={[iconControl, 'max-[720px]:hidden']} href={`https://www.npmjs.com/package/${project.data.packageName}`} aria-label={`${copy.releases.viewPackage}: ${project.data.packageName}`} target="_blank" rel="noreferrer">
+            <a class:list={[iconControl, 'max-[720px]:hidden']} href={`https://www.npmjs.com/package/${project.data.packageName}`} aria-label={`${copy.releases.viewPackage}: ${project.data.packageName}`} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="package" data-analytics-project={project.id}>
               <ArrowUpRight size={19} stroke-width={1.8} aria-hidden="true" />
             </a>
           </article>
@@ -176,7 +176,7 @@ const orbitPositions = ['top-2 left-[92px]', 'top-[104px] -left-[18px]', 'right-
         <h2 class="mb-3 text-[34px] font-[710] max-[720px]:text-[34px]">{copy.maintainer.title}</h2>
         <p class="mb-0 max-w-[620px] text-lg text-copy-muted max-[720px]:text-base">{copy.maintainer.description}</p>
       </div>
-      <a class:list={[buttonSecondary, 'max-[960px]:col-start-2 max-[960px]:w-fit max-[720px]:col-auto']} href="https://github.com/sonofmagic" target="_blank" rel="noreferrer">
+      <a class:list={[buttonSecondary, 'max-[960px]:col-start-2 max-[960px]:w-fit max-[720px]:col-auto']} href="https://github.com/sonofmagic" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="maintainer">
         <GitFork size={18} stroke-width={1.9} aria-hidden="true" />
         {copy.maintainer.action}
       </a>

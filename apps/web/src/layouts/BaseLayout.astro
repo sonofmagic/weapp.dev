@@ -4,6 +4,7 @@ import '@fontsource-variable/geist-mono/index.css'
 import '../styles/global.css'
 import type { Locale } from '../types/project'
 import { alternatePath } from '../i18n/ui'
+import AnalyticsPreferences from '../components/AnalyticsPreferences.astro'
 
 interface Props {
   locale: Locale
@@ -66,6 +67,7 @@ const skipLabel = locale === 'zh-CN' ? '跳到主要内容' : 'Skip to main cont
   <body>
     <a class="fixed top-3 left-3 z-[100] -translate-y-[160%] rounded-md bg-ink px-3.5 py-2.5 text-canvas focus:translate-y-0" href="#main-content">{skipLabel}</a>
     <slot />
+    <AnalyticsPreferences locale={locale} />
     <script is:inline>
       document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
         button.addEventListener('click', () => {
@@ -75,6 +77,11 @@ const skipLabel = locale === 'zh-CN' ? '跳到主要内容' : 'Skip to main cont
           button.setAttribute('aria-pressed', String(next === 'dark'))
         })
       })
+    </script>
+    <script>
+      import { initAnalytics } from '../scripts/analytics'
+
+      initAnalytics()
     </script>
   </body>
 </html>

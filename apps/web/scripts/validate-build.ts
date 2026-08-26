@@ -13,6 +13,8 @@ const expectedFiles = [
   'projects/weapp-vite/index.html',
   'en/projects/weapp-tailwindcss/index.html',
   'en/projects/weapp-vite/index.html',
+  'privacy/index.html',
+  'en/privacy/index.html',
   'releases.xml',
   'sitemap-index.xml',
 ]
@@ -53,6 +55,9 @@ for (const file of expectedFiles) {
 }
 
 for (const file of await collectHtml(dist)) {
+  if (/^baidu_verify_[^/]+\.html$/.test(relative(dist, file))) {
+    continue
+  }
   const html = await readFile(file, 'utf8')
   const document = parse(html)
   const label = relative(dist, file)

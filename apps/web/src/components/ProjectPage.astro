@@ -30,7 +30,7 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
 <main id="main-content" style={`--project-accent: ${project.data.accent}`}>
   <section class:list={[shell, 'grid min-h-[650px] grid-cols-[1fr_.72fr] items-center gap-[72px] pt-16 pb-[78px] max-[960px]:grid-cols-1 max-[960px]:gap-[42px] max-[720px]:min-h-0 max-[720px]:pt-11 max-[720px]:pb-[72px]']}>
     <div>
-      <a class="mb-12 inline-flex items-center gap-[7px] text-[13px] font-[620] text-copy-muted hover:text-ink max-[720px]:mb-9" href={`${localizePath(locale)}#projects`}>
+      <a class="mb-12 inline-flex items-center gap-[7px] text-[13px] font-[620] text-copy-muted hover:text-ink max-[720px]:mb-9" href={`${localizePath(locale)}#projects`} data-analytics-event="navigate_section" data-analytics-section="projects">
         <ArrowLeft size={17} stroke-width={1.9} aria-hidden="true" />
         {copy.project.back}
       </a>
@@ -39,11 +39,11 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
       <p class="mb-3.5 text-2xl font-[630] max-[720px]:text-xl">{content.tagline}</p>
       <p class="mb-[30px] max-w-[620px] text-[17px] text-copy-muted">{content.description}</p>
       <div class="flex flex-wrap items-center gap-3">
-        <a class={buttonPrimary} href={project.data.docsUrl} target="_blank" rel="noreferrer">
+        <a class={buttonPrimary} href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="docs" data-analytics-project={project.id}>
           <BookOpen size={18} stroke-width={1.9} aria-hidden="true" />
           {copy.project.docs}
         </a>
-        <a class={buttonSecondary} href={`https://github.com/${project.data.github}`} target="_blank" rel="noreferrer">
+        <a class={buttonSecondary} href={`https://github.com/${project.data.github}`} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="source" data-analytics-project={project.id}>
           <GitFork size={18} stroke-width={1.9} aria-hidden="true" />
           {copy.project.source}
         </a>
@@ -86,7 +86,7 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
       <h2 class="mb-[26px] text-[28px]"><code class="text-[25px] text-brand [overflow-wrap:anywhere] max-[720px]:text-lg">{project.data.futureDocsPath}</code></h2>
       <p class="mb-0 max-w-[600px] text-copy-muted">{copy.project.futureDocsNote}</p>
     </div>
-    <a class:list={[iconControl, 'size-[52px] border-line bg-panel-raised']} href={project.data.docsUrl} aria-label={copy.project.docs} target="_blank" rel="noreferrer">
+    <a class:list={[iconControl, 'size-[52px] border-line bg-panel-raised']} href={project.data.docsUrl} aria-label={copy.project.docs} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="docs" data-analytics-project={project.id}>
       <ArrowUpRight size={25} stroke-width={1.7} aria-hidden="true" />
     </a>
   </section>

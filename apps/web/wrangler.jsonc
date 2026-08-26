@@ -3,6 +3,10 @@
   "name": "weapp-dev",
   "main": "./src/worker.ts",
   "compatibility_date": "2026-08-26",
+  "vars": {
+    "BAIDU_TONGJI_ID": "170dbb85ce799398a8d96083303bf374",
+    "GA4_MEASUREMENT_ID": "G-P7XL4TEVNM"
+  },
   "assets": {
     "directory": "./dist/",
     "binding": "ASSETS",

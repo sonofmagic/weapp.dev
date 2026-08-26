@@ -29,7 +29,7 @@ const languageUrl = alternatePath(locale, currentPath)
         <summary class="inline-flex cursor-pointer list-none items-center gap-[7px] py-2 text-copy-muted transition-colors duration-[160ms] hover:text-ink [&::-webkit-details-marker]:hidden">{copy.nav.projects}</summary>
         <div class="absolute top-[42px] -left-[18px] w-[360px] rounded-panel border border-line bg-panel-raised p-2 shadow-panel">
           {projects.map(project => (
-            <a class="grid grid-cols-[34px_1fr] items-center gap-3 rounded-md p-3 hover:bg-panel" href={projectPath(locale, project.id)}>
+            <a class="grid grid-cols-[34px_1fr] items-center gap-3 rounded-md p-3 hover:bg-panel" href={projectPath(locale, project.id)} data-analytics-event="select_project" data-analytics-project={project.id}>
               <img class="size-[30px] object-contain" src={project.data.logo} width="30" height="30" alt="" />
               <span>
                 <strong class="block text-sm text-ink">{project.data.locales[locale].name}</strong>
@@ -39,20 +39,20 @@ const languageUrl = alternatePath(locale, currentPath)
           ))}
         </div>
       </details>
-      <a class="inline-flex items-center gap-[7px] py-2 text-copy-muted transition-colors duration-[160ms] hover:text-ink" href={`${home}#principles`}>{copy.nav.principles}</a>
-      <a class="inline-flex items-center gap-[7px] py-2 text-copy-muted transition-colors duration-[160ms] hover:text-ink" href={`${home}#releases`}>{copy.nav.releases}</a>
-      <a class="inline-flex items-center gap-[7px] py-2 text-copy-muted transition-colors duration-[160ms] hover:text-ink" href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noreferrer">
+      <a class="inline-flex items-center gap-[7px] py-2 text-copy-muted transition-colors duration-[160ms] hover:text-ink" href={`${home}#principles`} data-analytics-event="navigate_section" data-analytics-section="principles">{copy.nav.principles}</a>
+      <a class="inline-flex items-center gap-[7px] py-2 text-copy-muted transition-colors duration-[160ms] hover:text-ink" href={`${home}#releases`} data-analytics-event="navigate_section" data-analytics-section="releases">{copy.nav.releases}</a>
+      <a class="inline-flex items-center gap-[7px] py-2 text-copy-muted transition-colors duration-[160ms] hover:text-ink" href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="site_source">
         <GitFork size={17} stroke-width={1.8} aria-hidden="true" />
         {copy.nav.github}
       </a>
     </nav>
 
     <div class="flex items-center gap-1.5">
-      <a class:list={[iconControl, 'grid-cols-[auto_auto] gap-1.5 px-[9px] w-auto font-mono text-xs font-bold max-[720px]:w-[38px] max-[720px]:px-0']} href={languageUrl} aria-label={copy.alternateLanguage} title={copy.alternateLanguage}>
+      <a class:list={[iconControl, 'grid-cols-[auto_auto] gap-1.5 px-[9px] w-auto font-mono text-xs font-bold max-[720px]:w-[38px] max-[720px]:px-0']} href={languageUrl} aria-label={copy.alternateLanguage} title={copy.alternateLanguage} data-analytics-event="switch_language" data-analytics-from={locale} data-analytics-to={locale === 'zh-CN' ? 'en' : 'zh-CN'}>
         <Languages size={19} stroke-width={1.8} aria-hidden="true" />
         <span class="max-[720px]:hidden">{locale === 'zh-CN' ? 'EN' : '中'}</span>
       </a>
-      <button class={iconControl} type="button" data-theme-toggle aria-label={copy.nav.theme} title={copy.nav.theme}>
+      <button class={iconControl} type="button" data-theme-toggle data-analytics-event="change_theme" aria-label={copy.nav.theme} title={copy.nav.theme}>
         <Sun class="dark:hidden" size={19} stroke-width={1.8} aria-hidden="true" />
         <Moon class="hidden dark:block" size={19} stroke-width={1.8} aria-hidden="true" />
       </button>
@@ -61,10 +61,10 @@ const languageUrl = alternatePath(locale, currentPath)
           <Menu size={20} stroke-width={1.8} aria-hidden="true" />
         </summary>
         <nav class="absolute top-[46px] right-0 grid w-[min(300px,calc(100vw-32px))] rounded-panel border border-line bg-panel-raised p-2 shadow-panel" aria-label="Mobile navigation">
-          {projects.map(project => <a class="rounded-md p-3 font-semibold hover:bg-panel" href={projectPath(locale, project.id)}>{project.data.locales[locale].name}</a>)}
-          <a class="rounded-md p-3 font-semibold hover:bg-panel" href={`${home}#principles`}>{copy.nav.principles}</a>
-          <a class="rounded-md p-3 font-semibold hover:bg-panel" href={`${home}#releases`}>{copy.nav.releases}</a>
-          <a class="rounded-md p-3 font-semibold hover:bg-panel" href="https://github.com/sonofmagic/weapp.dev">{copy.nav.github}</a>
+          {projects.map(project => <a class="rounded-md p-3 font-semibold hover:bg-panel" href={projectPath(locale, project.id)} data-analytics-event="select_project" data-analytics-project={project.id}>{project.data.locales[locale].name}</a>)}
+          <a class="rounded-md p-3 font-semibold hover:bg-panel" href={`${home}#principles`} data-analytics-event="navigate_section" data-analytics-section="principles">{copy.nav.principles}</a>
+          <a class="rounded-md p-3 font-semibold hover:bg-panel" href={`${home}#releases`} data-analytics-event="navigate_section" data-analytics-section="releases">{copy.nav.releases}</a>
+          <a class="rounded-md p-3 font-semibold hover:bg-panel" href="https://github.com/sonofmagic/weapp.dev" data-analytics-event="click_outbound" data-analytics-target="site_source">{copy.nav.github}</a>
         </nav>
       </details>
     </div>

@@ -1,5 +1,5 @@
 ---
-import { GitFork, Rss } from '@lucide/astro'
+import { GitFork, Rss, SlidersHorizontal } from '@lucide/astro'
 import type { Locale } from '../types/project'
 import type { ProjectEntry } from '../lib/projects'
 import { localizePath, projectPath, siteCopy } from '../i18n/ui'
@@ -25,15 +25,18 @@ const copy = siteCopy[locale]
     </div>
     <div>
       <h2 class="mb-4 text-xs font-[650] text-copy-muted">{copy.footer.projects}</h2>
-      {projects.map(project => <a class="mb-[11px] flex w-fit items-center gap-2 text-sm hover:text-brand" href={projectPath(locale, project.id)}>{project.data.locales[locale].name}</a>)}
+      {projects.map(project => <a class="mb-[11px] flex w-fit items-center gap-2 text-sm hover:text-brand" href={projectPath(locale, project.id)} data-analytics-event="select_project" data-analytics-project={project.id}>{project.data.locales[locale].name}</a>)}
     </div>
     <div>
       <h2 class="mb-4 text-xs font-[650] text-copy-muted">{copy.footer.resources}</h2>
-      <a class="mb-[11px] flex w-fit items-center gap-2 text-sm hover:text-brand" href="https://github.com/sonofmagic/weapp.dev">
+      <a class="mb-[11px] flex w-fit items-center gap-2 text-sm hover:text-brand" href="https://github.com/sonofmagic/weapp.dev" data-analytics-event="click_outbound" data-analytics-target="site_source">
         <GitFork size={16} stroke-width={1.8} aria-hidden="true" />
         {copy.footer.source}
       </a>
-      <a class="mb-[11px] flex w-fit items-center gap-2 text-sm hover:text-brand" href="/releases.xml">
+      <a class="mb-[11px] flex w-fit items-center gap-2 text-sm hover:text-brand" href={localizePath(locale, '/privacy/')}>
+        {copy.footer.privacy}
+      </a>
+      <a class="mb-[11px] flex w-fit items-center gap-2 text-sm hover:text-brand" href="/releases.xml" data-analytics-event="navigate_section" data-analytics-section="release_feed">
         <Rss size={16} stroke-width={1.8} aria-hidden="true" />
         {copy.footer.releases}
       </a>
@@ -41,6 +44,12 @@ const copy = siteCopy[locale]
   </div>
   <div class:list={[shell, 'mt-16 flex justify-between gap-5 border-t border-line pt-[22px] text-xs text-copy-muted max-[720px]:flex-col']}>
     <span>© {new Date().getFullYear()} {copy.footer.copyright}</span>
-    <a class="hover:text-brand" href="https://github.com/sonofmagic/weapp.dev/blob/main/LICENSE">MIT License</a>
+    <div class="flex flex-wrap items-center gap-5">
+      <button class="inline-flex cursor-pointer items-center gap-1.5 bg-transparent p-0 hover:text-brand" type="button" data-analytics-preferences-open>
+        <SlidersHorizontal size={14} stroke-width={1.8} aria-hidden="true" />
+        {copy.footer.analyticsPreferences}
+      </button>
+      <a class="hover:text-brand" href="https://github.com/sonofmagic/weapp.dev/blob/main/LICENSE">MIT License</a>
+    </div>
   </div>
 </footer>

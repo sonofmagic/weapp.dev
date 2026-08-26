@@ -56,6 +56,19 @@ pnpm repo:check                                 # repoctl 提交前检查
 
 启用非生产分支构建后，其他分支会获得 Workers 预览版本。首次生产部署会按 `apps/web/wrangler.jsonc` 绑定 `weapp.dev` 与 `www.weapp.dev`；Cloudflare 会创建所需 DNS 记录和证书，因此这一步必须在域名所在的 Cloudflare zone 中执行。
 
+## 访问统计
+
+生产站点使用三层统计，并且不会在预览域名或本地开发环境加载第三方脚本：
+
+- Cloudflare Web Analytics 提供无 Cookie 的基础流量与 Core Web Vitals。
+- 中国大陆访客使用百度统计，其他地区使用 Google Analytics 4。
+- 欧盟、英国、瑞士和地区未知的访客须先同意；其他访客可通过页脚的统计偏好随时退出。
+- 浏览器启用 Global Privacy Control 或 Do Not Track 时不会加载百度统计或 GA4。
+
+公开的 `BAIDU_TONGJI_ID` 与 `GA4_MEASUREMENT_ID` 配置在 `apps/web/wrangler.jsonc`。Worker 的 `/api/analytics/config` 根据 Cloudflare 国家码只返回所需平台和是否需要同意，不返回国家码或 IP。
+
+事件字典固定为 `select_project`、`click_outbound`、`switch_language`、`change_theme` 和 `navigate_section`。事件参数只允许项目 slug、目标类型、语言、主题或站内区块；页面 URL 仅保留 UTM 参数。统计运维分别在 Cloudflare Web Analytics、百度统计和 Google Analytics 中完成，搜索表现分别在百度搜索资源平台与 Google Search Console 中查看。
+
 ## License
 
 [MIT](LICENSE) © 2026 sonofmagic

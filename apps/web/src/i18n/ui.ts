@@ -77,7 +77,46 @@ export const siteCopy = {
       docs: '文档',
       source: '源码',
       releases: '版本订阅',
+      privacy: '隐私说明',
+      analyticsPreferences: '统计偏好',
       copyright: 'weapp.dev，以 MIT License 开放。',
+    },
+    analytics: {
+      bannerLabel: '统计偏好',
+      bannerTitle: '帮助我们改进 weapp.dev',
+      bannerBody: '经你允许后，我们会根据访问地区使用百度统计或 Google Analytics 了解匿名访问与关键点击。',
+      accept: '允许统计',
+      reject: '暂不允许',
+      dialogTitle: '统计偏好',
+      dialogBody: 'Cloudflare 无 Cookie 基础统计始终启用。你可以决定是否允许所在地区对应的第三方统计。',
+      enabled: '允许第三方访问与行为统计',
+      privacySignal: '浏览器已启用全局隐私控制或“请勿跟踪”，第三方统计保持关闭。',
+      save: '保存偏好',
+      close: '关闭',
+    },
+    privacy: {
+      eyebrow: '数据与隐私',
+      title: '隐私说明',
+      description: 'weapp.dev 仅收集维护开源站点所需的最少访问与性能数据。',
+      updated: '更新日期：2026 年 8 月 26 日',
+      sections: [
+        {
+          title: '收集哪些数据',
+          body: '我们统计页面浏览、来源、国家或地区、设备类别、浏览器、Core Web Vitals，以及项目、文档、GitHub、npm、语言和主题等有限交互。我们不采集姓名、邮箱、输入内容、完整外链地址或用户身份。',
+        },
+        {
+          title: '使用哪些服务',
+          body: 'Cloudflare Web Analytics 提供无 Cookie 的基础流量和性能统计。中国大陆访客使用百度统计，其他地区使用 Google Analytics 4；欧盟、英国、瑞士和地区未知的访客须先同意。',
+        },
+        {
+          title: '如何控制统计',
+          body: '你可以通过页脚的“统计偏好”随时允许或关闭第三方统计。选择保存在浏览器 localStorage 中。我们尊重 Global Privacy Control 和 Do Not Track，并在检测到这些信号时关闭第三方统计。',
+        },
+        {
+          title: '数据用途与保留',
+          body: '数据仅用于理解访问趋势、改善页面性能和评估开源项目内容。数据由对应平台按各自保留策略处理，我们不会出售这些数据，也不会用于广告个性化或跨站追踪。',
+        },
+      ],
     },
     notFound: {
       title: '页面不存在',
@@ -161,7 +200,46 @@ export const siteCopy = {
       docs: 'Documentation',
       source: 'Source',
       releases: 'Release feed',
+      privacy: 'Privacy notice',
+      analyticsPreferences: 'Analytics preferences',
       copyright: 'weapp.dev, open under the MIT License.',
+    },
+    analytics: {
+      bannerLabel: 'Analytics preferences',
+      bannerTitle: 'Help improve weapp.dev',
+      bannerBody: 'With your permission, we use Baidu Analytics or Google Analytics based on your region to understand anonymous visits and key interactions.',
+      accept: 'Allow analytics',
+      reject: 'Not now',
+      dialogTitle: 'Analytics preferences',
+      dialogBody: 'Cookie-free Cloudflare baseline analytics always remains active. You can choose whether to allow the third-party analytics service for your region.',
+      enabled: 'Allow third-party visit and interaction analytics',
+      privacySignal: 'Your browser has enabled Global Privacy Control or Do Not Track, so third-party analytics remains off.',
+      save: 'Save preference',
+      close: 'Close',
+    },
+    privacy: {
+      eyebrow: 'Data and privacy',
+      title: 'Privacy notice',
+      description: 'weapp.dev collects only the visit and performance data needed to maintain this open-source site.',
+      updated: 'Updated August 26, 2026',
+      sections: [
+        {
+          title: 'What we collect',
+          body: 'We measure page views, referrers, country or region, device category, browser, Core Web Vitals, and limited interactions with projects, documentation, GitHub, npm, language, and theme controls. We do not collect names, email addresses, input content, complete outbound URLs, or user identities.',
+        },
+        {
+          title: 'Services we use',
+          body: 'Cloudflare Web Analytics provides cookie-free baseline traffic and performance metrics. Visitors in mainland China use Baidu Analytics; other regions use Google Analytics 4. Visitors in the EEA, United Kingdom, Switzerland, or an unknown region must consent first.',
+        },
+        {
+          title: 'Your controls',
+          body: 'Use “Analytics preferences” in the footer to allow or disable third-party analytics at any time. Your choice is stored in localStorage. We honor Global Privacy Control and Do Not Track by keeping third-party analytics off.',
+        },
+        {
+          title: 'Purpose and retention',
+          body: 'We use the data only to understand traffic trends, improve page performance, and evaluate open-source project content. Each provider processes data under its retention policy. We do not sell this data or use it for personalized advertising or cross-site tracking.',
+        },
+      ],
     },
     notFound: {
       title: 'Page not found',

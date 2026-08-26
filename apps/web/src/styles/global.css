@@ -134,6 +134,11 @@
   :focus-visible {
     @apply outline-3 outline-offset-3 outline-highlight;
   }
+
+  dialog::backdrop {
+    background: rgb(10 18 14 / 62%);
+    backdrop-filter: blur(3px);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
