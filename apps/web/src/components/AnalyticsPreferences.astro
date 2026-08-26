@@ -2,7 +2,7 @@
 import { X } from '@lucide/astro'
 import type { Locale } from '../types/project'
 import { siteCopy } from '../i18n/ui'
-import { buttonPrimary, buttonSecondary, iconControl, shell } from '../styles/classes'
+import { buttonPrimary, iconControl } from '../styles/classes'
 
 interface Props {
   locale: Locale
@@ -11,24 +11,6 @@ interface Props {
 const { locale } = Astro.props
 const copy = siteCopy[locale].analytics
 ---
-
-<aside
-  data-analytics-banner
-  hidden
-  class="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-panel-raised shadow-panel"
-  aria-label={copy.bannerLabel}
->
-  <div class:list={[shell, 'flex min-h-[116px] items-center justify-between gap-8 py-5 max-[720px]:min-h-0 max-[720px]:flex-col max-[720px]:items-stretch max-[720px]:gap-4']}>
-    <div class="max-w-[720px]">
-      <h2 class="mb-1.5 text-lg">{copy.bannerTitle}</h2>
-      <p class="mb-0 text-sm text-copy-muted">{copy.bannerBody}</p>
-    </div>
-    <div class="flex shrink-0 gap-2.5 max-[720px]:flex-wrap">
-      <button class={buttonSecondary} type="button" data-analytics-reject>{copy.reject}</button>
-      <button class={buttonPrimary} type="button" data-analytics-accept>{copy.accept}</button>
-    </div>
-  </div>
-</aside>
 
 <dialog
   data-analytics-dialog

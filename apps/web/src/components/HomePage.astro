@@ -55,6 +55,22 @@ const orbitPositions = ['top-2 left-[92px]', 'top-[104px] -left-[18px]', 'right-
     <EcosystemVisual label={copy.hero.visualLabel} />
   </section>
 
+  <section class:list={[section, shell]} id="about">
+    <header class={sectionHeading}>
+      <p class={eyebrow}>{copy.about.eyebrow}</p>
+      <h2 class={sectionTitle}>{copy.about.title}</h2>
+      <p class={sectionDescription}>{copy.about.description}</p>
+    </header>
+    <dl class="m-0 grid grid-cols-3 gap-3.5 max-[720px]:grid-cols-1">
+      {copy.about.items.map(item => (
+        <div class="rounded-panel border border-line bg-panel-raised p-[26px]">
+          <dt class="mb-3 text-lg font-[680]">{item.title}</dt>
+          <dd class="m-0 leading-[1.7] text-copy-muted">{item.body}</dd>
+        </div>
+      ))}
+    </dl>
+  </section>
+
   <section class:list={[section, shell]} id="projects">
     <header class={sectionHeading}>
       <p class={eyebrow}>{copy.projects.eyebrow}</p>

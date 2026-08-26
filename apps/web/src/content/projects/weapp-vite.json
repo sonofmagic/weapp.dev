@@ -4,6 +4,11 @@
   "packageName": "weapp-vite",
   "github": "weapp-vite/weapp-vite",
   "docsUrl": "https://vite.icebreaker.top/",
+  "npmUrl": "https://www.npmjs.com/package/weapp-vite",
+  "license": "https://opensource.org/license/mit",
+  "maintainer": "sonofmagic and contributors",
+  "keywords": ["Vite", "mini-program", "Vue SFC", "Wevu", "WeChat Mini Program", "Taro"],
+  "installCommand": "pnpm add -D weapp-vite",
   "futureDocsPath": "/docs/weapp-vite/",
   "logo": "/brands/weapp-vite.svg",
   "accent": "#2ba245",
@@ -13,13 +18,25 @@
       "name": "weapp-vite",
       "tagline": "面向小程序的现代 Vite 工程化工具链",
       "description": "用 Vite 驱动小程序开发、构建和多平台输出，并提供 Vue SFC、Wevu 运行时、自动路由与工程扩展能力。",
-      "capabilities": ["Vite 构建内核", "Vue SFC", "六平台输出", "Wevu 运行时"]
+      "audience": "需要现代 Vite 开发体验、Vue SFC 和多平台构建能力的小程序团队。",
+      "useCases": ["用 Vite 启动和构建小程序项目", "使用 Vue SFC 和自动路由组织页面", "向微信、支付宝、抖音等平台输出同一套工程"],
+      "capabilities": ["Vite 构建内核", "Vue SFC", "六平台输出", "Wevu 运行时"],
+      "faqs": [
+        { "question": "weapp-vite 解决什么问题？", "answer": "它为小程序提供 Vite 驱动的开发和构建流程，并把 Vue SFC、自动路由和多平台输出整合到同一套工程中。" },
+        { "question": "weapp-vite 支持哪些平台？", "answer": "项目数据中列出的目标包括微信、支付宝、抖音、百度、快手小程序和 Web。" }
+      ]
     },
     "en": {
       "name": "weapp-vite",
       "tagline": "A modern Vite toolchain for mini-app development",
       "description": "Build, develop, and target multiple mini-app platforms with Vite, including Vue SFC support, the Wevu runtime, automatic routing, and extensible tooling.",
-      "capabilities": ["Vite-powered builds", "Vue SFC", "Six platform targets", "Wevu runtime"]
+      "audience": "Mini-app teams that need a modern Vite workflow, Vue SFC, and multi-platform builds.",
+      "useCases": ["Start and build mini-app projects with Vite", "Organize pages with Vue SFC and automatic routing", "Ship one project to WeChat, Alipay, Douyin, and other targets"],
+      "capabilities": ["Vite-powered builds", "Vue SFC", "Six platform targets", "Wevu runtime"],
+      "faqs": [
+        { "question": "What problem does weapp-vite solve?", "answer": "It provides a Vite-powered development and build workflow for mini-apps, combining Vue SFC, automatic routing, and multi-platform output." },
+        { "question": "Which platforms does weapp-vite target?", "answer": "The project targets WeChat, Alipay, Douyin, Baidu, Kuaishou mini-apps, and the Web according to its project metadata." }
+      ]
     }
   }
 }

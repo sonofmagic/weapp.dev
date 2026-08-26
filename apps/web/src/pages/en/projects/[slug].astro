@@ -5,6 +5,7 @@ import ProjectPage from '../../../components/ProjectPage.astro'
 import Footer from '../../../components/Footer.astro'
 import { getProjects, type ProjectEntry } from '../../../lib/projects'
 import { loadProjectMetrics } from '../../../lib/metrics'
+import { breadcrumbSchema, projectSchema } from '../../../lib/seo'
 
 export async function getStaticPaths() {
   return (await getProjects()).map(project => ({
@@ -23,10 +24,20 @@ const projects = await getProjects()
 const metrics = await loadProjectMetrics()
 const content = project.data.locales[locale]
 const title = `${content.name} | weapp.dev`
+const projectMetrics = metrics[project.id]
 ---
 
-<BaseLayout locale={locale} title={title} description={content.description} type="article">
+<BaseLayout
+  locale={locale}
+  title={title}
+  description={content.description}
+  type="article"
+  imageAlt={`${content.name} logo and project overview`}
+  author={project.data.maintainer}
+  dateModified={projectMetrics.releasedAt}
+  schemas={[projectSchema(locale, project, projectMetrics), breadcrumbSchema(locale, project)]}
+>
   <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />
-  <ProjectPage locale={locale} project={project} metrics={metrics[project.id]} />
+  <ProjectPage locale={locale} project={project} metrics={projectMetrics} />
   <Footer locale={locale} projects={projects} />
 </BaseLayout>

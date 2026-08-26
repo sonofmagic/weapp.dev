@@ -2,7 +2,7 @@
 
 [weapp.dev](https://weapp.dev) 是面向小程序开发的开源工具聚合门户。目前收录 [weapp-tailwindcss](https://github.com/sonofmagic/weapp-tailwindcss) 和 [weapp-vite](https://github.com/weapp-vite/weapp-vite)，中文为默认语言，英文内容位于 `/en/`。
 
-站点使用 Astro 6 和 TypeScript 生成完全静态的 HTML，由 Cloudflare Workers Static Assets 发布。静态页面和资源直接由 Asset Worker 返回，用户 Worker 只处理 `/api/analytics/config` 统计配置接口。
+站点使用 Astro 6 和 TypeScript 生成完全静态的 HTML，由 Cloudflare Workers Static Assets 发布。页面和资源采用 assets-only 部署，直接由 Cloudflare Static Assets 返回，不经过用户 Worker。
 
 ## 开发
 
@@ -56,20 +56,28 @@ pnpm repo:check                                 # repoctl 提交前检查
 
 启用非生产分支构建后，其他分支会获得 Workers 预览版本。首次生产部署会按 `apps/web/wrangler.jsonc` 绑定 `weapp.dev` 与 `www.weapp.dev`；Cloudflare 会创建所需 DNS 记录和证书，因此这一步必须在域名所在的 Cloudflare zone 中执行。
 
-`apps/web/wrangler.jsonc` 的 `assets.run_worker_first` 只匹配 `/api/analytics/config`，其他请求直接交给 Asset Worker。`www.weapp.dev` 的 308 跳转在 Cloudflare Redirect Rules 中配置，条件为 `http.host eq "www.weapp.dev"`，目标为 `https://weapp.dev` 加原始路径，保留查询参数。
+`apps/web/wrangler.jsonc` 只配置静态 Assets 和两个自定义域名，不包含 Worker 入口或 `run_worker_first`。`www.weapp.dev` 的 308 跳转在 Cloudflare Redirect Rules 中配置，条件为 `http.host eq "www.weapp.dev"`，目标为 `https://weapp.dev` 加原始路径，保留查询参数。
 
 ## 访问统计
 
 生产站点使用三层统计，并且不会在预览域名或本地开发环境加载第三方脚本：
 
 - Cloudflare Web Analytics 提供无 Cookie 的基础流量与 Core Web Vitals。
-- 中国大陆访客使用百度统计，其他地区使用 Google Analytics 4。
-- 欧盟、英国、瑞士和地区未知的访客须先同意；其他访客可通过页脚的统计偏好随时退出。
+- 正式域名访问同时加载百度统计和 Google Analytics 4；预览域名和本地开发不会加载生产统计。
+- 首次访问不显示同意横幅，页脚的统计偏好入口可以随时关闭或重新开启两个平台。
 - 浏览器启用 Global Privacy Control 或 Do Not Track 时不会加载百度统计或 GA4。
 
-公开的 `BAIDU_TONGJI_ID` 与 `GA4_MEASUREMENT_ID` 配置在 `apps/web/wrangler.jsonc`。Worker 的 `/api/analytics/config` 根据 Cloudflare 国家码只返回所需平台和是否需要同意，不返回国家码或 IP。
+百度统计 ID 和 GA4 Measurement ID 是公开标识，直接由前端统计加载器使用，不作为 Secret，也不通过 Worker API 返回。
 
 事件字典固定为 `select_project`、`click_outbound`、`switch_language`、`change_theme` 和 `navigate_section`。事件参数只允许项目 slug、目标类型、语言、主题或站内区块；页面 URL 仅保留 UTM 参数。统计运维分别在 Cloudflare Web Analytics、百度统计和 Google Analytics 中完成，搜索表现分别在百度搜索资源平台与 Google Search Console 中查看。
+
+## SEO 与 GEO
+
+站点为中文默认、英文 `/en/` 的静态双语站点。每个公开页面都会生成规范 canonical、双向 hreflang、Open Graph/Twitter 分享元数据和 JSON-LD；项目页的实体信息以仓库、文档和 npm 官方链接为准。404 页面使用 `noindex, follow`，不会进入 sitemap。
+
+面向生成式搜索的可引用入口为 [`/llms.txt`](https://weapp.dev/llms.txt) 和 [`/llms-full.txt`](https://weapp.dev/llms-full.txt)。维护项目内容时应同步更新中英文的一句话定义、适用对象、用例、安装命令和问答，避免只增加关键词而没有可验证事实。
+
+发布前运行 `pnpm build`，它会校验 title、description、canonical、hreflang、robots、JSON-LD、sitemap 和 LLM 资源。发布后在 Google Search Console、百度搜索资源平台、Rich Results Test 和 Schema Markup Validator 中检查收录与结构化数据；生成式搜索的引用效果按真实查询和来源链接持续观察，不以单一工具分数作为上线标准。
 
 ## License
 

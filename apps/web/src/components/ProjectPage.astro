@@ -12,6 +12,8 @@ import {
   platformPill,
   projectTone,
   section,
+  sectionHeading,
+  sectionTitle,
   shell,
 } from '../styles/classes'
 
@@ -47,11 +49,30 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
           <GitFork size={18} stroke-width={1.9} aria-hidden="true" />
           {copy.project.source}
         </a>
+        <a class={buttonSecondary} href={project.data.npmUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="package" data-analytics-project={project.id}>
+          <Package size={18} stroke-width={1.9} aria-hidden="true" />
+          {copy.project.npm}
+        </a>
       </div>
     </div>
     <div class="grid min-h-[430px] place-items-center rounded-panel border border-line bg-[color-mix(in_srgb,var(--project-accent)_12%,var(--surface))] p-12 max-[720px]:min-h-[340px] max-[720px]:p-[34px]">
       <img class="size-[210px] object-contain max-[720px]:size-40" src={project.data.logo} width="180" height="180" alt={`${content.name} logo`} />
       <code class="self-end rounded-md bg-panel-raised px-[11px] py-2 text-xs text-copy-muted">{project.data.packageName}</code>
+    </div>
+  </section>
+
+  <section class:list={[section, shell, 'grid grid-cols-[.82fr_1.18fr] gap-[72px] max-[960px]:grid-cols-1 max-[960px]:gap-12']}>
+    <div>
+      <h2 class="mb-4 text-[28px]">{copy.project.audience}</h2>
+      <p class="mb-8 max-w-[620px] leading-[1.75] text-copy-muted">{content.audience}</p>
+      <h2 class="mb-4 text-[28px]">{copy.project.install}</h2>
+      <pre class="m-0 overflow-x-auto rounded-panel border border-line bg-panel-strong p-5 text-sm"><code>{project.data.installCommand}</code></pre>
+    </div>
+    <div>
+      <h2 class="mb-4 text-[28px]">{copy.project.useCases}</h2>
+      <ul class="m-0 grid list-disc gap-3 pl-5 leading-[1.7] text-copy-muted">
+        {content.useCases.map(useCase => <li>{useCase}</li>)}
+      </ul>
     </div>
   </section>
 
@@ -78,6 +99,20 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
         {project.data.platforms.map(platform => <span class:list={[platformPill, 'px-[13px] py-2.5 text-[13px]']}>{platform}</span>)}
       </div>
     </div>
+  </section>
+
+  <section class:list={[section, shell]}>
+    <header class={sectionHeading}>
+      <h2 class={sectionTitle}>{copy.project.faq}</h2>
+    </header>
+    <dl class="m-0 border-t border-line">
+      {content.faqs.map(faq => (
+        <div class="border-b border-line py-6">
+          <dt class="mb-2 text-lg font-[680]">{faq.question}</dt>
+          <dd class="m-0 max-w-[820px] leading-[1.75] text-copy-muted">{faq.answer}</dd>
+        </div>
+      ))}
+    </dl>
   </section>
 
   <section class:list={[shell, 'mb-28 flex items-center justify-between gap-10 rounded-panel border border-line bg-panel p-12 max-[720px]:mb-[78px] max-[720px]:items-start max-[720px]:px-6 max-[720px]:py-[30px]']}>

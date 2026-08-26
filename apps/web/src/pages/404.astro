@@ -12,7 +12,7 @@ const copy = siteCopy[locale]
 const projects = await getProjects()
 ---
 
-<BaseLayout locale={locale} title={`${copy.notFound.title} | weapp.dev`} description={copy.notFound.description}>
+<BaseLayout locale={locale} title={`${copy.notFound.title} | weapp.dev`} description={copy.notFound.description} noindex>
   <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />
   <main id="main-content" class:list={[shell, 'flex min-h-[620px] flex-col items-start justify-center max-[720px]:min-h-[520px]']}>
     <strong class="font-mono text-xl text-brand">404</strong>

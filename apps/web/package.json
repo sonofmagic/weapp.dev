@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "build": "pnpm metrics && astro build && tsx scripts/validate-build.ts",
-    "check": "astro check && tsc --noEmit -p tsconfig.worker.json",
+    "check": "astro check && tsc --noEmit",
     "deploy": "pnpm build && wrangler deploy",
     "deploy:dry-run": "pnpm build && wrangler deploy --dry-run",
     "dev": "astro dev",
@@ -15,8 +15,7 @@
     "metrics:update-fallback": "tsx scripts/generate-metrics.ts --update-fallback",
     "preview": "astro preview",
     "test": "vitest run",
-    "test:e2e": "playwright test",
-    "types": "wrangler types --check"
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.3",

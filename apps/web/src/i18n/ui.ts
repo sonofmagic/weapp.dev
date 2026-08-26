@@ -6,6 +6,7 @@ export const siteCopy = {
     alternateLanguage: 'English',
     nav: {
       projects: '项目',
+      about: '关于',
       principles: '原则',
       releases: '版本',
       github: 'GitHub',
@@ -19,6 +20,16 @@ export const siteCopy = {
       primary: '浏览工具',
       secondary: '查看 GitHub',
       visualLabel: 'weapp.dev 工具栈包含 weapp-tailwindcss 与 weapp-vite',
+    },
+    about: {
+      eyebrow: '关于工具栈',
+      title: '面向小程序开发的开源基础设施',
+      description: 'weapp.dev 汇集可独立使用、也能组合使用的样式与工程化工具，帮助团队从界面样式走向可靠构建。',
+      items: [
+        { title: '它是什么', body: '一个面向小程序和跨端项目的开源工具入口，提供官方项目、文档、源码和发布信息。' },
+        { title: '适合谁', body: '适合需要多平台小程序开发、Tailwind CSS 工作流或 Vite 工程化体验的前端团队。' },
+        { title: '项目如何配合', body: 'weapp-tailwindcss 负责样式工作流，weapp-vite 负责开发和构建基础设施，两者可以独立采用或组合使用。' },
+      ],
     },
     projects: {
       eyebrow: '工具栈',
@@ -69,6 +80,11 @@ export const siteCopy = {
       stars: 'GitHub Stars',
       futureDocs: '未来文档路径',
       futureDocsNote: '聚合文档上线后，此路径将成为 canonical 地址。',
+      audience: '适合谁',
+      useCases: '常见用法',
+      install: '安装',
+      faq: '常见问题',
+      npm: '查看 npm',
     },
     footer: {
       description: '面向小程序开发的开源工具栈。',
@@ -82,14 +98,9 @@ export const siteCopy = {
       copyright: 'weapp.dev，以 MIT License 开放。',
     },
     analytics: {
-      bannerLabel: '统计偏好',
-      bannerTitle: '帮助我们改进 weapp.dev',
-      bannerBody: '经你允许后，我们会根据访问地区使用百度统计或 Google Analytics 了解匿名访问与关键点击。',
-      accept: '允许统计',
-      reject: '暂不允许',
       dialogTitle: '统计偏好',
-      dialogBody: 'Cloudflare 无 Cookie 基础统计始终启用。你可以决定是否允许所在地区对应的第三方统计。',
-      enabled: '允许第三方访问与行为统计',
+      dialogBody: 'Cloudflare 无 Cookie 基础统计始终启用。百度统计和 Google Analytics 默认用于了解访问与关键交互，你可以随时关闭。',
+      enabled: '允许百度统计和 Google Analytics',
       privacySignal: '浏览器已启用全局隐私控制或“请勿跟踪”，第三方统计保持关闭。',
       save: '保存偏好',
       close: '关闭',
@@ -106,7 +117,7 @@ export const siteCopy = {
         },
         {
           title: '使用哪些服务',
-          body: 'Cloudflare Web Analytics 提供无 Cookie 的基础流量和性能统计。中国大陆访客使用百度统计，其他地区使用 Google Analytics 4；欧盟、英国、瑞士和地区未知的访客须先同意。',
+          body: 'Cloudflare Web Analytics 提供无 Cookie 的基础流量和性能统计。正式站点会同时使用百度统计和 Google Analytics 4；预览域名和本地开发不会加载这两个第三方平台。',
         },
         {
           title: '如何控制统计',
@@ -129,6 +140,7 @@ export const siteCopy = {
     alternateLanguage: '中文',
     nav: {
       projects: 'Projects',
+      about: 'About',
       principles: 'Principles',
       releases: 'Releases',
       github: 'GitHub',
@@ -142,6 +154,16 @@ export const siteCopy = {
       primary: 'Explore the tools',
       secondary: 'View on GitHub',
       visualLabel: 'The weapp.dev stack includes weapp-tailwindcss and weapp-vite',
+    },
+    about: {
+      eyebrow: 'About the stack',
+      title: 'Open infrastructure for mini-app development',
+      description: 'weapp.dev brings together independent but composable styling and engineering tools, helping teams move from UI work to reliable builds.',
+      items: [
+        { title: 'What it is', body: 'An open-source entry point for mini-app and cross-platform projects, with official projects, docs, source, and release data.' },
+        { title: 'Who it is for', body: 'Frontend teams that need multi-platform mini-app development, a Tailwind CSS workflow, or a modern Vite toolchain.' },
+        { title: 'How the projects fit', body: 'weapp-tailwindcss handles styling workflows while weapp-vite provides development and build infrastructure. Use either project independently or combine them.' },
+      ],
     },
     projects: {
       eyebrow: 'The stack',
@@ -192,6 +214,11 @@ export const siteCopy = {
       stars: 'GitHub Stars',
       futureDocs: 'Future documentation path',
       futureDocsNote: 'This path will become canonical when aggregated documentation launches.',
+      audience: 'Who it is for',
+      useCases: 'Common use cases',
+      install: 'Install',
+      faq: 'Frequently asked questions',
+      npm: 'View on npm',
     },
     footer: {
       description: 'The open-source tool stack for mini-app development.',
@@ -205,14 +232,9 @@ export const siteCopy = {
       copyright: 'weapp.dev, open under the MIT License.',
     },
     analytics: {
-      bannerLabel: 'Analytics preferences',
-      bannerTitle: 'Help improve weapp.dev',
-      bannerBody: 'With your permission, we use Baidu Analytics or Google Analytics based on your region to understand anonymous visits and key interactions.',
-      accept: 'Allow analytics',
-      reject: 'Not now',
       dialogTitle: 'Analytics preferences',
-      dialogBody: 'Cookie-free Cloudflare baseline analytics always remains active. You can choose whether to allow the third-party analytics service for your region.',
-      enabled: 'Allow third-party visit and interaction analytics',
+      dialogBody: 'Cookie-free Cloudflare baseline analytics always remains active. Baidu Analytics and Google Analytics are enabled by default on the production site, and you can turn them off at any time.',
+      enabled: 'Allow Baidu Analytics and Google Analytics',
       privacySignal: 'Your browser has enabled Global Privacy Control or Do Not Track, so third-party analytics remains off.',
       save: 'Save preference',
       close: 'Close',
@@ -229,7 +251,7 @@ export const siteCopy = {
         },
         {
           title: 'Services we use',
-          body: 'Cloudflare Web Analytics provides cookie-free baseline traffic and performance metrics. Visitors in mainland China use Baidu Analytics; other regions use Google Analytics 4. Visitors in the EEA, United Kingdom, Switzerland, or an unknown region must consent first.',
+          body: 'Cloudflare Web Analytics provides cookie-free baseline traffic and performance metrics. The production site uses both Baidu Analytics and Google Analytics 4; preview domains and local development do not load either third-party platform.',
         },
         {
           title: 'Your controls',

@@ -1,6 +1,11 @@
-import type { AnalyticsConfig, AnalyticsProvider } from '../lib/analytics-config'
-
 export const ANALYTICS_CONSENT_KEY = 'weapp-analytics-consent:v1'
+
+export const ANALYTICS_SITE_IDS = {
+  baidu: '170dbb85ce799398a8d96083303bf374',
+  ga4: 'G-P7XL4TEVNM',
+} as const
+
+type AnalyticsProvider = keyof typeof ANALYTICS_SITE_IDS
 
 export type AnalyticsEventName
   = | 'change_theme'
@@ -115,19 +120,31 @@ export function mapBaiduEvent(
 }
 
 function appendProviderScript(id: string, src: string): Promise<void> {
-  const current = document.getElementById(id) as HTMLScriptElement | null
+  let current = document.getElementById(id) as HTMLScriptElement | null
   if (current?.dataset.loaded === 'true') {
     return Promise.resolve()
   }
 
+  if (current?.dataset.failed === 'true') {
+    current.remove()
+    current = null
+  }
+
   return new Promise((resolve, reject) => {
     const script = current ?? document.createElement('script')
-    const handleLoad = () => {
+    let handleLoad: () => void
+    const handleError = () => {
+      script.dataset.failed = 'true'
+      script.removeEventListener('load', handleLoad)
+      reject(new Error(`Unable to load ${id}`))
+    }
+    handleLoad = () => {
       script.dataset.loaded = 'true'
+      script.removeEventListener('error', handleError)
       resolve()
     }
     script.addEventListener('load', handleLoad, { once: true })
-    script.addEventListener('error', () => reject(new Error(`Unable to load ${id}`)), { once: true })
+    script.addEventListener('error', handleError, { once: true })
     if (!current) {
       script.id = id
       script.async = true
@@ -139,7 +156,6 @@ function appendProviderScript(id: string, src: string): Promise<void> {
 
 function getPreferenceElements() {
   return {
-    banner: document.querySelector<HTMLElement>('[data-analytics-banner]'),
     dialog: document.querySelector<HTMLDialogElement>('[data-analytics-dialog]'),
     enabled: document.querySelector<HTMLInputElement>('[data-analytics-enabled]'),
     privacyNotice: document.querySelector<HTMLElement>('[data-analytics-privacy-signal]'),
@@ -151,18 +167,26 @@ export function initAnalytics(): void {
     return
   }
 
-  let config: AnalyticsConfig | null = null
-  let activeProvider: AnalyticsProvider = 'none'
-  let providerPromise: Promise<void> | null = null
   const privacySignal = hasPrivacySignal(navigator)
+  const shouldRun = window.location.hostname === 'weapp.dev' || window.__WEAPP_ANALYTICS_TEST__ === true
   const preferenceElements = getPreferenceElements()
+  const providerStates: Record<AnalyticsProvider, {
+    started: boolean
+    loaded: boolean
+    loading: Promise<void> | null
+  }> = {
+    baidu: { started: false, loaded: false, loading: null },
+    ga4: { started: false, loaded: false, loading: null },
+  }
+
+  const hasStartedProvider = () => Object.values(providerStates).some(state => state.started)
 
   const track = (name: AnalyticsEventName, params: AnalyticsEventParams = {}) => {
     const normalized = normalizeAnalyticsEvent(name, params)
-    if (activeProvider === 'ga4') {
+    if (providerStates.ga4.started) {
       window.gtag?.('event', name, normalized)
     }
-    else if (activeProvider === 'baidu') {
+    if (providerStates.baidu.started) {
       const [category, action, label] = mapBaiduEvent(name, normalized)
       window._hmt?.push(['_trackEvent', category, action, label])
     }
@@ -174,39 +198,37 @@ export function initAnalytics(): void {
       return
     }
     const choice = readAnalyticsConsent(localStorage)
-    enabled.checked = !privacySignal && (choice === 'granted' || (choice === null && config?.consentRequired === false))
-    enabled.disabled = privacySignal || config?.provider === 'none'
+    enabled.checked = !privacySignal && choice !== 'denied'
+    enabled.disabled = privacySignal
     privacyNotice?.toggleAttribute('hidden', !privacySignal)
     dialog.showModal()
   }
 
   window.weappAnalytics = { openPreferences, track }
 
-  const sendPageView = () => {
+  const sendPageView = (provider: AnalyticsProvider) => {
     const pageLocation = sanitizeAnalyticsUrl(window.location.href)
     const pagePath = new URL(pageLocation).pathname + new URL(pageLocation).search
-    if (activeProvider === 'ga4') {
+    if (provider === 'ga4') {
       window.gtag?.('event', 'page_view', {
         page_location: pageLocation,
         page_path: pagePath,
         page_title: document.title.slice(0, 120),
       })
     }
-    else if (activeProvider === 'baidu') {
+    else {
       window._hmt?.push(['_trackPageview', pagePath])
     }
   }
 
-  const loadProvider = async () => {
-    if (!config?.siteId || config.provider === 'none' || privacySignal) {
-      return
-    }
-    if (providerPromise) {
-      return providerPromise
+  const loadProvider = (provider: AnalyticsProvider): Promise<void> => {
+    const state = providerStates[provider]
+    if (!shouldRun || privacySignal || state.loading || state.loaded) {
+      return state.loading ?? Promise.resolve()
     }
 
-    activeProvider = config.provider
-    if (config.provider === 'ga4') {
+    state.started = true
+    if (provider === 'ga4') {
       window.dataLayer = window.dataLayer ?? []
       window.gtag = window.gtag ?? ((...args: unknown[]) => window.dataLayer?.push(args))
       window.gtag('consent', 'default', {
@@ -215,33 +237,37 @@ export function initAnalytics(): void {
         analytics_storage: 'granted',
       })
       window.gtag('js', new Date())
-      window.gtag('config', config.siteId, {
+      window.gtag('config', ANALYTICS_SITE_IDS.ga4, {
         allow_ad_personalization_signals: false,
         allow_google_signals: false,
         send_page_view: false,
       })
-      providerPromise = appendProviderScript(
+      state.loading = appendProviderScript(
         'weapp-ga4',
-        `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(config.siteId)}`,
+        `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ANALYTICS_SITE_IDS.ga4)}`,
       )
     }
     else {
       window._hmt = window._hmt ?? []
       window._hmt.push(['_setAutoPageview', false])
-      providerPromise = appendProviderScript(
+      state.loading = appendProviderScript(
         'weapp-baidu-tongji',
-        `https://hm.baidu.com/hm.js?${encodeURIComponent(config.siteId)}`,
+        `https://hm.baidu.com/hm.js?${encodeURIComponent(ANALYTICS_SITE_IDS.baidu)}`,
       )
     }
 
-    try {
-      await providerPromise
-      sendPageView()
-    }
-    catch {
-      activeProvider = 'none'
-      providerPromise = null
-    }
+    const loading = state.loading.then(() => {
+      state.loaded = true
+      sendPageView(provider)
+    }).catch(() => undefined)
+    state.loading = loading.finally(() => {
+      state.loading = null
+    })
+    return state.loading
+  }
+
+  const loadProviders = async () => {
+    await Promise.all([loadProvider('baidu'), loadProvider('ga4')])
   }
 
   document.addEventListener('click', (event) => {
@@ -271,50 +297,24 @@ export function initAnalytics(): void {
   document.querySelectorAll<HTMLElement>('[data-analytics-preferences-close]').forEach((button) => {
     button.addEventListener('click', () => preferenceElements.dialog?.close())
   })
-  document.querySelector<HTMLElement>('[data-analytics-accept]')?.addEventListener('click', () => {
-    writeAnalyticsConsent(localStorage, 'granted')
-    preferenceElements.banner?.setAttribute('hidden', '')
-    void loadProvider()
-  })
-  document.querySelector<HTMLElement>('[data-analytics-reject]')?.addEventListener('click', () => {
-    writeAnalyticsConsent(localStorage, 'denied')
-    preferenceElements.banner?.setAttribute('hidden', '')
-  })
   document.querySelector<HTMLFormElement>('[data-analytics-preferences-form]')?.addEventListener('submit', (event) => {
     event.preventDefault()
     const enabled = preferenceElements.enabled?.checked === true && !privacySignal
     writeAnalyticsConsent(localStorage, enabled ? 'granted' : 'denied')
     preferenceElements.dialog?.close()
     if (enabled) {
-      void loadProvider()
+      void loadProviders()
     }
-    else if (activeProvider !== 'none') {
+    else if (hasStartedProvider()) {
       window.location.reload()
     }
   })
 
-  const shouldRun = window.location.hostname === 'weapp.dev' || window.__WEAPP_ANALYTICS_TEST__ === true
   if (!shouldRun) {
     return
   }
 
-  void fetch('/api/analytics/config', {
-    credentials: 'same-origin',
-    headers: { Accept: 'application/json' },
-  }).then(async (response) => {
-    if (!response.ok) {
-      return
-    }
-    config = await response.json() as AnalyticsConfig
-    if (config.provider === 'none' || privacySignal) {
-      return
-    }
-    const choice = readAnalyticsConsent(localStorage)
-    if (choice === 'granted' || (choice === null && !config.consentRequired)) {
-      await loadProvider()
-    }
-    else if (choice === null && config.consentRequired) {
-      preferenceElements.banner?.removeAttribute('hidden')
-    }
-  }).catch(() => undefined)
+  if (!privacySignal && readAnalyticsConsent(localStorage) !== 'denied') {
+    void loadProviders()
+  }
 }

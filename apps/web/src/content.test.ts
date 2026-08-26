@@ -10,8 +10,15 @@ describe('project definitions', () => {
       for (const locale of ['zh-CN', 'en'] as const) {
         expect(project.locales[locale].name).not.toHaveLength(0)
         expect(project.locales[locale].description).not.toHaveLength(0)
+        expect(project.locales[locale].audience).not.toHaveLength(0)
+        expect(project.locales[locale].useCases.length).toBeGreaterThan(0)
         expect(project.locales[locale].capabilities.length).toBeGreaterThan(0)
+        expect(project.locales[locale].faqs.length).toBeGreaterThan(0)
       }
+      expect(project.npmUrl).toMatch(/^https:\/\//)
+      expect(project.license).toMatch(/^https:\/\//)
+      expect(project.installCommand).toContain(project.packageName)
+      expect(project.keywords.length).toBeGreaterThan(0)
     }
   })
 

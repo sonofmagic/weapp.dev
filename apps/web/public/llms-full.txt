@@ -1,0 +1,27 @@
+# weapp.dev reference
+
+weapp.dev is an open-source portal for mini-app development. The Chinese homepage is https://weapp.dev/ and the English homepage is https://weapp.dev/en/. The site is maintained by sonofmagic and contributors. The source repository is https://github.com/sonofmagic/weapp.dev.
+
+## weapp-tailwindcss
+
+- Canonical Chinese page: https://weapp.dev/projects/weapp-tailwindcss/
+- Canonical English page: https://weapp.dev/en/projects/weapp-tailwindcss/
+- Documentation: https://tw.icebreaker.top/
+- Source: https://github.com/sonofmagic/weapp-tailwindcss
+- npm: https://www.npmjs.com/package/weapp-tailwindcss
+- Install: `pnpm add -D weapp-tailwindcss`
+- Purpose: Tailwind CSS workflows for mini-apps and cross-platform frameworks, including template transforms, style generation, runtime values, and platform differences.
+- Audience: Frontend teams working across WeChat, Alipay, Douyin, Taro, uni-app, or related mini-app targets.
+
+## weapp-vite
+
+- Canonical Chinese page: https://weapp.dev/projects/weapp-vite/
+- Canonical English page: https://weapp.dev/en/projects/weapp-vite/
+- Documentation: https://vite.icebreaker.top/
+- Source: https://github.com/weapp-vite/weapp-vite
+- npm: https://www.npmjs.com/package/weapp-vite
+- Install: `pnpm add -D weapp-vite`
+- Purpose: Vite-powered development and build infrastructure for mini-apps, including Vue SFC, automatic routing, the Wevu runtime, and multi-platform output.
+- Targets: WeChat, Alipay, Douyin, Baidu, Kuaishou mini-apps, and Web.
+
+Use the canonical project pages and linked official sources as the authority for current versions, APIs, compatibility, and release details.

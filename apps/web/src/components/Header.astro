@@ -39,6 +39,7 @@ const languageUrl = alternatePath(locale, currentPath)
           ))}
         </div>
       </details>
+      <a class="inline-flex items-center gap-[7px] py-2 text-copy-muted transition-colors duration-[160ms] hover:text-ink" href={`${home}#about`} data-analytics-event="navigate_section" data-analytics-section="about">{copy.nav.about}</a>
       <a class="inline-flex items-center gap-[7px] py-2 text-copy-muted transition-colors duration-[160ms] hover:text-ink" href={`${home}#principles`} data-analytics-event="navigate_section" data-analytics-section="principles">{copy.nav.principles}</a>
       <a class="inline-flex items-center gap-[7px] py-2 text-copy-muted transition-colors duration-[160ms] hover:text-ink" href={`${home}#releases`} data-analytics-event="navigate_section" data-analytics-section="releases">{copy.nav.releases}</a>
       <a class="inline-flex items-center gap-[7px] py-2 text-copy-muted transition-colors duration-[160ms] hover:text-ink" href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="site_source">
@@ -62,6 +63,7 @@ const languageUrl = alternatePath(locale, currentPath)
         </summary>
         <nav class="absolute top-[46px] right-0 grid w-[min(300px,calc(100vw-32px))] rounded-panel border border-line bg-panel-raised p-2 shadow-panel" aria-label="Mobile navigation">
           {projects.map(project => <a class="rounded-md p-3 font-semibold hover:bg-panel" href={projectPath(locale, project.id)} data-analytics-event="select_project" data-analytics-project={project.id}>{project.data.locales[locale].name}</a>)}
+          <a class="rounded-md p-3 font-semibold hover:bg-panel" href={`${home}#about`} data-analytics-event="navigate_section" data-analytics-section="about">{copy.nav.about}</a>
           <a class="rounded-md p-3 font-semibold hover:bg-panel" href={`${home}#principles`} data-analytics-event="navigate_section" data-analytics-section="principles">{copy.nav.principles}</a>
           <a class="rounded-md p-3 font-semibold hover:bg-panel" href={`${home}#releases`} data-analytics-event="navigate_section" data-analytics-section="releases">{copy.nav.releases}</a>
           <a class="rounded-md p-3 font-semibold hover:bg-panel" href="https://github.com/sonofmagic/weapp.dev" data-analytics-event="click_outbound" data-analytics-target="site_source">{copy.nav.github}</a>

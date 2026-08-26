@@ -6,7 +6,13 @@ const localizedContent = z.object({
   name: z.string().min(1),
   tagline: z.string().min(1),
   description: z.string().min(1),
+  audience: z.string().min(1),
+  useCases: z.array(z.string().min(1)).min(1),
   capabilities: z.array(z.string().min(1)).min(1),
+  faqs: z.array(z.object({
+    question: z.string().min(1),
+    answer: z.string().min(1),
+  })).min(1),
 })
 
 const projects = defineCollection({
@@ -17,6 +23,11 @@ const projects = defineCollection({
     packageName: z.string().min(1),
     github: z.string().regex(/^[\w.-]+\/[\w.-]+$/),
     docsUrl: z.url(),
+    npmUrl: z.url(),
+    license: z.string().min(1),
+    maintainer: z.string().min(1),
+    keywords: z.array(z.string().min(1)).min(1),
+    installCommand: z.string().min(1),
     futureDocsPath: z.string().startsWith('/docs/').endsWith('/'),
     logo: z.string().startsWith('/'),
     accent: z.string().regex(/^#[0-9a-f]{6}$/i),

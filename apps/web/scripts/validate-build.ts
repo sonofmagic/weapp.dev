@@ -17,6 +17,10 @@ const expectedFiles = [
   'en/privacy/index.html',
   'releases.xml',
   'sitemap-index.xml',
+  'robots.txt',
+  'llms.txt',
+  'llms-full.txt',
+  'og.png',
 ]
 
 async function collectHtml(directory: string): Promise<string[]> {
@@ -63,11 +67,40 @@ for (const file of await collectHtml(dist)) {
   const label = relative(dist, file)
   const canonical = document.querySelector('link[rel="canonical"]')?.getAttribute('href')
   const alternates = document.querySelectorAll('link[rel="alternate"][hreflang]')
+  const title = document.querySelectorAll('title')
+  const descriptions = document.querySelectorAll('meta[name="description"]')
+  const robots = document.querySelector('meta[name="robots"]')?.getAttribute('content')
+  const schemas = document.querySelectorAll('script[type="application/ld+json"]')
   if (!canonical?.startsWith('https://weapp.dev/')) {
     errors.push(`${label}: invalid canonical URL`)
   }
   if (alternates.length < 3) {
     errors.push(`${label}: missing language alternates`)
+  }
+  if (title.length !== 1 || !title[0].text.trim()) {
+    errors.push(`${label}: missing unique title`)
+  }
+  if (descriptions.length !== 1 || !descriptions[0].getAttribute('content')?.trim()) {
+    errors.push(`${label}: missing unique description`)
+  }
+  if (!robots) {
+    errors.push(`${label}: missing robots directive`)
+  }
+  if (label === '404.html' || label === 'en/404/index.html') {
+    if (!robots?.includes('noindex')) {
+      errors.push(`${label}: 404 must be noindex`)
+    }
+  }
+  if (schemas.length === 0) {
+    errors.push(`${label}: missing JSON-LD schema`)
+  }
+  for (const schema of schemas) {
+    try {
+      JSON.parse(schema.text)
+    }
+    catch {
+      errors.push(`${label}: invalid JSON-LD schema`)
+    }
   }
   if (document.text.includes('—') || document.text.includes('–')) {
     errors.push(`${label}: contains a forbidden dash character`)
@@ -85,6 +118,18 @@ for (const file of await collectHtml(dist)) {
     catch {
       errors.push(`${label}: broken internal link ${href}`)
     }
+  }
+}
+
+for (const file of ['sitemap-index.xml', 'robots.txt', 'llms.txt', 'llms-full.txt']) {
+  try {
+    const contents = await readFile(resolve(dist, file), 'utf8')
+    if (file.startsWith('sitemap') && contents.includes('/404')) {
+      errors.push(`${file}: must not include 404 URLs`)
+    }
+  }
+  catch {
+    errors.push(`Unable to read required SEO output: ${file}`)
   }
 }
 

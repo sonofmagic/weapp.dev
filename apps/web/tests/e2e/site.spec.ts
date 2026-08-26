@@ -7,19 +7,14 @@ async function enableAnalyticsTestMode(page: import('@playwright/test').Page) {
   })
 }
 
-async function mockAnalyticsConfig(
+async function mockAnalyticsScripts(
   page: import('@playwright/test').Page,
-  config: { provider: 'baidu' | 'ga4', consentRequired: boolean, siteId: string },
+  options: { failGa4?: boolean } = {},
 ) {
-  await page.route('**/api/analytics/config', async route => route.fulfill({
-    body: JSON.stringify(config),
-    contentType: 'application/json',
-    status: 200,
-  }))
   await page.route('https://www.googletagmanager.com/**', async route => route.fulfill({
+    ...(options.failGa4 ? { status: 503 } : { status: 200 }),
     body: '',
     contentType: 'text/javascript',
-    status: 200,
   }))
   await page.route('https://hm.baidu.com/**', async route => route.fulfill({
     body: '',
@@ -35,6 +30,10 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.locator('#projects').getByRole('heading', { name: 'weapp-vite' })).toBeVisible()
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://weapp.dev/')
   await expect(page.locator('link[hreflang="en-US"]')).toHaveAttribute('href', 'https://weapp.dev/en/')
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index, follow')
+  await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', 'https://weapp.dev/og.png')
+  await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(4)
+  await expect(page.locator('#about')).toContainText('weapp-tailwindcss')
 
   await page.getByRole('link', { name: 'English' }).click()
   await expect(page).toHaveURL(/\/en\/$/)
@@ -57,6 +56,23 @@ test('project detail exposes docs, source, metrics, and future path', async ({ p
   await expect(page.getByRole('link', { name: '阅读文档' }).first()).toHaveAttribute('href', 'https://vite.icebreaker.top/')
   await expect(page.getByText('/docs/weapp-vite/')).toBeVisible()
   await expect(page.getByText('GitHub Stars')).toBeVisible()
+  await expect(page.getByRole('heading', { name: '常见问题' })).toBeVisible()
+  await expect(page.locator('pre code')).toContainText('pnpm add -D weapp-vite')
+  await expect(page.getByRole('link', { name: '查看 npm' })).toHaveAttribute('href', 'https://www.npmjs.com/package/weapp-vite')
+  await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(3)
+})
+
+test('publishes indexable SEO resources and keeps 404 out of the index', async ({ page, request }) => {
+  const llms = await request.get('/llms.txt')
+  expect(llms.ok()).toBeTruthy()
+  expect(await llms.text()).toContain('weapp-tailwindcss')
+
+  const sitemap = await request.get('/sitemap-index.xml')
+  expect(sitemap.ok()).toBeTruthy()
+  expect(await sitemap.text()).not.toContain('/404')
+
+  await page.goto('/404/')
+  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow')
 })
 
 test('passes automated accessibility checks', async ({ page }) => {
@@ -100,22 +116,23 @@ test('keeps core content and links available without JavaScript', async ({ brows
   await context.close()
 })
 
-test('requires consent before loading GA4 in strict regions', async ({ page }) => {
+test('loads both analytics providers by default without a consent banner', async ({ page }) => {
   await enableAnalyticsTestMode(page)
-  await mockAnalyticsConfig(page, {
-    provider: 'ga4',
-    consentRequired: true,
-    siteId: 'G-TEST1234',
+  await mockAnalyticsScripts(page)
+
+  const configRequests: string[] = []
+  page.on('request', (request) => {
+    if (request.url().includes('/api/analytics/config')) {
+      configRequests.push(request.url())
+    }
   })
 
   await page.goto('/?token=secret&utm_source=e2e#projects')
-  const banner = page.getByRole('complementary', { name: '统计偏好' })
-  await expect(banner).toBeVisible()
-  await expect(page.locator('#weapp-ga4')).toHaveCount(0)
-
-  await page.getByRole('button', { name: '允许统计' }).click()
-  await expect(banner).toBeHidden()
   await expect(page.locator('#weapp-ga4')).toHaveCount(1)
+  await expect(page.locator('#weapp-baidu-tongji')).toHaveCount(1)
+  await expect(page.locator('[data-analytics-banner]')).toHaveCount(0)
+  expect(configRequests).toEqual([])
+
   const dataLayer = await page.evaluate(() => window.dataLayer)
   expect(dataLayer).toContainEqual([
     'event',
@@ -127,17 +144,13 @@ test('requires consent before loading GA4 in strict regions', async ({ page }) =
   ])
 })
 
-test('loads Baidu by default and supports a persistent opt-out', async ({ page }) => {
+test('supports a persistent opt-out and re-enable for both providers', async ({ page }) => {
   await enableAnalyticsTestMode(page)
-  await mockAnalyticsConfig(page, {
-    provider: 'baidu',
-    consentRequired: false,
-    siteId: 'baidu_test_id',
-  })
+  await mockAnalyticsScripts(page)
 
   await page.goto('/')
+  await expect(page.locator('#weapp-ga4')).toHaveCount(1)
   await expect(page.locator('#weapp-baidu-tongji')).toHaveCount(1)
-  await expect(page.getByRole('complementary', { name: '统计偏好' })).toBeHidden()
 
   await page.getByRole('button', { name: '统计偏好' }).click()
   const dialog = page.getByRole('dialog', { name: '统计偏好' })
@@ -148,9 +161,17 @@ test('loads Baidu by default and supports a persistent opt-out', async ({ page }
   await dialog.getByRole('button', { name: '保存偏好' }).click()
 
   await page.waitForLoadState('load')
+  await expect(page.locator('#weapp-ga4')).toHaveCount(0)
   await expect(page.locator('#weapp-baidu-tongji')).toHaveCount(0)
   await expect.poll(() => page.evaluate(() => localStorage.getItem('weapp-analytics-consent:v1')))
     .toBe('{"choice":"denied","version":1}')
+
+  await page.getByRole('button', { name: '统计偏好' }).click()
+  await expect(dialog.getByRole('checkbox')).not.toBeChecked()
+  await dialog.getByRole('checkbox').check()
+  await dialog.getByRole('button', { name: '保存偏好' }).click()
+  await expect(page.locator('#weapp-ga4')).toHaveCount(1)
+  await expect(page.locator('#weapp-baidu-tongji')).toHaveCount(1)
 })
 
 test('honors browser privacy signals', async ({ page }) => {
@@ -158,15 +179,21 @@ test('honors browser privacy signals', async ({ page }) => {
   await page.addInitScript(() => {
     Object.defineProperty(navigator, 'globalPrivacyControl', { value: true })
   })
-  await mockAnalyticsConfig(page, {
-    provider: 'ga4',
-    consentRequired: false,
-    siteId: 'G-TEST1234',
-  })
+  await mockAnalyticsScripts(page)
 
   await page.goto('/')
   await expect(page.locator('#weapp-ga4')).toHaveCount(0)
+  await expect(page.locator('#weapp-baidu-tongji')).toHaveCount(0)
   await page.getByRole('button', { name: '统计偏好' }).click()
   await expect(page.getByText('浏览器已启用全局隐私控制')).toBeVisible()
   await expect(page.getByRole('dialog').getByRole('checkbox')).toBeDisabled()
+})
+
+test('keeps the other provider working when GA4 fails to load', async ({ page }) => {
+  await enableAnalyticsTestMode(page)
+  await mockAnalyticsScripts(page, { failGa4: true })
+
+  await page.goto('/')
+  await expect(page.locator('#weapp-baidu-tongji')).toHaveCount(1)
+  await expect(page.getByRole('heading', { level: 1, name: 'weapp.dev' })).toBeVisible()
 })

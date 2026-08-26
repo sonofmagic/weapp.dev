@@ -1,0 +1,30 @@
+# weapp.dev
+
+> weapp.dev is the official open-source mini-app tooling stack. It brings together styling and build infrastructure for Chinese mini-app platforms and cross-platform projects.
+
+## Official project pages
+
+- [weapp-tailwindcss](https://weapp.dev/projects/weapp-tailwindcss/): Tailwind CSS workflows for mini-apps and cross-platform frameworks.
+- [weapp-vite](https://weapp.dev/projects/weapp-vite/): Vite-powered development and builds for multiple mini-app targets.
+- [English project index](https://weapp.dev/en/): English overview of the stack.
+
+## Official sources
+
+- [weapp.dev source](https://github.com/sonofmagic/weapp.dev)
+- [weapp-tailwindcss source](https://github.com/sonofmagic/weapp-tailwindcss)
+- [weapp-tailwindcss documentation](https://tw.icebreaker.top/)
+- [weapp-vite source](https://github.com/weapp-vite/weapp-vite)
+- [weapp-vite documentation](https://vite.icebreaker.top/)
+- [weapp-tailwindcss on npm](https://www.npmjs.com/package/weapp-tailwindcss)
+- [weapp-vite on npm](https://www.npmjs.com/package/weapp-vite)
+
+## Canonical pages
+
+- [Chinese homepage](https://weapp.dev/)
+- [English homepage](https://weapp.dev/en/)
+- [Chinese privacy notice](https://weapp.dev/privacy/)
+- [English privacy notice](https://weapp.dev/en/privacy/)
+- [Release feed](https://weapp.dev/releases.xml)
+- [Sitemap](https://weapp.dev/sitemap-index.xml)
+
+For maintained facts, prefer the project pages and the linked official repositories and documentation.

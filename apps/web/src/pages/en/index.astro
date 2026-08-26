@@ -5,6 +5,7 @@ import HomePage from '../../components/HomePage.astro'
 import Footer from '../../components/Footer.astro'
 import { getProjects } from '../../lib/projects'
 import { loadProjectMetrics } from '../../lib/metrics'
+import { organizationSchema, projectListSchema, websiteSchema } from '../../lib/seo'
 
 const locale = 'en' as const
 const projects = await getProjects()
@@ -13,7 +14,13 @@ const title = 'weapp.dev | The open-source mini-app stack'
 const description = 'Open-source tools for mini-app development, including weapp-tailwindcss, weapp-vite, and the projects that follow.'
 ---
 
-<BaseLayout locale={locale} title={title} description={description}>
+<BaseLayout
+  locale={locale}
+  title={title}
+  description={description}
+  imageAlt="weapp.dev open-source mini-app stack"
+  schemas={[organizationSchema(), websiteSchema(locale), projectListSchema(locale, projects)]}
+>
   <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />
   <HomePage locale={locale} projects={projects} metrics={metrics} />
   <Footer locale={locale} projects={projects} />

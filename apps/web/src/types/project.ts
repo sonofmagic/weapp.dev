@@ -4,7 +4,10 @@ export interface LocalizedProjectContent {
   name: string
   tagline: string
   description: string
+  audience: string
+  useCases: string[]
   capabilities: string[]
+  faqs: Array<{ question: string, answer: string }>
 }
 
 export interface ProjectDefinition {
@@ -13,6 +16,11 @@ export interface ProjectDefinition {
   packageName: string
   github: string
   docsUrl: string
+  npmUrl: string
+  license: string
+  maintainer: string
+  keywords: string[]
+  installCommand: string
   futureDocsPath: string
   logo: string
   accent: string
