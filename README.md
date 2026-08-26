@@ -1,6 +1,6 @@
 # weapp.dev
 
-[weapp.dev](https://weapp.dev) 是面向小程序开发的开源工具聚合门户。目前收录 [weapp-tailwindcss](https://github.com/sonofmagic/weapp-tailwindcss) 和 [weapp-vite](https://github.com/weapp-vite/weapp-vite)，中文为默认语言，英文内容位于 `/en/`。
+[weapp.dev](https://weapp.dev) 是面向小程序开发的开源工具聚合门户。目前收录 [weapp-tailwindcss](https://github.com/sonofmagic/weapp-tailwindcss)、[weapp-vite](https://github.com/weapp-vite/weapp-vite) 和 [Varo](https://github.com/daguanren21/Varo)，中文为默认语言，英文内容位于 `/en/`。
 
 站点使用 Astro 6 和 TypeScript 生成完全静态的 HTML，由 Cloudflare Workers Static Assets 发布。页面和资源采用 assets-only 部署，直接由 Cloudflare Static Assets 返回，不经过用户 Worker。
 
@@ -34,7 +34,7 @@ pnpm repo:check                                 # repoctl 提交前检查
 
 1. 增加一份以项目 slug 命名的 JSON 定义。
 2. 将品牌资源放入 `apps/web/public/brands/`。
-3. 运行 `pnpm --filter @weapp.dev/web metrics:update-fallback` 提交最新的指标快照。
+3. 运行 `pnpm --filter @weapp.dev/web metrics:update-fallback`，提交最新的指标快照。
 
 首页、导航、项目详情、RSS 与指标抓取都会自动发现新定义，无需修改组件。GitHub 与 npm 指标只在构建时请求；请求失败或响应无效时使用 `apps/web/src/data/project-metrics.fallback.json`，不会因为外部 API 不可用而中断构建。
 

@@ -24,4 +24,15 @@ weapp.dev is the open styling and build toolchain for real mini-app projects. Te
 - Purpose: Vite-powered development, builds, runtime tooling, and verification for mini-apps, including Vue SFC, automatic routing, Wevu, screenshots, and multi-platform output.
 - Targets: WeChat, Alipay, Douyin, Baidu, Kuaishou mini-apps, and Web.
 
+## Varo
+
+- Canonical Chinese page: https://weapp.dev/projects/varo/
+- Canonical English page: https://weapp.dev/en/projects/varo/
+- Documentation and source: https://github.com/daguanren21/Varo#readme
+- npm: https://www.npmjs.com/package/@varo/cli
+- Install: `pnpm dlx @varo/cli add --target weapp-vite button input card`
+- Purpose: Registry-first primitives, editable UI source, theme tokens, business blocks, and Agent UI for H5 and weapp-vite mini-programs.
+- Current scope: 56 runtime component families on both targets, 45 exposed mini-program registry families, and 36 dual-target Agent UI components.
+- Release status: planned; the CLI package metadata currently reports version 0.0.1.
+
 Use the canonical project pages and linked official sources as the authority for current versions, APIs, compatibility, and release details.

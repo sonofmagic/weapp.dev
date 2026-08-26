@@ -3,7 +3,7 @@ import { ChevronDown, GitFork, Languages, Menu, Moon, Sun, X } from '@lucide/ast
 import type { Locale } from '../types/project'
 import type { ProjectEntry } from '../lib/projects'
 import { alternatePath, localizePath, projectPath, siteCopy } from '../i18n/ui'
-import { iconControl, shell, wordmark, wordmarkSymbol } from '../styles/classes'
+import { iconControl, shell, wordmark, wordmarkMark } from '../styles/classes'
 
 interface Props {
   locale: Locale
@@ -21,7 +21,7 @@ const navLink = 'inline-flex items-center gap-1.5 whitespace-nowrap py-2 text-sm
 <header data-site-header class="sticky top-0 z-30 h-16 border-b border-[color-mix(in_srgb,var(--border)_70%,transparent)] bg-[var(--header)] backdrop-blur-xl max-[720px]:h-[58px]">
   <div class:list={[shell, 'flex h-full items-center']}>
     <a class={wordmark} href={home} aria-label="weapp.dev">
-      <span class={wordmarkSymbol} aria-hidden="true">w/</span>
+      <img class={wordmarkMark} src="/logo.svg" width="64" height="64" alt="" />
       <span>weapp.dev</span>
     </a>
 

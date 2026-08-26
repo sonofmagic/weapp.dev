@@ -28,7 +28,7 @@ export function organizationSchema(projects: Array<{ data: ProjectDefinition }>)
     '@id': organizationId,
     'name': 'weapp.dev',
     'url': siteUrl,
-    'logo': absoluteUrl('/favicon.svg'),
+    'logo': absoluteUrl('/logo.svg'),
     'sameAs': [
       'https://github.com/sonofmagic/weapp.dev',
       ...projectLinks,

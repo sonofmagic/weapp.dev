@@ -2,7 +2,7 @@ export const shell = 'mx-auto w-[calc(100%-3rem)] max-w-[1240px] max-[720px]:w-[
 
 export const wordmark = 'inline-flex items-center gap-2.5 whitespace-nowrap font-display text-[15px] font-[720]'
 
-export const wordmarkSymbol = 'inline-grid size-8 place-items-center rounded-[6px] bg-brand font-mono text-[13px] font-[760] text-brand-contrast'
+export const wordmarkMark = 'size-8 shrink-0'
 
 export const eyebrow = 'mb-3 font-mono text-xs font-[650] text-brand'
 

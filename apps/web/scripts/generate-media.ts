@@ -30,6 +30,18 @@ const projectMedia = [
     output: 'projects/vite-shell',
     width: 780,
   },
+  {
+    repository: 'daguanren21/Varo',
+    source: 'apps/docs/public/brand-assets/varo-homepage-source.png',
+    output: 'projects/varo-home',
+    width: 1440,
+  },
+  {
+    repository: 'daguanren21/Varo',
+    source: 'apps/docs/public/brand-assets/varo-agent-ui-source.png',
+    output: 'projects/varo-agent',
+    width: 780,
+  },
 ] as const
 
 async function downloadGitHubFile(repository: string, source: string): Promise<Buffer> {

@@ -54,7 +54,7 @@ const skipLabel = locale === 'zh-CN' ? '跳到主要内容' : 'Skip to main cont
     <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
     <meta name="author" content={author} />
     <meta name="generator" content={Astro.generator} />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/logo.svg" type="image/svg+xml" />
     <link rel="canonical" href={canonical} />
     <link rel="alternate" hreflang={languageTag} href={canonical} />
     <link rel="alternate" hreflang={alternateTag} href={alternate} />
@@ -97,11 +97,16 @@ const skipLabel = locale === 'zh-CN' ? '跳到主要内容' : 'Skip to main cont
     <AnalyticsPreferences locale={locale} />
     <script is:inline>
       document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
+        const syncPressedState = () => {
+          button.setAttribute('aria-pressed', String(document.documentElement.dataset.theme === 'dark'))
+        }
+
+        syncPressedState()
         button.addEventListener('click', () => {
           const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark'
           document.documentElement.dataset.theme = next
           localStorage.setItem('weapp-theme', next)
-          button.setAttribute('aria-pressed', String(next === 'dark'))
+          syncPressedState()
         })
       })
 
@@ -118,6 +123,9 @@ const skipLabel = locale === 'zh-CN' ? '跳到主要内容' : 'Skip to main cont
           })
         }, { threshold: 0.14, rootMargin: '0px 0px -4% 0px' })
         revealItems.forEach((item) => revealObserver.observe(item))
+        window.setTimeout(() => {
+          revealItems.forEach((item) => item.setAttribute('data-visible', ''))
+        }, 2500)
       }
     </script>
     <script>

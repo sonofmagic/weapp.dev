@@ -28,6 +28,7 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.getByRole('heading', { level: 1, name: 'weapp.dev' })).toBeVisible()
   await expect(page.locator('#projects').getByRole('heading', { name: 'weapp-tailwindcss' })).toBeVisible()
   await expect(page.locator('#projects').getByRole('heading', { name: 'weapp-vite' })).toBeVisible()
+  await expect(page.locator('#projects').getByRole('heading', { name: 'Varo' })).toBeVisible()
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://weapp.dev/')
   await expect(page.locator('link[hreflang="en-US"]')).toHaveAttribute('href', 'https://weapp.dev/en/')
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index, follow')
@@ -35,10 +36,11 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(4)
   await expect(page.locator('#about')).toContainText('weapp-tailwindcss')
   const docsLinks = page.locator('#projects').getByRole('link', { name: '阅读文档' })
-  await expect(docsLinks).toHaveCount(2)
+  await expect(docsLinks).toHaveCount(3)
   await expect(docsLinks.evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     'https://tw.weapp.dev/',
     'https://vite.weapp.dev/',
+    'https://github.com/daguanren21/Varo#readme',
   ])
 
   await page.getByRole('link', { name: 'English' }).click()
@@ -81,11 +83,23 @@ test('publishes indexable SEO resources and keeps 404 out of the index', async (
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow')
 })
 
+test('planned project exposes complete placeholder release data', async ({ page }) => {
+  await page.goto('/projects/varo/')
+  await expect(page.getByRole('heading', { level: 1, name: 'Varo' })).toBeVisible()
+  await expect(page.getByRole('link', { name: '查看源码' })).toHaveAttribute('href', 'https://github.com/daguanren21/Varo')
+  await expect(page.getByRole('link', { name: '阅读文档' }).first()).toHaveAttribute('href', 'https://github.com/daguanren21/Varo#readme')
+  await expect(page.getByText('@varo/cli')).toBeVisible()
+  await expect(page.getByText('v0.0.1')).toBeVisible()
+  await expect(page.getByText('/docs/varo/')).toBeVisible()
+  await expect(page.getByText('GitHub Stars')).toBeVisible()
+})
+
 test('passes automated accessibility checks in light and dark themes', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
   for (const theme of ['light', 'dark']) {
     await page.addInitScript(selectedTheme => localStorage.setItem('weapp-theme', selectedTheme), theme)
     await page.goto('/')
-    await page.waitForFunction(() => document.getAnimations().every(animation => animation.playState === 'finished'))
+    await page.waitForFunction(() => [...document.querySelectorAll('[data-reveal]')].every(element => element.hasAttribute('data-visible')))
     const results = await new AxeBuilder({ page }).analyze()
     expect(results.violations, `${theme} theme violations`).toEqual([])
   }
@@ -176,8 +190,12 @@ test('opens analytics preferences directly from the privacy page', async ({ page
 })
 
 test('loads all local product visuals on key pages', async ({ page }) => {
-  for (const path of ['/', '/projects/weapp-tailwindcss/', '/projects/weapp-vite/', '/404/']) {
+  for (const path of ['/', '/projects/weapp-tailwindcss/', '/projects/weapp-vite/', '/projects/varo/', '/404/']) {
     await page.goto(path)
+    await page.locator('img').evaluateAll(images => images.forEach((image) => {
+      (image as HTMLImageElement).loading = 'eager'
+    }))
+    await page.waitForFunction(() => [...document.images].every(image => image.complete))
     const unloaded = await page.locator('img').evaluateAll(images => images
       .map(image => image as HTMLImageElement)
       .filter(image => image.naturalWidth === 0 || image.naturalHeight === 0)
