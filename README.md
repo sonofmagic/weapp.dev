@@ -2,7 +2,7 @@
 
 [weapp.dev](https://weapp.dev) 是面向小程序开发的开源工具聚合门户。目前收录 [weapp-tailwindcss](https://github.com/sonofmagic/weapp-tailwindcss) 和 [weapp-vite](https://github.com/weapp-vite/weapp-vite)，中文为默认语言，英文内容位于 `/en/`。
 
-站点使用 Astro 6 和 TypeScript 生成完全静态的 HTML，由 Cloudflare Workers Static Assets 发布。Worker 只负责将 `www.weapp.dev` 以 308 跳转到主域，其他请求直接交给静态资产绑定。
+站点使用 Astro 6 和 TypeScript 生成完全静态的 HTML，由 Cloudflare Workers Static Assets 发布。静态页面和资源直接由 Asset Worker 返回，用户 Worker 只处理 `/api/analytics/config` 统计配置接口。
 
 ## 开发
 
@@ -55,6 +55,8 @@ pnpm repo:check                                 # repoctl 提交前检查
 | Build secret                  | 只读 `GITHUB_TOKEN`                                                    |
 
 启用非生产分支构建后，其他分支会获得 Workers 预览版本。首次生产部署会按 `apps/web/wrangler.jsonc` 绑定 `weapp.dev` 与 `www.weapp.dev`；Cloudflare 会创建所需 DNS 记录和证书，因此这一步必须在域名所在的 Cloudflare zone 中执行。
+
+`apps/web/wrangler.jsonc` 的 `assets.run_worker_first` 只匹配 `/api/analytics/config`，并通过 `!/*` 将其他请求交给 Asset Worker。`www.weapp.dev` 的 308 跳转应在 Cloudflare Redirect Rules 中配置，条件为 `http.host eq "www.weapp.dev"`，目标为 `https://weapp.dev` 加原始路径，保留查询参数。
 
 ## 访问统计
 
