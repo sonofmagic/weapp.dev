@@ -2,6 +2,7 @@
   "$schema": "./node_modules/wrangler/config-schema.json",
   "name": "weapp-dev",
   "compatibility_date": "2026-08-26",
+  "preview_urls": true,
   "assets": {
     "directory": "./dist/",
     "not_found_handling": "404-page",
