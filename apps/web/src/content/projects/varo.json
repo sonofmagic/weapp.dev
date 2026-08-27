@@ -1,0 +1,63 @@
+{
+  "order": 3,
+  "status": "planned",
+  "packageName": "@varo/cli",
+  "github": "daguanren21/Varo",
+  "docsUrl": "https://github.com/daguanren21/Varo#readme",
+  "npmUrl": "https://www.npmjs.com/package/@varo/cli",
+  "maintainer": "daguanren21 and contributors",
+  "keywords": ["Vue 3", "H5", "Mini Program", "Primitives", "Registry", "Agent UI", "Blocks"],
+  "installCommand": "pnpm dlx @varo/cli add --target weapp-vite button input card",
+  "futureDocsPath": "/docs/varo/",
+  "logo": "/brands/varo.svg",
+  "accent": "#07c160",
+  "platforms": ["H5", "WeChat", "Vue 3", "weapp-vite", "Tailwind CSS"],
+  "visuals": {
+    "primary": {
+      "src": "/media/projects/varo-home.webp",
+      "avif": "/media/projects/varo-home.avif",
+      "width": 1440,
+      "height": 990,
+      "locales": {
+        "zh-CN": { "alt": "Varo 文档首页展示跨运行时组件系统能力", "caption": "Varo 以 primitives、可复制源码与交付校验统一 H5 和小程序组件系统。" },
+        "en": { "alt": "Varo documentation home showing the cross-runtime component system", "caption": "Varo unifies H5 and mini-program component systems through primitives, editable source, and delivery checks." }
+      }
+    },
+    "secondary": {
+      "src": "/media/projects/varo-agent.webp",
+      "avif": "/media/projects/varo-agent.avif",
+      "width": 780,
+      "height": 975,
+      "locales": {
+        "zh-CN": { "alt": "Varo Agent UI 完整对话与工具界面", "caption": "36 个双端 Agent UI 组件与 Agent Chat Block 共享同一事件协议。" },
+        "en": { "alt": "Varo Agent UI conversation and tool interface", "caption": "Thirty-six dual-target Agent UI components and the Agent Chat Block share one event protocol." }
+      }
+    }
+  },
+  "locales": {
+    "zh-CN": {
+      "name": "Varo",
+      "tagline": "跨运行时组件系统的生产底座",
+      "description": "为 H5 与 weapp-vite 小程序提供 registry-first primitives、组件封装、主题 token、业务 Blocks 和 Agent UI，通过 CLI 交付可编辑源码与校验能力。",
+      "audience": "需要在 H5 与小程序之间共享交互语义、组件源码和业务 Blocks 的 Vue 3 团队。",
+      "useCases": ["从 Registry 安装可编辑的 H5 或小程序组件源码", "复用双端业务 Blocks 与 Agent UI", "基于 primitives 和主题 token 构建企业设计系统"],
+      "capabilities": ["56 个双端 runtime 组件族", "45 个小程序 Registry 组件族", "36 个双端 Agent UI", "Registry-first 源码交付"],
+      "faqs": [
+        { "question": "Varo 和传统 npm 组件库有什么不同？", "answer": "Varo 的主要交付物是可复制、修改并归业务项目所有的组件与 Blocks 源码，而不是只能从外部覆盖样式的黑盒 UI 包。" },
+        { "question": "Varo 当前支持哪些运行时？", "answer": "Registry 支持 H5 与 weapp-vite；两端都维护 56 个 runtime 组件族，小程序 Registry 当前开放其中 45 个高共识组件族。" }
+      ]
+    },
+    "en": {
+      "name": "Varo",
+      "tagline": "Production foundation for cross-runtime component systems",
+      "description": "Registry-first primitives, UI wrappers, theme tokens, business blocks, and Agent UI for H5 and weapp-vite mini-programs, delivered as editable source through the CLI.",
+      "audience": "Vue 3 teams that need shared interaction semantics, component source, and business blocks across H5 and mini-program products.",
+      "useCases": ["Install editable H5 or mini-program component source from the registry", "Reuse dual-target business blocks and Agent UI", "Build an internal design system from primitives and theme tokens"],
+      "capabilities": ["56 dual-target runtime families", "45 mini-program registry families", "36 dual-target Agent UI components", "Registry-first source delivery"],
+      "faqs": [
+        { "question": "How is Varo different from a traditional npm UI library?", "answer": "Varo primarily delivers component and block source that teams can copy, modify, and own instead of a black-box UI package that is customized only from the outside." },
+        { "question": "Which runtimes does Varo support today?", "answer": "The registry targets H5 and weapp-vite. Both runtimes maintain 56 component families, while the mini-program registry currently exposes 45 high-consensus families." }
+      ]
+    }
+  }
+}

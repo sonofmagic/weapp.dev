@@ -6,6 +6,7 @@
 
 - [weapp-tailwindcss](https://weapp.dev/projects/weapp-tailwindcss/): Tailwind CSS v4 generation, class transforms, and platform-aware styling for mini-apps and cross-platform frameworks.
 - [weapp-vite](https://weapp.dev/projects/weapp-vite/): Vite-powered development, builds, runtime tooling, and multi-platform output for mini-app projects.
+- [Varo](https://weapp.dev/projects/varo/): Registry-first editable components, primitives, business blocks, and Agent UI for H5 and weapp-vite mini-programs.
 - [English project index](https://weapp.dev/en/): English overview of the stack.
 
 ## Official sources
@@ -17,6 +18,8 @@
 - [weapp-vite documentation](https://vite.weapp.dev/)
 - [weapp-tailwindcss on npm](https://www.npmjs.com/package/weapp-tailwindcss)
 - [weapp-vite on npm](https://www.npmjs.com/package/weapp-vite)
+- [Varo source and documentation](https://github.com/daguanren21/Varo#readme)
+- [Varo CLI on npm](https://www.npmjs.com/package/@varo/cli)
 
 ## Canonical pages
 

@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, ArrowUpRight, BadgeCheck, BookOpen, Boxes, GitFork, Layers2, Package, ScanLine, ShieldCheck } from '@lucide/astro'
+import { ArrowRight, ArrowUpRight, BadgeCheck, BookOpen, GitFork, Layers2, Package, ScanLine, ShieldCheck } from '@lucide/astro'
 import type { Locale, ProjectMetricsMap } from '../types/project'
 import type { ProjectEntry } from '../lib/projects'
 import { formatCompactNumber, formatReleaseDate } from '../lib/metrics'
@@ -17,15 +17,18 @@ const copy = siteCopy[locale]
 const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
 const stepIcons = [Layers2, ScanLine, Package]
 const principleIcons = [Layers2, ShieldCheck, BadgeCheck]
+const projectStages: Record<string, string> = locale === 'zh-CN'
+  ? { 'weapp-tailwindcss': '样式', 'weapp-vite': '构建', varo: '组件' }
+  : { 'weapp-tailwindcss': 'STYLE', 'weapp-vite': 'BUILD', varo: 'COMPOSE' }
 ---
 
 <main id="main-content">
-  <section class:list={[shell, 'grid min-h-[min(690px,calc(100dvh-110px))] grid-cols-[.82fr_1.18fr] items-center gap-10 py-10 max-[760px]:min-h-0 max-[760px]:grid-cols-1 max-[760px]:gap-6 max-[720px]:py-8']}>
-    <div data-reveal class="relative z-10 max-w-[570px]">
-      <p class="mb-4 font-mono text-xs font-[650] text-brand">{copy.hero.eyebrow}</p>
-      <h1 class="mb-5 font-display text-[clamp(52px,6vw,78px)] font-[720] leading-[.98]">{copy.hero.title}</h1>
-      <p class="mb-8 max-w-[520px] text-xl leading-[1.5] text-copy-muted max-[720px]:text-lg">{copy.hero.description}</p>
-      <div class="flex flex-wrap items-center gap-3">
+  <section class:list={[shell, 'grid min-h-[min(740px,calc(100dvh-88px))] grid-cols-[.8fr_1.2fr] items-center gap-14 py-12 max-[960px]:gap-9 max-[760px]:min-h-0 max-[760px]:grid-cols-1 max-[760px]:gap-8 max-[720px]:py-9']}>
+    <div class="relative z-10 max-w-[610px]">
+      <p data-hero-enter style="--enter-delay: 0ms" class="mb-4 font-mono text-xs font-[650] text-brand">{copy.hero.eyebrow}</p>
+      <h1 data-hero-enter style="--enter-delay: 45ms" class="mb-6 font-display text-[clamp(56px,6.4vw,86px)] font-[740] leading-[.94] tracking-[-0.055em]">{copy.hero.title}</h1>
+      <p data-hero-enter style="--enter-delay: 90ms" class="mb-8 max-w-[550px] text-xl leading-[1.55] text-copy-muted max-[720px]:text-lg">{copy.hero.description}</p>
+      <div data-hero-enter style="--enter-delay: 135ms" class="flex flex-wrap items-center gap-3">
         <a class={buttonPrimary} href={`${localizePath(locale)}#projects`} data-analytics-event="navigate_section" data-analytics-section="projects">
           {copy.hero.primary}
           <ArrowRight size={18} stroke-width={1.9} aria-hidden="true" />
@@ -35,22 +38,30 @@ const principleIcons = [Layers2, ShieldCheck, BadgeCheck]
           {copy.hero.secondary}
         </a>
       </div>
+      <ol data-hero-enter style="--enter-delay: 180ms" class="mt-10 grid list-none grid-cols-3 border-y border-line p-0 max-[520px]:grid-cols-1">
+        {projects.map((project, index) => (
+          <li class="grid min-w-0 gap-1 border-r border-line px-4 py-4 first:pl-0 last:border-r-0 last:pr-0 max-[520px]:border-r-0 max-[520px]:border-b max-[520px]:px-0 max-[520px]:py-3 max-[520px]:last:border-b-0">
+            <span class="font-mono text-[9px] font-bold tracking-[0.08em] text-brand">{String(index + 1).padStart(2, '0')} / {projectStages[project.id] ?? 'TOOL'}</span>
+            <strong class="overflow-hidden text-ellipsis whitespace-nowrap font-display text-xs font-[650] text-ink">{project.data.locales[locale].name}</strong>
+          </li>
+        ))}
+      </ol>
     </div>
 
-    <figure data-reveal style="--reveal-delay: 100ms" class="relative m-0 aspect-[16/11] overflow-hidden rounded-panel border border-[rgb(255_255_255_/_12%)] bg-[#07110d] shadow-panel max-[760px]:h-[210px] max-[760px]:aspect-auto">
-      <picture class="absolute inset-0">
+    <figure data-reveal data-hero-lens style="--reveal-delay: 120ms" class="group relative m-0 aspect-[16/11] overflow-hidden rounded-panel border border-[rgb(255_255_255_/_14%)] bg-[#07110d] shadow-panel max-[760px]:h-[238px] max-[760px]:aspect-auto">
+      <picture data-lens-backdrop class="absolute inset-0">
         <source srcset="/media/brand/build-lens.avif" type="image/avif" />
-        <img class="size-full object-cover" src="/media/brand/build-lens.webp" width="1600" height="1100" alt="" fetchpriority="high" />
+        <img data-lens-image class="size-full scale-[1.035] object-cover" src="/media/brand/build-lens.webp" width="1600" height="1100" alt="" fetchpriority="high" />
       </picture>
       <div class="absolute inset-0 bg-[linear-gradient(90deg,rgb(5_13_9_/_12%),transparent_54%,rgb(5_13_9_/_18%))]" aria-hidden="true"></div>
       <div class="absolute top-5 left-5 flex items-center gap-2.5">
-        {projects.map(project => <img class="size-8 object-contain drop-shadow-md" src={project.data.logo} width="32" height="32" alt="" />)}
+        {projects.map((project, index) => <img data-hero-project style={`--float-delay: ${index * -1.2}s`} class="size-8 object-contain drop-shadow-md" src={project.data.logo} width="32" height="32" alt="" />)}
       </div>
-      <picture class="absolute top-5 right-5 w-[46%] overflow-hidden rounded-[6px] border border-[rgb(255_255_255_/_18%)] shadow-panel max-[760px]:hidden">
+      <picture data-hero-panel class="absolute top-5 right-5 w-[46%] overflow-hidden rounded-[6px] border border-[rgb(255_255_255_/_18%)] shadow-panel max-[760px]:hidden">
         <source srcset="/media/projects/tailwind-weapp.avif" type="image/avif" />
         <img class="aspect-[16/10] w-full object-cover object-top" src="/media/projects/tailwind-weapp.webp" width="1280" height="916" alt="" />
       </picture>
-      <pre class="absolute right-5 bottom-5 left-[15%] m-0 overflow-hidden rounded-[6px] border border-[rgb(255_255_255_/_16%)] bg-[rgb(5_13_9_/_84%)] p-4 text-[11px] leading-[1.65] text-[#d6e8df] backdrop-blur-md max-[760px]:right-4 max-[760px]:bottom-4 max-[760px]:left-4 max-[760px]:p-3"><code><span class="text-[#79d0ae]">plugins</span>: [
+      <pre data-hero-code class="absolute right-5 bottom-5 left-[15%] m-0 overflow-hidden rounded-[6px] border border-[rgb(255_255_255_/_16%)] bg-[rgb(5_13_9_/_84%)] p-4 text-[11px] leading-[1.65] text-[#d6e8df] backdrop-blur-md max-[760px]:right-4 max-[760px]:bottom-4 max-[760px]:left-4 max-[760px]:p-3"><code><span class="text-[#79d0ae]">plugins</span>: [
   WeappTailwindcss(),
   weapp(&#123; platform: 'weapp' &#125;)
 ]</code></pre>
@@ -96,18 +107,19 @@ const principleIcons = [Layers2, ShieldCheck, BadgeCheck]
         const visual = project.data.visuals.primary
         const visualCopy = visual.locales[locale]
         return (
-          <article data-reveal class:list={['grid items-center gap-14 max-[960px]:gap-9', index === 0 ? 'grid-cols-[1.12fr_.88fr] max-[800px]:grid-cols-1' : 'grid-cols-[.82fr_1.18fr] max-[800px]:grid-cols-1']} style={`--project-accent: ${project.data.accent}`}>
-            <figure class:list={['relative m-0 overflow-hidden rounded-panel border border-line bg-panel-soft', index === 1 ? 'order-2 max-[800px]:order-none' : '']}>
+          <article data-project-row class:list={['group/project relative grid items-center gap-14 border-t border-line pt-14 first:border-t-0 first:pt-0 max-[960px]:gap-9', index === 0 ? 'grid-cols-[1.12fr_.88fr] max-[800px]:grid-cols-1' : 'grid-cols-[.82fr_1.18fr] max-[800px]:grid-cols-1']} style={`--project-accent: ${project.data.accent}`}>
+            <figure data-reveal data-project-visual style={`--reveal-delay: ${index * 60}ms`} class:list={['relative m-0 overflow-hidden rounded-panel border border-line bg-panel-soft', index === 1 ? 'order-2 max-[800px]:order-none' : '']}>
               <div class="aspect-[16/11] overflow-hidden">
                 <picture>
                   <source srcset={visual.avif} type="image/avif" />
-                  <img class="size-full object-cover object-top" src={visual.src} width={visual.width} height={visual.height} alt={visualCopy.alt} loading="lazy" />
+                  <img class="size-full object-cover object-top transition-transform duration-700 ease-out group-hover/project:scale-[1.015] group-focus-within/project:scale-[1.015]" src={visual.src} width={visual.width} height={visual.height} alt={visualCopy.alt} loading="lazy" />
                 </picture>
               </div>
               <figcaption class="border-t border-line bg-panel px-4 py-3 text-xs text-copy-muted">{visualCopy.caption}</figcaption>
             </figure>
 
-            <div class:list={[index === 1 ? 'order-1 max-[800px]:order-none' : '']}>
+            <div data-reveal data-project-copy style={`--reveal-delay: ${80 + index * 60}ms`} class:list={[index === 1 ? 'order-1 max-[800px]:order-none' : '']}>
+              <p class="mb-4 font-mono text-[10px] font-bold tracking-[0.09em] text-brand">{String(index + 1).padStart(2, '0')} / {projectStages[project.id] ?? 'TOOL'}</p>
               <div class="mb-5 flex items-center gap-3">
                 <img class="size-12 object-contain" src={project.data.logo} width="48" height="48" alt="" />
                 <span class:list={['inline-flex items-center gap-1.5 font-mono text-xs font-[650]', projectTone]}>
@@ -149,7 +161,7 @@ const principleIcons = [Layers2, ShieldCheck, BadgeCheck]
         {copy.principles.items.map((item, index) => {
           const Icon = principleIcons[index]
           return (
-            <article data-reveal style={`--reveal-delay: ${index * 70}ms`} class:list={['bg-panel p-7', index === 0 ? 'row-span-2 min-h-[330px] max-[620px]:row-auto max-[620px]:min-h-0' : 'min-h-[164px]']}>
+            <article data-reveal data-principle-card style={`--reveal-delay: ${index * 70}ms`} class:list={['bg-panel p-7 transition-[background-color,transform] duration-300 hover:-translate-y-1 hover:bg-panel-strong', index === 0 ? 'row-span-2 min-h-[330px] max-[620px]:row-auto max-[620px]:min-h-0' : 'min-h-[164px]']}>
               <Icon class="mb-8 text-brand" size={25} stroke-width={1.6} aria-hidden="true" />
               <h3 class="mb-2 text-xl font-[650]">{item.title}</h3>
               <p class="mb-0 text-sm leading-[1.7] text-copy-muted">{item.body}</p>
@@ -190,9 +202,7 @@ const principleIcons = [Layers2, ShieldCheck, BadgeCheck]
 
   <section class="border-y border-line bg-panel">
     <div data-reveal class:list={[shell, 'grid min-h-[260px] grid-cols-[72px_1fr_auto] items-center gap-8 py-12 max-[820px]:grid-cols-[58px_1fr] max-[620px]:grid-cols-1']}>
-      <span class="grid size-[72px] place-items-center rounded-panel border border-line bg-panel-soft text-brand max-[820px]:size-[58px]" aria-hidden="true">
-        <Boxes size={34} stroke-width={1.5} />
-      </span>
+      <img class="size-[72px] rounded-panel border border-line bg-panel-soft p-2.5 max-[820px]:size-[58px]" src="/logo.svg" width="72" height="72" alt="" />
       <div>
         <h2 class="mb-3 text-[34px] font-[670] max-[620px]:text-[30px]">{copy.maintainer.title}</h2>
         <p class="mb-0 max-w-[650px] text-copy-muted">{copy.maintainer.description}</p>

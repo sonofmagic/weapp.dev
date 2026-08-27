@@ -10,8 +10,8 @@ import { organizationSchema, projectListSchema, websiteSchema } from '../lib/seo
 const locale = 'zh-CN' as const
 const projects = await getProjects()
 const metrics = await loadProjectMetrics()
-const title = 'weapp.dev | 小程序样式与构建工具链'
-const description = '面向真实小程序工程的开放工具链，用 weapp-tailwindcss 管理跨端样式，用 weapp-vite 驱动开发、构建与运行验证。'
+const title = 'weapp.dev | 小程序样式、构建与 UI 工具链'
+const description = '面向真实小程序工程的开放工具链：用 weapp-tailwindcss 管理跨端样式，用 weapp-vite 驱动开发与构建，并用 Varo 安装可编辑的 Vue 与 Agent UI 源码。'
 ---
 
 <BaseLayout
