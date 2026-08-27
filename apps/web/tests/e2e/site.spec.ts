@@ -9,10 +9,11 @@ async function enableAnalyticsTestMode(page: import('@playwright/test').Page) {
 
 async function mockAnalyticsScripts(
   page: import('@playwright/test').Page,
-  options: { failGa4?: boolean } = {},
+  options: { failGa4Attempts?: number } = {},
 ) {
+  let ga4Attempts = 0
   await page.route('https://www.googletagmanager.com/**', async route => route.fulfill({
-    ...(options.failGa4 ? { status: 503 } : { status: 200 }),
+    status: ga4Attempts++ < (options.failGa4Attempts ?? 0) ? 503 : 200,
     body: '',
     contentType: 'text/javascript',
   }))
@@ -239,15 +240,17 @@ test('loads both analytics providers by default without a consent banner', async
   await expect(page.locator('[data-analytics-banner]')).toHaveCount(0)
   expect(configRequests).toEqual([])
 
-  const dataLayer = await page.evaluate(() => window.dataLayer)
-  expect(dataLayer).toContainEqual([
-    'event',
-    'page_view',
+  const dataLayer = await page.evaluate(() => (window.dataLayer ?? []).map(command => Array.from(command as ArrayLike<unknown>)))
+  expect(dataLayer.filter(command => command[0] === 'config')).toEqual([[
+    'config',
+    'G-P7XL4TEVNM',
     expect.objectContaining({
       page_location: 'http://127.0.0.1:4321/?utm_source=e2e',
       page_path: '/?utm_source=e2e',
+      send_page_view: true,
     }),
-  ])
+  ]])
+  expect(dataLayer.filter(command => command[0] === 'event' && command[1] === 'page_view')).toEqual([])
 })
 
 test('supports a persistent opt-out and re-enable for both providers', async ({ page }) => {
@@ -297,9 +300,26 @@ test('honors browser privacy signals', async ({ page }) => {
 
 test('keeps the other provider working when GA4 fails to load', async ({ page }) => {
   await enableAnalyticsTestMode(page)
-  await mockAnalyticsScripts(page, { failGa4: true })
+  await mockAnalyticsScripts(page, { failGa4Attempts: Number.POSITIVE_INFINITY })
 
   await page.goto('/')
   await expect(page.locator('#weapp-baidu-tongji')).toHaveCount(1)
   await expect(page.getByRole('heading', { level: 1, name: 'weapp.dev' })).toBeVisible()
+})
+
+test('retries a failed GA4 script without duplicating its configuration', async ({ page }) => {
+  await enableAnalyticsTestMode(page)
+  await mockAnalyticsScripts(page, { failGa4Attempts: 1 })
+
+  await page.goto('/?token=secret&utm_source=retry')
+  await expect(page.locator('#weapp-ga4[data-failed="true"]')).toHaveCount(1)
+
+  await page.getByRole('button', { name: '统计偏好' }).click()
+  const dialog = page.getByRole('dialog', { name: '统计偏好' })
+  await dialog.getByRole('button', { name: '保存偏好' }).click()
+  await expect(page.locator('#weapp-ga4[data-loaded="true"]')).toHaveCount(1)
+
+  const dataLayer = await page.evaluate(() => (window.dataLayer ?? []).map(command => Array.from(command as ArrayLike<unknown>)))
+  expect(dataLayer.filter(command => command[0] === 'config')).toHaveLength(1)
+  expect(dataLayer.filter(command => command[0] === 'event' && command[1] === 'page_view')).toEqual([])
 })

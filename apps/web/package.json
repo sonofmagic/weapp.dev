@@ -17,7 +17,8 @@
     "og:generate": "tsx scripts/generate-og.ts",
     "preview": "astro preview",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:e2e:analytics-live": "WEAPP_ANALYTICS_LIVE_TEST=1 playwright test tests/e2e/analytics-live.spec.ts --project=desktop"
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.3",

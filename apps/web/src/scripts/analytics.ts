@@ -31,7 +31,7 @@ declare global {
   interface Window {
     _hmt?: Array<Array<boolean | number | string>>
     __WEAPP_ANALYTICS_TEST__?: boolean
-    dataLayer?: unknown[][]
+    dataLayer?: unknown[]
     gtag?: (...args: unknown[]) => void
     weappAnalytics?: {
       openPreferences: () => void
@@ -171,22 +171,22 @@ export function initAnalytics(): void {
   const shouldRun = window.location.hostname === 'weapp.dev' || window.__WEAPP_ANALYTICS_TEST__ === true
   const preferenceElements = getPreferenceElements()
   const providerStates: Record<AnalyticsProvider, {
-    started: boolean
+    configured: boolean
     loaded: boolean
     loading: Promise<void> | null
   }> = {
-    baidu: { started: false, loaded: false, loading: null },
-    ga4: { started: false, loaded: false, loading: null },
+    baidu: { configured: false, loaded: false, loading: null },
+    ga4: { configured: false, loaded: false, loading: null },
   }
 
-  const hasStartedProvider = () => Object.values(providerStates).some(state => state.started)
+  const hasConfiguredProvider = () => Object.values(providerStates).some(state => state.configured)
 
   const track = (name: AnalyticsEventName, params: AnalyticsEventParams = {}) => {
     const normalized = normalizeAnalyticsEvent(name, params)
-    if (providerStates.ga4.started) {
+    if (providerStates.ga4.configured) {
       window.gtag?.('event', name, normalized)
     }
-    if (providerStates.baidu.started) {
+    if (providerStates.baidu.configured) {
       const [category, action, label] = mapBaiduEvent(name, normalized)
       window._hmt?.push(['_trackEvent', category, action, label])
     }
@@ -206,18 +206,13 @@ export function initAnalytics(): void {
 
   window.weappAnalytics = { openPreferences, track }
 
-  const sendPageView = (provider: AnalyticsProvider) => {
+  const getPageViewParams = () => {
     const pageLocation = sanitizeAnalyticsUrl(window.location.href)
     const pagePath = new URL(pageLocation).pathname + new URL(pageLocation).search
-    if (provider === 'ga4') {
-      window.gtag?.('event', 'page_view', {
-        page_location: pageLocation,
-        page_path: pagePath,
-        page_title: document.title.slice(0, 120),
-      })
-    }
-    else {
-      window._hmt?.push(['_trackPageview', pagePath])
+    return {
+      page_location: pageLocation,
+      page_path: pagePath,
+      page_title: document.title.slice(0, 120),
     }
   }
 
@@ -227,29 +222,42 @@ export function initAnalytics(): void {
       return state.loading ?? Promise.resolve()
     }
 
-    state.started = true
+    if (!state.configured) {
+      state.configured = true
+      if (provider === 'ga4') {
+        window.dataLayer = window.dataLayer ?? []
+        window.gtag = window.gtag ?? function () {
+          // Google tag distinguishes its commands by the IArguments object shape.
+          // eslint-disable-next-line prefer-rest-params
+          window.dataLayer?.push(arguments)
+        }
+        window.gtag('consent', 'default', {
+          ad_personalization: 'denied',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          analytics_storage: 'granted',
+        })
+        window.gtag('js', new Date())
+        window.gtag('config', ANALYTICS_SITE_IDS.ga4, {
+          allow_ad_personalization_signals: false,
+          allow_google_signals: false,
+          ...getPageViewParams(),
+          send_page_view: true,
+        })
+      }
+      else {
+        window._hmt = window._hmt ?? []
+        window._hmt.push(['_setAutoPageview', false])
+      }
+    }
+
     if (provider === 'ga4') {
-      window.dataLayer = window.dataLayer ?? []
-      window.gtag = window.gtag ?? ((...args: unknown[]) => window.dataLayer?.push(args))
-      window.gtag('consent', 'default', {
-        ad_personalization: 'denied',
-        ad_storage: 'denied',
-        analytics_storage: 'granted',
-      })
-      window.gtag('js', new Date())
-      window.gtag('config', ANALYTICS_SITE_IDS.ga4, {
-        allow_ad_personalization_signals: false,
-        allow_google_signals: false,
-        send_page_view: false,
-      })
       state.loading = appendProviderScript(
         'weapp-ga4',
         `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(ANALYTICS_SITE_IDS.ga4)}`,
       )
     }
     else {
-      window._hmt = window._hmt ?? []
-      window._hmt.push(['_setAutoPageview', false])
       state.loading = appendProviderScript(
         'weapp-baidu-tongji',
         `https://hm.baidu.com/hm.js?${encodeURIComponent(ANALYTICS_SITE_IDS.baidu)}`,
@@ -258,7 +266,9 @@ export function initAnalytics(): void {
 
     const loading = state.loading.then(() => {
       state.loaded = true
-      sendPageView(provider)
+      if (provider === 'baidu') {
+        window._hmt?.push(['_trackPageview', getPageViewParams().page_path])
+      }
     }).catch(() => undefined)
     state.loading = loading.finally(() => {
       state.loading = null
@@ -305,7 +315,7 @@ export function initAnalytics(): void {
     if (enabled) {
       void loadProviders()
     }
-    else if (hasStartedProvider()) {
+    else if (hasConfiguredProvider()) {
       window.location.reload()
     }
   })

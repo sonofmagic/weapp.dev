@@ -93,6 +93,10 @@ Worker 的生产 `workers.dev` 地址保持关闭，版本预览保持开启。`
 
 事件字典固定为 `select_project`、`click_outbound`、`switch_language`、`change_theme` 和 `navigate_section`。事件参数只允许项目 slug、目标类型、语言、主题或站内区块；页面 URL 仅保留 UTM 参数。统计运维分别在 Cloudflare Web Analytics、百度统计和 Google Analytics 中完成，搜索表现分别在百度搜索资源平台与 Google Search Console 中查看。
 
+GA4 首屏浏览由一次 `config` 命令产生，`page_location`、`page_path` 和 `page_title` 在配置时写入；不要再追加手动 `page_view`，否则会产生重复浏览。`gtag` 包装器必须像 Google 标准片段一样向 `dataLayer` 压入函数的 `arguments` 对象，改成剩余参数数组会导致目标无法初始化。修改统计加载器后，先完成网站构建，再运行 `pnpm --filter @weapp.dev/web test:e2e:analytics-live`。该测试加载 Google 官方 `gtag.js`，但会在 `/g/collect` 请求离开浏览器前返回 `204`，用于验证衡量 ID、事件名和脱敏 URL，不会向生产数据流写入测试访问。
+
+生产发布后先确认 Cloudflare Workers Build 成功，再使用未拒绝统计且未启用 Global Privacy Control 或 Do Not Track 的浏览器访问正式域名。Google Analytics 实时报告通常应在 5–30 分钟内出现访问；数据流首页的“未收到数据”状态可能最多延迟 24–48 小时，不能单独作为发布失败的判断依据。
+
 ## SEO 与 GEO
 
 站点为中文默认、英文 `/en/` 的静态双语站点。每个公开页面都会生成规范 canonical、双向 hreflang、Open Graph/Twitter 分享元数据和 JSON-LD；项目页的实体信息以仓库、文档和 npm 官方链接为准。404 页面使用 `noindex, follow`，不会进入 sitemap。
