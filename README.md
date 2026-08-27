@@ -38,7 +38,7 @@ pnpm repo:check                                 # repoctl 提交前检查
 
 首页、导航、项目详情、RSS 与指标抓取都会自动发现新定义，无需修改组件。GitHub 与 npm 指标只在构建时请求；请求失败或响应无效时使用 `apps/web/src/data/project-metrics.fallback.json`，不会因为外部 API 不可用而中断构建。
 
-现有文档继续发布在 `tw.icebreaker.top` 和 `vite.icebreaker.top`。未来聚合文档使用 `/docs/<project>/`，旧站继续可访问，并将 canonical 统一指向对应的 `weapp.dev` 路径。
+现有文档分别发布在 [`tw.weapp.dev`](https://tw.weapp.dev/) 和 [`vite.weapp.dev`](https://vite.weapp.dev/)。未来聚合文档使用 `/docs/<project>/`，届时再将 canonical 统一指向对应的 `weapp.dev` 路径。
 
 ## Cloudflare Workers Builds
 

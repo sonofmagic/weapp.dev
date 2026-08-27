@@ -6,7 +6,7 @@ weapp.dev is an open-source portal for mini-app development. The Chinese homepag
 
 - Canonical Chinese page: https://weapp.dev/projects/weapp-tailwindcss/
 - Canonical English page: https://weapp.dev/en/projects/weapp-tailwindcss/
-- Documentation: https://tw.icebreaker.top/
+- Documentation: https://tw.weapp.dev/
 - Source: https://github.com/sonofmagic/weapp-tailwindcss
 - npm: https://www.npmjs.com/package/weapp-tailwindcss
 - Install: `pnpm add -D weapp-tailwindcss`
@@ -17,7 +17,7 @@ weapp.dev is an open-source portal for mini-app development. The Chinese homepag
 
 - Canonical Chinese page: https://weapp.dev/projects/weapp-vite/
 - Canonical English page: https://weapp.dev/en/projects/weapp-vite/
-- Documentation: https://vite.icebreaker.top/
+- Documentation: https://vite.weapp.dev/
 - Source: https://github.com/weapp-vite/weapp-vite
 - npm: https://www.npmjs.com/package/weapp-vite
 - Install: `pnpm add -D weapp-vite`

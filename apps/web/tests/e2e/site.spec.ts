@@ -34,6 +34,12 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', 'https://weapp.dev/og.png')
   await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(4)
   await expect(page.locator('#about')).toContainText('weapp-tailwindcss')
+  const docsLinks = page.locator('#projects').getByRole('link', { name: '阅读文档' })
+  await expect(docsLinks).toHaveCount(2)
+  await expect(docsLinks.evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
+    'https://tw.weapp.dev/',
+    'https://vite.weapp.dev/',
+  ])
 
   await page.getByRole('link', { name: 'English' }).click()
   await expect(page).toHaveURL(/\/en\/$/)
@@ -53,7 +59,7 @@ test('theme control changes and persists the selected theme', async ({ page }) =
 test('project detail exposes docs, source, metrics, and future path', async ({ page }) => {
   await page.goto('/projects/weapp-vite/')
   await expect(page.getByRole('heading', { level: 1, name: 'weapp-vite' })).toBeVisible()
-  await expect(page.getByRole('link', { name: '阅读文档' }).first()).toHaveAttribute('href', 'https://vite.icebreaker.top/')
+  await expect(page.getByRole('link', { name: '阅读文档' }).first()).toHaveAttribute('href', 'https://vite.weapp.dev/')
   await expect(page.getByText('/docs/weapp-vite/')).toBeVisible()
   await expect(page.getByText('GitHub Stars')).toBeVisible()
   await expect(page.getByRole('heading', { name: '常见问题' })).toBeVisible()

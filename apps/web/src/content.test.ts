@@ -4,6 +4,10 @@ import vite from './content/projects/weapp-vite.json'
 
 describe('project definitions', () => {
   const projects = [tailwind, vite]
+  const officialDocsUrls: Record<string, string> = {
+    'weapp-tailwindcss': 'https://tw.weapp.dev/',
+    'weapp-vite': 'https://vite.weapp.dev/',
+  }
 
   it('provides complete localized content for every project', () => {
     for (const project of projects) {
@@ -25,7 +29,7 @@ describe('project definitions', () => {
   it('reserves canonical documentation routes without publishing them', () => {
     for (const project of projects) {
       expect(project.futureDocsPath).toMatch(/^\/docs\/[\w-]+\/$/)
-      expect(project.docsUrl).toMatch(/^https:\/\//)
+      expect(project.docsUrl).toBe(officialDocsUrls[project.packageName])
     }
   })
 })

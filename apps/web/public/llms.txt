@@ -12,9 +12,9 @@
 
 - [weapp.dev source](https://github.com/sonofmagic/weapp.dev)
 - [weapp-tailwindcss source](https://github.com/sonofmagic/weapp-tailwindcss)
-- [weapp-tailwindcss documentation](https://tw.icebreaker.top/)
+- [weapp-tailwindcss documentation](https://tw.weapp.dev/)
 - [weapp-vite source](https://github.com/weapp-vite/weapp-vite)
-- [weapp-vite documentation](https://vite.icebreaker.top/)
+- [weapp-vite documentation](https://vite.weapp.dev/)
 - [weapp-tailwindcss on npm](https://www.npmjs.com/package/weapp-tailwindcss)
 - [weapp-vite on npm](https://www.npmjs.com/package/weapp-vite)
 

@@ -9,7 +9,7 @@ Build a bilingual, static-first home for the weapp.dev open-source ecosystem. Th
 - Astro renders Chinese pages at the root and English pages under `/en/`.
 - Project definitions are authored as validated content entries. Metrics are generated before each build from GitHub and npm with a committed fallback snapshot.
 - The site remains static. A small Cloudflare Worker only redirects `www.weapp.dev` and delegates all other requests to Static Assets.
-- Existing documentation stays at `tw.icebreaker.top` and `vite.icebreaker.top` for the first release. Future aggregated documentation will use `/docs/<project>/`, with weapp.dev as canonical and the old subdomains retained as mirrors.
+- Existing documentation stays at `tw.weapp.dev` and `vite.weapp.dev` for the first release. Future aggregated documentation will use `/docs/<project>/`, with weapp.dev as canonical.
 
 ## Experience
 

@@ -22,6 +22,7 @@ const expectedFiles = [
   'llms-full.txt',
   'og.png',
 ]
+const retiredDocsHosts = ['tw.icebreaker.top', 'vite.icebreaker.top']
 
 async function collectHtml(directory: string): Promise<string[]> {
   const entries = await readdir(directory, { withFileTypes: true })
@@ -71,6 +72,11 @@ for (const file of await collectHtml(dist)) {
   const descriptions = document.querySelectorAll('meta[name="description"]')
   const robots = document.querySelector('meta[name="robots"]')?.getAttribute('content')
   const schemas = document.querySelectorAll('script[type="application/ld+json"]')
+  for (const host of retiredDocsHosts) {
+    if (html.includes(host)) {
+      errors.push(`${label}: contains retired documentation host ${host}`)
+    }
+  }
   if (!canonical?.startsWith('https://weapp.dev/')) {
     errors.push(`${label}: invalid canonical URL`)
   }
@@ -126,6 +132,11 @@ for (const file of ['sitemap-index.xml', 'robots.txt', 'llms.txt', 'llms-full.tx
     const contents = await readFile(resolve(dist, file), 'utf8')
     if (file.startsWith('sitemap') && contents.includes('/404')) {
       errors.push(`${file}: must not include 404 URLs`)
+    }
+    for (const host of retiredDocsHosts) {
+      if (contents.includes(host)) {
+        errors.push(`${file}: contains retired documentation host ${host}`)
+      }
     }
   }
   catch {

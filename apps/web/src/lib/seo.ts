@@ -16,7 +16,12 @@ export function serializeJsonLd(value: unknown): string {
   return JSON.stringify(value).replace(/</g, '\\u003c')
 }
 
-export function organizationSchema() {
+export function organizationSchema(projects: Array<{ data: ProjectDefinition }>) {
+  const projectLinks = projects.flatMap(project => [
+    `https://github.com/${project.data.github}`,
+    project.data.docsUrl,
+  ])
+
   return {
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -26,10 +31,7 @@ export function organizationSchema() {
     'logo': absoluteUrl('/favicon.svg'),
     'sameAs': [
       'https://github.com/sonofmagic/weapp.dev',
-      'https://github.com/sonofmagic/weapp-tailwindcss',
-      'https://github.com/weapp-vite/weapp-vite',
-      'https://tw.icebreaker.top/',
-      'https://vite.icebreaker.top/',
+      ...projectLinks,
     ],
   }
 }

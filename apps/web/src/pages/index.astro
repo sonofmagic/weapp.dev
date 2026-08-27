@@ -19,7 +19,7 @@ const description = '面向小程序开发的开源工具栈，汇集 weapp-tail
   title={title}
   description={description}
   imageAlt="weapp.dev 小程序开源工具栈"
-  schemas={[organizationSchema(), websiteSchema(locale), projectListSchema(locale, projects)]}
+  schemas={[organizationSchema(projects), websiteSchema(locale), projectListSchema(locale, projects)]}
 >
   <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />
   <HomePage locale={locale} projects={projects} metrics={metrics} />
