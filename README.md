@@ -13,9 +13,9 @@
 
 weapp.dev 汇集面向真实小程序工程的开源项目。工具分别接管样式转换、工程构建与组件源码，让现有小程序可以渐进接入，也让 H5 与新项目共享现代开发体验。
 
-| 编写                                                                   | 构建                                                                                    | 组装                                                                                       |
-| ---------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
-| 继续使用原生小程序、Vue SFC 或跨端框架，保留团队熟悉的页面与组件边界。 | 让 weapp-tailwindcss 处理样式与类名，让 weapp-vite 处理依赖、路由和多平台构建生命周期。 | 从 Varo Registry 安装可编辑的双端组件、业务 Blocks 与 Agent UI，并在真实运行时中验证交付。 |
+- **编写：** 继续使用原生小程序、Vue SFC 或跨端框架，保留团队熟悉的页面与组件边界。
+- **构建：** 让 weapp-tailwindcss 处理样式与类名，让 weapp-vite 处理依赖、路由和多平台构建生命周期。
+- **组装：** 从 Varo Registry 安装可编辑的双端组件、业务 Blocks 与 Agent UI，并在真实运行时中验证交付。
 
 ## 三个项目，三层清晰边界
 
@@ -29,9 +29,9 @@ weapp.dev 汇集面向真实小程序工程的开源项目。工具分别接管�
 
 在小程序和跨端框架中使用熟悉的 Tailwind CSS 工作流，覆盖样式生成、转义、运行时变量与多平台差异。
 
-- **适合谁：**需要在微信、支付宝、抖音小程序或跨端框架中复用 Tailwind CSS 工作流的前端团队。
-- **常见用法：**在小程序模板中使用 Tailwind CSS 原子类；处理多平台模板和样式差异；在 Taro、uni-app 等跨端项目中统一样式构建。
-- **支持平台：**WeChat、Alipay、Douyin、uni-app、Taro、Mpx。
+- **适合谁：** 需要在微信、支付宝、抖音小程序或跨端框架中复用 Tailwind CSS 工作流的前端团队。
+- **常见用法：** 在小程序模板中使用 Tailwind CSS 原子类；处理多平台模板和样式差异；在 Taro、uni-app 等跨端项目中统一样式构建。
+- **支持平台：** WeChat、Alipay、Douyin、uni-app、Taro、Mpx。
 
 ```bash
 pnpm add -D weapp-tailwindcss
@@ -47,9 +47,9 @@ pnpm add -D weapp-tailwindcss
 
 用 Vite 驱动小程序开发、构建和多平台输出，并提供 Vue SFC、Wevu 运行时、自动路由与工程扩展能力。
 
-- **适合谁：**需要现代 Vite 开发体验、Vue SFC 和多平台构建能力的小程序团队。
-- **常见用法：**用 Vite 启动和构建小程序项目；使用 Vue SFC 和自动路由组织页面；向微信、支付宝、抖音等平台输出同一套工程。
-- **支持平台：**WeChat、Alipay、Douyin、Baidu、Kuaishou、Web。
+- **适合谁：** 需要现代 Vite 开发体验、Vue SFC 和多平台构建能力的小程序团队。
+- **常见用法：** 用 Vite 启动和构建小程序项目；使用 Vue SFC 和自动路由组织页面；向微信、支付宝、抖音等平台输出同一套工程。
+- **支持平台：** WeChat、Alipay、Douyin、Baidu、Kuaishou、Web。
 
 ```bash
 pnpm add -D weapp-vite
@@ -65,9 +65,9 @@ pnpm add -D weapp-vite
 
 为 H5 与 weapp-vite 小程序提供 registry-first primitives、组件封装、主题 token、业务 Blocks 和 Agent UI，通过 CLI 交付可编辑源码与校验能力。
 
-- **适合谁：**需要在 H5 与小程序之间共享交互语义、组件源码和业务 Blocks 的 Vue 3 团队。
-- **常见用法：**从 Registry 安装可编辑的 H5 或小程序组件源码；复用双端业务 Blocks 与 Agent UI；基于 primitives 和主题 token 构建企业设计系统。
-- **支持范围：**H5、WeChat、Vue 3、weapp-vite、Tailwind CSS。
+- **适合谁：** 需要在 H5 与小程序之间共享交互语义、组件源码和业务 Blocks 的 Vue 3 团队。
+- **常见用法：** 从 Registry 安装可编辑的 H5 或小程序组件源码；复用双端业务 Blocks 与 Agent UI；基于 primitives 和主题 token 构建企业设计系统。
+- **支持范围：** H5、WeChat、Vue 3、weapp-vite、Tailwind CSS。
 
 ```bash
 pnpm dlx @varo/cli add --target weapp-vite button input card
@@ -77,9 +77,9 @@ pnpm dlx @varo/cli add --target weapp-vite button input card
 
 ## 工程约束比演示效果更重要
 
-- **多平台是构建目标：**每次显式选择一个目标平台，避免用模糊兼容掩盖真实差异。
-- **渐进接入：**先稳定构建链路，再按页面引入新写法，不要求一次性重写业务。
-- **结果可验证：**源码、发布记录、运行日志与截图链路公开，构建结果可以复现。
+- **多平台是构建目标：** 每次显式选择一个目标平台，避免用模糊兼容掩盖真实差异。
+- **渐进接入：** 先稳定构建链路，再按页面引入新写法，不要求一次性重写业务。
+- **结果可验证：** 源码、发布记录、运行日志与截图链路公开，构建结果可以复现。
 
 ## 维护者与许可
 
