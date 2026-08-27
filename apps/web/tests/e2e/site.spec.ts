@@ -43,7 +43,7 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
 
   await page.getByRole('link', { name: 'English' }).click()
   await expect(page).toHaveURL(/\/en\/$/)
-  await expect(page.getByText('Open-source mini-app stack')).toBeVisible()
+  await expect(page.getByText('Built for real mini-app projects')).toBeVisible()
 })
 
 test('theme control changes and persists the selected theme', async ({ page }) => {
@@ -81,11 +81,14 @@ test('publishes indexable SEO resources and keeps 404 out of the index', async (
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow')
 })
 
-test('passes automated accessibility checks', async ({ page }) => {
-  await page.goto('/')
-  await page.waitForFunction(() => document.getAnimations().every(animation => animation.playState === 'finished'))
-  const results = await new AxeBuilder({ page }).analyze()
-  expect(results.violations).toEqual([])
+test('passes automated accessibility checks in light and dark themes', async ({ page }) => {
+  for (const theme of ['light', 'dark']) {
+    await page.addInitScript(selectedTheme => localStorage.setItem('weapp-theme', selectedTheme), theme)
+    await page.goto('/')
+    await page.waitForFunction(() => document.getAnimations().every(animation => animation.playState === 'finished'))
+    const results = await new AxeBuilder({ page }).analyze()
+    expect(results.violations, `${theme} theme violations`).toEqual([])
+  }
 })
 
 test('supports keyboard navigation and activation', async ({ page }) => {
@@ -111,6 +114,85 @@ test('has no horizontal overflow or clipped interactive labels', async ({ page }
       .map(element => element.textContent?.trim() || element.getAttribute('aria-label')),
   }))
   expect(overflow).toEqual({ document: false, controls: [] })
+})
+
+test('keeps every key route stable across responsive viewports', async ({ page }) => {
+  const viewports = [
+    { width: 320, height: 720 },
+    { width: 390, height: 844 },
+    { width: 768, height: 900 },
+    { width: 1024, height: 900 },
+    { width: 1440, height: 1000 },
+  ]
+  for (const viewport of viewports) {
+    await page.setViewportSize(viewport)
+    await page.goto('/')
+    const layout = await page.evaluate(() => {
+      const heroCta = document.querySelector<HTMLAnchorElement>('[data-analytics-section="projects"]')
+      return {
+        overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+        heroCtaVisible: heroCta ? heroCta.getBoundingClientRect().bottom <= innerHeight : false,
+        wrappedControls: [...document.querySelectorAll<HTMLElement>('a, button, summary')]
+          .filter(element => element.scrollWidth > element.clientWidth + 1)
+          .map(element => element.textContent?.trim() || element.getAttribute('aria-label')),
+      }
+    })
+    expect(layout, `${viewport.width}px layout`).toEqual({ overflow: false, heroCtaVisible: true, wrappedControls: [] })
+  }
+})
+
+test('copies the install command and expands project FAQ content', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write'])
+  await page.goto('/projects/weapp-vite/')
+  const copyButton = page.locator('button[data-copy-command]')
+  await expect(copyButton).toHaveAttribute('aria-label', '复制安装命令')
+  await copyButton.click()
+  await expect(copyButton).toHaveAttribute('aria-label', '已复制')
+  await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe('pnpm add -D weapp-vite')
+
+  const faq = page.locator('main details').first()
+  await expect(faq).not.toHaveAttribute('open', '')
+  await faq.locator('summary').click()
+  await expect(faq).toHaveAttribute('open', '')
+  await expect(faq.getByText('Vite 驱动的开发和构建流程')).toBeVisible()
+})
+
+test('provides a working mobile navigation menu', async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 })
+  await page.goto('/')
+  const menu = page.locator('summary[aria-label="打开导航"]')
+  await menu.click()
+  const mobileNav = page.getByRole('navigation', { name: 'Mobile navigation' })
+  await expect(mobileNav).toBeVisible()
+  await expect(mobileNav.getByRole('link', { name: 'weapp-vite' })).toBeVisible()
+  await menu.click()
+  await expect(mobileNav).not.toBeVisible()
+})
+
+test('opens analytics preferences directly from the privacy page', async ({ page }) => {
+  await page.goto('/privacy/')
+  await page.getByRole('button', { name: '打开统计偏好' }).click()
+  await expect(page.getByRole('dialog', { name: '统计偏好' })).toBeVisible()
+})
+
+test('loads all local product visuals on key pages', async ({ page }) => {
+  for (const path of ['/', '/projects/weapp-tailwindcss/', '/projects/weapp-vite/', '/404/']) {
+    await page.goto(path)
+    const unloaded = await page.locator('img').evaluateAll(images => images
+      .map(image => image as HTMLImageElement)
+      .filter(image => image.naturalWidth === 0 || image.naturalHeight === 0)
+      .map(image => image.getAttribute('src')))
+    expect(unloaded, `${path} unloaded images`).toEqual([])
+  }
+})
+
+test('publishes only the official project destinations', async ({ page }) => {
+  await page.goto('/')
+  const hrefs = await page.locator('a[href]').evaluateAll(anchors => anchors.map(anchor => anchor.getAttribute('href')))
+  expect(hrefs).toContain('https://tw.weapp.dev/')
+  expect(hrefs).toContain('https://vite.weapp.dev/')
+  expect(hrefs).not.toContain('https://tw.icebreaker.top/')
+  expect(hrefs).not.toContain('https://vite.icebreaker.top/')
 })
 
 test('keeps core content and links available without JavaScript', async ({ browser }) => {

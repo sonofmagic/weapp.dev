@@ -13,6 +13,28 @@
   "logo": "/brands/weapp-tailwindcss.svg",
   "accent": "#0ea5e9",
   "platforms": ["WeChat", "Alipay", "Douyin", "uni-app", "Taro", "Mpx"],
+  "visuals": {
+    "primary": {
+      "src": "/media/projects/tailwind-weapp.webp",
+      "avif": "/media/projects/tailwind-weapp.avif",
+      "width": 1280,
+      "height": 916,
+      "locales": {
+        "zh-CN": { "alt": "React Vite Tailwind CSS v4 小程序目标渲染结果", "caption": "官方回归用例的小程序目标输出。" },
+        "en": { "alt": "React Vite Tailwind CSS v4 mini-program target rendering", "caption": "Mini-program target output from the official regression suite." }
+      }
+    },
+    "secondary": {
+      "src": "/media/projects/tailwind-web.webp",
+      "avif": "/media/projects/tailwind-web.avif",
+      "width": 1280,
+      "height": 916,
+      "locales": {
+        "zh-CN": { "alt": "React Vite Tailwind CSS v4 Web 目标渲染结果", "caption": "同一用例的 Web 目标输出，用于验证跨端一致性。" },
+        "en": { "alt": "React Vite Tailwind CSS v4 Web target rendering", "caption": "Web target output from the same case, used to verify cross-platform parity." }
+      }
+    }
+  },
   "locales": {
     "zh-CN": {
       "name": "weapp-tailwindcss",

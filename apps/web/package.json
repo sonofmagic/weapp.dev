@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "build": "pnpm metrics && astro build && tsx scripts/validate-build.ts",
+    "build": "pnpm og:generate && pnpm metrics && astro build && tsx scripts/validate-build.ts",
     "check": "astro check && tsc --noEmit",
     "deploy": "pnpm build && wrangler deploy",
     "deploy:dry-run": "pnpm build && wrangler deploy --dry-run",
@@ -12,7 +12,9 @@
     "lint": "eslint .",
     "lint:styles": "stylelint 'src/**/*.css'",
     "metrics": "tsx scripts/generate-metrics.ts",
+    "media:generate": "tsx scripts/generate-media.ts",
     "metrics:update-fallback": "tsx scripts/generate-metrics.ts --update-fallback",
+    "og:generate": "tsx scripts/generate-og.ts",
     "preview": "astro preview",
     "test": "vitest run",
     "test:e2e": "playwright test"
@@ -21,6 +23,7 @@
     "@astrojs/sitemap": "3.7.3",
     "@fontsource-variable/geist": "5.2.8",
     "@fontsource-variable/geist-mono": "5.2.8",
+    "@fontsource-variable/sora": "5.2.8",
     "@lucide/astro": "1.34.0",
     "astro": "6.3.1"
   },
@@ -29,6 +32,7 @@
     "@axe-core/playwright": "4.10.2",
     "@playwright/test": "1.55.0",
     "node-html-parser": "9.0.1",
+    "sharp": "0.34.5",
     "tailwindcss": "4.3.3",
     "tsx": "4.20.5",
     "typescript": "6.0.3",

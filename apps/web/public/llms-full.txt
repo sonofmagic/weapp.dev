@@ -1,6 +1,6 @@
 # weapp.dev reference
 
-weapp.dev is an open-source portal for mini-app development. The Chinese homepage is https://weapp.dev/ and the English homepage is https://weapp.dev/en/. The site is maintained by sonofmagic and contributors. The source repository is https://github.com/sonofmagic/weapp.dev.
+weapp.dev is the open styling and build toolchain for real mini-app projects. Teams can adopt its projects independently or combine them from Tailwind CSS input through Vite-powered builds and runtime verification. The Chinese homepage is https://weapp.dev/ and the English homepage is https://weapp.dev/en/. The site is maintained by sonofmagic and contributors. The source repository is https://github.com/sonofmagic/weapp.dev.
 
 ## weapp-tailwindcss
 
@@ -10,7 +10,7 @@ weapp.dev is an open-source portal for mini-app development. The Chinese homepag
 - Source: https://github.com/sonofmagic/weapp-tailwindcss
 - npm: https://www.npmjs.com/package/weapp-tailwindcss
 - Install: `pnpm add -D weapp-tailwindcss`
-- Purpose: Tailwind CSS workflows for mini-apps and cross-platform frameworks, including template transforms, style generation, runtime values, and platform differences.
+- Purpose: Tailwind CSS v4 generation, exact class transforms, runtime values, and platform-aware styling across mini-app and cross-platform targets.
 - Audience: Frontend teams working across WeChat, Alipay, Douyin, Taro, uni-app, or related mini-app targets.
 
 ## weapp-vite
@@ -21,7 +21,7 @@ weapp.dev is an open-source portal for mini-app development. The Chinese homepag
 - Source: https://github.com/weapp-vite/weapp-vite
 - npm: https://www.npmjs.com/package/weapp-vite
 - Install: `pnpm add -D weapp-vite`
-- Purpose: Vite-powered development and build infrastructure for mini-apps, including Vue SFC, automatic routing, the Wevu runtime, and multi-platform output.
+- Purpose: Vite-powered development, builds, runtime tooling, and verification for mini-apps, including Vue SFC, automatic routing, Wevu, screenshots, and multi-platform output.
 - Targets: WeChat, Alipay, Douyin, Baidu, Kuaishou mini-apps, and Web.
 
 Use the canonical project pages and linked official sources as the authority for current versions, APIs, compatibility, and release details.

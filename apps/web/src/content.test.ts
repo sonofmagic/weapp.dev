@@ -23,6 +23,14 @@ describe('project definitions', () => {
       expect(project.license).toMatch(/^https:\/\//)
       expect(project.installCommand).toContain(project.packageName)
       expect(project.keywords.length).toBeGreaterThan(0)
+      for (const visual of Object.values(project.visuals)) {
+        expect(visual.src).toMatch(/^\/media\/projects\/.+\.webp$/)
+        expect(visual.avif).toMatch(/^\/media\/projects\/.+\.avif$/)
+        expect(visual.width).toBeGreaterThan(0)
+        expect(visual.height).toBeGreaterThan(0)
+        expect(visual.locales['zh-CN'].alt).not.toHaveLength(0)
+        expect(visual.locales.en.caption).not.toHaveLength(0)
+      }
     }
   })
 

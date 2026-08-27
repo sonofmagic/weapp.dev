@@ -55,6 +55,9 @@ importers:
       '@fontsource-variable/geist-mono':
         specifier: 5.2.8
         version: 5.2.8
+      '@fontsource-variable/sora':
+        specifier: 5.2.8
+        version: 5.2.8
       '@lucide/astro':
         specifier: 1.34.0
         version: 1.34.0(astro@6.3.1(@types/node@26.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(rollup@4.63.0)(tsx@4.20.5)(yaml@2.9.0))
@@ -74,6 +77,9 @@ importers:
       node-html-parser:
         specifier: 9.0.1
         version: 9.0.1
+      sharp:
+        specifier: 0.34.5
+        version: 0.34.5
       tailwindcss:
         specifier: 4.3.3
         version: 4.3.3
@@ -1604,6 +1610,9 @@ packages:
 
   '@fontsource-variable/geist@5.2.8':
     resolution: {integrity: sha512-cJ6m9e+8MQ5dCYJsLylfZrgBh6KkG4bOLckB35Tr9J/EqdkEM6QllH5PxqP1dhTvFup+HtMRPuz9xOjxXJggxw==}
+
+  '@fontsource-variable/sora@5.2.8':
+    resolution: {integrity: sha512-sP+ILTfi5r3cqmMBntI4ooQNxFI+LyHyD5hcPbWwwL4uh4kKFAkOz0w2veCXjz18fKRdva6OG0dY+5yQ02f30w==}
 
   '@gwhitney/detect-indent@7.0.1':
     resolution: {integrity: sha512-7bQW+gkKa2kKZPeJf6+c6gFK9ARxQfn+FKy9ScTBppyKRWH2KzsmweXUoklqeEiHiNVWaeP5csIdsNq6w7QhzA==}
@@ -9547,6 +9556,8 @@ snapshots:
 
   '@fontsource-variable/geist@5.2.8': {}
 
+  '@fontsource-variable/sora@5.2.8': {}
+
   '@gwhitney/detect-indent@7.0.1': {}
 
   '@humanfs/core@0.19.2':
@@ -15869,7 +15880,6 @@ snapshots:
       '@img/sharp-win32-arm64': 0.34.5
       '@img/sharp-win32-ia32': 0.34.5
       '@img/sharp-win32-x64': 0.34.5
-    optional: true
 
   sharp@0.35.2:
     dependencies:

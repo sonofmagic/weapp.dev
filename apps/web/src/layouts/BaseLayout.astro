@@ -1,6 +1,7 @@
 ---
 import '@fontsource-variable/geist/index.css'
 import '@fontsource-variable/geist-mono/index.css'
+import '@fontsource-variable/sora/index.css'
 import '../styles/global.css'
 import type { Locale } from '../types/project'
 import { alternatePath } from '../i18n/ui'
@@ -27,7 +28,7 @@ const {
   description,
   image = '/og.png',
   type = 'website',
-  imageAlt = 'weapp.dev open-source mini-app stack',
+  imageAlt = 'weapp.dev styling and build tools for mini-apps',
   noindex = false,
   author = 'weapp.dev',
   datePublished,
@@ -47,8 +48,8 @@ const skipLabel = locale === 'zh-CN' ? '跳到主要内容' : 'Skip to main cont
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
-    <meta name="theme-color" content="#f4f6f4" media="(prefers-color-scheme: light)" />
-    <meta name="theme-color" content="#101312" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f4f7f5" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b110e" media="(prefers-color-scheme: dark)" />
     <meta name="description" content={description} />
     <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
     <meta name="author" content={author} />
@@ -86,6 +87,7 @@ const skipLabel = locale === 'zh-CN' ? '跳到主要内容' : 'Skip to main cont
         const saved = localStorage.getItem('weapp-theme')
         const preferred = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
         document.documentElement.dataset.theme = saved === 'dark' || saved === 'light' ? saved : preferred
+        document.documentElement.dataset.motion = 'ready'
       })()
     </script>
   </head>
@@ -102,6 +104,21 @@ const skipLabel = locale === 'zh-CN' ? '跳到主要内容' : 'Skip to main cont
           button.setAttribute('aria-pressed', String(next === 'dark'))
         })
       })
+
+      const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches
+      const revealItems = document.querySelectorAll('[data-reveal]')
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        revealItems.forEach((item) => item.setAttribute('data-visible', ''))
+      } else {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return
+            entry.target.setAttribute('data-visible', '')
+            observer.unobserve(entry.target)
+          })
+        }, { threshold: 0.14, rootMargin: '0px 0px -4% 0px' })
+        revealItems.forEach((item) => revealObserver.observe(item))
+      }
     </script>
     <script>
       import { initAnalytics } from '../scripts/analytics'

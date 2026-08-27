@@ -13,6 +13,28 @@
   "logo": "/brands/weapp-vite.svg",
   "accent": "#2ba245",
   "platforms": ["WeChat", "Alipay", "Douyin", "Baidu", "Kuaishou", "Web"],
+  "visuals": {
+    "primary": {
+      "src": "/media/projects/vite-components.webp",
+      "avif": "/media/projects/vite-components.avif",
+      "width": 780,
+      "height": 1506,
+      "locales": {
+        "zh-CN": { "alt": "weapp-vite Web runtime 基础组件视觉矩阵", "caption": "同一份 WXML、WXSS 与页面状态在 Web runtime 中运行。" },
+        "en": { "alt": "weapp-vite Web runtime component matrix", "caption": "The same WXML, WXSS, and page state running in the Web runtime." }
+      }
+    },
+    "secondary": {
+      "src": "/media/projects/vite-shell.webp",
+      "avif": "/media/projects/vite-shell.avif",
+      "width": 780,
+      "height": 1342,
+      "locales": {
+        "zh-CN": { "alt": "weapp-vite Web runtime 页面栈与 Tab Bar 工作台", "caption": "页面栈、设备视口与底部安全区共享同一运行边界。" },
+        "en": { "alt": "weapp-vite Web runtime page stack and tab bar workbench", "caption": "Page stack, device viewport, and bottom safe area share one runtime boundary." }
+      }
+    }
+  },
   "locales": {
     "zh-CN": {
       "name": "weapp-vite",

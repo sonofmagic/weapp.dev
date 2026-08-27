@@ -25,6 +25,13 @@ export interface ProjectDefinition {
   logo: string
   accent: string
   platforms: string[]
+  visuals: Record<'primary' | 'secondary', {
+    src: string
+    avif: string
+    width: number
+    height: number
+    locales: Record<Locale, { alt: string, caption: string }>
+  }>
   locales: Record<Locale, LocalizedProjectContent>
 }
 

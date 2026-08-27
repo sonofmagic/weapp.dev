@@ -1,24 +1,10 @@
 ---
-import { ArrowRight, ArrowUpRight, BadgeCheck, BookOpen, Boxes, GitFork, Layers, Split } from '@lucide/astro'
+import { ArrowRight, ArrowUpRight, BadgeCheck, BookOpen, Boxes, GitFork, Layers2, Package, ScanLine, ShieldCheck } from '@lucide/astro'
 import type { Locale, ProjectMetricsMap } from '../types/project'
 import type { ProjectEntry } from '../lib/projects'
 import { formatCompactNumber, formatReleaseDate } from '../lib/metrics'
 import { localizePath, projectPath, siteCopy } from '../i18n/ui'
-import {
-  buttonPrimary,
-  buttonSecondary,
-  compactSectionHeading,
-  eyebrow,
-  iconControl,
-  platformPill,
-  projectTone,
-  section,
-  sectionDescription,
-  sectionHeading,
-  sectionTitle,
-  shell,
-} from '../styles/classes'
-import EcosystemVisual from './EcosystemVisual.astro'
+import { buttonPrimary, buttonSecondary, iconControl, projectTone, section, shell } from '../styles/classes'
 
 interface Props {
   locale: Locale
@@ -29,19 +15,17 @@ interface Props {
 const { locale, projects, metrics } = Astro.props
 const copy = siteCopy[locale]
 const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
-const buttonRow = 'flex flex-wrap items-center gap-3'
-const projectStatus = `mb-3 flex items-center gap-[7px] font-mono text-xs font-bold uppercase ${projectTone}`
-const orbitPill = 'absolute rounded-md bg-panel-raised px-2.5 py-[7px] font-mono text-[11px] text-ink'
-const orbitPositions = ['top-2 left-[92px]', 'top-[104px] -left-[18px]', 'right-[-8px] bottom-[88px]', 'bottom-[13px] left-[104px]']
+const stepIcons = [Layers2, ScanLine, Package]
+const principleIcons = [Layers2, ShieldCheck, BadgeCheck]
 ---
 
 <main id="main-content">
-  <section class:list={[shell, 'grid min-h-[min(680px,calc(100dvh-128px))] grid-cols-[.82fr_1.18fr] items-center gap-16 pt-14 pb-[72px] max-[960px]:min-h-0 max-[960px]:grid-cols-1 max-[960px]:gap-[42px] max-[960px]:pt-16 max-[960px]:pb-[88px] max-[720px]:gap-[38px] max-[720px]:pt-[50px] max-[720px]:pb-[76px]']}>
-    <div class="motion-safe:animate-reveal-up max-w-[540px] max-[960px]:max-w-[680px]">
-      <p class={eyebrow}>{copy.hero.eyebrow}</p>
-      <h1 class="mb-[22px] text-[76px] font-[740] max-[720px]:mb-[18px] max-[720px]:text-5xl">{copy.hero.title}</h1>
-      <p class="mb-[30px] max-w-[470px] text-xl leading-normal text-copy-muted max-[720px]:text-lg">{copy.hero.description}</p>
-      <div class={buttonRow}>
+  <section class:list={[shell, 'grid min-h-[min(690px,calc(100dvh-110px))] grid-cols-[.82fr_1.18fr] items-center gap-10 py-10 max-[760px]:min-h-0 max-[760px]:grid-cols-1 max-[760px]:gap-6 max-[720px]:py-8']}>
+    <div data-reveal class="relative z-10 max-w-[570px]">
+      <p class="mb-4 font-mono text-xs font-[650] text-brand">{copy.hero.eyebrow}</p>
+      <h1 class="mb-5 font-display text-[clamp(52px,6vw,78px)] font-[720] leading-[.98]">{copy.hero.title}</h1>
+      <p class="mb-8 max-w-[520px] text-xl leading-[1.5] text-copy-muted max-[720px]:text-lg">{copy.hero.description}</p>
+      <div class="flex flex-wrap items-center gap-3">
         <a class={buttonPrimary} href={`${localizePath(locale)}#projects`} data-analytics-event="navigate_section" data-analytics-section="projects">
           {copy.hero.primary}
           <ArrowRight size={18} stroke-width={1.9} aria-hidden="true" />
@@ -52,66 +36,98 @@ const orbitPositions = ['top-2 left-[92px]', 'top-[104px] -left-[18px]', 'right-
         </a>
       </div>
     </div>
-    <EcosystemVisual label={copy.hero.visualLabel} />
+
+    <figure data-reveal style="--reveal-delay: 100ms" class="relative m-0 aspect-[16/11] overflow-hidden rounded-panel border border-[rgb(255_255_255_/_12%)] bg-[#07110d] shadow-panel max-[760px]:h-[210px] max-[760px]:aspect-auto">
+      <picture class="absolute inset-0">
+        <source srcset="/media/brand/build-lens.avif" type="image/avif" />
+        <img class="size-full object-cover" src="/media/brand/build-lens.webp" width="1600" height="1100" alt="" fetchpriority="high" />
+      </picture>
+      <div class="absolute inset-0 bg-[linear-gradient(90deg,rgb(5_13_9_/_12%),transparent_54%,rgb(5_13_9_/_18%))]" aria-hidden="true"></div>
+      <div class="absolute top-5 left-5 flex items-center gap-2.5">
+        {projects.map(project => <img class="size-8 object-contain drop-shadow-md" src={project.data.logo} width="32" height="32" alt="" />)}
+      </div>
+      <picture class="absolute top-5 right-5 w-[46%] overflow-hidden rounded-[6px] border border-[rgb(255_255_255_/_18%)] shadow-panel max-[760px]:hidden">
+        <source srcset="/media/projects/tailwind-weapp.avif" type="image/avif" />
+        <img class="aspect-[16/10] w-full object-cover object-top" src="/media/projects/tailwind-weapp.webp" width="1280" height="916" alt="" />
+      </picture>
+      <pre class="absolute right-5 bottom-5 left-[15%] m-0 overflow-hidden rounded-[6px] border border-[rgb(255_255_255_/_16%)] bg-[rgb(5_13_9_/_84%)] p-4 text-[11px] leading-[1.65] text-[#d6e8df] backdrop-blur-md max-[760px]:right-4 max-[760px]:bottom-4 max-[760px]:left-4 max-[760px]:p-3"><code><span class="text-[#79d0ae]">plugins</span>: [
+  WeappTailwindcss(),
+  weapp(&#123; platform: 'weapp' &#125;)
+]</code></pre>
+      <figcaption class="sr-only">{copy.hero.visualLabel}</figcaption>
+    </figure>
   </section>
 
-  <section class:list={[section, shell]} id="about">
-    <header class={sectionHeading}>
-      <p class={eyebrow}>{copy.about.eyebrow}</p>
-      <h2 class={sectionTitle}>{copy.about.title}</h2>
-      <p class={sectionDescription}>{copy.about.description}</p>
-    </header>
-    <dl class="m-0 grid grid-cols-3 gap-3.5 max-[720px]:grid-cols-1">
-      {copy.about.items.map(item => (
-        <div class="rounded-panel border border-line bg-panel-raised p-[26px]">
-          <dt class="mb-3 text-lg font-[680]">{item.title}</dt>
-          <dd class="m-0 leading-[1.7] text-copy-muted">{item.body}</dd>
-        </div>
-      ))}
-    </dl>
+  <section class="border-y border-line bg-panel" id="about">
+    <div class:list={[section, shell]}>
+      <header data-reveal class="mb-12 max-w-[720px]">
+        <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{copy.about.title}</h2>
+        <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.about.description}</p>
+      </header>
+      <ol class="m-0 grid list-none grid-cols-3 gap-0 border-y border-line p-0 max-[720px]:grid-cols-1 max-[720px]:border-b-0">
+        {copy.about.items.map((item, index) => {
+          const Icon = stepIcons[index]
+          return (
+            <li data-reveal style={`--reveal-delay: ${index * 70}ms`} class="relative min-h-[230px] border-r border-line px-7 py-8 last:border-r-0 max-[720px]:min-h-0 max-[720px]:border-r-0 max-[720px]:border-b max-[720px]:px-0">
+              <div class="mb-10 flex items-center justify-between">
+                <Icon class="text-brand" size={25} stroke-width={1.65} aria-hidden="true" />
+                <span class="font-mono text-xs text-copy-muted">{String(index + 1).padStart(2, '0')}</span>
+              </div>
+              <h3 class="mb-3 text-2xl font-[660]">{item.title}</h3>
+              <p class="mb-0 max-w-[340px] text-copy-muted">{item.body}</p>
+            </li>
+          )
+        })}
+      </ol>
+    </div>
   </section>
 
   <section class:list={[section, shell]} id="projects">
-    <header class={sectionHeading}>
-      <p class={eyebrow}>{copy.projects.eyebrow}</p>
-      <h2 class={sectionTitle}>{copy.projects.title}</h2>
-      <p class={sectionDescription}>{copy.projects.description}</p>
+    <header data-reveal class="mb-14 max-w-[720px]">
+      <p class="mb-3 font-mono text-xs font-[650] text-brand">{copy.projects.eyebrow}</p>
+      <h2 class="mb-4 text-[48px] font-[680] max-[720px]:text-[35px]">{copy.projects.title}</h2>
+      <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.projects.description}</p>
     </header>
-    <div class="border-t border-line">
+
+    <div class="grid gap-20 max-[720px]:gap-14">
       {projects.map((project, index) => {
         const content = project.data.locales[locale]
         const projectMetrics = metrics[project.id]
+        const visual = project.data.visuals.primary
+        const visualCopy = visual.locales[locale]
         return (
-          <article class="grid min-h-[480px] grid-cols-[.42fr_1fr] border-b border-line max-[960px]:grid-cols-[.36fr_.64fr] max-[720px]:grid-cols-1" style={`--project-accent: ${project.data.accent}`}>
-            <div class="relative grid place-items-center overflow-hidden bg-[color-mix(in_srgb,var(--project-accent)_12%,var(--surface))] max-[720px]:min-h-[280px]">
-              <span class:list={['absolute top-[18px] left-[18px] font-mono text-[13px] font-bold', projectTone]} aria-hidden="true">0{index + 1}</span>
-              <div class="grid aspect-square w-[230px] place-items-center rounded-full bg-[color-mix(in_srgb,var(--surface-raised)_84%,transparent)] max-[960px]:w-[180px] max-[720px]:w-[190px]">
-                <img class="size-[136px] object-contain" src={project.data.logo} width="180" height="180" alt={`${content.name} logo`} />
+          <article data-reveal class:list={['grid items-center gap-14 max-[960px]:gap-9', index === 0 ? 'grid-cols-[1.12fr_.88fr] max-[800px]:grid-cols-1' : 'grid-cols-[.82fr_1.18fr] max-[800px]:grid-cols-1']} style={`--project-accent: ${project.data.accent}`}>
+            <figure class:list={['relative m-0 overflow-hidden rounded-panel border border-line bg-panel-soft', index === 1 ? 'order-2 max-[800px]:order-none' : '']}>
+              <div class="aspect-[16/11] overflow-hidden">
+                <picture>
+                  <source srcset={visual.avif} type="image/avif" />
+                  <img class="size-full object-cover object-top" src={visual.src} width={visual.width} height={visual.height} alt={visualCopy.alt} loading="lazy" />
+                </picture>
               </div>
-            </div>
-            <div class="flex flex-col justify-center px-[68px] py-16 max-[960px]:px-10 max-[960px]:py-12 max-[720px]:px-5 max-[720px]:pt-[38px] max-[720px]:pb-[52px]">
-              <div class="flex items-start justify-between gap-6">
-                <div>
-                  <p class={projectStatus}><BadgeCheck size={16} stroke-width={1.9} aria-hidden="true" /> {copy.projects.status[project.data.status]}</p>
-                  <h3 class="mb-4 text-4xl max-[720px]:text-[29px]">{content.name}</h3>
-                </div>
-                <div class="font-mono text-sm text-copy-muted">v{projectMetrics.version}</div>
+              <figcaption class="border-t border-line bg-panel px-4 py-3 text-xs text-copy-muted">{visualCopy.caption}</figcaption>
+            </figure>
+
+            <div class:list={[index === 1 ? 'order-1 max-[800px]:order-none' : '']}>
+              <div class="mb-5 flex items-center gap-3">
+                <img class="size-12 object-contain" src={project.data.logo} width="48" height="48" alt="" />
+                <span class:list={['inline-flex items-center gap-1.5 font-mono text-xs font-[650]', projectTone]}>
+                  <BadgeCheck size={15} stroke-width={1.8} aria-hidden="true" />
+                  {copy.projects.status[project.data.status]}
+                </span>
               </div>
-              <p class="mb-3 text-xl font-[620] max-[720px]:text-lg">{content.tagline}</p>
-              <p class="mb-6 max-w-[690px] text-copy-muted">{content.description}</p>
-              <div class="flex flex-wrap gap-2" aria-label={copy.project.platforms}>
-                {project.data.platforms.slice(0, 5).map(platform => <span class={platformPill}>{platform}</span>)}
-              </div>
-              <dl class="my-[30px] flex gap-9">
-                <div class="grid gap-0.5"><dt class="text-xs text-copy-muted">{copy.projects.weeklyDownloads}</dt><dd class="m-0 font-mono text-[19px] font-[720]">{formatCompactNumber(projectMetrics.weeklyDownloads, numberLocale)}</dd></div>
-                <div class="grid gap-0.5"><dt class="text-xs text-copy-muted">{copy.projects.stars}</dt><dd class="m-0 font-mono text-[19px] font-[720]">{formatCompactNumber(projectMetrics.stars, numberLocale)}</dd></div>
+              <h3 class="mb-4 text-[38px] font-[680] [overflow-wrap:anywhere] max-[720px]:text-[30px]">{content.name}</h3>
+              <p class="mb-3 text-xl font-[620]">{content.tagline}</p>
+              <p class="mb-6 max-w-[590px] text-copy-muted">{content.description}</p>
+              <dl class="mb-7 grid grid-cols-2 gap-8 border-y border-line py-5">
+                <div><dt class="mb-1 text-xs text-copy-muted">{copy.projects.weeklyDownloads}</dt><dd class="m-0 font-mono text-xl font-[700]">{formatCompactNumber(projectMetrics.weeklyDownloads, numberLocale)}</dd></div>
+                <div><dt class="mb-1 text-xs text-copy-muted">{copy.projects.stars}</dt><dd class="m-0 font-mono text-xl font-[700]">{formatCompactNumber(projectMetrics.stars, numberLocale)}</dd></div>
               </dl>
-              <div class={buttonRow}>
+              <div class="flex flex-wrap items-center gap-3">
                 <a class={buttonPrimary} href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="docs" data-analytics-project={project.id}>
                   <BookOpen size={18} stroke-width={1.9} aria-hidden="true" />
                   {copy.projects.documentation}
                 </a>
-                <a class="inline-flex min-h-[42px] items-center gap-[7px] px-[5px] text-sm font-[680] text-ink hover:text-brand" href={projectPath(locale, project.id)} data-analytics-event="select_project" data-analytics-project={project.id}>
+                <a class={buttonSecondary} href={projectPath(locale, project.id)} data-analytics-event="select_project" data-analytics-project={project.id}>
                   {copy.projects.details}
                   <ArrowRight size={17} stroke-width={1.9} aria-hidden="true" />
                 </a>
@@ -123,34 +139,20 @@ const orbitPositions = ['top-2 left-[92px]', 'top-[104px] -left-[18px]', 'right-
     </div>
   </section>
 
-  <section class:list={[section, 'border-y border-line bg-panel']} id="principles">
-    <div class={shell}>
-      <header class={compactSectionHeading}>
-        <p class={eyebrow}>{copy.principles.eyebrow}</p>
-        <h2 class={sectionTitle}>{copy.principles.title}</h2>
-        <p class={sectionDescription}>{copy.principles.description}</p>
+  <section class="border-y border-line bg-panel-soft" id="principles">
+    <div class:list={[section, shell, 'grid grid-cols-[.72fr_1.28fr] gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10']}>
+      <header data-reveal class="max-w-[470px]">
+        <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{copy.principles.title}</h2>
+        <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.principles.description}</p>
       </header>
-      <div class="grid grid-cols-[1.55fr_1fr] grid-rows-2 gap-3.5 max-[720px]:grid-cols-1 max-[720px]:grid-rows-none">
+      <div class="grid grid-cols-2 gap-px overflow-hidden rounded-panel border border-line bg-line max-[620px]:grid-cols-1">
         {copy.principles.items.map((item, index) => {
-          const icons = [Layers, Split, BadgeCheck]
-          const Icon = icons[index]
+          const Icon = principleIcons[index]
           return (
-            <article class:list={[
-              'relative min-h-[210px] overflow-hidden rounded-panel border border-line p-[30px]',
-              index === 0
-                ? 'row-span-2 min-h-[438px] bg-panel-strong max-[720px]:row-auto max-[720px]:min-h-[360px]'
-                : 'bg-panel-raised',
-            ]}>
-              <Icon class="mb-[34px] text-brand" size={28} stroke-width={1.6} aria-hidden="true" />
-              <h3 class="mb-2.5 text-[23px]">{item.title}</h3>
-              <p class="mb-0 max-w-[420px] text-copy-muted">{item.body}</p>
-              {index === 0 && (
-                <div class="absolute right-[-54px] bottom-[-54px] size-[280px] rounded-full border border-[color-mix(in_srgb,var(--accent)_42%,var(--border))]" aria-hidden="true">
-                  {['WeChat', 'Alipay', 'Douyin', 'Web'].map((platform, platformIndex) => (
-                    <span class:list={[orbitPill, orbitPositions[platformIndex]]}>{platform}</span>
-                  ))}
-                </div>
-              )}
+            <article data-reveal style={`--reveal-delay: ${index * 70}ms`} class:list={['bg-panel p-7', index === 0 ? 'row-span-2 min-h-[330px] max-[620px]:row-auto max-[620px]:min-h-0' : 'min-h-[164px]']}>
+              <Icon class="mb-8 text-brand" size={25} stroke-width={1.6} aria-hidden="true" />
+              <h3 class="mb-2 text-xl font-[650]">{item.title}</h3>
+              <p class="mb-0 text-sm leading-[1.7] text-copy-muted">{item.body}</p>
             </article>
           )
         })}
@@ -158,41 +160,44 @@ const orbitPositions = ['top-2 left-[92px]', 'top-[104px] -left-[18px]', 'right-
     </div>
   </section>
 
-  <section class:list={[section, shell, 'grid grid-cols-[.82fr_1.18fr] items-start gap-[72px] max-[960px]:grid-cols-1 max-[960px]:gap-0']} id="releases">
-    <header class={compactSectionHeading}>
-      <p class={eyebrow}>{copy.releases.eyebrow}</p>
-      <h2 class={sectionTitle}>{copy.releases.title}</h2>
-      <p class={sectionDescription}>{copy.releases.description}</p>
-    </header>
-    <div class="border-t border-line">
-      {projects.map(project => {
-        const projectMetrics = metrics[project.id]
-        return (
-          <article class="grid min-h-[104px] grid-cols-[44px_1fr_auto_40px] items-center gap-4 border-b border-line max-[720px]:grid-cols-[38px_1fr_auto] max-[720px]:gap-3">
-            <img class="size-[42px] object-contain max-[720px]:size-9" src={project.data.logo} width="42" height="42" alt="" />
-            <div>
-              <h3 class="mb-1 text-base">{project.data.locales[locale].name}</h3>
-              <p class="mb-0 text-xs text-copy-muted">{copy.releases.released} {formatReleaseDate(projectMetrics.releasedAt, numberLocale)}</p>
-            </div>
-            <strong class="font-mono text-sm">v{projectMetrics.version}</strong>
-            <a class:list={[iconControl, 'max-[720px]:hidden']} href={`https://www.npmjs.com/package/${project.data.packageName}`} aria-label={`${copy.releases.viewPackage}: ${project.data.packageName}`} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="package" data-analytics-project={project.id}>
-              <ArrowUpRight size={19} stroke-width={1.8} aria-hidden="true" />
-            </a>
-          </article>
-        )
-      })}
+  <section class:list={[section, shell]} id="releases">
+    <div class="grid grid-cols-[.75fr_1.25fr] gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10">
+      <header data-reveal class="max-w-[470px]">
+        <p class="mb-3 font-mono text-xs font-[650] text-brand">{copy.releases.eyebrow}</p>
+        <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{copy.releases.title}</h2>
+        <p class="mb-0 text-copy-muted">{copy.releases.description}</p>
+      </header>
+      <div data-reveal class="border-t border-line">
+        {projects.map(project => {
+          const projectMetrics = metrics[project.id]
+          return (
+            <article class="grid min-h-[112px] grid-cols-[48px_1fr_auto_42px] items-center gap-4 border-b border-line max-[520px]:grid-cols-[42px_1fr_auto]">
+              <img class="size-11 object-contain max-[520px]:size-9" src={project.data.logo} width="44" height="44" alt="" />
+              <div>
+                <h3 class="mb-1 text-base font-[650]">{project.data.locales[locale].name}</h3>
+                <p class="mb-0 text-xs text-copy-muted">{copy.releases.released} {formatReleaseDate(projectMetrics.releasedAt, numberLocale)}</p>
+              </div>
+              <strong class="font-mono text-sm">v{projectMetrics.version}</strong>
+              <a class:list={[iconControl, 'max-[520px]:hidden']} href={`https://www.npmjs.com/package/${project.data.packageName}`} aria-label={`${copy.releases.viewPackage}: ${project.data.packageName}`} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="package" data-analytics-project={project.id}>
+                <ArrowUpRight size={19} stroke-width={1.8} aria-hidden="true" />
+              </a>
+            </article>
+          )
+        })}
+      </div>
     </div>
   </section>
 
-  <section class="border-y border-line bg-panel-strong py-[72px] max-[720px]:py-[60px]">
-    <div class:list={[shell, 'grid grid-cols-[90px_1fr_auto] items-center gap-9 max-[960px]:grid-cols-[72px_1fr] max-[720px]:grid-cols-1 max-[720px]:gap-6']}>
-      <div class="grid aspect-square w-[90px] place-items-center rounded-panel border border-line bg-panel-raised text-brand max-[960px]:w-[72px]" aria-hidden="true"><Boxes size={46} stroke-width={1.35} /></div>
+  <section class="border-y border-line bg-panel">
+    <div data-reveal class:list={[shell, 'grid min-h-[260px] grid-cols-[72px_1fr_auto] items-center gap-8 py-12 max-[820px]:grid-cols-[58px_1fr] max-[620px]:grid-cols-1']}>
+      <span class="grid size-[72px] place-items-center rounded-panel border border-line bg-panel-soft text-brand max-[820px]:size-[58px]" aria-hidden="true">
+        <Boxes size={34} stroke-width={1.5} />
+      </span>
       <div>
-        <p class={eyebrow}>{copy.maintainer.eyebrow}</p>
-        <h2 class="mb-3 text-[34px] font-[710] max-[720px]:text-[34px]">{copy.maintainer.title}</h2>
-        <p class="mb-0 max-w-[620px] text-lg text-copy-muted max-[720px]:text-base">{copy.maintainer.description}</p>
+        <h2 class="mb-3 text-[34px] font-[670] max-[620px]:text-[30px]">{copy.maintainer.title}</h2>
+        <p class="mb-0 max-w-[650px] text-copy-muted">{copy.maintainer.description}</p>
       </div>
-      <a class:list={[buttonSecondary, 'max-[960px]:col-start-2 max-[960px]:w-fit max-[720px]:col-auto']} href="https://github.com/sonofmagic" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="maintainer">
+      <a class:list={[buttonSecondary, 'max-[820px]:col-start-2 max-[820px]:w-fit max-[620px]:col-auto']} href="https://github.com/sonofmagic" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="maintainer">
         <GitFork size={18} stroke-width={1.9} aria-hidden="true" />
         {copy.maintainer.action}
       </a>

@@ -10,15 +10,15 @@ import { organizationSchema, projectListSchema, websiteSchema } from '../lib/seo
 const locale = 'zh-CN' as const
 const projects = await getProjects()
 const metrics = await loadProjectMetrics()
-const title = 'weapp.dev | 小程序开源工具栈'
-const description = '面向小程序开发的开源工具栈，汇集 weapp-tailwindcss、weapp-vite 及后续生态项目。'
+const title = 'weapp.dev | 小程序样式与构建工具链'
+const description = '面向真实小程序工程的开放工具链，用 weapp-tailwindcss 管理跨端样式，用 weapp-vite 驱动开发、构建与运行验证。'
 ---
 
 <BaseLayout
   locale={locale}
   title={title}
   description={description}
-  imageAlt="weapp.dev 小程序开源工具栈"
+  imageAlt="weapp.dev 小程序样式与构建工具链"
   schemas={[organizationSchema(projects), websiteSchema(locale), projectListSchema(locale, projects)]}
 >
   <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />

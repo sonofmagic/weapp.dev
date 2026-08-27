@@ -1,21 +1,10 @@
 ---
-import { ArrowLeft, ArrowUpRight, BookOpen, GitFork, Package, Star } from '@lucide/astro'
+import { ArrowLeft, ArrowUpRight, BookOpen, Check, ChevronDown, Copy, GitFork, Package, Star } from '@lucide/astro'
 import type { Locale, ProjectMetrics } from '../types/project'
 import type { ProjectEntry } from '../lib/projects'
 import { formatCompactNumber, formatReleaseDate } from '../lib/metrics'
 import { localizePath, siteCopy } from '../i18n/ui'
-import {
-  buttonPrimary,
-  buttonSecondary,
-  eyebrow,
-  iconControl,
-  platformPill,
-  projectTone,
-  section,
-  sectionHeading,
-  sectionTitle,
-  shell,
-} from '../styles/classes'
+import { buttonPrimary, buttonSecondary, iconControl, platformPill, projectTone, section, shell } from '../styles/classes'
 
 interface Props {
   locale: Locale
@@ -27,19 +16,29 @@ const { locale, project, metrics } = Astro.props
 const copy = siteCopy[locale]
 const content = project.data.locales[locale]
 const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
+const primaryVisual = project.data.visuals.primary
+const primaryVisualCopy = primaryVisual.locales[locale]
+const secondaryVisual = project.data.visuals.secondary
+const secondaryVisualCopy = secondaryVisual.locales[locale]
 ---
 
 <main id="main-content" style={`--project-accent: ${project.data.accent}`}>
-  <section class:list={[shell, 'grid min-h-[650px] grid-cols-[1fr_.72fr] items-center gap-[72px] pt-16 pb-[78px] max-[960px]:grid-cols-1 max-[960px]:gap-[42px] max-[720px]:min-h-0 max-[720px]:pt-11 max-[720px]:pb-[72px]']}>
-    <div>
-      <a class="mb-12 inline-flex items-center gap-[7px] text-[13px] font-[620] text-copy-muted hover:text-ink max-[720px]:mb-9" href={`${localizePath(locale)}#projects`} data-analytics-event="navigate_section" data-analytics-section="projects">
+  <section class:list={[shell, 'grid min-h-[min(690px,calc(100dvh-100px))] grid-cols-[.92fr_1.08fr] items-center gap-12 py-10 max-[820px]:min-h-0 max-[820px]:grid-cols-1 max-[820px]:gap-8 max-[720px]:py-8']}>
+    <div data-reveal>
+      <a class="mb-10 inline-flex items-center gap-2 text-sm font-[620] text-copy-muted transition-colors hover:text-ink max-[720px]:mb-8" href={`${localizePath(locale)}#projects`} data-analytics-event="navigate_section" data-analytics-section="projects">
         <ArrowLeft size={17} stroke-width={1.9} aria-hidden="true" />
         {copy.project.back}
       </a>
-      <p class:list={['mb-3 font-mono text-xs font-bold uppercase', projectTone]}>{copy.projects.status[project.data.status]}</p>
-      <h1 class="mb-[18px] text-[62px] [overflow-wrap:anywhere] max-[720px]:text-[42px]">{content.name}</h1>
-      <p class="mb-3.5 text-2xl font-[630] max-[720px]:text-xl">{content.tagline}</p>
-      <p class="mb-[30px] max-w-[620px] text-[17px] text-copy-muted">{content.description}</p>
+      <div class="mb-5 flex items-center gap-3">
+        <img class="size-12 object-contain" src={project.data.logo} width="48" height="48" alt="" />
+        <span class:list={['inline-flex items-center gap-1.5 font-mono text-xs font-[650]', projectTone]}>
+          <Check size={15} stroke-width={2} aria-hidden="true" />
+          {copy.projects.status[project.data.status]}
+        </span>
+      </div>
+      <h1 class="mb-5 text-[clamp(43px,5.4vw,68px)] font-[700] [overflow-wrap:anywhere]">{content.name}</h1>
+      <p class="mb-3 text-2xl font-[620] leading-[1.35] max-[720px]:text-xl">{content.tagline}</p>
+      <p class="mb-8 max-w-[630px] text-[17px] leading-[1.7] text-copy-muted">{content.description}</p>
       <div class="flex flex-wrap items-center gap-3">
         <a class={buttonPrimary} href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="docs" data-analytics-project={project.id}>
           <BookOpen size={18} stroke-width={1.9} aria-hidden="true" />
@@ -55,74 +54,161 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
         </a>
       </div>
     </div>
-    <div class="grid min-h-[430px] place-items-center rounded-panel border border-line bg-[color-mix(in_srgb,var(--project-accent)_12%,var(--surface))] p-12 max-[720px]:min-h-[340px] max-[720px]:p-[34px]">
-      <img class="size-[210px] object-contain max-[720px]:size-40" src={project.data.logo} width="180" height="180" alt={`${content.name} logo`} />
-      <code class="self-end rounded-md bg-panel-raised px-[11px] py-2 text-xs text-copy-muted">{project.data.packageName}</code>
-    </div>
-  </section>
 
-  <section class:list={[section, shell, 'grid grid-cols-[.82fr_1.18fr] gap-[72px] max-[960px]:grid-cols-1 max-[960px]:gap-12']}>
-    <div>
-      <h2 class="mb-4 text-[28px]">{copy.project.audience}</h2>
-      <p class="mb-8 max-w-[620px] leading-[1.75] text-copy-muted">{content.audience}</p>
-      <h2 class="mb-4 text-[28px]">{copy.project.install}</h2>
-      <pre class="m-0 overflow-x-auto rounded-panel border border-line bg-panel-strong p-5 text-sm"><code>{project.data.installCommand}</code></pre>
-    </div>
-    <div>
-      <h2 class="mb-4 text-[28px]">{copy.project.useCases}</h2>
-      <ul class="m-0 grid list-disc gap-3 pl-5 leading-[1.7] text-copy-muted">
-        {content.useCases.map(useCase => <li>{useCase}</li>)}
-      </ul>
-    </div>
+    <figure data-reveal style="--reveal-delay: 100ms" class="m-0 overflow-hidden rounded-panel border border-line bg-panel-soft">
+      <div class="aspect-[16/11] overflow-hidden">
+        <picture>
+          <source srcset={primaryVisual.avif} type="image/avif" />
+          <img class="size-full object-cover object-top" src={primaryVisual.src} width={primaryVisual.width} height={primaryVisual.height} alt={primaryVisualCopy.alt} fetchpriority="high" />
+        </picture>
+      </div>
+      <figcaption class="border-t border-line px-4 py-3 text-sm text-copy-muted">{primaryVisualCopy.caption}</figcaption>
+    </figure>
   </section>
 
   <section class="border-y border-line bg-panel">
-    <div class:list={[shell, 'grid grid-cols-3 max-[720px]:grid-cols-1']}>
-      <div class="relative grid min-h-[154px] border-x border-line p-[30px] max-[720px]:min-h-[126px] max-[720px]:border-b"><span class="text-xs text-copy-muted">{copy.project.version}</span><strong class="self-center font-mono text-[29px]">v{metrics.version}</strong><small class="text-xs text-copy-muted">{formatReleaseDate(metrics.releasedAt, numberLocale)}</small></div>
-      <div class="relative grid min-h-[154px] border-r border-line p-[30px] max-[720px]:min-h-[126px] max-[720px]:border-l max-[720px]:border-b"><span class="text-xs text-copy-muted">{copy.project.downloads}</span><strong class="self-center font-mono text-[29px]">{formatCompactNumber(metrics.weeklyDownloads, numberLocale)}</strong><Package class="absolute right-[26px] bottom-[27px] text-brand" size={21} stroke-width={1.7} aria-hidden="true" /></div>
-      <div class="relative grid min-h-[154px] border-r border-line p-[30px] max-[720px]:min-h-[126px] max-[720px]:border-l"><span class="text-xs text-copy-muted">{copy.project.stars}</span><strong class="self-center font-mono text-[29px]">{formatCompactNumber(metrics.stars, numberLocale)}</strong><Star class="absolute right-[26px] bottom-[27px] text-brand" size={21} stroke-width={1.7} aria-hidden="true" /></div>
-    </div>
-  </section>
-
-  <section class:list={[section, shell, 'grid grid-cols-[1.2fr_.8fr] gap-[84px] max-[720px]:grid-cols-1 max-[720px]:gap-[58px]']}>
-    <div>
-      <h2 class="mb-[26px] text-[28px]">{copy.project.capabilities}</h2>
-      <ul class="m-0 grid list-none grid-cols-2 gap-3 p-0 max-[720px]:grid-cols-1">
-        {content.capabilities.map(capability => (
-          <li class="min-h-[98px] rounded-panel border border-line bg-panel-raised p-[22px] font-[620]">{capability}</li>
-        ))}
-      </ul>
-    </div>
-    <div>
-      <h2 class="mb-[26px] text-[28px]">{copy.project.platforms}</h2>
-      <div class="flex content-start flex-wrap gap-2">
-        {project.data.platforms.map(platform => <span class:list={[platformPill, 'px-[13px] py-2.5 text-[13px]']}>{platform}</span>)}
+    <div class:list={[shell, 'grid grid-cols-[.9fr_1.1fr] items-center gap-12 py-10 max-[800px]:grid-cols-1 max-[800px]:gap-7']}>
+      <div data-reveal>
+        <h2 class="mb-3 text-2xl font-[660]">{copy.project.install}</h2>
+        <p class="mb-0 text-sm text-copy-muted">{content.audience}</p>
+      </div>
+      <div data-reveal class="grid grid-cols-[1fr_auto] overflow-hidden rounded-panel border border-line bg-canvas">
+        <pre class="m-0 min-w-0 overflow-x-auto px-5 py-4 text-sm"><code>{project.data.installCommand}</code></pre>
+        <button
+          class="inline-flex min-w-[116px] items-center justify-center gap-2 border-l border-line bg-panel-soft px-4 text-sm font-[650] transition-colors hover:bg-panel-strong max-[480px]:min-w-11 max-[480px]:px-3"
+          type="button"
+          data-copy-command={project.data.installCommand}
+          data-copy-label={copy.project.copyInstall}
+          data-copied-label={copy.project.copied}
+          aria-label={copy.project.copyInstall}
+        >
+          <Copy data-copy-icon size={17} stroke-width={1.9} aria-hidden="true" />
+          <Check data-copied-icon class="hidden" size={17} stroke-width={2} aria-hidden="true" />
+          <span data-copy-text class="max-[480px]:sr-only">{copy.project.copyInstall}</span>
+        </button>
       </div>
     </div>
   </section>
 
   <section class:list={[section, shell]}>
-    <header class={sectionHeading}>
-      <h2 class={sectionTitle}>{copy.project.faq}</h2>
+    <header data-reveal class="mb-10 max-w-[700px]">
+      <h2 class="mb-4 text-[42px] font-[680] max-[720px]:text-[33px]">{copy.project.visualProof}</h2>
+      <p class="mb-0 text-copy-muted">{copy.project.visualProofDescription}</p>
     </header>
-    <dl class="m-0 border-t border-line">
-      {content.faqs.map(faq => (
-        <div class="border-b border-line py-6">
-          <dt class="mb-2 text-lg font-[680]">{faq.question}</dt>
-          <dd class="m-0 max-w-[820px] leading-[1.75] text-copy-muted">{faq.answer}</dd>
+    <div class="grid grid-cols-[1.12fr_.88fr] items-start gap-5 max-[720px]:grid-cols-1">
+      <figure data-reveal class="m-0 overflow-hidden rounded-panel border border-line bg-panel">
+        <div class="aspect-[16/11] overflow-hidden">
+          <picture>
+            <source srcset={primaryVisual.avif} type="image/avif" />
+            <img class="size-full object-cover object-top" src={primaryVisual.src} width={primaryVisual.width} height={primaryVisual.height} alt={primaryVisualCopy.alt} loading="lazy" />
+          </picture>
         </div>
-      ))}
-    </dl>
+        <figcaption class="border-t border-line px-4 py-3 text-sm text-copy-muted">{primaryVisualCopy.caption}</figcaption>
+      </figure>
+      <figure data-reveal style="--reveal-delay: 80ms" class="m-0 overflow-hidden rounded-panel border border-line bg-panel">
+        <div class="aspect-[4/5] overflow-hidden">
+          <picture>
+            <source srcset={secondaryVisual.avif} type="image/avif" />
+            <img class="size-full object-cover object-top" src={secondaryVisual.src} width={secondaryVisual.width} height={secondaryVisual.height} alt={secondaryVisualCopy.alt} loading="lazy" />
+          </picture>
+        </div>
+        <figcaption class="border-t border-line px-4 py-3 text-sm text-copy-muted">{secondaryVisualCopy.caption}</figcaption>
+      </figure>
+    </div>
   </section>
 
-  <section class:list={[shell, 'mb-28 flex items-center justify-between gap-10 rounded-panel border border-line bg-panel p-12 max-[720px]:mb-[78px] max-[720px]:items-start max-[720px]:px-6 max-[720px]:py-[30px]']}>
-    <div>
-      <p class={eyebrow}>{copy.project.futureDocs}</p>
-      <h2 class="mb-[26px] text-[28px]"><code class="text-[25px] text-brand [overflow-wrap:anywhere] max-[720px]:text-lg">{project.data.futureDocsPath}</code></h2>
-      <p class="mb-0 max-w-[600px] text-copy-muted">{copy.project.futureDocsNote}</p>
+  <section class="border-y border-line bg-panel-soft">
+    <div class:list={[section, shell, 'grid grid-cols-[1.15fr_.85fr] gap-20 max-[820px]:grid-cols-1 max-[820px]:gap-12']}>
+      <div data-reveal>
+        <h2 class="mb-7 text-[36px] font-[670] max-[720px]:text-[30px]">{copy.project.capabilities}</h2>
+        <ul class="m-0 grid list-none grid-cols-2 gap-px overflow-hidden rounded-panel border border-line bg-line p-0 max-[560px]:grid-cols-1">
+          {content.capabilities.map(capability => <li class="min-h-[112px] bg-panel p-5 font-display text-lg font-[620]">{capability}</li>)}
+        </ul>
+      </div>
+      <div data-reveal>
+        <h2 class="mb-7 text-[36px] font-[670] max-[720px]:text-[30px]">{copy.project.useCases}</h2>
+        <ol class="m-0 grid list-none gap-5 p-0">
+          {content.useCases.map((useCase, index) => (
+            <li class="grid grid-cols-[32px_1fr] gap-3">
+              <span class="font-mono text-sm text-brand">{String(index + 1).padStart(2, '0')}</span>
+              <span class="text-copy-muted">{useCase}</span>
+            </li>
+          ))}
+        </ol>
+        <h3 class="mt-10 mb-4 text-lg font-[650]">{copy.project.platforms}</h3>
+        <div class="flex flex-wrap gap-2">
+          {project.data.platforms.map(platform => <span class:list={[platformPill, 'px-3 py-2 text-xs']}>{platform}</span>)}
+        </div>
+      </div>
     </div>
-    <a class:list={[iconControl, 'size-[52px] border-line bg-panel-raised']} href={project.data.docsUrl} aria-label={copy.project.docs} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="docs" data-analytics-project={project.id}>
-      <ArrowUpRight size={25} stroke-width={1.7} aria-hidden="true" />
+  </section>
+
+  <section class="border-b border-line bg-panel">
+    <div class:list={[shell, 'grid grid-cols-3 max-[640px]:grid-cols-1']}>
+      <div data-reveal class="grid min-h-[164px] border-x border-line p-7 max-[640px]:min-h-[126px] max-[640px]:border-b"><span class="text-xs text-copy-muted">{copy.project.version}</span><strong class="self-center font-mono text-[30px]">v{metrics.version}</strong><small class="text-xs text-copy-muted">{formatReleaseDate(metrics.releasedAt, numberLocale)}</small></div>
+      <div data-reveal class="relative grid min-h-[164px] border-r border-line p-7 max-[640px]:min-h-[126px] max-[640px]:border-l max-[640px]:border-b"><span class="text-xs text-copy-muted">{copy.project.downloads}</span><strong class="self-center font-mono text-[30px]">{formatCompactNumber(metrics.weeklyDownloads, numberLocale)}</strong><Package class="absolute right-6 bottom-6 text-brand" size={20} stroke-width={1.7} aria-hidden="true" /></div>
+      <div data-reveal class="relative grid min-h-[164px] border-r border-line p-7 max-[640px]:min-h-[126px] max-[640px]:border-l"><span class="text-xs text-copy-muted">{copy.project.stars}</span><strong class="self-center font-mono text-[30px]">{formatCompactNumber(metrics.stars, numberLocale)}</strong><Star class="absolute right-6 bottom-6 text-brand" size={20} stroke-width={1.7} aria-hidden="true" /></div>
+    </div>
+  </section>
+
+  <section class:list={[section, shell]}>
+    <header data-reveal class="mb-10">
+      <h2 class="mb-0 text-[42px] font-[680] max-[720px]:text-[33px]">{copy.project.faq}</h2>
+    </header>
+    <div data-reveal class="border-t border-line">
+      {content.faqs.map(faq => (
+        <details class="group border-b border-line">
+          <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-lg font-[650] [&::-webkit-details-marker]:hidden">
+            {faq.question}
+            <ChevronDown class="shrink-0 transition-transform duration-200 group-open:rotate-180" size={20} stroke-width={1.8} aria-hidden="true" />
+          </summary>
+          <p class="mb-0 max-w-[830px] pb-7 leading-[1.75] text-copy-muted">{faq.answer}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class:list={[shell, 'mb-24 grid grid-cols-[1fr_auto] items-center gap-10 rounded-panel border border-line bg-panel p-9 max-[620px]:grid-cols-1 max-[620px]:p-6']}>
+    <div data-reveal>
+      <p class="mb-3 font-mono text-xs font-[650] text-brand">{copy.project.futureDocs}</p>
+      <h2 class="mb-3 text-[26px] font-[660]"><code class="text-[22px] [overflow-wrap:anywhere] max-[620px]:text-base">{project.data.futureDocsPath}</code></h2>
+      <p class="mb-0 max-w-[640px] text-sm text-copy-muted">{copy.project.futureDocsNote}</p>
+    </div>
+    <a class:list={[iconControl, 'size-12 border border-line bg-panel-soft']} href={project.data.docsUrl} aria-label={copy.project.docs} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="docs" data-analytics-project={project.id}>
+      <ArrowUpRight size={23} stroke-width={1.7} aria-hidden="true" />
     </a>
   </section>
 </main>
+
+<script is:inline>
+  document.querySelectorAll('[data-copy-command]').forEach((button) => {
+    button.addEventListener('click', async () => {
+      const command = button.getAttribute('data-copy-command')
+      if (!command) return
+      try {
+        await navigator.clipboard.writeText(command)
+      } catch {
+        const fallback = document.createElement('textarea')
+        fallback.value = command
+        fallback.setAttribute('readonly', '')
+        fallback.style.position = 'fixed'
+        fallback.style.opacity = '0'
+        document.body.append(fallback)
+        fallback.select()
+        document.execCommand('copy')
+        fallback.remove()
+      }
+      const text = button.querySelector('[data-copy-text]')
+      text && (text.textContent = button.getAttribute('data-copied-label'))
+      button.querySelector('[data-copy-icon]')?.classList.add('hidden')
+      button.querySelector('[data-copied-icon]')?.classList.remove('hidden')
+      button.setAttribute('aria-label', button.getAttribute('data-copied-label') || '')
+      window.setTimeout(() => {
+        text && (text.textContent = button.getAttribute('data-copy-label'))
+        button.querySelector('[data-copy-icon]')?.classList.remove('hidden')
+        button.querySelector('[data-copied-icon]')?.classList.add('hidden')
+        button.setAttribute('aria-label', button.getAttribute('data-copy-label') || '')
+      }, 1800)
+    })
+  })
+</script>

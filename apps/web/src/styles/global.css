@@ -5,6 +5,7 @@
 @theme inline {
   --color-canvas: var(--background);
   --color-panel: var(--surface);
+  --color-panel-soft: var(--surface-soft);
   --color-panel-strong: var(--surface-strong);
   --color-panel-raised: var(--surface-raised);
   --color-ink: var(--text);
@@ -14,58 +15,49 @@
   --color-brand-hover: var(--accent-hover);
   --color-brand-contrast: var(--accent-contrast);
   --color-highlight: var(--highlight);
-  --font-sans: 'Geist Variable', system-ui, sans-serif;
+  --font-display: 'Sora Variable', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  --font-sans: 'Geist Variable', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
   --font-mono: 'Geist Mono Variable', ui-monospace, monospace;
-  --radius-panel: var(--radius);
-  --shadow-panel: 0 20px 55px var(--shadow);
-  --animate-reveal-up: reveal-up 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
-
-  @keyframes reveal-up {
-    from {
-      opacity: 0;
-      transform: translateY(16px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  --radius-panel: 8px;
+  --shadow-panel: 0 24px 70px var(--shadow);
 }
 
 :root {
   color-scheme: light;
 
-  --background: #f3f6f4;
-  --surface: #e7ede9;
-  --surface-strong: #d9e4de;
-  --surface-raised: #fafcfb;
-  --text: #131815;
-  --muted: #526059;
-  --border: #c8d3cd;
-  --accent: #176b55;
-  --accent-hover: #105844;
-  --accent-contrast: #f5faf7;
-  --highlight: #f0c957;
-  --shadow: rgb(23 62 48 / 12%);
-  --radius: 8px;
+  --background: #f4f7f5;
+  --surface: #fff;
+  --surface-soft: #edf2ef;
+  --surface-strong: #dfe8e3;
+  --surface-raised: #fff;
+  --text: #0d1712;
+  --muted: #5a6861;
+  --border: #d5ddd8;
+  --accent: #0e7958;
+  --accent-hover: #096646;
+  --accent-contrast: #fff;
+  --highlight: #f2c94c;
+  --shadow: rgb(25 60 45 / 12%);
+  --header: rgb(244 247 245 / 88%);
 }
 
 :root[data-theme='dark'] {
   color-scheme: dark;
 
-  --background: #101412;
-  --surface: #181e1b;
-  --surface-strong: #202a25;
-  --surface-raised: #171c19;
-  --text: #edf4f0;
-  --muted: #a1ada6;
-  --border: #334039;
-  --accent: #62bea0;
-  --accent-hover: #7acbb0;
-  --accent-contrast: #0d1d17;
-  --highlight: #e6c453;
-  --shadow: rgb(0 0 0 / 28%);
+  --background: #0b110e;
+  --surface: #111914;
+  --surface-soft: #15211b;
+  --surface-strong: #1a2a22;
+  --surface-raised: #17211c;
+  --text: #edf5f0;
+  --muted: #aab8b0;
+  --border: #304039;
+  --accent: #69c7a5;
+  --accent-hover: #86d7b9;
+  --accent-contrast: #07130e;
+  --highlight: #f2c94c;
+  --shadow: rgb(0 0 0 / 34%);
+  --header: rgb(11 17 14 / 88%);
 }
 
 @layer base {
@@ -76,11 +68,13 @@
   }
 
   html {
-    @apply scroll-smooth scroll-pt-[92px] bg-canvas max-[720px]:scroll-pt-[86px] motion-reduce:scroll-auto;
+    @apply scroll-smooth scroll-pt-[84px] bg-canvas motion-reduce:scroll-auto;
+
+    scrollbar-gutter: stable;
   }
 
   body {
-    @apply m-0 min-w-80 bg-canvas font-sans text-base leading-[1.55] text-ink;
+    @apply m-0 min-w-80 overflow-x-clip bg-canvas font-sans text-base leading-[1.58] text-ink antialiased;
 
     letter-spacing: 0;
     text-rendering: optimizelegibility;
@@ -104,6 +98,7 @@
   }
 
   img,
+  picture,
   svg {
     @apply block max-w-full;
   }
@@ -118,12 +113,18 @@
   h1,
   h2,
   h3 {
-    @apply leading-[1.08];
+    @apply font-display leading-[1.08];
 
     letter-spacing: 0;
+    text-wrap: balance;
   }
 
-  code {
+  p {
+    text-wrap: pretty;
+  }
+
+  code,
+  pre {
     @apply font-mono;
   }
 
@@ -136,9 +137,23 @@
   }
 
   dialog::backdrop {
-    background: rgb(10 18 14 / 62%);
-    backdrop-filter: blur(3px);
+    background: rgb(5 13 9 / 72%);
+    backdrop-filter: blur(6px);
   }
+}
+
+[data-motion='ready'] [data-reveal] {
+  opacity: 0;
+  transform: translateY(22px);
+}
+
+[data-motion='ready'] [data-reveal][data-visible] {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 700ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 700ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition-delay: var(--reveal-delay, 0ms);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -150,10 +165,16 @@
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
   }
+
+  [data-motion='ready'] [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
 }
 
 @media (prefers-reduced-transparency: reduce) {
   [data-site-header] {
-    @apply bg-canvas backdrop-filter-none;
+    background: var(--background);
+    backdrop-filter: none;
   }
 }

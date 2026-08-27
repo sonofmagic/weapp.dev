@@ -1,11 +1,11 @@
 # weapp.dev
 
-> weapp.dev is the official open-source mini-app tooling stack. It brings together styling and build infrastructure for Chinese mini-app platforms and cross-platform projects.
+> weapp.dev is an open toolchain for real mini-app projects. It combines cross-platform styling, Vite-powered builds, and runtime verification without requiring teams to rewrite existing applications.
 
 ## Official project pages
 
-- [weapp-tailwindcss](https://weapp.dev/projects/weapp-tailwindcss/): Tailwind CSS workflows for mini-apps and cross-platform frameworks.
-- [weapp-vite](https://weapp.dev/projects/weapp-vite/): Vite-powered development and builds for multiple mini-app targets.
+- [weapp-tailwindcss](https://weapp.dev/projects/weapp-tailwindcss/): Tailwind CSS v4 generation, class transforms, and platform-aware styling for mini-apps and cross-platform frameworks.
+- [weapp-vite](https://weapp.dev/projects/weapp-vite/): Vite-powered development, builds, runtime tooling, and multi-platform output for mini-app projects.
 - [English project index](https://weapp.dev/en/): English overview of the stack.
 
 ## Official sources

@@ -1,12 +1,33 @@
 <svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
-  <rect width="1200" height="630" fill="#f2f5f3"/>
-  <rect x="56" y="56" width="1088" height="518" rx="16" fill="#e4ece8" stroke="#bdcbc4" stroke-width="2"/>
-  <rect x="96" y="96" width="88" height="88" rx="14" fill="#176b55"/>
-  <text x="115" y="154" font-family="Arial, sans-serif" font-size="46" font-weight="700" fill="#f3f7f5">w/</text>
-  <text x="96" y="304" font-family="Arial, sans-serif" font-size="92" font-weight="700" fill="#101312">weapp.dev</text>
-  <text x="100" y="370" font-family="Arial, sans-serif" font-size="34" fill="#4f5b56">The open-source mini-app stack</text>
-  <circle cx="910" cy="252" r="92" fill="#d9f1e7" stroke="#176b55" stroke-width="4"/>
-  <text x="842" y="266" font-family="Arial, sans-serif" font-size="28" font-weight="700" fill="#176b55">tool stack</text>
-  <rect x="764" y="402" width="292" height="76" rx="12" fill="#101312"/>
-  <text x="799" y="449" font-family="Arial, sans-serif" font-size="23" font-weight="600" fill="#f2f5f3">style + build + runtime</text>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#07110d"/>
+      <stop offset="1" stop-color="#14241d"/>
+    </linearGradient>
+    <linearGradient id="green-sheet" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#8bd8b7" stop-opacity=".62"/>
+      <stop offset="1" stop-color="#0e7958" stop-opacity=".16"/>
+    </linearGradient>
+    <linearGradient id="silver-sheet" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f4f7f5" stop-opacity=".34"/>
+      <stop offset="1" stop-color="#89a79a" stop-opacity=".06"/>
+    </linearGradient>
+    <filter id="shadow" x="-40%" y="-40%" width="180%" height="180%">
+      <feDropShadow dx="0" dy="28" stdDeviation="24" flood-color="#020805" flood-opacity=".58"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="url(#background)"/>
+  <path d="M590 526 L884 324 L1240 376 L930 594 Z" fill="#06100c" opacity=".7" filter="url(#shadow)"/>
+  <path d="M548 432 L842 230 L1216 286 L902 500 Z" fill="url(#green-sheet)" stroke="#b7ead4" stroke-opacity=".3" stroke-width="2" filter="url(#shadow)"/>
+  <path d="M514 338 L804 144 L1170 194 L864 404 Z" fill="url(#silver-sheet)" stroke="#f4f7f5" stroke-opacity=".24" stroke-width="2" filter="url(#shadow)"/>
+  <path d="M688 522 L920 360 L1144 396 L906 558 Z" fill="#0e7958" fill-opacity=".32" stroke="#70c6a5" stroke-opacity=".3" stroke-width="2"/>
+  <rect x="68" y="62" width="66" height="66" rx="10" fill="#69c7a5"/>
+  <text x="83" y="106" font-family="Arial, sans-serif" font-size="32" font-weight="700" fill="#07130e">w/</text>
+  <text x="68" y="250" font-family="Arial, sans-serif" font-size="82" font-weight="700" fill="#edf5f0">weapp.dev</text>
+  <text x="72" y="312" font-family="Arial, sans-serif" font-size="28" font-weight="500" fill="#b8c8bf">Open tooling for real mini-app projects</text>
+  <text x="72" y="498" font-family="monospace" font-size="20" fill="#79d0ae">STYLE</text>
+  <path d="M146 491 H206" stroke="#53675d" stroke-width="2"/>
+  <text x="224" y="498" font-family="monospace" font-size="20" fill="#d9e7df">BUILD</text>
+  <path d="M296 491 H356" stroke="#53675d" stroke-width="2"/>
+  <text x="374" y="498" font-family="monospace" font-size="20" fill="#d9e7df">SHIP</text>
 </svg>

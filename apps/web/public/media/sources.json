@@ -1,0 +1,33 @@
+{
+  "generatedAt": "2026-08-27",
+  "projectMedia": [
+    {
+      "repository": "sonofmagic/weapp-tailwindcss",
+      "source": "demo/web/report/web-full-report/2026-06-26T08-06-32-105Z/compare/react-vite-tailwindcss-v4-weapp.png",
+      "output": "projects/tailwind-weapp",
+      "width": 1280
+    },
+    {
+      "repository": "sonofmagic/weapp-tailwindcss",
+      "source": "demo/web/report/web-full-report/2026-06-26T08-06-32-105Z/compare/react-vite-tailwindcss-v4-web.png",
+      "output": "projects/tailwind-web",
+      "width": 1280
+    },
+    {
+      "repository": "weapp-vite/weapp-vite",
+      "source": "e2e/web-runtime/baselines/weapp/component-matrix.png",
+      "output": "projects/vite-components",
+      "width": 780
+    },
+    {
+      "repository": "weapp-vite/weapp-vite",
+      "source": "e2e/web-runtime/baselines/weapp/app-shell-tabbar.png",
+      "output": "projects/vite-shell",
+      "width": 780
+    }
+  ],
+  "buildLens": {
+    "kind": "deterministic-raster",
+    "prompt": "Premium layered translucent materials showing source, style, build, and multi-platform flow. Cold neutral and brand green. Wide composition. No text, logos, product UI, watermark, purple, or blue gradient."
+  }
+}

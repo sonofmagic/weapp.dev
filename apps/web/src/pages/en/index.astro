@@ -10,15 +10,15 @@ import { organizationSchema, projectListSchema, websiteSchema } from '../../lib/
 const locale = 'en' as const
 const projects = await getProjects()
 const metrics = await loadProjectMetrics()
-const title = 'weapp.dev | The open-source mini-app stack'
-const description = 'Open-source tools for mini-app development, including weapp-tailwindcss, weapp-vite, and the projects that follow.'
+const title = 'weapp.dev | Styling and build tools for mini-apps'
+const description = 'Open tooling for real mini-app projects: cross-platform styling with weapp-tailwindcss and Vite-powered development, builds, and runtime verification.'
 ---
 
 <BaseLayout
   locale={locale}
   title={title}
   description={description}
-  imageAlt="weapp.dev open-source mini-app stack"
+  imageAlt="weapp.dev styling and build tools for mini-apps"
   schemas={[organizationSchema(projects), websiteSchema(locale), projectListSchema(locale, projects)]}
 >
   <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />
