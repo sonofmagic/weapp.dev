@@ -57,11 +57,15 @@ function mount(canvas: HTMLCanvasElement) {
   const time = gl.getUniformLocation(program, 'u_time')
   const pointer = gl.getUniformLocation(program, 'u_pointer')
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  const interactive = canvas.dataset.shaderInteractive === 'true' && window.matchMedia('(hover: hover)').matches
   const scale = Number(canvas.dataset.shaderScale || 1)
   let visible = false
   let frame = 0
   let pointerX = 0
   let pointerY = 0
+  let pointerTargetX = 0
+  let pointerTargetY = 0
+  let pointerInitialized = false
 
   const resize = () => {
     const mobile = window.matchMedia('(max-width: 700px)').matches
@@ -74,6 +78,13 @@ function mount(canvas: HTMLCanvasElement) {
     canvas.width = width
     canvas.height = height
     gl.viewport(0, 0, width, height)
+    if (!pointerInitialized) {
+      pointerX = canvas.clientWidth * 0.5
+      pointerY = canvas.clientHeight * 0.5
+      pointerTargetX = pointerX
+      pointerTargetY = pointerY
+      pointerInitialized = true
+    }
   }
 
   const render = (stamp: number) => {
@@ -81,6 +92,8 @@ function mount(canvas: HTMLCanvasElement) {
       return
     }
     resize()
+    pointerX += (pointerTargetX - pointerX) * 0.08
+    pointerY += (pointerTargetY - pointerY) * 0.08
     gl.uniform2f(resolution, canvas.width, canvas.height)
     gl.uniform1f(time, reduceMotion ? 0 : stamp * 0.001)
     gl.uniform2f(pointer, pointerX * (canvas.width / Math.max(canvas.clientWidth, 1)), pointerY * (canvas.height / Math.max(canvas.clientHeight, 1)))
@@ -102,11 +115,13 @@ function mount(canvas: HTMLCanvasElement) {
     cancelAnimationFrame(frame)
   }
 
-  canvas.addEventListener('pointermove', (event) => {
-    const rect = canvas.getBoundingClientRect()
-    pointerX = event.clientX - rect.left
-    pointerY = rect.height - (event.clientY - rect.top)
-  }, { passive: true })
+  if (interactive) {
+    canvas.addEventListener('pointermove', (event) => {
+      const rect = canvas.getBoundingClientRect()
+      pointerTargetX = event.clientX - rect.left
+      pointerTargetY = rect.height - (event.clientY - rect.top)
+    }, { passive: true })
+  }
   window.addEventListener('resize', resize, { passive: true })
   document.addEventListener('visibilitychange', () => document.visibilityState === 'visible' ? start() : stop())
   if ('IntersectionObserver' in window) {

@@ -27,6 +27,15 @@ async function mockAnalyticsScripts(
 test('renders the bilingual ecosystem home with valid metadata', async ({ page }) => {
   await page.goto('/')
   await expect(page.getByRole('heading', { level: 1, name: 'weapp.dev' })).toBeVisible()
+  await expect(page.locator('[data-shader="convergence"]')).toHaveCount(1)
+  await expect(page.locator('.home-hero-meta')).toHaveCount(0)
+  await expect(page.locator('.home-hero-stage')).not.toContainText('WebGL / 60 FPS')
+  await expect(page.locator('.home-hero-stage')).not.toContainText('MINI-APP TOOLCHAIN')
+  await expect(page.locator('.home-stage-readout, .home-stage-markers, .home-stage-orbit')).toHaveCount(0)
+  await expect.poll(() => page.locator('[data-shader="convergence"]').evaluate((canvas) => {
+    const element = canvas as HTMLCanvasElement
+    return element.width > 0 && element.height > 0
+  })).toBe(true)
   await expect(page.locator('#projects').getByRole('heading', { name: 'weapp-tailwindcss' })).toBeVisible()
   await expect(page.locator('#projects').getByRole('heading', { name: 'weapp-vite' })).toBeVisible()
   await expect(page.locator('#projects').getByRole('heading', { name: 'Varo' })).toBeVisible()

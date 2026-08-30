@@ -40,20 +40,10 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
             {copy.hero.secondary}
           </a>
         </div>
-        <div data-hero-enter style="--enter-delay: 180ms" class="home-hero-meta" aria-label={copy.hero.visualLabel}>
-          <span><i aria-hidden="true"></i> WebGL / 60 FPS</span>
-          <span>MINI-APP TOOLCHAIN</span>
-        </div>
       </div>
 
-      <figure data-reveal data-hero-lens data-shader-frame class="home-hero-stage" style="--reveal-delay: 120ms">
-        <ShaderCanvas preset="grid" label={copy.hero.visualLabel} class="home-hero-shader" scale={0.9} />
-        <div class="home-hero-shader-veil" aria-hidden="true"></div>
-        <div class="home-stage-grid" aria-hidden="true"></div>
-        <div class="home-stage-orbit home-stage-orbit-a" aria-hidden="true"></div>
-        <div class="home-stage-orbit home-stage-orbit-b" aria-hidden="true"></div>
-        <div class="home-stage-readout"><span>BUILD / LIVE</span><strong>03</strong><small>targets online</small></div>
-        <div class="home-stage-markers" aria-hidden="true"><span>STYLE</span><span>BUILD</span><span>COMPOSE</span></div>
+      <figure data-reveal data-shader-frame class="home-hero-stage" style="--reveal-delay: 120ms">
+        <ShaderCanvas preset="convergence" label={copy.hero.visualLabel} class="home-hero-shader" scale={0.82} interactive />
         <figcaption class="sr-only">{copy.hero.visualLabel}</figcaption>
       </figure>
     </div>
@@ -237,7 +227,6 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
     .home-hero-grid { gap: 1.25rem; padding-top: 2.6rem; padding-bottom: 1.5rem; }
     .home-hero-title { font-size: clamp(3.25rem, 14vw, 4.5rem); }
     .home-hero-description { margin-bottom: 1.4rem; font-size: 1rem; }
-    .home-hero-meta { margin-top: 1.35rem; }
     .home-hero-stage { min-height: 250px; border-radius: 8px; }
     .home-project-rail { grid-template-columns: 1fr; }
     .home-project-link, .home-project-link:first-child { grid-template-columns: 1.4rem 2rem minmax(0, 1fr) auto; padding: .85rem 0; border-right: 0; border-bottom: 1px solid color-mix(in srgb, var(--surface) 18%, transparent); }

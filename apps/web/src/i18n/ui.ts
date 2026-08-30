@@ -19,7 +19,7 @@ export const siteCopy = {
       description: '从 Tailwind CSS 样式、Vite 构建到可编辑双端组件，用一套开放工具链交付小程序与 H5。',
       primary: '查看项目',
       secondary: '查看 GitHub',
-      visualLabel: 'weapp.dev Build Lens 展示样式、构建、组件源码与多平台输出',
+      visualLabel: '样式、构建与组件能力汇流的动态视觉',
     },
     about: {
       eyebrow: '构建链路',
@@ -162,7 +162,7 @@ export const siteCopy = {
       description: 'Ship mini-app and H5 products with open tooling for Tailwind CSS styling, Vite-powered builds, and editable cross-runtime components.',
       primary: 'View projects',
       secondary: 'View on GitHub',
-      visualLabel: 'The weapp.dev Build Lens covers styling, builds, editable components, and multi-platform output',
+      visualLabel: 'An animated convergence of styling, builds, and component capabilities',
     },
     about: {
       eyebrow: 'Build path',

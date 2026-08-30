@@ -1,4 +1,4 @@
-export type ShaderPreset = 'grid' | 'marble' | 'tunnel' | 'orbit'
+export type ShaderPreset = 'convergence' | 'grid' | 'marble' | 'tunnel' | 'orbit'
 
 export const shaderVertexSource = `
 attribute vec2 a_position;
@@ -15,6 +15,63 @@ uniform vec2 u_pointer;
 `
 
 export const shaderFragmentSources: Record<ShaderPreset, string> = {
+  convergence: `${common}
+vec2 curvePoint(vec2 a, vec2 control, vec2 b, float t) {
+  vec2 ab = mix(a, control, t);
+  vec2 bc = mix(control, b, t);
+  return mix(ab, bc, t);
+}
+
+float segmentDistance(vec2 p, vec2 a, vec2 b) {
+  vec2 pa = p - a;
+  vec2 ba = b - a;
+  float h = clamp(dot(pa, ba) / max(dot(ba, ba), 0.0001), 0.0, 1.0);
+  return length(pa - ba * h);
+}
+
+float stream(vec2 p, vec2 start, vec2 control, vec2 end, float phase) {
+  float distanceToPath = 1.0;
+  float pulse = 0.0;
+  for (int i = 0; i < 8; i += 1) {
+    float t0 = float(i) / 8.0;
+    float t1 = float(i + 1) / 8.0;
+    vec2 a = curvePoint(start, control, end, t0);
+    vec2 b = curvePoint(start, control, end, t1);
+    float segment = segmentDistance(p, a, b);
+    distanceToPath = min(distanceToPath, segment);
+    float head = fract(u_time * 0.075 + phase + t0);
+    pulse = max(pulse, exp(-130.0 * abs(head - 0.5)) * smoothstep(0.08, 0.0, segment));
+  }
+  float ribbon = smoothstep(0.055, 0.004, distanceToPath);
+  return ribbon * (0.62 + pulse * 1.2);
+}
+
+void main() {
+  vec2 p = (2.0 * gl_FragCoord.xy - u_resolution) / u_resolution.y;
+  vec2 pointer = (u_pointer - 0.5 * u_resolution) / u_resolution.y;
+  vec2 center = clamp(pointer * 0.08, vec2(-0.085), vec2(0.085));
+  float t = u_time * 0.16;
+
+  float style = stream(p, vec2(-1.28, -0.58), vec2(-0.42, -0.18) + center, center, 0.02);
+  style += stream(p, center, vec2(0.46, 0.22) + center, vec2(1.35, 0.68), 0.37);
+  float build = stream(p, vec2(-0.08, 1.28), vec2(0.02, 0.52) + center, center, 0.24);
+  build += stream(p, center, vec2(-0.22, -0.42) + center, vec2(-0.88, -1.28), 0.59);
+  float compose = stream(p, vec2(1.3, -0.48), vec2(0.48, -0.14) + center, center, 0.46);
+  compose += stream(p, center, vec2(0.4, -0.08) + center, vec2(1.28, -1.22), 0.76);
+
+  float radius = length(p - center);
+  float wave = exp(-42.0 * abs(radius - fract(t * 0.22) * 0.72)) * smoothstep(0.8, 0.02, radius);
+  float nucleus = exp(-20.0 * radius);
+  vec3 base = vec3(0.008, 0.022, 0.018);
+  vec3 styleColor = vec3(0.28, 0.92, 0.58);
+  vec3 buildColor = vec3(0.38, 0.82, 0.72);
+  vec3 composeColor = vec3(0.56, 0.94, 0.78);
+  vec3 color = base + styleColor * style * 0.42 + buildColor * build * 0.42 + composeColor * compose * 0.42;
+  color += vec3(0.72, 1.0, 0.86) * (nucleus * 0.6 + wave * 0.16);
+  float vignette = 1.0 - smoothstep(0.55, 1.55, length(p) * 0.72);
+  gl_FragColor = vec4(color * vignette, 1.0);
+}
+`,
   grid: `${common}
 void main() {
   vec2 p = (gl_FragCoord.xy - 0.5 * u_resolution) / u_resolution.y;

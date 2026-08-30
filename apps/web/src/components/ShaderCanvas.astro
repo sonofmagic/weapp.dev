@@ -6,9 +6,10 @@ interface Props {
   label: string
   class?: string
   scale?: number
+  interactive?: boolean
 }
 
-const { preset, label, class: className = '', scale = 1 } = Astro.props
+const { preset, label, class: className = '', scale = 1, interactive = false } = Astro.props
 ---
 
 <canvas
@@ -16,6 +17,7 @@ const { preset, label, class: className = '', scale = 1 } = Astro.props
   data-shader-canvas
   data-shader={preset}
   data-shader-scale={scale}
+  data-shader-interactive={interactive ? 'true' : undefined}
   aria-label={label}
   role="img"
 ></canvas>
