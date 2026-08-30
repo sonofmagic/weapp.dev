@@ -52,10 +52,36 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
     'https://vite.weapp.dev/',
     'https://github.com/daguanren21/Varo#readme',
   ])
+  const projectHomeLinks = page.locator('.home-project-rail a')
+  await expect(projectHomeLinks.evaluateAll(links => links.map(link => ({ href: link.getAttribute('href'), target: link.getAttribute('target'), rel: link.getAttribute('rel') })))).resolves.toEqual([
+    { href: 'https://tw.weapp.dev/', target: '_blank', rel: 'noreferrer' },
+    { href: 'https://vite.weapp.dev/', target: '_blank', rel: 'noreferrer' },
+    { href: 'https://github.com/daguanren21/Varo#readme', target: '_blank', rel: 'noreferrer' },
+  ])
+  await expect(page.locator('.home-project-visual-link').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
+    'https://tw.weapp.dev/',
+    'https://vite.weapp.dev/',
+    'https://github.com/daguanren21/Varo#readme',
+  ])
+  await expect(page.locator('.home-project-title-link').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
+    'https://tw.weapp.dev/',
+    'https://vite.weapp.dev/',
+    'https://github.com/daguanren21/Varo#readme',
+  ])
+  await expect(page.locator('#projects a[data-analytics-event="select_project"]').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
+    '/projects/weapp-tailwindcss/',
+    '/projects/weapp-vite/',
+    '/projects/varo/',
+  ])
 
   await page.getByRole('link', { name: 'English' }).click()
   await expect(page).toHaveURL(/\/en\/$/)
   await expect(page.getByText('Built for real mini-app projects')).toBeVisible()
+  await expect(page.locator('.home-project-rail a').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
+    'https://tw.weapp.dev/',
+    'https://vite.weapp.dev/',
+    'https://github.com/daguanren21/Varo#readme',
+  ])
 })
 
 test('renders the bilingual pricing and delivery page', async ({ page }) => {

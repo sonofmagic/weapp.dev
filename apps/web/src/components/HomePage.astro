@@ -52,7 +52,7 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
       {projects.map((project, index) => {
         const content = project.data.locales[locale]
         return (
-          <a data-hero-enter style={`--enter-delay: ${220 + index * 45}ms`} class="home-project-link" href={projectPath(locale, project.id)} data-analytics-event="select_project" data-analytics-project={project.id}>
+          <a data-hero-enter style={`--enter-delay: ${220 + index * 45}ms`} class="home-project-link" href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home" data-analytics-project={project.id}>
             <span class="home-project-index">{String(index + 1).padStart(2, '0')}</span>
             <img src={project.data.logo} width="34" height="34" alt="" />
             <span class="min-w-0"><strong>{content.name}</strong><small>{projectStages[project.id] ?? 'TOOL'} / {content.tagline}</small></span>
@@ -102,7 +102,8 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
         const visualCopy = visual.locales[locale]
         return (
           <article data-project-row class:list={['group/project relative grid items-center gap-14 border-t border-line pt-14 first:border-t-0 first:pt-0 max-[960px]:gap-9', index === 0 ? 'grid-cols-[1.12fr_.88fr] max-[800px]:grid-cols-1' : 'grid-cols-[.82fr_1.18fr] max-[800px]:grid-cols-1']} style={`--project-accent: ${project.data.accent}`}>
-            <figure data-reveal data-project-visual style={`--reveal-delay: ${index * 60}ms`} class:list={['relative m-0 overflow-hidden rounded-panel border border-line bg-panel-soft', index === 1 ? 'order-2 max-[800px]:order-none' : '']}>
+            <a class:list={['home-project-visual-link', index === 1 ? 'order-2 max-[800px]:order-none' : '']} href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home_visual" data-analytics-project={project.id} aria-label={locale === 'zh-CN' ? `打开 ${content.name} 官方站点` : `Open ${content.name} official site`}>
+            <figure data-reveal data-project-visual class="relative m-0 overflow-hidden rounded-panel border border-line bg-panel-soft">
               <div class="project-art" data-art={project.id} data-shader-frame aria-label={visualCopy.alt}>
                 <ShaderCanvas
                   preset={project.id === 'weapp-tailwindcss' ? 'marble' : project.id === 'weapp-vite' ? 'tunnel' : 'orbit'}
@@ -117,6 +118,7 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
               </div>
               <figcaption class="border-t border-line bg-panel px-4 py-3 text-xs text-copy-muted">{visualCopy.caption}</figcaption>
             </figure>
+            </a>
 
             <div data-reveal data-project-copy style={`--reveal-delay: ${80 + index * 60}ms`} class:list={[index === 1 ? 'order-1 max-[800px]:order-none' : '']}>
               <p class="mb-4 font-mono text-[10px] font-bold tracking-[0.09em] text-brand">{String(index + 1).padStart(2, '0')} / {projectStages[project.id] ?? 'TOOL'}</p>
@@ -127,7 +129,7 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
                   {copy.projects.status[project.data.status]}
                 </span>
               </div>
-              <h3 class="mb-4 text-[38px] font-[680] [overflow-wrap:anywhere] max-[720px]:text-[30px]">{content.name}</h3>
+              <h3 class="mb-4 text-[38px] font-[680] [overflow-wrap:anywhere] max-[720px]:text-[30px]"><a class="home-project-title-link" href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home_title" data-analytics-project={project.id}>{content.name}</a></h3>
               <p class="mb-3 text-xl font-[620]">{content.tagline}</p>
               <p class="mb-6 max-w-[590px] text-copy-muted">{content.description}</p>
               <dl class="mb-7 grid grid-cols-2 gap-8 border-y border-line py-5">
