@@ -7,7 +7,7 @@ export const siteCopy = {
     nav: {
       projects: '项目',
       about: '关于',
-      principles: '原则',
+      vision: '愿景',
       releases: '版本',
       github: 'GitHub',
       openMenu: '打开导航',
@@ -45,14 +45,14 @@ export const siteCopy = {
         planned: '规划中',
       },
     },
-    principles: {
-      eyebrow: '设计原则',
-      title: '工程约束比演示效果更重要',
-      description: '工具保持独立，边界保持清楚，平台差异在可验证的构建与运行阶段解决。',
+    vision: {
+      eyebrow: '我们的愿景',
+      title: '让小程序工程拥有开放的现代底座',
+      description: '我们希望把样式、构建与组件能力连接成一套开放、可组合、可验证的工程生态。',
       items: [
-        { title: '多平台是构建目标', body: '每次显式选择一个目标平台，避免用模糊兼容掩盖真实差异。' },
-        { title: '渐进接入', body: '先稳定构建链路，再按页面引入新写法，不要求一次性重写业务。' },
-        { title: '结果可验证', body: '源码、发布记录、运行日志与截图链路公开，构建结果可以复现。' },
+        { title: '开放的工具链', body: '每个工具都能独立使用，也能通过清晰边界组合起来。' },
+        { title: '熟悉的开发体验', body: '保留原生小程序、Vue SFC 与跨端框架的写法，降低迁移成本。' },
+        { title: '可验证的交付结果', body: '让构建输出、运行时表现和发布记录都可以被检查与复现。' },
       ],
     },
     releases: {
@@ -62,11 +62,11 @@ export const siteCopy = {
       released: '发布于',
       viewPackage: '查看 npm',
     },
-    maintainer: {
-      eyebrow: '维护者',
-      title: '由 sonofmagic 发起并持续维护',
-      description: 'weapp.dev 汇集面向小程序开发的开源项目、文档与实践。',
-      action: '访问 GitHub',
+    collaboration: {
+      eyebrow: '开放协作',
+      title: '一起建设下一代小程序工具链',
+      description: 'weapp.dev 以开源项目、公开文档和真实运行结果为基础，欢迎开发者通过反馈、案例和代码共同完善这套工具生态。',
+      action: '参与 GitHub',
     },
     project: {
       back: '返回工具栈',
@@ -150,7 +150,7 @@ export const siteCopy = {
     nav: {
       projects: 'Projects',
       about: 'About',
-      principles: 'Principles',
+      vision: 'Vision',
       releases: 'Releases',
       github: 'GitHub',
       openMenu: 'Open navigation',
@@ -188,14 +188,14 @@ export const siteCopy = {
         planned: 'Planned',
       },
     },
-    principles: {
-      eyebrow: 'Principles',
-      title: 'Engineering constraints over demos',
-      description: 'Tools stay independent, boundaries stay explicit, and platform differences are resolved through verifiable builds and runtime checks.',
+    vision: {
+      eyebrow: 'Our vision',
+      title: 'An open, modern foundation for mini-app engineering',
+      description: 'We want to connect styling, builds, and components into an open, composable, and verifiable engineering ecosystem.',
       items: [
-        { title: 'Platforms are build targets', body: 'Select one target for each build instead of hiding real differences behind vague compatibility.' },
-        { title: 'Migrate progressively', body: 'Stabilize the build chain first, then adopt new syntax page by page without rewriting the product.' },
-        { title: 'Verify the result', body: 'Source, releases, runtime logs, and screenshot workflows stay public and reproducible.' },
+        { title: 'Open tooling', body: 'Each tool works independently, then composes through clear boundaries when you need the full stack.' },
+        { title: 'Familiar development', body: 'Keep native mini-app syntax, Vue SFC, and cross-platform workflows while lowering migration cost.' },
+        { title: 'Verifiable delivery', body: 'Make build output, runtime behavior, and release records inspectable and reproducible.' },
       ],
     },
     releases: {
@@ -205,11 +205,11 @@ export const siteCopy = {
       released: 'Released',
       viewPackage: 'View on npm',
     },
-    maintainer: {
-      eyebrow: 'Maintainer',
-      title: 'Initiated and maintained by sonofmagic',
-      description: 'weapp.dev brings together open-source projects, documentation, and practices for mini-app development.',
-      action: 'Visit GitHub',
+    collaboration: {
+      eyebrow: 'Open collaboration',
+      title: 'Build the next generation of mini-app tooling together',
+      description: 'weapp.dev is grounded in open-source projects, public documentation, and real runtime results. Developers are welcome to improve the ecosystem through feedback, examples, and code.',
+      action: 'Join on GitHub',
     },
     project: {
       back: 'Back to the stack',

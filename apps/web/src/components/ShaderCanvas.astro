@@ -1,0 +1,27 @@
+---
+import type { ShaderPreset } from '../lib/shaders'
+
+interface Props {
+  preset: ShaderPreset
+  label: string
+  class?: string
+  scale?: number
+}
+
+const { preset, label, class: className = '', scale = 1 } = Astro.props
+---
+
+<canvas
+  class={className}
+  data-shader-canvas
+  data-shader={preset}
+  data-shader-scale={scale}
+  aria-label={label}
+  role="img"
+></canvas>
+
+<script>
+  import { mountShaderCanvases } from '../scripts/shader-canvas'
+
+  mountShaderCanvases()
+</script>
