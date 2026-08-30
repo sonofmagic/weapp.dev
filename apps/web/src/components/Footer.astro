@@ -39,6 +39,7 @@ const copy = siteCopy[locale]
         {copy.footer.source}
       </a>
       <a class="mb-3 flex w-fit items-center gap-2 text-sm hover:text-brand" href={localizePath(locale, '/privacy/')}>{copy.footer.privacy}</a>
+      <a class="mb-3 flex w-fit items-center gap-2 text-sm hover:text-brand" href={localizePath(locale, '/pricing/')} data-analytics-event="navigate_page" data-analytics-page="pricing">{copy.nav.pricing}</a>
       <a class="mb-3 flex w-fit items-center gap-2 text-sm hover:text-brand" href="/releases.xml" data-analytics-event="navigate_section" data-analytics-section="release_feed">
         <Rss size={15} stroke-width={1.8} aria-hidden="true" />
         {copy.footer.releases}

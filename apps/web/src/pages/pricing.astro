@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Header from '../components/Header.astro'
+import PricingPage from '../components/PricingPage.astro'
+import Footer from '../components/Footer.astro'
+import { getProjects } from '../lib/projects'
+import { pricingSchema } from '../lib/seo'
+
+const locale = 'zh-CN' as const
+const projects = await getProjects()
+const title = '交付与赞助 | weapp.dev'
+const description = 'weapp.dev 的开源赞助、迁移实施与培训服务，以及云构建、模板和私有组件方向的建设路线图。'
+---
+
+<BaseLayout locale={locale} title={title} description={description} imageAlt="weapp.dev 商业化交付层" schemas={[pricingSchema(locale)]}>
+  <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />
+  <PricingPage locale={locale} />
+  <Footer locale={locale} projects={projects} />
+</BaseLayout>

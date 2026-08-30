@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, ArrowUpRight, BadgeCheck, BookOpen, GitFork, Layers2, Package, ScanLine, ShieldCheck } from '@lucide/astro'
+import { ArrowRight, ArrowUpRight, BadgeCheck, BookOpen, GitFork, Heart, Layers2, Package, ScanLine, ShieldCheck } from '@lucide/astro'
 import type { Locale, ProjectMetricsMap } from '../types/project'
 import type { ProjectEntry } from '../lib/projects'
 import { formatCompactNumber, formatReleaseDate } from '../lib/metrics'
@@ -148,6 +148,30 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
           </article>
         )
       })}
+    </div>
+  </section>
+
+  <section class="border-y border-line bg-panel-soft" id="commercial">
+    <div class:list={[section, shell]}>
+      <header data-reveal class="mb-12 max-w-[720px]">
+        <p class="mb-3 font-mono text-xs font-[650] text-brand">{copy.commercial.eyebrow}</p>
+        <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{copy.commercial.title}</h2>
+        <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.commercial.description}</p>
+      </header>
+      <div class="grid grid-cols-3 gap-px overflow-hidden border border-line bg-line max-[760px]:grid-cols-1">
+        {copy.commercial.cards.map((card, index) => (
+          <article data-reveal style={`--reveal-delay: ${index * 70}ms`} class="bg-panel p-7">
+            <span class="mb-9 block font-mono text-xs text-brand">0{index + 1}</span>
+            <h3 class="mb-3 text-2xl font-[660]">{card.title}</h3>
+            <p class="mb-0 text-sm leading-[1.7] text-copy-muted">{card.body}</p>
+          </article>
+        ))}
+      </div>
+      <div class="mt-8 flex flex-wrap items-center gap-3">
+        <a class={buttonPrimary} href={`${localizePath(locale, '/pricing/')}#sponsor`} data-analytics-event="navigate_section" data-analytics-section="sponsor">{copy.commercial.trial}<Heart size={17} stroke-width={1.9} aria-hidden="true" /></a>
+        <a class={buttonSecondary} href={`${localizePath(locale, '/pricing/')}#services`} data-analytics-event="navigate_section" data-analytics-section="services"><ArrowRight size={17} stroke-width={1.9} aria-hidden="true" />{copy.commercial.services}</a>
+        <a class="inline-flex min-h-11 items-center gap-2 px-2 text-sm font-[650] text-copy-muted transition-colors hover:text-ink" href={`${localizePath(locale, '/pricing/')}#roadmap`} data-analytics-event="navigate_section" data-analytics-section="roadmap">{copy.commercial.pricing}<ArrowUpRight size={16} stroke-width={1.8} aria-hidden="true" /></a>
+      </div>
     </div>
   </section>
 

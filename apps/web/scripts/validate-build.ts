@@ -8,6 +8,8 @@ const dist = resolve(root, 'dist')
 const expectedFiles = [
   'index.html',
   'en/index.html',
+  'pricing/index.html',
+  'en/pricing/index.html',
   '404.html',
   'projects/weapp-tailwindcss/index.html',
   'projects/weapp-vite/index.html',

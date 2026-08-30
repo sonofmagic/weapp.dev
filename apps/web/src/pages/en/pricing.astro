@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import Header from '../../components/Header.astro'
+import PricingPage from '../../components/PricingPage.astro'
+import Footer from '../../components/Footer.astro'
+import { getProjects } from '../../lib/projects'
+import { pricingSchema } from '../../lib/seo'
+
+const locale = 'en' as const
+const projects = await getProjects()
+const title = 'Delivery and support | weapp.dev'
+const description = 'Open-source sponsorship, migration delivery, training, and the roadmap for future cloud builds, templates, and private components from weapp.dev.'
+---
+
+<BaseLayout locale={locale} title={title} description={description} imageAlt="weapp.dev commercial delivery layer" schemas={[pricingSchema(locale)]}>
+  <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />
+  <PricingPage locale={locale} />
+  <Footer locale={locale} projects={projects} />
+</BaseLayout>

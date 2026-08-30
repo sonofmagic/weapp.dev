@@ -58,6 +58,41 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.getByText('Built for real mini-app projects')).toBeVisible()
 })
 
+test('renders the bilingual pricing and delivery page', async ({ page }) => {
+  await page.goto('/pricing/')
+  await expect(page.getByRole('heading', { level: 1, name: '先支持开源，再选择可交付服务' })).toBeVisible()
+  await expect(page.getByRole('heading', { name: 'Community' })).toBeVisible()
+  await expect(page.getByText('¥19', { exact: true })).toBeVisible()
+  await expect(page.getByText('¥99', { exact: true })).toBeVisible()
+  await expect(page.getByText('¥499', { exact: true })).toBeVisible()
+  await expect(page.locator('#sponsor')).toContainText('20%')
+  await expect(page.locator('#sponsor')).toContainText('赞助不是购买服务')
+  await expect(page.locator('#roadmap')).toContainText('建设中的能力')
+  await expect(page.locator('#cloud-build')).toContainText('仍在建设中')
+  await expect(page.locator('#services')).toContainText('¥8,000-15,000')
+  await expect(page.locator('#plans')).not.toContainText('500 分钟')
+  await expect(page.locator('#plans')).toContainText('规划中')
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://weapp.dev/pricing/')
+  await expect(page.locator('link[hreflang="en-US"]')).toHaveAttribute('href', 'https://weapp.dev/en/pricing/')
+  await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(2)
+  await expect(page.locator('script[type="application/ld+json"]').nth(1)).not.toContainText('Offer')
+
+  await page.getByRole('link', { name: 'English' }).click()
+  await expect(page).toHaveURL(/\/en\/pricing\/$/)
+  await expect(page.getByRole('heading', { level: 1, name: 'Support open source first, then choose a service' })).toBeVisible()
+  await expect(page.locator('#sponsor')).toContainText('¥499')
+})
+
+test('home commercial entry points reach pricing and services', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.locator('#commercial')).toContainText('赞助开源')
+  await page.getByRole('link', { name: '支持开源' }).click()
+  await expect(page).toHaveURL(/\/pricing\/#sponsor$/)
+  await page.goto('/')
+  await page.getByRole('link', { name: '查看可交付服务' }).click()
+  await expect(page).toHaveURL(/\/pricing\/#services$/)
+})
+
 test('theme control changes and persists the selected theme', async ({ page }) => {
   await page.goto('/')
   const initial = await page.locator('html').getAttribute('data-theme')
