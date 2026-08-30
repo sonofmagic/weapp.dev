@@ -2,7 +2,7 @@ import type { ProjectDefinition } from '../types/project'
 import { describe, expect, it } from 'vitest'
 import tailwind from '../content/projects/weapp-tailwindcss.json'
 import fallbackMetrics from '../data/project-metrics.fallback.json'
-import { breadcrumbSchema, canonicalUrl, organizationSchema, projectSchema, serializeJsonLd } from './seo'
+import { breadcrumbSchema, canonicalUrl, organizationSchema, pricingSchema, projectSchema, serializeJsonLd } from './seo'
 
 describe('SEO helpers', () => {
   it('normalizes canonical URLs without query strings or hashes', () => {
@@ -28,5 +28,12 @@ describe('SEO helpers', () => {
 
     expect(organization.sameAs).toContain('https://tw.weapp.dev/')
     expect(organization.sameAs).toContain('https://github.com/sonofmagic/weapp-tailwindcss')
+  })
+
+  it('describes delivery and sponsorship without purchasable offers', () => {
+    const schema = pricingSchema('zh-CN') as Record<string, unknown>
+    expect(schema['@type']).toBe('CollectionPage')
+    expect(JSON.stringify(schema)).toContain('DonateAction')
+    expect(JSON.stringify(schema)).not.toContain('Offer')
   })
 })

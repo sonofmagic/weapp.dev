@@ -36,3 +36,11 @@ weapp.dev is the open styling and build toolchain for real mini-app projects. Te
 - Release status: planned; the CLI package metadata currently reports version 0.0.1.
 
 Use the canonical project pages and linked official sources as the authority for current versions, APIs, compatibility, and release details.
+
+## Delivery and sponsorship
+
+The delivery page at https://weapp.dev/pricing/ describes what can be delivered today and what remains on the roadmap. Human-delivered migration and training services are available by discussion. Cloud builds, official templates, and private component registries are still in development.
+
+Open-source sponsorship uses one-time permanent recognition tiers: ¥20 supporter, ¥200 Bronze, and ¥1,000 Silver. ¥200 and above may display a GitHub avatar, username, and profile link after GitHub identity confirmation, maintainer review, and explicit authorization. Approved records may be shown on weapp.dev, tw.weapp.dev, and vite.weapp.dev. Gold business partnerships follow icebreaker.top terms: ¥2,000 for one-site monthly advertising, ¥3,000 for dual-site monthly advertising, ¥8,000 for a dual-site quarterly partnership, or custom discussion.
+
+20% of sponsorship income funds mini-app ecosystem open-source projects. The remaining funds support weapp.dev maintenance, documentation, testing, build infrastructure, and community operations; destinations are announced monthly or quarterly. Sponsorship is not a purchase of technical support, templates, cloud-build minutes, or subscription access, and public recognition never exposes payment amounts or private ledger data.

@@ -92,6 +92,19 @@ export function pricingSchema(locale: Locale) {
       locale === 'zh-CN' ? '小程序工程迁移实施' : 'Mini-app engineering migration services',
       locale === 'zh-CN' ? '云构建与模板路线图' : 'Cloud-build and template roadmap',
     ],
+    'hasPart': [
+      {
+        '@type': 'Service',
+        'name': locale === 'zh-CN' ? '小程序工程迁移与培训' : 'Mini-app engineering migration and training',
+        'provider': { '@id': organizationId },
+        'description': locale === 'zh-CN' ? '按项目范围人工交付的迁移、培训和模板定制服务。' : 'Human-delivered migration, training, and template customization scoped per project.',
+      },
+      {
+        '@type': 'DonateAction',
+        'name': locale === 'zh-CN' ? '支持 weapp.dev 开源' : 'Support weapp.dev open source',
+        'target': 'https://github.com/sonofmagic/sponsors',
+      },
+    ],
   }
 }
 

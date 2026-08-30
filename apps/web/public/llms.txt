@@ -8,6 +8,7 @@
 - [weapp-vite](https://weapp.dev/projects/weapp-vite/): Vite-powered development, builds, runtime tooling, and multi-platform output for mini-app projects.
 - [Varo](https://weapp.dev/projects/varo/): Registry-first editable components, primitives, business blocks, and Agent UI for H5 and weapp-vite mini-programs.
 - [English project index](https://weapp.dev/en/): English overview of the stack.
+- [Delivery and sponsorship](https://weapp.dev/pricing/): Human migration services, roadmap status, and one-time open-source sponsorship tiers.
 
 ## Official sources
 
@@ -20,6 +21,14 @@
 - [weapp-vite on npm](https://www.npmjs.com/package/weapp-vite)
 - [Varo source and documentation](https://github.com/daguanren21/Varo#readme)
 - [Varo CLI on npm](https://www.npmjs.com/package/@varo/cli)
+
+## Open-source sponsorship
+
+- One-time tiers: ¥20 supporter, ¥200 Bronze, and ¥1,000 Silver.
+- ¥200 and above may receive public GitHub link recognition after identity confirmation, maintainer review, and explicit authorization.
+- Approved public recognition can be synchronized across weapp.dev, tw.weapp.dev, and vite.weapp.dev.
+- 20% of sponsorship income is allocated to mini-app ecosystem open-source projects; destinations are announced monthly or quarterly.
+- Sponsorship is not a purchase of technical support, templates, cloud-build minutes, or subscription access.
 
 ## Canonical pages
 
