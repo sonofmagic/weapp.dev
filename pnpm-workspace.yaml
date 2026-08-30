@@ -5,5 +5,3 @@ packages:
 onlyBuiltDependencies:
   - esbuild
   - workerd
-patchedDependencies:
-  '@icebreakers/monorepo@5.4.2': patches/@icebreakers__monorepo@5.4.2.patch
