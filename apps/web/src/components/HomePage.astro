@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, ArrowUpRight, BadgeCheck, BookOpen, GitFork, Heart, Layers2, Package, ScanLine, ShieldCheck } from '@lucide/astro'
+import { ArrowRight, ArrowUpRight, BadgeCheck, BookOpen, Database, GitFork, Heart, Layers2, Package, ScanLine, ShieldCheck } from '@lucide/astro'
 import type { Locale, ProjectMetricsMap } from '../types/project'
 import type { ProjectEntry } from '../lib/projects'
 import { formatCompactNumber, formatReleaseDate } from '../lib/metrics'
@@ -60,6 +60,12 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
           </a>
         )
       })}
+      <a data-hero-enter style={`--enter-delay: ${220 + projects.length * 45}ms`} class="home-project-link" href="https://sqlite.weapp.dev/" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="sqlite_docs">
+        <span class="home-project-index">04</span>
+        <span class="grid size-[2.1rem] place-items-center bg-[color-mix(in_srgb,var(--highlight)_18%,var(--surface-soft))] font-mono text-xs font-bold text-ink">DB</span>
+        <span class="min-w-0"><strong>weapp-sqlite</strong><small>{locale === 'zh-CN' ? '数据 / 本地 SQLite 运行时' : 'DATA / LOCAL SQLITE RUNTIME'}</small></span>
+        <ArrowUpRight class="home-project-arrow" size={17} stroke-width={1.8} aria-hidden="true" />
+      </a>
     </div>
   </section>
 
@@ -105,16 +111,11 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
             <a class:list={['home-project-visual-link', index === 1 ? 'order-2 max-[800px]:order-none' : '']} href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home_visual" data-analytics-project={project.id} aria-label={locale === 'zh-CN' ? `打开 ${content.name} 官方站点` : `Open ${content.name} official site`}>
             <figure data-reveal data-project-visual class="relative m-0 overflow-hidden rounded-panel border border-line bg-panel-soft">
               <div class="project-art" data-art={project.id} data-shader-frame aria-label={visualCopy.alt}>
-                <ShaderCanvas
-                  preset={project.id === 'weapp-tailwindcss' ? 'marble' : project.id === 'weapp-vite' ? 'tunnel' : 'orbit'}
-                  label={visualCopy.alt}
-                  class="project-shader"
-                  scale={0.72}
-                />
-                <div class="art-chrome"><span></span><span></span><span></span><b>{project.data.packageName}</b></div>
-                {project.id === 'weapp-tailwindcss' && <div class="art-tailwind"><div class="art-sidebar"><i></i><i></i><i></i><i></i></div><div class="art-canvas"><strong>utility-first</strong><span class="art-line w-4/5"></span><span class="art-line w-3/5"></span><span class="art-line w-11/12"></span><div class="art-chip-row"><em>p-4</em><em>flex</em><em>gap-2</em></div></div></div>}
-                {project.id === 'weapp-vite' && <div class="art-vite"><div class="art-terminal"><span class="art-prompt">$</span> vite build --mode weapp<strong>✓ built in 1.42s</strong><small>dist/weapp / 24 modules</small></div><div class="art-bars"><i></i><i></i><i></i><i></i><i></i></div></div>}
-                {project.id === 'varo' && <div class="art-varo"><div class="art-component"><span class="art-avatar"></span><span class="art-line w-3/5"></span><span class="art-line w-4/5"></span><button type="button">Install block</button></div><div class="art-registry"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>}
+                <picture>
+                  <source srcset={visual.avif} type="image/avif" />
+                  <img class="size-full object-cover object-top" src={visual.src} width={visual.width} height={visual.height} alt={visualCopy.alt} loading="lazy" />
+                </picture>
+                <span class="project-art-label">{project.data.packageName}</span>
               </div>
               <figcaption class="border-t border-line bg-panel px-4 py-3 text-xs text-copy-muted">{visualCopy.caption}</figcaption>
             </figure>
@@ -151,6 +152,25 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
         )
       })}
     </div>
+
+    <article data-reveal class="sqlite-capability-row mt-20 grid grid-cols-[1.1fr_.9fr] items-center gap-10 border-y border-line bg-panel-soft px-8 py-8 max-[800px]:mt-14 max-[800px]:grid-cols-1 max-[720px]:px-5">
+      <div>
+        <div class="mb-4 flex items-center gap-3">
+          <span class="grid size-10 place-items-center bg-[color-mix(in_srgb,var(--highlight)_18%,var(--surface))] font-mono text-xs font-bold text-ink">DB</span>
+          <span class="font-mono text-xs font-bold uppercase tracking-[0.12em] text-brand">04 / DATA</span>
+        </div>
+        <h3 class="mb-3 text-[clamp(1.7rem,3vw,2.5rem)] font-[700] tracking-[-0.04em]">weapp-sqlite</h3>
+        <p class="mb-5 max-w-[560px] text-copy-muted">{locale === 'zh-CN' ? '把本地数据能力放回真实运行时：为多端小程序提供可复用的 SQLite 数据层。' : 'Keep local data close to the runtime with a reusable SQLite layer for multi-platform mini-apps.'}</p>
+        <a class={buttonSecondary} href="https://sqlite.weapp.dev/" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="sqlite_docs">{locale === 'zh-CN' ? '查看数据能力' : 'Explore data layer'} <ArrowUpRight size={16} stroke-width={1.8} aria-hidden="true" /></a>
+      </div>
+      <div class="sqlite-signal" aria-hidden="true">
+        <Database size={28} stroke-width={1.5} />
+        <span class="sqlite-signal-line"></span>
+        <span class="sqlite-signal-chip">local.db</span>
+        <span class="sqlite-signal-line"></span>
+        <span class="sqlite-signal-chip">runtime</span>
+      </div>
+    </article>
   </section>
 
   <section class="border-y border-line bg-panel-soft" id="commercial">
@@ -258,8 +278,5 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
     .home-project-link, .home-project-link:first-child { grid-template-columns: 1.4rem 2rem minmax(0, 1fr) auto; padding: .85rem 0; border-right: 0; border-bottom: 1px solid color-mix(in srgb, var(--surface) 18%, transparent); }
     .home-project-link:last-child { border-bottom: 0; }
     .home-project-link img { width: 2rem; height: 2rem; }
-    .art-vite, .art-varo { padding: .85rem; }
-    .art-component { padding: .85rem; }
-    .art-canvas { padding: 1rem; }
   }
 </style>

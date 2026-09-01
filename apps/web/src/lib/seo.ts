@@ -31,6 +31,7 @@ export function organizationSchema(projects: Array<{ data: ProjectDefinition }>)
     'logo': absoluteUrl('/logo.svg'),
     'sameAs': [
       'https://github.com/sonofmagic/weapp.dev',
+      'https://sqlite.weapp.dev/',
       ...projectLinks,
     ],
   }

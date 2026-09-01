@@ -17,7 +17,7 @@ export const siteCopy = {
     hero: {
       eyebrow: '为真实小程序工程而建',
       title: 'weapp.dev',
-      description: '从 Tailwind CSS 样式、Vite 构建到可编辑双端组件，用一套开放工具链交付小程序与 H5。',
+      description: '从样式、构建到数据与组件，用一套开放工具链把小程序和 H5 交付到真实运行时。',
       primary: '查看项目',
       secondary: '查看 GitHub',
       visualLabel: '样式、构建与组件能力汇流的动态视觉',
@@ -34,8 +34,8 @@ export const siteCopy = {
     },
     projects: {
       eyebrow: '工具栈',
-      title: '三个项目，三层清晰边界',
-      description: '按需独立采用，也可以组合成从样式、构建到 H5 与小程序组件源码的完整工程。',
+      title: '三条边界，一条交付路径',
+      description: '按需独立采用，也可以组合成从样式、构建、数据到组件源码的完整工程。',
       documentation: '阅读文档',
       details: '项目详情',
       weeklyDownloads: '周下载',
@@ -243,7 +243,7 @@ export const siteCopy = {
     hero: {
       eyebrow: 'Built for real mini-app projects',
       title: 'weapp.dev',
-      description: 'Ship mini-app and H5 products with open tooling for Tailwind CSS styling, Vite-powered builds, and editable cross-runtime components.',
+      description: 'Ship mini-app and H5 products with open tooling for styling, builds, local data, and editable cross-runtime components.',
       primary: 'View projects',
       secondary: 'View on GitHub',
       visualLabel: 'An animated convergence of styling, builds, and component capabilities',
@@ -260,8 +260,8 @@ export const siteCopy = {
     },
     projects: {
       eyebrow: 'The stack',
-      title: 'Three projects. Three clear boundaries.',
-      description: 'Adopt each independently or combine styling, builds, and editable H5 / mini-program component source.',
+      title: 'Three boundaries. One delivery path.',
+      description: 'Adopt each independently or combine styling, builds, local data, and editable H5 / mini-program component source.',
       documentation: 'Read the docs',
       details: 'Project details',
       weeklyDownloads: 'Weekly downloads',

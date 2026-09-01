@@ -57,6 +57,7 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
     { href: 'https://tw.weapp.dev/', target: '_blank', rel: 'noreferrer' },
     { href: 'https://vite.weapp.dev/', target: '_blank', rel: 'noreferrer' },
     { href: 'https://github.com/daguanren21/Varo#readme', target: '_blank', rel: 'noreferrer' },
+    { href: 'https://sqlite.weapp.dev/', target: '_blank', rel: 'noreferrer' },
   ])
   await expect(page.locator('.home-project-visual-link').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     'https://tw.weapp.dev/',
@@ -81,6 +82,7 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
     'https://tw.weapp.dev/',
     'https://vite.weapp.dev/',
     'https://github.com/daguanren21/Varo#readme',
+    'https://sqlite.weapp.dev/',
   ])
 })
 

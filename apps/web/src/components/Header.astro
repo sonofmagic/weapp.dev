@@ -43,6 +43,13 @@ const navLink = 'inline-flex items-center gap-1.5 whitespace-nowrap py-2 text-sm
               </span>
             </a>
           ))}
+          <a class="grid grid-cols-[38px_1fr] items-center gap-3 rounded-[6px] p-3 transition-colors hover:bg-panel-soft" href="https://sqlite.weapp.dev/" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="sqlite_docs">
+            <span class="grid size-[38px] place-items-center rounded-[6px] bg-[color-mix(in_srgb,var(--highlight)_18%,var(--surface-soft))] font-mono text-sm font-bold text-ink">DB</span>
+            <span class="min-w-0">
+              <strong class="block font-display text-sm font-[650] text-ink">weapp-sqlite</strong>
+              <small class="mt-0.5 block overflow-hidden text-ellipsis whitespace-nowrap text-xs font-[450] text-copy-muted">Data / local SQLite runtime</small>
+            </span>
+          </a>
         </div>
       </details>
       <a class={navLink} href={`${home}#about`} data-analytics-event="navigate_section" data-analytics-section="about">{copy.nav.about}</a>
@@ -76,6 +83,10 @@ const navLink = 'inline-flex items-center gap-1.5 whitespace-nowrap py-2 text-sm
               {project.data.locales[locale].name}
             </a>
           ))}
+          <a class="grid grid-cols-[30px_1fr] items-center gap-3 rounded-[6px] p-3 font-display text-sm font-[650] hover:bg-panel-soft" href="https://sqlite.weapp.dev/" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="sqlite_docs">
+            <span class="grid size-7 place-items-center bg-[color-mix(in_srgb,var(--highlight)_18%,var(--surface-soft))] font-mono text-[10px] font-bold text-ink">DB</span>
+            weapp-sqlite
+          </a>
           <span class="my-1 h-px bg-line" aria-hidden="true"></span>
           <a class="rounded-[6px] p-3 text-sm font-semibold hover:bg-panel-soft" href={`${home}#about`} data-analytics-event="navigate_section" data-analytics-section="about">{copy.nav.about}</a>
           <a class="rounded-[6px] p-3 text-sm font-semibold hover:bg-panel-soft" href={`${home}#vision`} data-analytics-event="navigate_section" data-analytics-section="vision">{copy.nav.vision}</a>
@@ -91,5 +102,18 @@ const navLink = 'inline-flex items-center gap-1.5 whitespace-nowrap py-2 text-sm
 <script is:inline>
   document.querySelectorAll('[data-mobile-menu] nav a').forEach((link) => {
     link.addEventListener('click', () => link.closest('details')?.removeAttribute('open'))
+  })
+
+  document.querySelectorAll('[data-mobile-menu]').forEach((menu) => {
+    menu.addEventListener('toggle', () => {
+      if (!menu.open) return
+      const closeOnEscape = (event) => {
+        if (event.key !== 'Escape') return
+        menu.removeAttribute('open')
+        menu.querySelector('summary')?.focus()
+        document.removeEventListener('keydown', closeOnEscape)
+      }
+      document.addEventListener('keydown', closeOnEscape)
+    })
   })
 </script>
