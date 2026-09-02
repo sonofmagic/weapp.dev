@@ -2,6 +2,7 @@ import type { ProjectMetrics, ProjectMetricsMap } from '../src/types/project'
 import { mkdir, readdir, readFile, rename, writeFile } from 'node:fs/promises'
 import { basename, dirname, extname, resolve } from 'node:path'
 import process from 'node:process'
+import { hasSameProjectMetricValues } from '../src/lib/metrics'
 
 interface ProjectSource {
   slug: string
@@ -79,6 +80,9 @@ async function writeJsonAtomic(path: string, value: unknown): Promise<void> {
 const fallback = JSON.parse(await readFile(fallbackPath, 'utf8')) as ProjectMetricsMap
 const next = { ...fallback }
 const projectSources = await loadProjectSources()
+const failures: string[] = []
+const requireFresh = process.argv.includes('--require-fresh')
+const updateFallback = process.argv.includes('--update-fallback')
 
 await Promise.all(projectSources.map(async (project) => {
   try {
@@ -86,12 +90,21 @@ await Promise.all(projectSources.map(async (project) => {
     console.log(`Updated metrics for ${project.slug}`)
   }
   catch (error) {
+    failures.push(project.slug)
     const message = error instanceof Error ? error.message : String(error)
     console.warn(`Using fallback metrics for ${project.slug}: ${message}`)
   }
 }))
 
+if (requireFresh && failures.length > 0) {
+  throw new Error(`Failed to refresh metrics for: ${failures.sort().join(', ')}`)
+}
+
 await writeJsonAtomic(cachePath, next)
-if (process.argv.includes('--update-fallback')) {
-  await writeJsonAtomic(fallbackPath, next)
+if (updateFallback) {
+  const updatedFallback = Object.fromEntries(Object.entries(next).map(([slug, metrics]) => {
+    const previous = fallback[slug]
+    return [slug, previous && hasSameProjectMetricValues(previous, metrics) ? previous : metrics]
+  })) as ProjectMetricsMap
+  await writeJsonAtomic(fallbackPath, updatedFallback)
 }
