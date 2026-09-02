@@ -19,8 +19,8 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
 const stepIcons = [Layers2, ScanLine, Package]
 const principleIcons = [Layers2, ShieldCheck, BadgeCheck]
 const projectStages: Record<string, string> = locale === 'zh-CN'
-  ? { 'weapp-tailwindcss': '样式', 'weapp-vite': '构建', varo: '组件' }
-  : { 'weapp-tailwindcss': 'STYLE', 'weapp-vite': 'BUILD', varo: 'COMPOSE' }
+  ? { 'weapp-tailwindcss': '样式', 'weapp-vite': '构建', varo: '组件', 'weapp-sqlite': '数据' }
+  : { 'weapp-tailwindcss': 'STYLE', 'weapp-vite': 'BUILD', varo: 'COMPOSE', 'weapp-sqlite': 'DATA' }
 ---
 
 <main id="main-content">
@@ -105,16 +105,11 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
             <a class:list={['home-project-visual-link', index === 1 ? 'order-2 max-[800px]:order-none' : '']} href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home_visual" data-analytics-project={project.id} aria-label={locale === 'zh-CN' ? `打开 ${content.name} 官方站点` : `Open ${content.name} official site`}>
             <figure data-reveal data-project-visual class="relative m-0 overflow-hidden rounded-panel border border-line bg-panel-soft">
               <div class="project-art" data-art={project.id} data-shader-frame aria-label={visualCopy.alt}>
-                <ShaderCanvas
-                  preset={project.id === 'weapp-tailwindcss' ? 'marble' : project.id === 'weapp-vite' ? 'tunnel' : 'orbit'}
-                  label={visualCopy.alt}
-                  class="project-shader"
-                  scale={0.72}
-                />
-                <div class="art-chrome"><span></span><span></span><span></span><b>{project.data.packageName}</b></div>
-                {project.id === 'weapp-tailwindcss' && <div class="art-tailwind"><div class="art-sidebar"><i></i><i></i><i></i><i></i></div><div class="art-canvas"><strong>utility-first</strong><span class="art-line w-4/5"></span><span class="art-line w-3/5"></span><span class="art-line w-11/12"></span><div class="art-chip-row"><em>p-4</em><em>flex</em><em>gap-2</em></div></div></div>}
-                {project.id === 'weapp-vite' && <div class="art-vite"><div class="art-terminal"><span class="art-prompt">$</span> vite build --mode weapp<strong>✓ built in 1.42s</strong><small>dist/weapp / 24 modules</small></div><div class="art-bars"><i></i><i></i><i></i><i></i><i></i></div></div>}
-                {project.id === 'varo' && <div class="art-varo"><div class="art-component"><span class="art-avatar"></span><span class="art-line w-3/5"></span><span class="art-line w-4/5"></span><button type="button">Install block</button></div><div class="art-registry"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>}
+                <picture>
+                  <source srcset={visual.avif} type="image/avif" />
+                  <img class="size-full object-cover object-top" src={visual.src} width={visual.width} height={visual.height} alt={visualCopy.alt} loading="lazy" />
+                </picture>
+                <span class="project-art-label">{project.data.packageName}</span>
               </div>
               <figcaption class="border-t border-line bg-panel px-4 py-3 text-xs text-copy-muted">{visualCopy.caption}</figcaption>
             </figure>
@@ -151,6 +146,7 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
         )
       })}
     </div>
+
   </section>
 
   <section class="border-y border-line bg-panel-soft" id="commercial">
@@ -217,9 +213,9 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
                 <p class="mb-0 text-xs text-copy-muted">{copy.releases.released} {formatReleaseDate(projectMetrics.releasedAt, numberLocale)}</p>
               </div>
               <strong class="font-mono text-sm">v{projectMetrics.version}</strong>
-              <a class:list={[iconControl, 'max-[520px]:hidden']} href={`https://www.npmjs.com/package/${project.data.packageName}`} aria-label={`${copy.releases.viewPackage}: ${project.data.packageName}`} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="package" data-analytics-project={project.id}>
+              {project.data.npmUrl && <a class:list={[iconControl, 'max-[520px]:hidden']} href={project.data.npmUrl} aria-label={`${copy.releases.viewPackage}: ${project.data.packageName}`} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="package" data-analytics-project={project.id}>
                 <ArrowUpRight size={19} stroke-width={1.8} aria-hidden="true" />
-              </a>
+              </a>}
             </article>
           )
         })}
@@ -258,8 +254,5 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
     .home-project-link, .home-project-link:first-child { grid-template-columns: 1.4rem 2rem minmax(0, 1fr) auto; padding: .85rem 0; border-right: 0; border-bottom: 1px solid color-mix(in srgb, var(--surface) 18%, transparent); }
     .home-project-link:last-child { border-bottom: 0; }
     .home-project-link img { width: 2rem; height: 2rem; }
-    .art-vite, .art-varo { padding: .85rem; }
-    .art-component { padding: .85rem; }
-    .art-canvas { padding: 1rem; }
   }
 </style>

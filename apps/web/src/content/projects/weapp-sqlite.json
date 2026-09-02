@@ -1,0 +1,63 @@
+{
+  "order": 3,
+  "status": "beta",
+  "packageName": "weapp-sqlite",
+  "github": "weapp-sqlite/weapp-sqlite",
+  "docsUrl": "https://sqlite.weapp.dev/",
+  "license": "https://opensource.org/license/mit",
+  "maintainer": "weapp-sqlite contributors",
+  "keywords": ["SQLite", "WASM", "mini-program", "Web runtime", "local data"],
+  "installCommand": "pnpm add weapp-sqlite",
+  "futureDocsPath": "/docs/weapp-sqlite/",
+  "logo": "/logo.svg",
+  "accent": "#d6a528",
+  "platforms": ["WeChat", "Web", "weapp-vite"],
+  "visuals": {
+    "primary": {
+      "src": "/media/brand/build-lens.webp",
+      "avif": "/media/brand/build-lens.avif",
+      "width": 1280,
+      "height": 916,
+      "locales": {
+        "zh-CN": { "alt": "weapp-sqlite 本地数据层与运行时构建视觉", "caption": "weapp-sqlite 当前处于 Beta 阶段，持续验证本地 SQLite 数据能力。" },
+        "en": { "alt": "weapp-sqlite local data layer and runtime build visual", "caption": "weapp-sqlite is currently in Beta while its local SQLite data layer is being validated." }
+      }
+    },
+    "secondary": {
+      "src": "/media/brand/build-lens.webp",
+      "avif": "/media/brand/build-lens.avif",
+      "width": 1280,
+      "height": 916,
+      "locales": {
+        "zh-CN": { "alt": "weapp-sqlite 构建与运行时验证视觉", "caption": "先在真实运行时验证，再逐步扩大平台支持范围。" },
+        "en": { "alt": "weapp-sqlite build and runtime validation visual", "caption": "Validate the runtime first, then expand platform coverage step by step." }
+      }
+    }
+  },
+  "locales": {
+    "zh-CN": {
+      "name": "weapp-sqlite",
+      "tagline": "把本地 SQLite 能力带到多端运行时",
+      "description": "面向小程序与 Web runtime 的本地数据层，当前处于 Beta 阶段，API 与平台支持仍在持续验证。",
+      "audience": "需要在小程序和 Web runtime 中共享本地数据能力、并愿意参与 Beta 验证的工程团队。",
+      "useCases": ["在多端运行时读写本地 SQLite 数据", "为离线或弱网场景提供可复用的数据层", "在 weapp-vite 工程中验证本地数据能力"],
+      "capabilities": ["本地 SQLite 数据层", "WebAssembly runtime", "多端运行时验证", "Beta API 迭代"],
+      "faqs": [
+        { "question": "weapp-sqlite 当前可以用于生产吗？", "answer": "weapp-sqlite 当前处于 Beta 阶段，API、平台覆盖和运行时边界仍在验证。正式生产接入前请先根据项目风险进行评估。" },
+        { "question": "在哪里查看最新进展？", "answer": "请访问 sqlite.weapp.dev 查看文档与最新说明，也可以在 GitHub 仓库提交反馈和问题。" }
+      ]
+    },
+    "en": {
+      "name": "weapp-sqlite",
+      "tagline": "Bring local SQLite data to multi-platform runtimes",
+      "description": "A local data layer for mini-apps and the Web runtime. It is currently in Beta while APIs and platform support are being validated.",
+      "audience": "Engineering teams that need shared local data across mini-app and Web runtimes and are willing to validate a Beta tool.",
+      "useCases": ["Read and write local SQLite data across runtimes", "Support offline or weak-network workflows", "Validate local data capabilities in weapp-vite projects"],
+      "capabilities": ["Local SQLite data layer", "WebAssembly runtime", "Multi-runtime validation", "Iterating Beta APIs"],
+      "faqs": [
+        { "question": "Is weapp-sqlite ready for production?", "answer": "weapp-sqlite is currently in Beta. Its APIs, platform coverage, and runtime boundaries are still being validated, so assess the risk before production adoption." },
+        { "question": "Where can I follow the latest progress?", "answer": "Visit sqlite.weapp.dev for documentation and current notes, or open an issue in the GitHub repository." }
+      ]
+    }
+  }
+}

@@ -34,7 +34,7 @@ const projects = defineCollection({
     packageName: z.string().min(1),
     github: z.string().regex(/^[\w.-]+\/[\w.-]+$/),
     docsUrl: z.url(),
-    npmUrl: z.url(),
+    npmUrl: z.url().optional(),
     license: z.url().optional(),
     maintainer: z.string().min(1),
     keywords: z.array(z.string().min(1)).min(1),

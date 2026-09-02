@@ -17,10 +17,18 @@ export const siteCopy = {
     hero: {
       eyebrow: '为真实小程序工程而建',
       title: 'weapp.dev',
-      description: '从 Tailwind CSS 样式、Vite 构建到可编辑双端组件，用一套开放工具链交付小程序与 H5。',
+      description: '从样式、构建到数据与组件，用一套开放工具链把小程序和 H5 交付到真实运行时。',
       primary: '查看项目',
       secondary: '查看 GitHub',
       visualLabel: '样式、构建与组件能力汇流的动态视觉',
+    },
+    sqlite: {
+      name: 'weapp-sqlite',
+      stage: '数据 / 测试版',
+      status: 'Beta / 测试版',
+      tagline: '把本地 SQLite 能力带到多端运行时',
+      description: '面向小程序与 Web runtime 的本地数据层，当前处于 Beta 阶段，API 与平台支持仍在持续验证。',
+      docs: '查看 SQLite 文档',
     },
     about: {
       eyebrow: '构建链路',
@@ -34,8 +42,8 @@ export const siteCopy = {
     },
     projects: {
       eyebrow: '工具栈',
-      title: '三个项目，三层清晰边界',
-      description: '按需独立采用，也可以组合成从样式、构建到 H5 与小程序组件源码的完整工程。',
+      title: '四条边界，一条交付路径',
+      description: '按需独立采用，也可以组合成从样式、构建、数据到组件源码的完整工程。',
       documentation: '阅读文档',
       details: '项目详情',
       weeklyDownloads: '周下载',
@@ -59,7 +67,7 @@ export const siteCopy = {
     releases: {
       eyebrow: '最新版本',
       title: '持续发布，稳定演进',
-      description: '版本信息在构建时从 npm 获取，并保留可靠的离线快照。',
+      description: '公开 npm 包在构建时同步版本；尚未发布 npm 的 Beta 项目沿用可靠的离线快照。',
       released: '发布于',
       viewPackage: '查看 npm',
     },
@@ -243,10 +251,18 @@ export const siteCopy = {
     hero: {
       eyebrow: 'Built for real mini-app projects',
       title: 'weapp.dev',
-      description: 'Ship mini-app and H5 products with open tooling for Tailwind CSS styling, Vite-powered builds, and editable cross-runtime components.',
+      description: 'Ship mini-app and H5 products with open tooling for styling, builds, local data, and editable cross-runtime components.',
       primary: 'View projects',
       secondary: 'View on GitHub',
       visualLabel: 'An animated convergence of styling, builds, and component capabilities',
+    },
+    sqlite: {
+      name: 'weapp-sqlite',
+      stage: 'DATA / BETA',
+      status: 'Beta',
+      tagline: 'Bring local SQLite data to multi-platform runtimes',
+      description: 'A local data layer for mini-apps and the Web runtime. It is currently in Beta while APIs and platform support are being validated.',
+      docs: 'Read SQLite docs',
     },
     about: {
       eyebrow: 'Build path',
@@ -260,8 +276,8 @@ export const siteCopy = {
     },
     projects: {
       eyebrow: 'The stack',
-      title: 'Three projects. Three clear boundaries.',
-      description: 'Adopt each independently or combine styling, builds, and editable H5 / mini-program component source.',
+      title: 'Four boundaries. One delivery path.',
+      description: 'Adopt each independently or combine styling, builds, local data, and editable H5 / mini-program component source.',
       documentation: 'Read the docs',
       details: 'Project details',
       weeklyDownloads: 'Weekly downloads',
@@ -285,7 +301,7 @@ export const siteCopy = {
     releases: {
       eyebrow: 'Latest releases',
       title: 'Ship steadily, evolve carefully',
-      description: 'Release data is fetched from npm at build time with a reliable offline snapshot.',
+      description: 'Published npm packages sync at build time; Beta projects without npm releases use a reliable offline snapshot.',
       released: 'Released',
       viewPackage: 'View on npm',
     },

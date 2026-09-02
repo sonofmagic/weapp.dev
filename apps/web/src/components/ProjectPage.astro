@@ -48,10 +48,10 @@ const secondaryVisualCopy = secondaryVisual.locales[locale]
           <GitFork size={18} stroke-width={1.9} aria-hidden="true" />
           {copy.project.source}
         </a>
-        <a class={buttonSecondary} href={project.data.npmUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="package" data-analytics-project={project.id}>
+        {project.data.npmUrl && <a class={buttonSecondary} href={project.data.npmUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="package" data-analytics-project={project.id}>
           <Package size={18} stroke-width={1.9} aria-hidden="true" />
           {copy.project.npm}
-        </a>
+        </a>}
       </div>
     </div>
 

@@ -19,5 +19,12 @@
     "stars": 2,
     "weeklyDownloads": 561,
     "fetchedAt": "2026-09-02T03:50:32.074Z"
+  },
+  "weapp-sqlite": {
+    "version": "0.0.0-beta",
+    "releasedAt": "2026-08-26T00:00:00.000Z",
+    "stars": 0,
+    "weeklyDownloads": 0,
+    "fetchedAt": "2026-08-26T00:00:00.000Z"
   }
 }

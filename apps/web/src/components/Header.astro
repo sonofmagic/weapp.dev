@@ -92,4 +92,17 @@ const navLink = 'inline-flex items-center gap-1.5 whitespace-nowrap py-2 text-sm
   document.querySelectorAll('[data-mobile-menu] nav a').forEach((link) => {
     link.addEventListener('click', () => link.closest('details')?.removeAttribute('open'))
   })
+
+  document.querySelectorAll('[data-mobile-menu]').forEach((menu) => {
+    menu.addEventListener('toggle', () => {
+      if (!menu.open) return
+      const closeOnEscape = (event) => {
+        if (event.key !== 'Escape') return
+        menu.removeAttribute('open')
+        menu.querySelector('summary')?.focus()
+        document.removeEventListener('keydown', closeOnEscape)
+      }
+      document.addEventListener('keydown', closeOnEscape)
+    })
+  })
 </script>

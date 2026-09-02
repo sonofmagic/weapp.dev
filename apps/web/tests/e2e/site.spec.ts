@@ -38,6 +38,7 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   })).toBe(true)
   await expect(page.locator('#projects').getByRole('heading', { name: 'weapp-tailwindcss' })).toBeVisible()
   await expect(page.locator('#projects').getByRole('heading', { name: 'weapp-vite' })).toBeVisible()
+  await expect(page.locator('#projects').getByRole('heading', { name: 'weapp-sqlite' })).toBeVisible()
   await expect(page.locator('#projects').getByRole('heading', { name: 'Varo' })).toBeVisible()
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://weapp.dev/')
   await expect(page.locator('link[hreflang="en-US"]')).toHaveAttribute('href', 'https://weapp.dev/en/')
@@ -46,31 +47,36 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(4)
   await expect(page.locator('#about')).toContainText('weapp-tailwindcss')
   const docsLinks = page.locator('#projects').getByRole('link', { name: '阅读文档' })
-  await expect(docsLinks).toHaveCount(3)
+  await expect(docsLinks).toHaveCount(4)
   await expect(docsLinks.evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     'https://tw.weapp.dev/',
     'https://vite.weapp.dev/',
+    'https://sqlite.weapp.dev/',
     'https://daguanren21.github.io/Varo/',
   ])
   const projectHomeLinks = page.locator('.home-project-rail a')
   await expect(projectHomeLinks.evaluateAll(links => links.map(link => ({ href: link.getAttribute('href'), target: link.getAttribute('target'), rel: link.getAttribute('rel') })))).resolves.toEqual([
     { href: 'https://tw.weapp.dev/', target: '_blank', rel: 'noreferrer' },
     { href: 'https://vite.weapp.dev/', target: '_blank', rel: 'noreferrer' },
+    { href: 'https://sqlite.weapp.dev/', target: '_blank', rel: 'noreferrer' },
     { href: 'https://daguanren21.github.io/Varo/', target: '_blank', rel: 'noreferrer' },
   ])
   await expect(page.locator('.home-project-visual-link').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     'https://tw.weapp.dev/',
     'https://vite.weapp.dev/',
+    'https://sqlite.weapp.dev/',
     'https://daguanren21.github.io/Varo/',
   ])
   await expect(page.locator('.home-project-title-link').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     'https://tw.weapp.dev/',
     'https://vite.weapp.dev/',
+    'https://sqlite.weapp.dev/',
     'https://daguanren21.github.io/Varo/',
   ])
   await expect(page.locator('#projects a[data-analytics-event="select_project"]').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     '/projects/weapp-tailwindcss/',
     '/projects/weapp-vite/',
+    '/projects/weapp-sqlite/',
     '/projects/varo/',
   ])
 
@@ -80,6 +86,7 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.locator('.home-project-rail a').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     'https://tw.weapp.dev/',
     'https://vite.weapp.dev/',
+    'https://sqlite.weapp.dev/',
     'https://daguanren21.github.io/Varo/',
   ])
 })
@@ -168,6 +175,16 @@ test('published Varo project exposes current release data', async ({ page }) => 
   await expect(page.getByText('v1.2.0')).toBeVisible()
   await expect(page.getByText('/docs/varo/')).toBeVisible()
   await expect(page.getByText('GitHub Stars')).toBeVisible()
+})
+
+test('beta SQLite project exposes its status and official destinations', async ({ page }) => {
+  await page.goto('/projects/weapp-sqlite/')
+  await expect(page.getByRole('heading', { level: 1, name: 'weapp-sqlite' })).toBeVisible()
+  await expect(page.getByText('测试版', { exact: true }).first()).toBeVisible()
+  await expect(page.getByRole('link', { name: '阅读文档' }).first()).toHaveAttribute('href', 'https://sqlite.weapp.dev/')
+  await expect(page.getByRole('link', { name: '查看源码' })).toHaveAttribute('href', 'https://github.com/weapp-sqlite/weapp-sqlite')
+  await expect(page.locator('pre code')).toContainText('pnpm add weapp-sqlite')
+  await expect(page.getByText('0.0.0-beta')).toBeVisible()
 })
 
 test('passes automated accessibility checks in light and dark themes', async ({ page }) => {

@@ -31,6 +31,7 @@ export function organizationSchema(projects: Array<{ data: ProjectDefinition }>)
     'logo': absoluteUrl('/logo.svg'),
     'sameAs': [
       'https://github.com/sonofmagic/weapp.dev',
+      'https://sqlite.weapp.dev/',
       ...projectLinks,
     ],
   }
@@ -125,7 +126,7 @@ export function projectSchema(
     'url': absoluteUrl(path),
     'image': absoluteUrl(project.data.visuals.primary.src),
     'codeRepository': `https://github.com/${project.data.github}`,
-    'downloadUrl': project.data.npmUrl,
+    ...(project.data.npmUrl ? { downloadUrl: project.data.npmUrl } : {}),
     'programmingLanguage': ['TypeScript', 'JavaScript'],
     'keywords': project.data.keywords.join(', '),
     'runtimePlatform': project.data.platforms,
@@ -137,7 +138,7 @@ export function projectSchema(
       'name': project.data.maintainer,
     },
     'isPartOf': { '@id': organizationId },
-    'sameAs': [project.data.docsUrl, project.data.npmUrl, `https://github.com/${project.data.github}`],
+    'sameAs': [project.data.docsUrl, ...(project.data.npmUrl ? [project.data.npmUrl] : []), `https://github.com/${project.data.github}`],
   }
 }
 
