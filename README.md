@@ -61,7 +61,7 @@ pnpm add -D weapp-vite
 
 <img src="./apps/web/public/brands/varo.svg" width="56" height="56" alt="Varo" />
 
-**规划中 · 跨运行时组件系统的生产底座**
+**稳定版 · 跨运行时组件系统的生产底座**
 
 为 H5 与 weapp-vite 小程序提供 registry-first primitives、组件封装、主题 token、业务 Blocks 和 Agent UI，通过 CLI 交付可编辑源码与校验能力。
 
@@ -70,10 +70,10 @@ pnpm add -D weapp-vite
 - **支持范围：** H5、WeChat、Vue 3、weapp-vite、Tailwind CSS。
 
 ```bash
-pnpm dlx @varo/cli add --target weapp-vite button input card
+pnpm dlx @varo-ui/cli add --target weapp button input card
 ```
 
-[文档](https://github.com/daguanren21/Varo#readme) · [源码](https://github.com/daguanren21/Varo) · [npm](https://www.npmjs.com/package/@varo/cli)
+[文档](https://daguanren21.github.io/Varo/) · [源码](https://github.com/daguanren21/Varo) · [npm](https://www.npmjs.com/package/@varo-ui/cli)
 
 ## 工程约束比演示效果更重要
 

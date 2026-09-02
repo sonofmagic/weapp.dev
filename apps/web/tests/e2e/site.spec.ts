@@ -50,23 +50,23 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(docsLinks.evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     'https://tw.weapp.dev/',
     'https://vite.weapp.dev/',
-    'https://github.com/daguanren21/Varo#readme',
+    'https://daguanren21.github.io/Varo/',
   ])
   const projectHomeLinks = page.locator('.home-project-rail a')
   await expect(projectHomeLinks.evaluateAll(links => links.map(link => ({ href: link.getAttribute('href'), target: link.getAttribute('target'), rel: link.getAttribute('rel') })))).resolves.toEqual([
     { href: 'https://tw.weapp.dev/', target: '_blank', rel: 'noreferrer' },
     { href: 'https://vite.weapp.dev/', target: '_blank', rel: 'noreferrer' },
-    { href: 'https://github.com/daguanren21/Varo#readme', target: '_blank', rel: 'noreferrer' },
+    { href: 'https://daguanren21.github.io/Varo/', target: '_blank', rel: 'noreferrer' },
   ])
   await expect(page.locator('.home-project-visual-link').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     'https://tw.weapp.dev/',
     'https://vite.weapp.dev/',
-    'https://github.com/daguanren21/Varo#readme',
+    'https://daguanren21.github.io/Varo/',
   ])
   await expect(page.locator('.home-project-title-link').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     'https://tw.weapp.dev/',
     'https://vite.weapp.dev/',
-    'https://github.com/daguanren21/Varo#readme',
+    'https://daguanren21.github.io/Varo/',
   ])
   await expect(page.locator('#projects a[data-analytics-event="select_project"]').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     '/projects/weapp-tailwindcss/',
@@ -80,7 +80,7 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.locator('.home-project-rail a').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     'https://tw.weapp.dev/',
     'https://vite.weapp.dev/',
-    'https://github.com/daguanren21/Varo#readme',
+    'https://daguanren21.github.io/Varo/',
   ])
 })
 
@@ -157,13 +157,15 @@ test('publishes indexable SEO resources and keeps 404 out of the index', async (
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow')
 })
 
-test('planned project exposes complete placeholder release data', async ({ page }) => {
+test('published Varo project exposes current release data', async ({ page }) => {
   await page.goto('/projects/varo/')
   await expect(page.getByRole('heading', { level: 1, name: 'Varo' })).toBeVisible()
+  await expect(page.getByText('稳定版')).toBeVisible()
   await expect(page.getByRole('link', { name: '查看源码' })).toHaveAttribute('href', 'https://github.com/daguanren21/Varo')
-  await expect(page.getByRole('link', { name: '阅读文档' }).first()).toHaveAttribute('href', 'https://github.com/daguanren21/Varo#readme')
-  await expect(page.getByText('@varo/cli')).toBeVisible()
-  await expect(page.getByText('v0.0.1')).toBeVisible()
+  await expect(page.getByRole('link', { name: '阅读文档' }).first()).toHaveAttribute('href', 'https://daguanren21.github.io/Varo/')
+  await expect(page.getByRole('link', { name: '查看 npm' })).toHaveAttribute('href', 'https://www.npmjs.com/package/@varo-ui/cli')
+  await expect(page.getByText('@varo-ui/cli')).toBeVisible()
+  await expect(page.getByText('v1.2.0')).toBeVisible()
   await expect(page.getByText('/docs/varo/')).toBeVisible()
   await expect(page.getByText('GitHub Stars')).toBeVisible()
 })
