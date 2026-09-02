@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, ArrowUpRight, BadgeCheck, BookOpen, Database, GitFork, Heart, Layers2, Package, ScanLine, ShieldCheck } from '@lucide/astro'
+import { ArrowRight, ArrowUpRight, BadgeCheck, BookOpen, GitFork, Heart, Layers2, Package, ScanLine, ShieldCheck } from '@lucide/astro'
 import type { Locale, ProjectMetricsMap } from '../types/project'
 import type { ProjectEntry } from '../lib/projects'
 import { formatCompactNumber, formatReleaseDate } from '../lib/metrics'
@@ -19,8 +19,8 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
 const stepIcons = [Layers2, ScanLine, Package]
 const principleIcons = [Layers2, ShieldCheck, BadgeCheck]
 const projectStages: Record<string, string> = locale === 'zh-CN'
-  ? { 'weapp-tailwindcss': '样式', 'weapp-vite': '构建', varo: '组件' }
-  : { 'weapp-tailwindcss': 'STYLE', 'weapp-vite': 'BUILD', varo: 'COMPOSE' }
+  ? { 'weapp-tailwindcss': '样式', 'weapp-vite': '构建', varo: '组件', 'weapp-sqlite': '数据' }
+  : { 'weapp-tailwindcss': 'STYLE', 'weapp-vite': 'BUILD', varo: 'COMPOSE', 'weapp-sqlite': 'DATA' }
 ---
 
 <main id="main-content">
@@ -60,12 +60,6 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
           </a>
         )
       })}
-      <a data-hero-enter style={`--enter-delay: ${220 + projects.length * 45}ms`} class="home-project-link" href="https://sqlite.weapp.dev/" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="sqlite_docs">
-        <span class="home-project-index">04</span>
-        <span class="grid size-[2.1rem] place-items-center bg-[color-mix(in_srgb,var(--highlight)_18%,var(--surface-soft))] font-mono text-xs font-bold text-ink">DB</span>
-        <span class="min-w-0"><strong>weapp-sqlite</strong><small>{locale === 'zh-CN' ? '数据 / 本地 SQLite 运行时' : 'DATA / LOCAL SQLITE RUNTIME'}</small></span>
-        <ArrowUpRight class="home-project-arrow" size={17} stroke-width={1.8} aria-hidden="true" />
-      </a>
     </div>
   </section>
 
@@ -153,24 +147,6 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
       })}
     </div>
 
-    <article data-reveal class="sqlite-capability-row mt-20 grid grid-cols-[1.1fr_.9fr] items-center gap-10 border-y border-line bg-panel-soft px-8 py-8 max-[800px]:mt-14 max-[800px]:grid-cols-1 max-[720px]:px-5">
-      <div>
-        <div class="mb-4 flex items-center gap-3">
-          <span class="grid size-10 place-items-center bg-[color-mix(in_srgb,var(--highlight)_18%,var(--surface))] font-mono text-xs font-bold text-ink">DB</span>
-          <span class="font-mono text-xs font-bold uppercase tracking-[0.12em] text-brand">04 / DATA</span>
-        </div>
-        <h3 class="mb-3 text-[clamp(1.7rem,3vw,2.5rem)] font-[700] tracking-[-0.04em]">weapp-sqlite</h3>
-        <p class="mb-5 max-w-[560px] text-copy-muted">{locale === 'zh-CN' ? '把本地数据能力放回真实运行时：为多端小程序提供可复用的 SQLite 数据层。' : 'Keep local data close to the runtime with a reusable SQLite layer for multi-platform mini-apps.'}</p>
-        <a class={buttonSecondary} href="https://sqlite.weapp.dev/" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="sqlite_docs">{locale === 'zh-CN' ? '查看数据能力' : 'Explore data layer'} <ArrowUpRight size={16} stroke-width={1.8} aria-hidden="true" /></a>
-      </div>
-      <div class="sqlite-signal" aria-hidden="true">
-        <Database size={28} stroke-width={1.5} />
-        <span class="sqlite-signal-line"></span>
-        <span class="sqlite-signal-chip">local.db</span>
-        <span class="sqlite-signal-line"></span>
-        <span class="sqlite-signal-chip">runtime</span>
-      </div>
-    </article>
   </section>
 
   <section class="border-y border-line bg-panel-soft" id="commercial">
@@ -237,9 +213,9 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
                 <p class="mb-0 text-xs text-copy-muted">{copy.releases.released} {formatReleaseDate(projectMetrics.releasedAt, numberLocale)}</p>
               </div>
               <strong class="font-mono text-sm">v{projectMetrics.version}</strong>
-              <a class:list={[iconControl, 'max-[520px]:hidden']} href={`https://www.npmjs.com/package/${project.data.packageName}`} aria-label={`${copy.releases.viewPackage}: ${project.data.packageName}`} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="package" data-analytics-project={project.id}>
+              {project.data.npmUrl && <a class:list={[iconControl, 'max-[520px]:hidden']} href={project.data.npmUrl} aria-label={`${copy.releases.viewPackage}: ${project.data.packageName}`} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="package" data-analytics-project={project.id}>
                 <ArrowUpRight size={19} stroke-width={1.8} aria-hidden="true" />
-              </a>
+              </a>}
             </article>
           )
         })}

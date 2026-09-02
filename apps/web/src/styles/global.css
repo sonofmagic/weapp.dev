@@ -896,6 +896,18 @@
   border-radius: 8px;
 }
 
+.sqlite-beta-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 1.65rem;
+  padding: 0.25rem 0.48rem;
+  font: 700 0.62rem/1 var(--font-mono);
+  color: color-mix(in srgb, var(--highlight) 72%, var(--text));
+  letter-spacing: 0.04em;
+  background: color-mix(in srgb, var(--highlight) 15%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--highlight) 62%, var(--border));
+}
+
 .sqlite-signal {
   display: flex;
   gap: 0.7rem;

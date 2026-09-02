@@ -22,6 +22,14 @@ export const siteCopy = {
       secondary: '查看 GitHub',
       visualLabel: '样式、构建与组件能力汇流的动态视觉',
     },
+    sqlite: {
+      name: 'weapp-sqlite',
+      stage: '数据 / 测试版',
+      status: 'Beta / 测试版',
+      tagline: '把本地 SQLite 能力带到多端运行时',
+      description: '面向小程序与 Web runtime 的本地数据层，当前处于 Beta 阶段，API 与平台支持仍在持续验证。',
+      docs: '查看 SQLite 文档',
+    },
     about: {
       eyebrow: '构建链路',
       title: '保留你的写法，升级交付链路',
@@ -34,7 +42,7 @@ export const siteCopy = {
     },
     projects: {
       eyebrow: '工具栈',
-      title: '三条边界，一条交付路径',
+      title: '四条边界，一条交付路径',
       description: '按需独立采用，也可以组合成从样式、构建、数据到组件源码的完整工程。',
       documentation: '阅读文档',
       details: '项目详情',
@@ -59,7 +67,7 @@ export const siteCopy = {
     releases: {
       eyebrow: '最新版本',
       title: '持续发布，稳定演进',
-      description: '版本信息在构建时从 npm 获取，并保留可靠的离线快照。',
+      description: '公开 npm 包在构建时同步版本；尚未发布 npm 的 Beta 项目沿用可靠的离线快照。',
       released: '发布于',
       viewPackage: '查看 npm',
     },
@@ -248,6 +256,14 @@ export const siteCopy = {
       secondary: 'View on GitHub',
       visualLabel: 'An animated convergence of styling, builds, and component capabilities',
     },
+    sqlite: {
+      name: 'weapp-sqlite',
+      stage: 'DATA / BETA',
+      status: 'Beta',
+      tagline: 'Bring local SQLite data to multi-platform runtimes',
+      description: 'A local data layer for mini-apps and the Web runtime. It is currently in Beta while APIs and platform support are being validated.',
+      docs: 'Read SQLite docs',
+    },
     about: {
       eyebrow: 'Build path',
       title: 'Keep your syntax. Upgrade delivery.',
@@ -260,7 +276,7 @@ export const siteCopy = {
     },
     projects: {
       eyebrow: 'The stack',
-      title: 'Three boundaries. One delivery path.',
+      title: 'Four boundaries. One delivery path.',
       description: 'Adopt each independently or combine styling, builds, local data, and editable H5 / mini-program component source.',
       documentation: 'Read the docs',
       details: 'Project details',
@@ -285,7 +301,7 @@ export const siteCopy = {
     releases: {
       eyebrow: 'Latest releases',
       title: 'Ship steadily, evolve carefully',
-      description: 'Release data is fetched from npm at build time with a reliable offline snapshot.',
+      description: 'Published npm packages sync at build time; Beta projects without npm releases use a reliable offline snapshot.',
       released: 'Released',
       viewPackage: 'View on npm',
     },

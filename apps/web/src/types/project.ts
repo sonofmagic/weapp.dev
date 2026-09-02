@@ -16,7 +16,7 @@ export interface ProjectDefinition {
   packageName: string
   github: string
   docsUrl: string
-  npmUrl: string
+  npmUrl?: string
   license?: string
   maintainer: string
   keywords: string[]

@@ -7,6 +7,7 @@ interface ProjectSource {
   slug: string
   packageName: string
   github: string
+  npmUrl?: string
 }
 
 const root = resolve(import.meta.dirname, '..')
@@ -25,6 +26,7 @@ async function loadProjectSources(): Promise<ProjectSource[]> {
       slug: basename(file, '.json'),
       packageName: definition.packageName,
       github: definition.github,
+      npmUrl: typeof definition.npmUrl === 'string' ? definition.npmUrl : undefined,
     }
   }))
 }
@@ -81,6 +83,10 @@ const next = { ...fallback }
 const projectSources = await loadProjectSources()
 
 await Promise.all(projectSources.map(async (project) => {
+  if (!project.npmUrl) {
+    console.log(`Using fallback metrics for ${project.slug}: no public npm package`)
+    return
+  }
   try {
     next[project.slug] = await fetchMetrics(project)
     console.log(`Updated metrics for ${project.slug}`)
