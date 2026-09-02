@@ -1,13 +1,14 @@
 {
   "order": 4,
-  "status": "planned",
-  "packageName": "@varo/cli",
+  "status": "stable",
+  "packageName": "@varo-ui/cli",
   "github": "daguanren21/Varo",
-  "docsUrl": "https://github.com/daguanren21/Varo#readme",
-  "npmUrl": "https://www.npmjs.com/package/@varo/cli",
+  "docsUrl": "https://daguanren21.github.io/Varo/",
+  "npmUrl": "https://www.npmjs.com/package/@varo-ui/cli",
+  "license": "https://opensource.org/license/mit",
   "maintainer": "daguanren21 and contributors",
   "keywords": ["Vue 3", "H5", "Mini Program", "Primitives", "Registry", "Agent UI", "Blocks"],
-  "installCommand": "pnpm dlx @varo/cli add --target weapp-vite button input card",
+  "installCommand": "pnpm dlx @varo-ui/cli add --target weapp button input card",
   "futureDocsPath": "/docs/varo/",
   "logo": "/brands/varo.svg",
   "accent": "#07c160",
@@ -44,7 +45,7 @@
       "capabilities": ["56 个双端 runtime 组件族", "45 个小程序 Registry 组件族", "36 个双端 Agent UI", "Registry-first 源码交付"],
       "faqs": [
         { "question": "Varo 和传统 npm 组件库有什么不同？", "answer": "Varo 的主要交付物是可复制、修改并归业务项目所有的组件与 Blocks 源码，而不是只能从外部覆盖样式的黑盒 UI 包。" },
-        { "question": "Varo 当前支持哪些运行时？", "answer": "Registry 支持 H5 与 weapp-vite；两端都维护 56 个 runtime 组件族，小程序 Registry 当前开放其中 45 个高共识组件族。" }
+        { "question": "Varo 当前支持哪些运行时？", "answer": "Registry 的目标标识为 h5 与 weapp；小程序组件接入 weapp-vite。两端都维护 56 个 runtime 组件族，小程序 Registry 当前开放 45 个高共识组件族。" }
       ]
     },
     "en": {
@@ -56,7 +57,7 @@
       "capabilities": ["56 dual-target runtime families", "45 mini-program registry families", "36 dual-target Agent UI components", "Registry-first source delivery"],
       "faqs": [
         { "question": "How is Varo different from a traditional npm UI library?", "answer": "Varo primarily delivers component and block source that teams can copy, modify, and own instead of a black-box UI package that is customized only from the outside." },
-        { "question": "Which runtimes does Varo support today?", "answer": "The registry targets H5 and weapp-vite. Both runtimes maintain 56 component families, while the mini-program registry currently exposes 45 high-consensus families." }
+        { "question": "Which runtimes does Varo support today?", "answer": "The registry targets are h5 and weapp, with mini-program components integrating with weapp-vite. Both runtimes maintain 56 component families, while the mini-program registry currently exposes 45 high-consensus families." }
       ]
     }
   }

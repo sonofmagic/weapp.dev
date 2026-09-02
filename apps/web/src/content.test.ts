@@ -9,8 +9,8 @@ describe('project definitions', () => {
   const officialDocsUrls: Record<string, string> = {
     'weapp-tailwindcss': 'https://tw.weapp.dev/',
     'weapp-vite': 'https://vite.weapp.dev/',
-    '@varo/cli': 'https://github.com/daguanren21/Varo#readme',
     'weapp-sqlite': 'https://sqlite.weapp.dev/',
+    '@varo-ui/cli': 'https://daguanren21.github.io/Varo/',
   }
 
   it('provides complete localized content for every project', () => {
@@ -48,12 +48,15 @@ describe('project definitions', () => {
     }
   })
 
-  it('uses explicit placeholders for the planned Varo release', () => {
+  it('uses the published Varo release metadata', () => {
     expect(varo).toMatchObject({
-      status: 'planned',
-      packageName: '@varo/cli',
+      status: 'stable',
+      packageName: '@varo-ui/cli',
       github: 'daguanren21/Varo',
-      docsUrl: 'https://github.com/daguanren21/Varo#readme',
+      docsUrl: 'https://daguanren21.github.io/Varo/',
+      npmUrl: 'https://www.npmjs.com/package/@varo-ui/cli',
+      license: 'https://opensource.org/license/mit',
+      installCommand: 'pnpm dlx @varo-ui/cli add --target weapp button input card',
     })
   })
 

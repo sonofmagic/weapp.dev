@@ -1,24 +1,24 @@
 {
   "weapp-tailwindcss": {
-    "version": "5.3.5",
-    "releasedAt": "2026-08-25T03:07:36.077Z",
-    "stars": 1849,
-    "weeklyDownloads": 11561,
-    "fetchedAt": "2026-08-26T00:00:00.000Z"
+    "version": "5.4.2",
+    "releasedAt": "2026-08-31T04:31:20.473Z",
+    "stars": 1855,
+    "weeklyDownloads": 10555,
+    "fetchedAt": "2026-09-02T05:18:54.202Z"
   },
   "weapp-vite": {
-    "version": "6.22.0",
-    "releasedAt": "2026-08-24T15:07:11.946Z",
-    "stars": 465,
-    "weeklyDownloads": 3178,
-    "fetchedAt": "2026-08-26T00:00:00.000Z"
+    "version": "7.0.1",
+    "releasedAt": "2026-09-02T02:31:24.332Z",
+    "stars": 472,
+    "weeklyDownloads": 2975,
+    "fetchedAt": "2026-09-02T05:18:54.275Z"
   },
   "varo": {
-    "version": "0.0.1",
-    "releasedAt": "2026-08-26T00:00:00.000Z",
-    "stars": 0,
-    "weeklyDownloads": 0,
-    "fetchedAt": "2026-08-26T00:00:00.000Z"
+    "version": "1.2.0",
+    "releasedAt": "2026-08-29T11:54:19.975Z",
+    "stars": 2,
+    "weeklyDownloads": 561,
+    "fetchedAt": "2026-09-02T03:50:32.074Z"
   },
   "weapp-sqlite": {
     "version": "0.0.0-beta",

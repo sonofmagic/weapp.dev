@@ -99,16 +99,14 @@ await Promise.all(projectSources.map(async (project) => {
     console.log(`Updated metrics for ${project.slug}`)
   }
   catch (error) {
-    if (!fallback[project.slug]) {
-      failures.push(project.slug)
-    }
+    failures.push(project.slug)
     const message = error instanceof Error ? error.message : String(error)
     console.warn(`Using fallback metrics for ${project.slug}: ${message}`)
   }
 }))
 
 if (requireFresh && failures.length > 0) {
-  throw new Error(`Failed to refresh metrics without a fallback: ${failures.sort().join(', ')}`)
+  throw new Error(`Failed to refresh metrics for: ${failures.sort().join(', ')}`)
 }
 
 await writeJsonAtomic(cachePath, next)
