@@ -2,7 +2,7 @@ name: Sync project metrics
 
 on:
   schedule:
-    - cron: '17 3 * * 1'
+    - cron: '0 1 * * 1' # Monday 09:00 Asia/Shanghai (UTC+8)
   workflow_dispatch:
 
 concurrency:
