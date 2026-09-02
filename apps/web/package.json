@@ -14,6 +14,7 @@
     "metrics": "tsx scripts/generate-metrics.ts",
     "media:generate": "tsx scripts/generate-media.ts",
     "metrics:update-fallback": "tsx scripts/generate-metrics.ts --update-fallback",
+    "metrics:sync": "tsx scripts/generate-metrics.ts --update-fallback --require-fresh",
     "og:generate": "tsx scripts/generate-og.ts",
     "preview": "astro preview",
     "test": "vitest run",
