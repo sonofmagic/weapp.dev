@@ -1,0 +1,111 @@
+---
+import { ArrowRight, Heart } from '@lucide/astro'
+import type { Locale } from '../types/project'
+import { localizePath, siteCopy } from '../i18n/ui'
+import { buttonSecondary, section, shell } from '../styles/classes'
+
+interface Props {
+  locale: Locale
+}
+
+const { locale } = Astro.props
+const copy = siteCopy[locale].contributors
+---
+
+<main id="main-content">
+  <section class:list={[section, shell]}>
+    <header data-reveal class="mb-16 grid grid-cols-[.7fr_1.3fr] gap-16 max-[820px]:mb-12 max-[820px]:grid-cols-1 max-[820px]:gap-8">
+      <div>
+        <p class="mb-3 font-mono text-xs font-[650] text-brand">{copy.eyebrow}</p>
+        <h1 class="mb-5 text-[58px] font-[690] max-[720px]:text-[42px]">{copy.title}</h1>
+        <p class="mb-0 font-mono text-xs text-copy-muted">{copy.updated}</p>
+      </div>
+      <div class="self-end">
+        <p class="mb-6 max-w-[680px] text-xl leading-[1.6] text-copy-muted max-[720px]:text-lg">{copy.description}</p>
+        <a class={buttonSecondary} href={localizePath(locale, '/pricing/#sponsor')} data-analytics-event="navigate_page" data-analytics-page="pricing">
+          {copy.pricingAction}
+          <ArrowRight size={17} stroke-width={1.8} aria-hidden="true" />
+        </a>
+      </div>
+    </header>
+
+    <section data-reveal class="mb-20" aria-labelledby="allocation-title">
+      <h2 id="allocation-title" class="mb-6 text-xl font-[650]">{copy.allocationTitle}</h2>
+      <div class="contributors-bucket-grid">
+        {copy.buckets.map(bucket => (
+          <article>
+            <Heart class="mb-6 text-brand" size={22} stroke-width={1.7} aria-hidden="true" />
+            <strong class="mb-2 block font-mono text-[2rem] font-[720] leading-none">{bucket.share}</strong>
+            <h3 class="mb-2 text-lg font-[660]">{bucket.name}</h3>
+            <p class="mb-0 text-sm leading-[1.7] text-copy-muted">{bucket.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <div class="grid grid-cols-[280px_1fr] items-start gap-16 max-[820px]:grid-cols-1 max-[820px]:gap-10">
+      <nav data-reveal class="sticky top-24 border-t border-line max-[820px]:static" aria-label={copy.contents}>
+        <h2 class="py-4 font-mono text-xs font-[650] text-copy-muted">{copy.contents}</h2>
+        {copy.sections.map((sectionCopy, index) => (
+          <a class="block border-t border-line py-3 text-sm font-[590] transition-colors hover:text-brand" href={`#contributors-section-${index + 1}`}>{sectionCopy.title}</a>
+        ))}
+      </nav>
+      <div class="border-t border-line">
+        {copy.sections.map((sectionCopy, index) => (
+          <section data-reveal id={`contributors-section-${index + 1}`} class="scroll-mt-24 border-b border-line py-9">
+            <h2 class="mb-4 text-[27px] font-[660]">{sectionCopy.title}</h2>
+            <p class="mb-0 max-w-[820px] leading-[1.8] text-copy-muted">{sectionCopy.body}</p>
+          </section>
+        ))}
+
+        <section data-reveal class="scroll-mt-24 border-b border-line py-9">
+          <h2 class="mb-4 text-[27px] font-[660]">{copy.weightsTitle}</h2>
+          <table class="contributors-table w-full border-collapse text-left text-sm">
+            <tbody>
+              {copy.weights.map(weight => (
+                <tr>
+                  <th scope="row" class="w-16 font-mono text-brand">{weight.points}</th>
+                  <td class="font-[650]">{weight.name}</td>
+                  <td class="text-copy-muted">{weight.rule}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </section>
+
+        <section data-reveal class="scroll-mt-24 border-b border-line py-9">
+          <h2 class="mb-4 text-[27px] font-[660]">{copy.reposTitle}</h2>
+          <ul class="m-0 mb-4 grid list-none gap-2 p-0">
+            {copy.repos.map(repo => (
+              <li>
+                <a class="inline-flex items-center gap-2 text-sm font-[620] hover:text-brand" href={repo.url} target="_blank" rel="noreferrer">{repo.name}</a>
+              </li>
+            ))}
+          </ul>
+          <p class="mb-0 max-w-[820px] text-sm leading-[1.8] text-copy-muted">{copy.reposNote}</p>
+        </section>
+
+        <section data-reveal class="scroll-mt-24 py-9">
+          <h2 class="mb-4 text-[27px] font-[660]">{copy.payoutTitle}</h2>
+          <ol class="m-0 grid max-w-[820px] list-decimal gap-3 py-0 pl-5 text-sm leading-[1.8] text-copy-muted">
+            {copy.payout.map(item => <li>{item}</li>)}
+          </ol>
+        </section>
+      </div>
+    </div>
+  </section>
+</main>
+
+<style is:global>
+  .contributors-bucket-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; overflow: hidden; border: 1px solid var(--border); background: var(--border); }
+  .contributors-bucket-grid article { min-height: 210px; padding: 1.75rem; background: var(--surface); }
+  .contributors-table th, .contributors-table td { padding: .9rem .75rem .9rem 0; border-bottom: 1px solid var(--border); vertical-align: top; }
+  @media (max-width: 760px) {
+    .contributors-bucket-grid { grid-template-columns: 1fr; }
+    .contributors-bucket-grid article { min-height: 0; }
+    .contributors-table, .contributors-table tbody, .contributors-table tr, .contributors-table th, .contributors-table td { display: block; width: 100%; }
+    .contributors-table th { padding-bottom: .2rem; }
+    .contributors-table td { border-bottom: 0; }
+    .contributors-table tr { border-bottom: 1px solid var(--border); padding: .75rem 0; }
+  }
+</style>

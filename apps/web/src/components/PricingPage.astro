@@ -100,7 +100,20 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
       </div>
       <div data-reveal class="pricing-sponsor-allocation">
         <p class="mb-2 font-[650]">{locale === 'zh-CN' ? '资金去向' : 'Where it goes'}</p>
-        <p class="mb-0 text-sm leading-[1.7] text-copy-muted">{pricing.sponsorAllocation}</p>
+        <p class="mb-6 max-w-[760px] text-sm leading-[1.7] text-copy-muted">{pricing.sponsorAllocation}</p>
+        <div class="pricing-allocation-grid">
+          {pricing.sponsorAllocationBuckets.map(bucket => (
+            <article>
+              <strong class="mb-2 block font-mono text-[1.6rem] font-[720] leading-none">{bucket.share}</strong>
+              <h3 class="mb-2 text-base font-[660]">{bucket.name}</h3>
+              <p class="mb-0 text-sm leading-[1.7] text-copy-muted">{bucket.body}</p>
+            </article>
+          ))}
+        </div>
+        <a class="mt-6 inline-flex items-center gap-2 text-sm font-[650] hover:text-brand" href={localizePath(locale, '/contributors/')} data-analytics-event="navigate_page" data-analytics-page="contributors">
+          {pricing.sponsorAllocationAction}
+          <ArrowRight size={16} stroke-width={1.8} aria-hidden="true" />
+        </a>
       </div>
       <p data-reveal class="mt-5 mb-0 text-xs text-copy-muted">{pricing.sponsorNote}</p>
       <div data-reveal class="pricing-public-sponsors">
@@ -229,7 +242,9 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
   .pricing-sponsor-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; overflow: hidden; border: 1px solid var(--border); background: var(--border); }
   .pricing-sponsor-tier { display: flex; flex-direction: column; min-width: 0; min-height: 280px; padding: 1.75rem; background: var(--surface); }
   .pricing-sponsor-button { margin-top: auto; width: fit-content; }
-  .pricing-sponsor-allocation { max-width: 760px; margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+  .pricing-sponsor-allocation { margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+  .pricing-allocation-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; overflow: hidden; border: 1px solid var(--border); background: var(--border); }
+  .pricing-allocation-grid article { min-width: 0; min-height: 148px; padding: 1.25rem; background: var(--surface); }
   .pricing-public-sponsors { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
   .pricing-public-sponsor-list { display: grid; gap: 1.25rem; }
   .pricing-public-sponsor-group ul { display: flex; flex-wrap: wrap; gap: .75rem; }
@@ -253,6 +268,6 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
   .pricing-cta .button-primary { background: var(--accent); color: var(--accent-contrast); }
   @media (max-width: 1000px) { .pricing-plan-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 1000px) { .pricing-sponsor-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  @media (max-width: 760px) { .pricing-hero-inner { grid-template-columns: 1fr; gap: 2rem; min-height: 0; padding-top: 3.5rem; padding-bottom: 3.5rem; } .pricing-template-grid, .pricing-boundary-grid, .pricing-sponsor-grid { grid-template-columns: 1fr; } .pricing-service-list article { grid-template-columns: 2rem 1fr; padding: 1.2rem 0; } .pricing-service-list article > strong { grid-column: 2; } }
+  @media (max-width: 760px) { .pricing-hero-inner { grid-template-columns: 1fr; gap: 2rem; min-height: 0; padding-top: 3.5rem; padding-bottom: 3.5rem; } .pricing-template-grid, .pricing-boundary-grid, .pricing-sponsor-grid, .pricing-allocation-grid { grid-template-columns: 1fr; } .pricing-service-list article { grid-template-columns: 2rem 1fr; padding: 1.2rem 0; } .pricing-service-list article > strong { grid-column: 2; } }
   @media (max-width: 560px) { .pricing-plan-grid { grid-template-columns: 1fr; } .pricing-plan { padding: 1.4rem; } .pricing-plan ul { min-height: 0; } .pricing-template { min-height: 0; } }
 </style>
