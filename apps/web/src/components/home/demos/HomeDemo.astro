@@ -1,0 +1,14 @@
+---
+import type { Locale } from '../../../types/project'
+import type { HomeDemoKind } from '../../../lib/home-projects'
+import StyleDemo from './StyleDemo.astro'
+import BuildDemo from './BuildDemo.astro'
+import RegistryDemo from './RegistryDemo.astro'
+import './demo.css'
+
+interface Props { kind: HomeDemoKind, locale: Locale, instance: string }
+const { kind, locale, instance } = Astro.props
+const components = { style: StyleDemo, build: BuildDemo, registry: RegistryDemo }
+const Demo = components[kind]
+---
+<Demo locale={locale} instance={instance} />

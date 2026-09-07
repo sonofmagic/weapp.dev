@@ -5,8 +5,8 @@ import { fileURLToPath } from 'node:url'
 import { chromium } from '@playwright/test'
 import sharp from 'sharp'
 
-const output = new URL('../.cache/showcase-qa/', import.meta.url)
-const before = new URL('../.cache/visual-qa/', import.meta.url)
+const output = new URL('../.cache/demo-qa/', import.meta.url)
+const before = new URL('../.cache/showcase-qa/', import.meta.url)
 const baseURL = process.env.SHOWCASE_BASE_URL ?? 'http://127.0.0.1:4321'
 const routes = ['/', '/en/', '/projects/weapp-tailwindcss/', '/projects/weapp-vite/', '/projects/varo/', '/pricing/', '/en/pricing/']
 const records = []
@@ -51,6 +51,25 @@ try {
               { input: fileURLToPath(baseline), left: 0, top: 0 },
               { input: fileURLToPath(new URL(`${name}.png`, output)), left: viewport.width, top: 0 },
             ]).png().toFile(fileURLToPath(new URL(`${name}-comparison.png`, output)))
+          }
+          const lab = page.locator('hero-demos')
+          for (const [index, kind] of ['style', 'build', 'registry'].entries()) {
+            await lab.getByRole('tab').nth(index).click()
+            if (kind === 'style') {
+              await lab.locator('style-demo input[value="1"]').check()
+              await lab.locator('style-demo select').selectOption('2')
+              await lab.locator('[data-compact]').check()
+            }
+            if (kind === 'build') {
+              await lab.locator('build-demo input[value="2"]').check()
+            }
+            if (kind === 'registry') {
+              await lab.locator('registry-demo input[value="card"]').uncheck()
+              await lab.locator('[data-registry-button]').click()
+            }
+            await page.screenshot({ path: fileURLToPath(new URL(`${name}-${kind}.png`, output)) })
+            await lab.screenshot({ path: fileURLToPath(new URL(`${name}-${kind}-detail.png`, output)) })
+            assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1), false)
           }
         }
         records.push({ route, viewport, theme, name, ...checks, errors })

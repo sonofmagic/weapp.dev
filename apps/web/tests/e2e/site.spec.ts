@@ -1,55 +1,21 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
-import varoShowcase from '../../src/content/showcases/varo.json' with { type: 'json' }
-import tailwindShowcase from '../../src/content/showcases/weapp-tailwindcss.json' with { type: 'json' }
-import viteShowcase from '../../src/content/showcases/weapp-vite.json' with { type: 'json' }
+import { demoCopy } from '../../src/components/home/demos/copy'
 import { siteCopy } from '../../src/i18n/ui'
 
-const projectShowcases = [tailwindShowcase, viteShowcase, varoShowcase]
 const retiredVisuals = 'canvas, [data-shader-canvas], [data-shader], [data-shader-frame], [data-webgl-fallback], [data-art], .project-art, [class^="art-"], [class*=" art-"]'
 
 async function expectHomeVisuals(page: import('@playwright/test').Page, locale: 'zh-CN' | 'en') {
-  const heroVisual = tailwindShowcase.images[0]
-  const hero = page.locator('.home-hero-stage img').first()
-  await expect(hero).toBeVisible()
-  await expect(hero).toHaveAttribute('src', heroVisual.src)
-  await expect(hero).toHaveAttribute('alt', heroVisual.locales[locale].alt)
-  await expect(hero).toHaveAttribute('width', String(heroVisual.width))
-  await expect(hero).toHaveAttribute('height', String(heroVisual.height))
-  await expect(hero).toHaveAttribute('fetchpriority', 'high')
-  await expect.poll(() => hero.evaluate(image => (image as HTMLImageElement).naturalWidth)).toBeGreaterThan(0)
-  await expect(page.locator('img[fetchpriority="high"]')).toHaveCount(1)
-  await expect(page.locator('img[src*="build-lens"], img[src*="tailwind-weapp"], img[src*="vite-components"], img[src*="varo-home"]')).toHaveCount(0)
-  const desktop = page.viewportSize()!.width > 720
-  await expect(page.locator('.home-hero-example:visible')).toHaveCount(desktop ? 3 : 1)
+  await expect(page.locator('.home-hero-stage img, #projects picture')).toHaveCount(0)
   await expect(page.locator(retiredVisuals)).toHaveCount(0)
-  const visuals = page.locator('#projects [data-project-visual]')
-  const expectedVisuals = projectShowcases.flatMap(showcase => showcase.images)
-  await expect(visuals).toHaveCount(expectedVisuals.length)
-  for (const [index, visual] of expectedVisuals.entries()) {
-    const figure = visuals.nth(index)
-    const image = figure.locator('img')
-    await figure.scrollIntoViewIfNeeded()
-    await expect(image).toBeVisible()
-    await expect(image).toHaveAttribute('src', visual.src)
-    await expect(figure.locator('source')).toHaveAttribute('srcset', visual.variants.map(variant => `${variant.avif} ${variant.width}w`).join(', '))
-    await expect(image).toHaveAttribute('sizes', /.+/)
-    await expect(image).toHaveAttribute('srcset', visual.variants.map(variant => `${variant.src} ${variant.width}w`).join(', '))
-    await expect(image).toHaveAttribute('width', String(visual.width))
-    await expect(image).toHaveAttribute('height', String(visual.height))
-    await expect(image).toHaveAttribute('loading', 'lazy')
-    await expect(image).toHaveAttribute('alt', visual.locales[locale].alt)
-    await expect(figure.locator('figcaption')).toHaveText(visual.locales[locale].caption)
-    await image.evaluate(element => (element as HTMLImageElement).decode())
-    const loaded = await image.evaluate((element) => {
-      const image = element as HTMLImageElement
-      return { src: new URL(image.currentSrc).pathname, complete: image.complete, width: image.naturalWidth, ratio: image.clientHeight / image.clientWidth }
-    })
-    expect(loaded.complete).toBe(true)
-    expect(loaded.width).toBeGreaterThan(0)
-    expect(visual.variants.flatMap(variant => [variant.src, variant.avif])).toContain(loaded.src)
-    expect(loaded.ratio).toBeCloseTo(visual.height / visual.width, 2)
-  }
+  await expect(page.locator('hero-demos [role="tabpanel"]:visible')).toHaveCount(1)
+  await expect(page.locator('hero-demos [data-demo="style"]')).toBeVisible()
+  await expect(page.locator('#projects [data-demo]')).toHaveCount(3)
+  await expect(page.locator('#projects [data-demo="style"]')).toContainText(demoCopy[locale].button)
+  await expect(page.locator('#projects [data-demo="build"]')).toContainText(demoCopy[locale].output)
+  await expect(page.locator('#projects [data-demo="registry"]')).toContainText(demoCopy[locale].registryNote)
+  const images = await page.evaluate(() => performance.getEntriesByType('resource').map(entry => entry.name).filter(url => /\/media\/(?:showcase|projects)\//.test(url)))
+  expect(images).toEqual([])
 }
 
 async function enableAnalyticsTestMode(page: import('@playwright/test').Page) {
@@ -101,7 +67,7 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
     { href: 'https://vite.weapp.dev/', target: '_blank', rel: 'noreferrer' },
     { href: 'https://github.com/daguanren21/Varo#readme', target: '_blank', rel: 'noreferrer' },
   ])
-  await expect(page.locator('.home-project-visual-link').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
+  await expect(page.locator('.home-project-demo-link').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     'https://tw.weapp.dev/',
     'https://vite.weapp.dev/',
     'https://github.com/daguanren21/Varo#readme',
@@ -225,12 +191,12 @@ test('home hero follows the active theme without an inverted surface', async ({ 
 test('reduced motion keeps content visible and product interactions stationary', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   await page.goto('/')
-  const movingOrHidden = () => page.locator('[data-reveal], [data-hero-enter], [data-project-visual] img').evaluateAll(elements => elements.filter((element) => {
+  const movingOrHidden = () => page.locator('[data-reveal], .home-hero-copy, .home-project-rail, .home-demo button:visible').evaluateAll(elements => elements.filter((element) => {
     const style = getComputedStyle(element)
     return style.opacity !== '1' || style.transform !== 'none' || style.animationName !== 'none' || style.transitionDuration !== '0s'
   }).map(element => element.tagName))
   expect(await movingOrHidden()).toEqual([])
-  for (const link of await page.locator('.home-project-visual-link').all()) {
+  for (const link of await page.locator('.home-project-demo-link').all()) {
     await link.hover()
     expect(await movingOrHidden()).toEqual([])
     await link.focus()

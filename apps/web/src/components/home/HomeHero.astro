@@ -4,7 +4,7 @@ import type { Locale } from '../../types/project'
 import type { HomeProject } from '../../lib/home-projects'
 import { localizePath, siteCopy } from '../../i18n/ui'
 import { buttonPrimary, buttonSecondary, shell } from '../../styles/classes'
-import ShowcasePicture from '../ShowcasePicture.astro'
+import HeroDemos from './demos/HeroDemos.astro'
 
 interface Props {
   locale: Locale
@@ -13,17 +13,15 @@ interface Props {
 
 const { locale, projects } = Astro.props
 const copy = siteCopy[locale]
-const heroRatios = projects.map(project => project.showcase[0].width / project.showcase[0].height)
-const heroRatioTotal = heroRatios.reduce((sum, ratio) => sum + ratio, 0)
 ---
 
 <section class="home-hero">
   <div class:list={[shell, 'home-hero-grid']}>
     <div class="home-hero-copy">
-      <p data-hero-enter style="--enter-delay: 0ms" class="home-kicker">{copy.hero.eyebrow}</p>
-      <h1 data-hero-enter style="--enter-delay: 45ms" class="home-hero-title">{copy.hero.title}<span class="home-hero-dot" aria-hidden="true">.</span></h1>
-      <p data-hero-enter style="--enter-delay: 90ms" class="home-hero-description">{copy.hero.description}</p>
-      <div data-hero-enter style="--enter-delay: 135ms" class="flex flex-wrap items-center gap-3">
+      <p class="home-kicker">{copy.hero.eyebrow}</p>
+      <h1 class="home-hero-title">{copy.hero.title}<span class="home-hero-dot" aria-hidden="true">.</span></h1>
+      <p class="home-hero-description">{copy.hero.description}</p>
+      <div class="flex flex-wrap items-center gap-3">
         <a class={buttonPrimary} href={`${localizePath(locale)}#projects`} data-analytics-event="navigate_section" data-analytics-section="projects">
           {copy.hero.primary}
           <ArrowRight size={18} stroke-width={1.9} aria-hidden="true" />
@@ -36,12 +34,7 @@ const heroRatioTotal = heroRatios.reduce((sum, ratio) => sum + ratio, 0)
     </div>
 
     <div class="home-hero-stage" aria-label={copy.hero.visualLabel}>
-      {projects.map((project, index) => (
-        <figure class="home-hero-example" data-hero-example={project.id} style={`--showcase-ratio: ${project.showcase[0].width / project.showcase[0].height}`}>
-          <ShowcasePicture visual={project.showcase[0]} locale={locale} sizes={`(max-width: 720px) ${330 * heroRatios[index]}px, min(${390 * heroRatios[index]}px, calc((100vw - 112px) * ${heroRatios[index] / heroRatioTotal}))`} priority={index === 0} />
-          <figcaption><span>{project.data.locales[locale].name}</span><span>{project.stage[locale]}</span></figcaption>
-        </figure>
-      ))}
+      <HeroDemos locale={locale} projects={projects} />
     </div>
   </div>
 
@@ -49,7 +42,7 @@ const heroRatioTotal = heroRatios.reduce((sum, ratio) => sum + ratio, 0)
     {projects.map((project, index) => {
       const content = project.data.locales[locale]
       return (
-        <a data-hero-enter style={`--enter-delay: ${220 + index * 45}ms`} class="home-project-link" href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home" data-analytics-project={project.id}>
+        <a class="home-project-link" href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home" data-analytics-project={project.id}>
           <span class="home-project-index">{String(index + 1).padStart(2, '0')}</span>
           <img src={project.data.logo} width="34" height="34" alt="" />
           <span class="min-w-0"><strong>{content.name}</strong><small>{project.stage[locale]} / {content.tagline}</small></span>

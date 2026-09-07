@@ -1,61 +1,51 @@
 # 首页代码边界
 
-此次拆分用于减少布局、项目维护和截图更新触碰同一文件的机会。它不能自动解决产品方向不同造成的语义冲突；并行任务仍应保持范围明确，并在合并前与最新 main 校验。
+首页按章节组合，交互演示按产品能力独立维护。并行任务应约定章节和组件所有权；结构拆分不能替代对产品方向冲突的人工判断。
 
-## 文件职责
+## 职责与数据流
 
-| 变更类型                       | 修改入口                                            | 边界                                                                        |
-| ------------------------------ | --------------------------------------------------- | --------------------------------------------------------------------------- |
-| 首页章节顺序                   | `apps/web/src/components/HomePage.astro`            | 只组合章节和读取首页数据                                                    |
-| 单个章节布局                   | `apps/web/src/components/home/Home*.astro`          | Hero、About、Projects、Commercial、Vision、Releases、Collaboration 独立维护 |
-| 项目展示行                     | `apps/web/src/components/home/HomeProjectRow.astro` | 使用传入的项目与展示配置，不按项目 ID 判断样式                              |
-| 首页 CSS                       | `apps/web/src/styles/home.css`                      | 包含首页布局、断点和运动效果，仅首页引入                                    |
-| 全站样式                       | `apps/web/src/styles/global.css`                    | 主题 token、基础排版、通用 reveal 和无障碍偏好                              |
-| 首页文案                       | `apps/web/src/i18n/home/zh-CN.ts`、`en.ts`          | `i18n/ui.ts` 组合并保留既有 `siteCopy` 接口                                 |
-| 项目状态、链接和详情内容       | `apps/web/src/content/projects/<id>.json`           | 手工维护，不受截图生成器改写                                                |
-| 首页选品、排序、布局和阶段标签 | `apps/web/src/content/home-projects.ts`             | 显式配置；不跟随整个项目目录自动增加                                        |
-| 首页生成素材                   | `apps/web/src/content/showcases/<id>.json`          | 仅包含 `images`，由素材生成命令维护                                         |
-| 内容校验和类型                 | `apps/web/src/content/schemas.ts`                   | Astro collection 与 TypeScript 类型共享 schema                              |
-
-## 数据流
+- `HomePage.astro` 只组合章节和读取首页数据；`home.css` 负责章节布局和响应式断点。
+- `content/home-projects.ts` 显式指定项目顺序、演示类型、反向布局和双语阶段标签。新增目录项目不会自动进入首页。
+- `lib/home-projects.ts` 是纯组装器，只关联目录与首页选品，校验未知项目和重复选品。首页不再要求 showcase 图片。
+- `components/home/demos/` 的 Style、Build、Registry 分别拥有视图、局部状态及预设；`HomeDemo` 只按受限类型选择组件。
+- `HeroDemos` 只拥有标签选择和键盘导航；Hero 与项目区复用演示实现，每个实例的状态和表单名称独立。
+- `CodePanel` 共享代码显示、复制与错误反馈；代码通过结构化文本片段生成，客户端使用 DOM textContent，避免 HTML 注入。
+- `demo.css` 只负责演示内部布局、容器断点与操作后的颜色过渡；`copy.ts` 维护演示双语文案。不要把演示状态或样式放进全局脚本。
+- 项目 JSON 继续拥有状态、链接、metrics 输入和详情页 `primary/secondary` 图片。历史 showcase collection、图片和采集命令保留，首页不再读取它们。
 
 ```mermaid
 flowchart LR
-  P[项目元数据] --> C[项目目录]
-  C --> D[详情页 / Header / Footer]
-  C --> H[首页数据组合]
+  P[项目目录] --> D[详情页 / Header / Footer]
+  P --> H[首页数据组合]
   E[首页选品配置] --> H
-  S[生成的 showcase 素材] --> H
   H --> R[Hero / 项目展示区]
+  S[演示预设与双语文案] --> C[独立演示组件]
+  C --> R
 ```
 
-`lib/home.ts` 负责加载素材 collection，纯函数 `lib/home-projects.ts` 按 ID 关联三种数据。新增项目可先进入目录和详情页，不必同时准备首页截图。需要出现在首页时，再添加素材和选品配置。缺少项目、缺少图片、孤立素材引用或重复选品会报错，避免静默漏图或读取 `undefined`。
+## 演示来源与行为
 
-Hero 和项目区共享组装后的 `showcase`，详情页只使用项目 JSON 中的 `primary`、`secondary`。更新项目状态会自然传入首页，不需要修改组件。展示模式与图片 `sizes` 的回退规则放在 `components/home/media-sizes.ts`；调整媒体布局时同时检查该文件，懒加载图片优先使用实际渲染尺寸。
+- Tailwind 示例由本仓库已有 weapp-tailwindcss Vite 插件生成 Web CSS。有限类名写成完整字面量，`@source '../**/*.{astro,ts}'` 能扫描全部状态。预览类名和展示代码来自同一状态函数。
+- weapp-vite 配置摘自 [multi-platform 文档](https://github.com/weapp-vite/weapp-vite/blob/add5d6c7f31e74e9fa2290e43891548f2a00eccc/website/guide/multi-platform.md)。展示单目标 allowlist、CLI 参数、原生扩展名，以及该文档多平台模板的输出目录。目录并非所有自定义工程的默认值；保留模板和 experimental 标注。
+- Varo 命令摘自 [README](https://github.com/daguanren21/Varo/blob/d00ea30fdd2caf84ce383c05291517f2e6af1861/README.md)，采用当前 `@varo-ui/cli add --target weapp`。详情页历史元数据在本次首页变更范围之外。原生 HTML 组合是带标注的交互示意，不加载 Vue/Varo runtime，不执行 CLI，不调用 AI。
+- 无 JS 时服务器输出完整默认代码与结果，增强控件隐藏；事件绑定完成后启用控件。Registry 的文本输入保留原生可编辑能力，组件选择至少保留一项。
+- 动效只响应用户操作，不自动轮播；减少动态效果时立即更新。演示不挂载 reveal，其他章节继续使用全局 2.5 秒超时兜底。
+- `@theme inline static` 必须保留，防止独立 CSS 引用的字体变量被 Tailwind 裁掉。
 
-共享主题声明使用 `@theme inline static`，确保独立页面 CSS 引用的字体等变量始终存在。否则 Tailwind 只分析全局入口时可能裁掉这些变量，使外部 CSS 的 `font` 简写失效。E2E 检查首页标签的实际字号和字体，覆盖这一问题。
+## 维护与验证
 
-## 并行修改约定
+演示变更只修改对应视图、预设和测试；资料变更只修改项目 JSON。截图生成器不得改写演示选品或产品资料。不要用 Git ours/theirs 策略掩盖语义冲突。
 
-- 截图任务只更新源截图、采集记录、生成素材和对应 caption，不改项目状态或页面布局。
-- 产品资料任务只更新对应项目文件；增加首页入口属于单独的选品决定。
-- 首页布局任务修改具体章节及 `home.css`，只有全站主题或基础排版变化才修改 `global.css`。
-- 不使用 Git 的 `ours`/`theirs` 合并策略或自动保留一侧的属性来掩盖内容冲突。先确认哪些产品变化需要保留，再逐项合并。
-- 多个任务避免长时间同时重写同一章节；将纯移动重构与功能变更分开提交，便于审查。
-
-## 验证
-
-`lib/home-projects.test.ts` 覆盖目录扩展、排序独立性、项目资料与素材分别更新、失效引用和 schema 校验。原 E2E 继续检查页面、analytics、链接、SEO 和图片表现。
-
-本次实际运行素材生成器前后，三个项目 JSON 的 SHA-256 完全一致。生成 WebP/AVIF 的内容也保持不变。schema 会拒绝在项目 visuals 中重新加入 showcase，以及在生成素材中混入项目状态。
-
-完整检查通过：19 项单测、50 项 E2E（2 项线上统计测试默认跳过）、14 个构建页面、19 项必需产物及 28 组视觉检查。重构前后 56 张截图尺寸一致；初次对比有 51 张逐像素一致，其余差异均位于图片内部，图片外的布局和文字逐像素一致。截图脚本已补充响应式候选切换后的等待，避免更改 `loading` 属性后立即截图造成时序差异。
+单测覆盖目录扩展与排序、元数据与展示配置独立性、预设到代码和命令的一致性。E2E 覆盖真实计算样式、平台输出、组件选择边界、实例隔离、标签键盘操作、剪贴板错误和无 JS 降级，并保留 SEO、analytics、主题、reveal 与详情页图片检查。
 
 ```bash
-rtk pnpm check
+rtk pnpm --filter @weapp.dev/web check
+rtk pnpm --filter @weapp.dev/web test
 rtk pnpm --filter @weapp.dev/web build
 rtk pnpm --filter @weapp.dev/web test:e2e
-rtk pnpm --filter @weapp.dev/web media:verify-showcase
+rtk pnpm --filter @weapp.dev/web lint
+rtk pnpm --filter @weapp.dev/web lint:styles
+rtk pnpm --filter @weapp.dev/web media:verify-home
 ```
 
-截图复核使用现有本地预览 `http://127.0.0.1:4321/`。重构前截图保留在 `apps/web/.cache/structure-before/`，重构后使用 `apps/web/.cache/showcase-qa/`。
+视觉检查输出到 `apps/web/.cache/demo-qa/`，包含双语首页、三个标签与操作状态、详情页和 Pricing 的桌面/移动端浅深主题。前后对比读取 `.cache/showcase-qa/` 中的历史截图；旧 `media:verify-showcase` 命令作为新验证入口的别名保留。素材采集和截图验证都是显式维护命令，正常构建不依赖外部仓库或开发者工具。

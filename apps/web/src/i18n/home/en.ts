@@ -5,7 +5,7 @@ export default {
     description: 'Ship mini-app and H5 products with open tooling for Tailwind CSS styling, Vite-powered builds, and editable cross-runtime components.',
     primary: 'View projects',
     secondary: 'View on GitHub',
-    visualLabel: 'Real examples: the TDesign retail template and Varo AgentChat component demo.',
+    visualLabel: 'Code and interactive examples for styling, builds, and components.',
   },
   about: {
     eyebrow: 'Build path',
