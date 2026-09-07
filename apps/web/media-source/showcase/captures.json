@@ -1,0 +1,92 @@
+{
+  "capturedAt": "2026-09-07T03:57:59.883Z",
+  "captures": [
+    {
+      "name": "retail-home",
+      "width": 734,
+      "height": 1588,
+      "sha256": "44eaf154fa141033a2ae5b7e082987543c71d7b03b1fcd72d6466af76965f016",
+      "repository": "weapp-vite/weapp-vite",
+      "revision": "add5d6c7f31e74e9fa2290e43891548f2a00eccc",
+      "source": "apps/tdesign-miniprogram-starter-retail",
+      "runtime": "WeChat DevTools",
+      "route": "/pages/home/home",
+      "state": "First banner and recommended goods; autoplay off.",
+      "viewport": {
+        "model": "iPhone 12/13 (Pro)",
+        "screenWidth": 390,
+        "screenHeight": 844,
+        "windowWidth": 390,
+        "windowHeight": 753,
+        "pixelRatio": 3,
+        "SDKVersion": "3.17.2"
+      },
+      "attribution": "TDesign native retail reference example, built with weapp-vite. Not the Vue/Tailwind port.",
+      "fixture": "prepare-showcase-retail.mjs restores the original allGoods fixture in an isolated copy, omitting performance-test image/price substitutions. No component markup or styles changed."
+    },
+    {
+      "name": "retail-detail",
+      "width": 734,
+      "height": 1588,
+      "sha256": "fd9d1eddb2c941c7e663b461741fbfcbf3d6ba64420f3d4597596f23396e8cf0",
+      "repository": "weapp-vite/weapp-vite",
+      "revision": "add5d6c7f31e74e9fa2290e43891548f2a00eccc",
+      "source": "apps/tdesign-miniprogram-starter-retail",
+      "runtime": "WeChat DevTools",
+      "route": "/pages/goods/details/index?spuId=0",
+      "state": "Second original apparel product image (nz-09b.png), price and product information; autoplay off.",
+      "viewport": {
+        "model": "iPhone 12/13 (Pro)",
+        "screenWidth": 390,
+        "screenHeight": 844,
+        "windowWidth": 390,
+        "windowHeight": 753,
+        "pixelRatio": 3,
+        "SDKVersion": "3.17.2"
+      },
+      "attribution": "TDesign native retail reference example, built with weapp-vite. Not the Vue/Tailwind port.",
+      "fixture": "prepare-showcase-retail.mjs restores the original allGoods fixture in an isolated copy, omitting performance-test image/price substitutions. No component markup or styles changed."
+    },
+    {
+      "name": "retail-specs",
+      "width": 734,
+      "height": 1588,
+      "sha256": "fa5ffbb6d0f4919555079b22208e9278ccc5c42574310339afed1b9781b4df01",
+      "repository": "weapp-vite/weapp-vite",
+      "revision": "add5d6c7f31e74e9fa2290e43891548f2a00eccc",
+      "source": "apps/tdesign-miniprogram-starter-retail",
+      "runtime": "WeChat DevTools",
+      "route": "/pages/goods/details/index?spuId=0",
+      "state": "Actual showSkuSelectPopup action; color, sizes and quantity visible.",
+      "viewport": {
+        "model": "iPhone 12/13 (Pro)",
+        "screenWidth": 390,
+        "screenHeight": 844,
+        "windowWidth": 390,
+        "windowHeight": 753,
+        "pixelRatio": 3,
+        "SDKVersion": "3.17.2"
+      },
+      "attribution": "TDesign native retail reference example, built with weapp-vite. Not the Vue/Tailwind port.",
+      "fixture": "prepare-showcase-retail.mjs restores the original allGoods fixture in an isolated copy, omitting performance-test image/price substitutions. No component markup or styles changed."
+    },
+    {
+      "name": "varo-agent-chat",
+      "width": 1260,
+      "height": 1914,
+      "sha256": "56399acf746c1bca6d7e80fc319075b592630fd6d27b7fc8f2ab5e36c5976781",
+      "repository": "daguanren21/Varo",
+      "revision": "0b50328b0861a8cfb754200812c37fb609705635",
+      "source": "apps/docs/src/components/blocks/agent-chat.vue",
+      "runtime": "Chromium",
+      "route": "/ai/agent-chat",
+      "viewport": {
+        "width": 860,
+        "height": 1300,
+        "deviceScaleFactor": 2
+      },
+      "state": "Existing AgentComponentDemo messages and waiting event snapshot; documentation viewport expanded to show the entire component.",
+      "attribution": "Varo AgentChat component demo, Chinese and light theme. Product remains planned on weapp.dev."
+    }
+  ]
+}

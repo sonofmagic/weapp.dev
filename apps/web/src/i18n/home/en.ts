@@ -1,0 +1,70 @@
+export default {
+  hero: {
+    eyebrow: 'Built for real mini-app projects',
+    title: 'weapp.dev',
+    description: 'Ship mini-app and H5 products with open tooling for Tailwind CSS styling, Vite-powered builds, and editable cross-runtime components.',
+    primary: 'View projects',
+    secondary: 'View on GitHub',
+    visualLabel: 'Real examples: the TDesign retail template and Varo AgentChat component demo.',
+  },
+  about: {
+    eyebrow: 'Build path',
+    title: 'Keep your syntax. Upgrade delivery.',
+    description: 'Separate tools own style transforms, project builds, and component source, so existing mini-apps can migrate gradually while H5 and new products share modern DX.',
+    items: [
+      { title: 'Author', body: 'Keep native mini-app syntax, Vue SFC, or a cross-platform framework with the page boundaries your team already knows.' },
+      { title: 'Build', body: 'Let weapp-tailwindcss own styles and classes while weapp-vite owns dependencies, routes, and multi-platform build lifecycles.' },
+      { title: 'Compose', body: 'Install editable dual-target components, business blocks, and Agent UI from the Varo registry, then verify delivery in the real runtime.' },
+    ],
+  },
+  projects: {
+    eyebrow: 'The stack',
+    title: 'Three projects. Three clear boundaries.',
+    description: 'Adopt each independently or combine styling, builds, and editable H5 / mini-program component source.',
+    documentation: 'Read the docs',
+    details: 'Project details',
+    weeklyDownloads: 'Weekly downloads',
+    stars: 'Stars',
+    status: {
+      stable: 'Stable',
+      beta: 'Beta',
+      planned: 'Planned',
+    },
+  },
+  vision: {
+    eyebrow: 'Our vision',
+    title: 'An open, modern foundation for mini-app engineering',
+    description: 'We want to connect styling, builds, and components into an open, composable, and verifiable engineering ecosystem.',
+    items: [
+      { title: 'Open tooling', body: 'Each tool works independently, then composes through clear boundaries when you need the full stack.' },
+      { title: 'Familiar development', body: 'Keep native mini-app syntax, Vue SFC, and cross-platform workflows while lowering migration cost.' },
+      { title: 'Verifiable delivery', body: 'Make build output, runtime behavior, and release records inspectable and reproducible.' },
+    ],
+  },
+  releases: {
+    eyebrow: 'Latest releases',
+    title: 'Ship steadily, evolve carefully',
+    description: 'Release data is fetched from npm at build time with a reliable offline snapshot.',
+    released: 'Released',
+    viewPackage: 'View on npm',
+  },
+  collaboration: {
+    eyebrow: 'Open collaboration',
+    title: 'Build the next generation of mini-app tooling together',
+    description: 'weapp.dev is grounded in open-source projects, public documentation, and real runtime results. Developers are welcome to improve the ecosystem through feedback, examples, and code.',
+    action: 'Join on GitHub',
+  },
+  commercial: {
+    eyebrow: 'Commercial delivery layer',
+    title: 'Support open source, and the services we can deliver today.',
+    description: 'Core tools stay open. Today we deliver migration and training, while cloud builds, templates, and private components remain in development.',
+    cards: [
+      { title: 'Migration and training', body: 'Human-delivered services for connecting real repositories to weapp-vite + weapp-tailwindcss.' },
+      { title: 'In development', body: 'Cloud builds, official templates, and private component registries will open after delivery is stable.' },
+      { title: 'Sponsor open source', body: 'One-time ¥20 / ¥200 / ¥1,000 support for maintenance; ¥200+ can receive an approved GitHub link across weapp.dev, tw.weapp.dev, and vite.weapp.dev.' },
+    ],
+    pricing: 'View roadmap',
+    trial: 'Support open source',
+    services: 'View deliverable services',
+  },
+} as const

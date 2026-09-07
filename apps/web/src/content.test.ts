@@ -1,16 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import varo from './content/projects/varo.json'
-import sqlite from './content/projects/weapp-sqlite.json'
 import tailwind from './content/projects/weapp-tailwindcss.json'
 import vite from './content/projects/weapp-vite.json'
 
 describe('project definitions', () => {
-  const projects = [tailwind, vite, sqlite, varo]
+  const projects = [tailwind, vite, varo]
   const officialDocsUrls: Record<string, string> = {
     'weapp-tailwindcss': 'https://tw.weapp.dev/',
     'weapp-vite': 'https://vite.weapp.dev/',
-    'weapp-sqlite': 'https://sqlite.weapp.dev/',
-    '@varo-ui/cli': 'https://daguanren21.github.io/Varo/',
+    '@varo/cli': 'https://github.com/daguanren21/Varo#readme',
   }
 
   it('provides complete localized content for every project', () => {
@@ -23,16 +21,15 @@ describe('project definitions', () => {
         expect(project.locales[locale].capabilities.length).toBeGreaterThan(0)
         expect(project.locales[locale].faqs.length).toBeGreaterThan(0)
       }
-      const npmUrl = 'npmUrl' in project ? project.npmUrl : undefined
-      npmUrl && expect(npmUrl).toMatch(/^https:\/\//)
+      expect(project.npmUrl).toMatch(/^https:\/\//)
       const license = 'license' in project ? project.license : undefined
       expect(project.status === 'planned' || license).toBeTruthy()
       license && expect(license).toMatch(/^https:\/\//)
       expect(project.installCommand).toContain(project.packageName)
       expect(project.keywords.length).toBeGreaterThan(0)
-      for (const visual of Object.values(project.visuals)) {
-        expect(visual.src).toMatch(/^\/media\/(projects|brand)\/.+\.webp$/)
-        expect(visual.avif).toMatch(/^\/media\/(projects|brand)\/.+\.avif$/)
+      for (const visual of [project.visuals.primary, project.visuals.secondary]) {
+        expect(visual.src).toMatch(/^\/media\/(projects|showcase)\/.+\.webp$/)
+        expect(visual.avif).toMatch(/^\/media\/(projects|showcase)\/.+\.avif$/)
         expect(visual.width).toBeGreaterThan(0)
         expect(visual.height).toBeGreaterThan(0)
         expect(visual.locales['zh-CN'].alt).not.toHaveLength(0)
@@ -48,25 +45,12 @@ describe('project definitions', () => {
     }
   })
 
-  it('uses the published Varo release metadata', () => {
+  it('uses explicit placeholders for the planned Varo release', () => {
     expect(varo).toMatchObject({
-      status: 'stable',
-      packageName: '@varo-ui/cli',
+      status: 'planned',
+      packageName: '@varo/cli',
       github: 'daguanren21/Varo',
-      docsUrl: 'https://daguanren21.github.io/Varo/',
-      npmUrl: 'https://www.npmjs.com/package/@varo-ui/cli',
-      license: 'https://opensource.org/license/mit',
-      installCommand: 'pnpm dlx @varo-ui/cli add --target weapp button input card',
+      docsUrl: 'https://github.com/daguanren21/Varo#readme',
     })
-  })
-
-  it('marks weapp-sqlite as beta without a public npm package', () => {
-    expect(sqlite).toMatchObject({
-      status: 'beta',
-      packageName: 'weapp-sqlite',
-      github: 'weapp-sqlite/weapp-sqlite',
-      docsUrl: 'https://sqlite.weapp.dev/',
-    })
-    expect('npmUrl' in sqlite ? sqlite.npmUrl : undefined).toBeUndefined()
   })
 })

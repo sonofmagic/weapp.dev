@@ -1,39 +1,10 @@
+import type { z } from 'astro/zod'
+import type { projectDefinitionSchema, projectVisualSchema } from '../content/schemas'
+
 export type Locale = 'zh-CN' | 'en'
-
-export interface LocalizedProjectContent {
-  name: string
-  tagline: string
-  description: string
-  audience: string
-  useCases: string[]
-  capabilities: string[]
-  faqs: Array<{ question: string, answer: string }>
-}
-
-export interface ProjectDefinition {
-  order: number
-  status: 'stable' | 'beta' | 'planned'
-  packageName: string
-  github: string
-  docsUrl: string
-  npmUrl?: string
-  license?: string
-  maintainer: string
-  keywords: string[]
-  installCommand: string
-  futureDocsPath: string
-  logo: string
-  accent: string
-  platforms: string[]
-  visuals: Record<'primary' | 'secondary', {
-    src: string
-    avif: string
-    width: number
-    height: number
-    locales: Record<Locale, { alt: string, caption: string }>
-  }>
-  locales: Record<Locale, LocalizedProjectContent>
-}
+export type ProjectDefinition = z.infer<typeof projectDefinitionSchema>
+export type ProjectVisual = z.infer<typeof projectVisualSchema>
+export type LocalizedProjectContent = ProjectDefinition['locales'][Locale]
 
 export interface ProjectMetrics {
   version: string

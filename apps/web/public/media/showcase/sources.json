@@ -1,0 +1,227 @@
+{
+  "capturedAt": "2026-09-07T03:57:59.883Z",
+  "scenes": [
+    {
+      "name": "retail-home",
+      "width": 734,
+      "height": 1588,
+      "sha256": "44eaf154fa141033a2ae5b7e082987543c71d7b03b1fcd72d6466af76965f016",
+      "repository": "weapp-vite/weapp-vite",
+      "revision": "add5d6c7f31e74e9fa2290e43891548f2a00eccc",
+      "source": "apps/tdesign-miniprogram-starter-retail",
+      "runtime": "WeChat DevTools",
+      "route": "/pages/home/home",
+      "state": "First banner and recommended goods; autoplay off.",
+      "viewport": {
+        "model": "iPhone 12/13 (Pro)",
+        "screenWidth": 390,
+        "screenHeight": 844,
+        "windowWidth": 390,
+        "windowHeight": 753,
+        "pixelRatio": 3,
+        "SDKVersion": "3.17.2"
+      },
+      "attribution": "TDesign native retail reference example, built with weapp-vite. Not the Vue/Tailwind port.",
+      "fixture": "prepare-showcase-retail.mjs restores the original allGoods fixture in an isolated copy, omitting performance-test image/price substitutions. No component markup or styles changed.",
+      "crop": {
+        "left": 0,
+        "top": 171,
+        "width": 734,
+        "height": 1080
+      },
+      "output": {
+        "src": "/media/showcase/retail-home-734.webp",
+        "avif": "/media/showcase/retail-home-734.avif",
+        "width": 734,
+        "height": 1080,
+        "variants": [
+          {
+            "src": "/media/showcase/retail-home-390.webp",
+            "avif": "/media/showcase/retail-home-390.avif",
+            "width": 390
+          },
+          {
+            "src": "/media/showcase/retail-home-734.webp",
+            "avif": "/media/showcase/retail-home-734.avif",
+            "width": 734
+          }
+        ],
+        "locales": {
+          "zh-CN": {
+            "alt": "TDesign 零售参考案例的首页，包含搜索、轮播和服装商品列表",
+            "caption": "TDesign 原生零售参考案例。界面来自 TDesign，作为样式与组件组合的参考；非 Tailwind 移植版截图。"
+          },
+          "en": {
+            "alt": "TDesign retail reference home with search, a banner and apparel products",
+            "caption": "Native TDesign retail reference for styling and component composition. UI by TDesign; not a capture of the Tailwind port."
+          }
+        }
+      }
+    },
+    {
+      "name": "retail-detail",
+      "width": 734,
+      "height": 1588,
+      "sha256": "fd9d1eddb2c941c7e663b461741fbfcbf3d6ba64420f3d4597596f23396e8cf0",
+      "repository": "weapp-vite/weapp-vite",
+      "revision": "add5d6c7f31e74e9fa2290e43891548f2a00eccc",
+      "source": "apps/tdesign-miniprogram-starter-retail",
+      "runtime": "WeChat DevTools",
+      "route": "/pages/goods/details/index?spuId=0",
+      "state": "Second original apparel product image (nz-09b.png), price and product information; autoplay off.",
+      "viewport": {
+        "model": "iPhone 12/13 (Pro)",
+        "screenWidth": 390,
+        "screenHeight": 844,
+        "windowWidth": 390,
+        "windowHeight": 753,
+        "pixelRatio": 3,
+        "SDKVersion": "3.17.2"
+      },
+      "attribution": "TDesign native retail reference example, built with weapp-vite. Not the Vue/Tailwind port.",
+      "fixture": "prepare-showcase-retail.mjs restores the original allGoods fixture in an isolated copy, omitting performance-test image/price substitutions. No component markup or styles changed.",
+      "crop": {
+        "left": 0,
+        "top": 171,
+        "width": 734,
+        "height": 1110
+      },
+      "output": {
+        "src": "/media/showcase/retail-detail-734.webp",
+        "avif": "/media/showcase/retail-detail-734.avif",
+        "width": 734,
+        "height": 1110,
+        "variants": [
+          {
+            "src": "/media/showcase/retail-detail-390.webp",
+            "avif": "/media/showcase/retail-detail-390.avif",
+            "width": 390
+          },
+          {
+            "src": "/media/showcase/retail-detail-734.webp",
+            "avif": "/media/showcase/retail-detail-734.avif",
+            "width": 734
+          }
+        ],
+        "locales": {
+          "zh-CN": {
+            "alt": "weapp-vite 构建的 TDesign 原生零售商品详情，展示连衣裙、价格和商品信息",
+            "caption": "由 weapp-vite 构建的 TDesign 原生零售案例：商品详情。"
+          },
+          "en": {
+            "alt": "TDesign native retail product detail built with weapp-vite, showing a dress, price and product information",
+            "caption": "TDesign native retail example built with weapp-vite: product detail."
+          }
+        }
+      }
+    },
+    {
+      "name": "retail-specs",
+      "width": 734,
+      "height": 1588,
+      "sha256": "fa5ffbb6d0f4919555079b22208e9278ccc5c42574310339afed1b9781b4df01",
+      "repository": "weapp-vite/weapp-vite",
+      "revision": "add5d6c7f31e74e9fa2290e43891548f2a00eccc",
+      "source": "apps/tdesign-miniprogram-starter-retail",
+      "runtime": "WeChat DevTools",
+      "route": "/pages/goods/details/index?spuId=0",
+      "state": "Actual showSkuSelectPopup action; color, sizes and quantity visible.",
+      "viewport": {
+        "model": "iPhone 12/13 (Pro)",
+        "screenWidth": 390,
+        "screenHeight": 844,
+        "windowWidth": 390,
+        "windowHeight": 753,
+        "pixelRatio": 3,
+        "SDKVersion": "3.17.2"
+      },
+      "attribution": "TDesign native retail reference example, built with weapp-vite. Not the Vue/Tailwind port.",
+      "fixture": "prepare-showcase-retail.mjs restores the original allGoods fixture in an isolated copy, omitting performance-test image/price substitutions. No component markup or styles changed.",
+      "crop": {
+        "left": 0,
+        "top": 615,
+        "width": 734,
+        "height": 847
+      },
+      "output": {
+        "src": "/media/showcase/retail-specs-734.webp",
+        "avif": "/media/showcase/retail-specs-734.avif",
+        "width": 734,
+        "height": 847,
+        "variants": [
+          {
+            "src": "/media/showcase/retail-specs-390.webp",
+            "avif": "/media/showcase/retail-specs-390.avif",
+            "width": 390
+          },
+          {
+            "src": "/media/showcase/retail-specs-734.webp",
+            "avif": "/media/showcase/retail-specs-734.avif",
+            "width": 734
+          }
+        ],
+        "locales": {
+          "zh-CN": {
+            "alt": "TDesign 零售案例中的真实规格弹层，包含颜色、S M L 尺码、数量和购买按钮",
+            "caption": "打开规格选择后的实际状态，支持颜色、尺码与数量选择。"
+          },
+          "en": {
+            "alt": "Actual TDesign retail specification popup with color, S M L sizes, quantity and purchase buttons",
+            "caption": "The actual specification picker with color, size and quantity controls."
+          }
+        }
+      }
+    },
+    {
+      "name": "varo-agent-chat",
+      "width": 1260,
+      "height": 1914,
+      "sha256": "56399acf746c1bca6d7e80fc319075b592630fd6d27b7fc8f2ab5e36c5976781",
+      "repository": "daguanren21/Varo",
+      "revision": "0b50328b0861a8cfb754200812c37fb609705635",
+      "source": "apps/docs/src/components/blocks/agent-chat.vue",
+      "runtime": "Chromium",
+      "route": "/ai/agent-chat",
+      "viewport": {
+        "width": 860,
+        "height": 1300,
+        "deviceScaleFactor": 2
+      },
+      "state": "Existing AgentComponentDemo messages and waiting event snapshot; documentation viewport expanded to show the entire component.",
+      "attribution": "Varo AgentChat component demo, Chinese and light theme. Product remains planned on weapp.dev.",
+      "output": {
+        "src": "/media/showcase/varo-agent-chat-1260.webp",
+        "avif": "/media/showcase/varo-agent-chat-1260.avif",
+        "width": 1260,
+        "height": 1914,
+        "variants": [
+          {
+            "src": "/media/showcase/varo-agent-chat-390.webp",
+            "avif": "/media/showcase/varo-agent-chat-390.avif",
+            "width": 390
+          },
+          {
+            "src": "/media/showcase/varo-agent-chat-780.webp",
+            "avif": "/media/showcase/varo-agent-chat-780.avif",
+            "width": 780
+          },
+          {
+            "src": "/media/showcase/varo-agent-chat-1260.webp",
+            "avif": "/media/showcase/varo-agent-chat-1260.avif",
+            "width": 1260
+          }
+        ],
+        "locales": {
+          "zh-CN": {
+            "alt": "Varo AgentChat 组件演示，包含对话历史、registry.inspect 工具事件、确认区域和输入框",
+            "caption": "Varo AgentChat 组件演示：对话、工具事件与输入区。项目仍在规划中。"
+          },
+          "en": {
+            "alt": "Varo AgentChat demo with message history, a registry.inspect tool event, approval controls and composer",
+            "caption": "Varo AgentChat component demo: conversation, tool events and composer. The project remains planned."
+          }
+        }
+      }
+    }
+  ]
+}

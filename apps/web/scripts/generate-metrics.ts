@@ -9,6 +9,7 @@ interface ProjectSource {
   packageName: string
   github: string
   npmUrl?: string
+  status: string
 }
 
 const root = resolve(import.meta.dirname, '..')
@@ -28,6 +29,7 @@ async function loadProjectSources(): Promise<ProjectSource[]> {
       packageName: definition.packageName,
       github: definition.github,
       npmUrl: typeof definition.npmUrl === 'string' ? definition.npmUrl : undefined,
+      status: String(definition.status),
     }
   }))
 }
@@ -87,11 +89,11 @@ const requireFresh = process.argv.includes('--require-fresh')
 const updateFallback = process.argv.includes('--update-fallback')
 
 await Promise.all(projectSources.map(async (project) => {
-  if (!project.npmUrl) {
+  if (project.status === 'planned' || !project.npmUrl) {
     if (!fallback[project.slug]) {
       failures.push(project.slug)
     }
-    console.log(`Using fallback metrics for ${project.slug}: no public npm package`)
+    console.log(`Using fallback metrics for ${project.slug}: ${project.status === 'planned' ? 'planned project' : 'no public npm package'}`)
     return
   }
   try {

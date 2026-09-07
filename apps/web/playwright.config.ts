@@ -7,7 +7,8 @@ export default defineConfig({
   testDir: './tests/e2e',
   fullyParallel: true,
   webServer: {
-    command: 'pnpm preview --host 127.0.0.1 --port 4321',
+    // The CLI detaches in agent environments; Playwright needs a foreground server.
+    command: `node --input-type=module -e "import { preview } from 'astro'; await preview({ server: { host: '127.0.0.1', port: 4321 } })"`,
     url: 'http://127.0.0.1:4321',
     reuseExistingServer: true,
   },
