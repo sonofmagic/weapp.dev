@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatCompactNumber, isProjectMetrics, parseMetricsMap } from './metrics'
+import { formatCompactNumber, hasSameProjectMetricValues, isProjectMetrics, parseMetricsMap } from './metrics'
 
 const validMetrics = {
   version: '1.2.3',
@@ -19,6 +19,17 @@ describe('project metrics', () => {
     expect(isProjectMetrics({ ...validMetrics, stars: -1 })).toBe(false)
     expect(isProjectMetrics({ ...validMetrics, releasedAt: 'not-a-date' })).toBe(false)
     expect(parseMetricsMap({})).toBeNull()
+  })
+
+  it('ignores fetch timestamps when public metric values are unchanged', () => {
+    expect(hasSameProjectMetricValues(validMetrics, {
+      ...validMetrics,
+      fetchedAt: '2026-09-02T00:00:00.000Z',
+    })).toBe(true)
+    expect(hasSameProjectMetricValues(validMetrics, {
+      ...validMetrics,
+      weeklyDownloads: validMetrics.weeklyDownloads + 1,
+    })).toBe(false)
   })
 
   it('formats public metrics compactly', () => {

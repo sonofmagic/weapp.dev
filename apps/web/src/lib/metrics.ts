@@ -24,6 +24,13 @@ export function isProjectMetrics(value: unknown): value is ProjectMetrics {
     && !Number.isNaN(Date.parse(metrics.fetchedAt))
 }
 
+export function hasSameProjectMetricValues(left: ProjectMetrics, right: ProjectMetrics): boolean {
+  return left.version === right.version
+    && left.releasedAt === right.releasedAt
+    && left.stars === right.stars
+    && left.weeklyDownloads === right.weeklyDownloads
+}
+
 export function parseMetricsMap(value: unknown): ProjectMetricsMap | null {
   if (!value || typeof value !== 'object' || Array.isArray(value)) {
     return null

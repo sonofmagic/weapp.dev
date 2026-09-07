@@ -73,3 +73,9 @@ E2E 覆盖图片加载及比例、双语 alt/caption、项目链接、canonical�
 - 手机对比（左旧右新）：`apps/web/.cache/showcase-qa/home-zh-390-light-comparison.png`
 - 英文深色：`apps/web/.cache/showcase-qa/home-en-1440-dark.png`
 - 完整机器检查记录：`apps/web/.cache/showcase-qa/results.json`
+
+### PR #6 冲突修复
+
+PR 最初的 Cloudflare 构建成功，合并被 main 的并行改动阻塞。合入 main 历史后保留了 CI 和每周指标同步流程；按本次已确认范围，页面继续采用三项目方案与 Varo 规划中状态，未采用并行的 SQLite 项目和另一版首页。相对 main 的最终差异包含这些产品变更的撤回。
+
+指标同步按项目状态跳过规划中的占位包，避免未发布包的 404 阻断严格同步。`--require-fresh` 已实际运行通过，两个已发布项目刷新成功。完整 `pnpm check` 的 lint、stylelint、类型检查和 15 项单测通过；构建再次验证 14 个页面、19 项必需产物及内部链接。
