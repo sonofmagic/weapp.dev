@@ -1,15 +1,15 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
-import varoProject from '../../src/content/projects/varo.json' with { type: 'json' }
-import tailwindProject from '../../src/content/projects/weapp-tailwindcss.json' with { type: 'json' }
-import viteProject from '../../src/content/projects/weapp-vite.json' with { type: 'json' }
+import varoShowcase from '../../src/content/showcases/varo.json' with { type: 'json' }
+import tailwindShowcase from '../../src/content/showcases/weapp-tailwindcss.json' with { type: 'json' }
+import viteShowcase from '../../src/content/showcases/weapp-vite.json' with { type: 'json' }
 import { siteCopy } from '../../src/i18n/ui'
 
-const projectDefinitions = [tailwindProject, viteProject, varoProject]
+const projectShowcases = [tailwindShowcase, viteShowcase, varoShowcase]
 const retiredVisuals = 'canvas, [data-shader-canvas], [data-shader], [data-shader-frame], [data-webgl-fallback], [data-art], .project-art, [class^="art-"], [class*=" art-"]'
 
 async function expectHomeVisuals(page: import('@playwright/test').Page, locale: 'zh-CN' | 'en') {
-  const heroVisual = tailwindProject.visuals.showcase[0]
+  const heroVisual = tailwindShowcase.images[0]
   const hero = page.locator('.home-hero-stage img').first()
   await expect(hero).toBeVisible()
   await expect(hero).toHaveAttribute('src', heroVisual.src)
@@ -24,7 +24,7 @@ async function expectHomeVisuals(page: import('@playwright/test').Page, locale: 
   await expect(page.locator('.home-hero-example:visible')).toHaveCount(desktop ? 3 : 1)
   await expect(page.locator(retiredVisuals)).toHaveCount(0)
   const visuals = page.locator('#projects [data-project-visual]')
-  const expectedVisuals = projectDefinitions.flatMap(project => project.visuals.showcase)
+  const expectedVisuals = projectShowcases.flatMap(showcase => showcase.images)
   await expect(visuals).toHaveCount(expectedVisuals.length)
   for (const [index, visual] of expectedVisuals.entries()) {
     const figure = visuals.nth(index)
@@ -193,6 +193,12 @@ test('home hero follows the active theme without an inverted surface', async ({ 
       return { text: style.color === body.color, background: style.backgroundColor === body.backgroundColor }
     })
     expect(colors, theme).toEqual({ text: true, background: true })
+    const kicker = await page.locator('.home-kicker').evaluate((element) => {
+      const style = getComputedStyle(element)
+      return { size: style.fontSize, family: style.fontFamily }
+    })
+    expect(kicker.size).toBe('12px')
+    expect(kicker.family).toContain('Geist Mono Variable')
   }
 })
 

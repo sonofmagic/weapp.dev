@@ -1,7 +1,10 @@
 import type { Locale } from '../types/project'
+import homeEn from './home/en'
+import homeZh from './home/zh-CN'
 
 export const siteCopy = {
   'zh-CN': {
+    ...homeZh,
     languageName: '中文',
     alternateLanguage: 'English',
     nav: {
@@ -13,74 +16,6 @@ export const siteCopy = {
       github: 'GitHub',
       openMenu: '打开导航',
       theme: '切换主题',
-    },
-    hero: {
-      eyebrow: '为真实小程序工程而建',
-      title: 'weapp.dev',
-      description: '从 Tailwind CSS 样式、Vite 构建到可编辑双端组件，用一套开放工具链交付小程序与 H5。',
-      primary: '查看项目',
-      secondary: '查看 GitHub',
-      visualLabel: '真实案例：TDesign 零售模板与 Varo AgentChat 组件演示。',
-    },
-    about: {
-      eyebrow: '构建链路',
-      title: '保留你的写法，升级交付链路',
-      description: '工具分别接管样式转换、工程构建与组件源码，让现有小程序可以渐进接入，也让 H5 与新项目共享现代开发体验。',
-      items: [
-        { title: '编写', body: '继续使用原生小程序、Vue SFC 或跨端框架，保留团队熟悉的页面与组件边界。' },
-        { title: '构建', body: '让 weapp-tailwindcss 处理样式与类名，让 weapp-vite 处理依赖、路由和多平台构建生命周期。' },
-        { title: '组装', body: '从 Varo Registry 安装可编辑的双端组件、业务 Blocks 与 Agent UI，并在真实运行时中验证交付。' },
-      ],
-    },
-    projects: {
-      eyebrow: '工具栈',
-      title: '三个项目，三层清晰边界',
-      description: '按需独立采用，也可以组合成从样式、构建到 H5 与小程序组件源码的完整工程。',
-      documentation: '阅读文档',
-      details: '项目详情',
-      weeklyDownloads: '周下载',
-      stars: 'Stars',
-      status: {
-        stable: '稳定版',
-        beta: '测试版',
-        planned: '规划中',
-      },
-    },
-    vision: {
-      eyebrow: '我们的愿景',
-      title: '让小程序工程拥有开放的现代底座',
-      description: '我们希望把样式、构建与组件能力连接成一套开放、可组合、可验证的工程生态。',
-      items: [
-        { title: '开放的工具链', body: '每个工具都能独立使用，也能通过清晰边界组合起来。' },
-        { title: '熟悉的开发体验', body: '保留原生小程序、Vue SFC 与跨端框架的写法，降低迁移成本。' },
-        { title: '可验证的交付结果', body: '让构建输出、运行时表现和发布记录都可以被检查与复现。' },
-      ],
-    },
-    releases: {
-      eyebrow: '最新版本',
-      title: '持续发布，稳定演进',
-      description: '版本信息在构建时从 npm 获取，并保留可靠的离线快照。',
-      released: '发布于',
-      viewPackage: '查看 npm',
-    },
-    collaboration: {
-      eyebrow: '开放协作',
-      title: '一起建设下一代小程序工具链',
-      description: 'weapp.dev 以开源项目、公开文档和真实运行结果为基础，欢迎开发者通过反馈、案例和代码共同完善这套工具生态。',
-      action: '参与 GitHub',
-    },
-    commercial: {
-      eyebrow: '商业化交付层',
-      title: '支持开源，也支持真正能交付的服务',
-      description: '核心工具继续开放。当前先交付迁移与培训，同时公开建设中的云构建、模板和私有组件方向。',
-      cards: [
-        { title: '迁移与培训', body: '当前可交付的人工服务，围绕 weapp-vite + weapp-tailwindcss 接入真实仓库。' },
-        { title: '建设中的能力', body: '云构建、官方模板和私有组件仓库会在具备稳定交付链路后再开放。' },
-        { title: '赞助开源', body: '一次性 ¥20 / ¥200 / ¥1,000 支持维护；¥200 起经确认和授权可展示 GitHub link，并同步 weapp.dev、tw.weapp.dev、vite.weapp.dev 公开名单。' },
-      ],
-      pricing: '查看路线图',
-      trial: '支持开源',
-      services: '查看可交付服务',
     },
     pricing: {
       eyebrow: '交付与赞助',
@@ -228,6 +163,7 @@ export const siteCopy = {
     },
   },
   'en': {
+    ...homeEn,
     languageName: 'English',
     alternateLanguage: '中文',
     nav: {
@@ -239,74 +175,6 @@ export const siteCopy = {
       github: 'GitHub',
       openMenu: 'Open navigation',
       theme: 'Change theme',
-    },
-    hero: {
-      eyebrow: 'Built for real mini-app projects',
-      title: 'weapp.dev',
-      description: 'Ship mini-app and H5 products with open tooling for Tailwind CSS styling, Vite-powered builds, and editable cross-runtime components.',
-      primary: 'View projects',
-      secondary: 'View on GitHub',
-      visualLabel: 'Real examples: the TDesign retail template and Varo AgentChat component demo.',
-    },
-    about: {
-      eyebrow: 'Build path',
-      title: 'Keep your syntax. Upgrade delivery.',
-      description: 'Separate tools own style transforms, project builds, and component source, so existing mini-apps can migrate gradually while H5 and new products share modern DX.',
-      items: [
-        { title: 'Author', body: 'Keep native mini-app syntax, Vue SFC, or a cross-platform framework with the page boundaries your team already knows.' },
-        { title: 'Build', body: 'Let weapp-tailwindcss own styles and classes while weapp-vite owns dependencies, routes, and multi-platform build lifecycles.' },
-        { title: 'Compose', body: 'Install editable dual-target components, business blocks, and Agent UI from the Varo registry, then verify delivery in the real runtime.' },
-      ],
-    },
-    projects: {
-      eyebrow: 'The stack',
-      title: 'Three projects. Three clear boundaries.',
-      description: 'Adopt each independently or combine styling, builds, and editable H5 / mini-program component source.',
-      documentation: 'Read the docs',
-      details: 'Project details',
-      weeklyDownloads: 'Weekly downloads',
-      stars: 'Stars',
-      status: {
-        stable: 'Stable',
-        beta: 'Beta',
-        planned: 'Planned',
-      },
-    },
-    vision: {
-      eyebrow: 'Our vision',
-      title: 'An open, modern foundation for mini-app engineering',
-      description: 'We want to connect styling, builds, and components into an open, composable, and verifiable engineering ecosystem.',
-      items: [
-        { title: 'Open tooling', body: 'Each tool works independently, then composes through clear boundaries when you need the full stack.' },
-        { title: 'Familiar development', body: 'Keep native mini-app syntax, Vue SFC, and cross-platform workflows while lowering migration cost.' },
-        { title: 'Verifiable delivery', body: 'Make build output, runtime behavior, and release records inspectable and reproducible.' },
-      ],
-    },
-    releases: {
-      eyebrow: 'Latest releases',
-      title: 'Ship steadily, evolve carefully',
-      description: 'Release data is fetched from npm at build time with a reliable offline snapshot.',
-      released: 'Released',
-      viewPackage: 'View on npm',
-    },
-    collaboration: {
-      eyebrow: 'Open collaboration',
-      title: 'Build the next generation of mini-app tooling together',
-      description: 'weapp.dev is grounded in open-source projects, public documentation, and real runtime results. Developers are welcome to improve the ecosystem through feedback, examples, and code.',
-      action: 'Join on GitHub',
-    },
-    commercial: {
-      eyebrow: 'Commercial delivery layer',
-      title: 'Support open source, and the services we can deliver today.',
-      description: 'Core tools stay open. Today we deliver migration and training, while cloud builds, templates, and private components remain in development.',
-      cards: [
-        { title: 'Migration and training', body: 'Human-delivered services for connecting real repositories to weapp-vite + weapp-tailwindcss.' },
-        { title: 'In development', body: 'Cloud builds, official templates, and private component registries will open after delivery is stable.' },
-        { title: 'Sponsor open source', body: 'One-time ¥20 / ¥200 / ¥1,000 support for maintenance; ¥200+ can receive an approved GitHub link across weapp.dev, tw.weapp.dev, and vite.weapp.dev.' },
-      ],
-      pricing: 'View roadmap',
-      trial: 'Support open source',
-      services: 'View deliverable services',
     },
     pricing: {
       eyebrow: 'Delivery and support',

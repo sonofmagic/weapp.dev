@@ -1,0 +1,63 @@
+---
+import { ArrowRight, BadgeCheck, BookOpen } from '@lucide/astro'
+import type { Locale, ProjectMetrics } from '../../types/project'
+import type { HomeProject } from '../../lib/home-projects'
+import { formatCompactNumber } from '../../lib/metrics'
+import { projectPath, siteCopy } from '../../i18n/ui'
+import { buttonPrimary, buttonSecondary, projectTone } from '../../styles/classes'
+import ShowcasePicture from '../ShowcasePicture.astro'
+import { showcaseSizes } from './media-sizes'
+
+interface Props {
+  locale: Locale
+  project: HomeProject
+  index: number
+  metrics: ProjectMetrics
+}
+
+const { locale, project, index, metrics: projectMetrics } = Astro.props
+const content = project.data.locales[locale]
+const copy = siteCopy[locale]
+const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
+---
+
+<article data-project-row class:list={['home-project-row', { 'home-project-row-reversed': project.reversed }]} style={`--project-accent: ${project.data.accent}`}>
+  <a class="home-project-visual-link" href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home_visual" data-analytics-project={project.id} aria-label={locale === 'zh-CN' ? `打开 ${content.name} 官方站点` : `Open ${content.name} official site`}>
+    <div class="home-showcase-gallery" data-showcase-count={project.showcase.length}>
+      {project.showcase.map(visual => (
+        <figure data-reveal data-project-visual class:list={['home-showcase-figure', { 'home-showcase-phone': project.layout !== 'component' }]}>
+          <ShowcasePicture visual={visual} locale={locale} sizes={showcaseSizes[project.layout]} />
+          <figcaption>{visual.locales[locale].caption}</figcaption>
+        </figure>
+      ))}
+    </div>
+  </a>
+
+  <div data-reveal data-project-copy style={`--reveal-delay: ${80 + index * 60}ms`}>
+    <p class="mb-4 font-mono text-[10px] font-bold text-brand">{String(index + 1).padStart(2, '0')} / {project.stage[locale]}</p>
+    <div class="mb-5 flex items-center gap-3">
+      <img class="size-12 object-contain" src={project.data.logo} width="48" height="48" alt="" />
+      <span class:list={['inline-flex items-center gap-1.5 font-mono text-xs font-[650]', projectTone]}>
+        <BadgeCheck size={15} stroke-width={1.8} aria-hidden="true" />
+        {copy.projects.status[project.data.status]}
+      </span>
+    </div>
+    <h3 class="mb-4 text-[38px] font-[680] [overflow-wrap:anywhere] max-[720px]:text-[30px]"><a class="home-project-title-link" href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home_title" data-analytics-project={project.id}>{content.name}</a></h3>
+    <p class="mb-3 text-xl font-[620]">{content.tagline}</p>
+    <p class="mb-6 max-w-[590px] text-copy-muted">{content.description}</p>
+    <dl class="mb-7 grid grid-cols-2 gap-8 border-y border-line py-5">
+      <div><dt class="mb-1 text-xs text-copy-muted">{copy.projects.weeklyDownloads}</dt><dd class="m-0 font-mono text-xl font-[700]">{formatCompactNumber(projectMetrics.weeklyDownloads, numberLocale)}</dd></div>
+      <div><dt class="mb-1 text-xs text-copy-muted">{copy.projects.stars}</dt><dd class="m-0 font-mono text-xl font-[700]">{formatCompactNumber(projectMetrics.stars, numberLocale)}</dd></div>
+    </dl>
+    <div class="flex flex-wrap items-center gap-3">
+      <a class={buttonPrimary} href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="docs" data-analytics-project={project.id}>
+        <BookOpen size={18} stroke-width={1.9} aria-hidden="true" />
+        {copy.projects.documentation}
+      </a>
+      <a class={buttonSecondary} href={projectPath(locale, project.id)} data-analytics-event="select_project" data-analytics-project={project.id}>
+        {copy.projects.details}
+        <ArrowRight size={17} stroke-width={1.9} aria-hidden="true" />
+      </a>
+    </div>
+  </div>
+</article>

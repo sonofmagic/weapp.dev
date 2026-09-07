@@ -25,10 +25,12 @@ try {
         await page.goto(new URL(route, baseURL).href)
         await page.evaluate(async () => {
           await document.fonts.ready
-          await Promise.all([...document.images].map(async (image) => {
+          for (const image of document.images) {
             image.loading = 'eager'
-            await image.decode()
-          }))
+          }
+          // Changing loading also changes sizes="auto"; let responsive sources settle first.
+          await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)))
+          await Promise.all([...document.images].map(image => image.decode()))
         })
         const checks = await page.evaluate(() => ({
           overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,

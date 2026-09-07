@@ -1,11 +1,15 @@
 ---
-import { ArrowRight, ArrowUpRight, BadgeCheck, BookOpen, GitFork, Heart, Layers2, Package, ScanLine, ShieldCheck } from '@lucide/astro'
 import type { Locale, ProjectMetricsMap } from '../types/project'
 import type { ProjectEntry } from '../lib/projects'
-import { formatCompactNumber, formatReleaseDate } from '../lib/metrics'
-import { localizePath, projectPath, siteCopy } from '../i18n/ui'
-import { buttonPrimary, buttonSecondary, iconControl, projectTone, section, shell } from '../styles/classes'
-import ShowcasePicture from './ShowcasePicture.astro'
+import { getHomeProjects } from '../lib/home'
+import '../styles/home.css'
+import HomeHero from './home/HomeHero.astro'
+import HomeAbout from './home/HomeAbout.astro'
+import HomeProjects from './home/HomeProjects.astro'
+import HomeCommercial from './home/HomeCommercial.astro'
+import HomeVision from './home/HomeVision.astro'
+import HomeReleases from './home/HomeReleases.astro'
+import HomeCollaboration from './home/HomeCollaboration.astro'
 
 interface Props {
   locale: Locale
@@ -14,228 +18,15 @@ interface Props {
 }
 
 const { locale, projects, metrics } = Astro.props
-const copy = siteCopy[locale]
-const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
-const stepIcons = [Layers2, ScanLine, Package]
-const principleIcons = [Layers2, ShieldCheck, BadgeCheck]
-const heroRatios = projects.map(project => project.data.visuals.showcase[0].width / project.data.visuals.showcase[0].height)
-const heroRatioTotal = heroRatios.reduce((sum, ratio) => sum + ratio, 0)
-const showcaseSizes: Record<string, string> = {
-  'weapp-tailwindcss': '(max-width: 720px) min(340px, calc(100vw - 32px)), 340px',
-  'weapp-vite': '(max-width: 720px) min(340px, calc(100vw - 32px)), (max-width: 900px) calc((100vw - 80px) * 0.225 - 8px), min(258.4px, calc((100vw - 104px) * 0.225 - 8px))',
-  varo: '(max-width: 720px) calc(100vw - 32px), (max-width: 900px) calc((100vw - 80px) * 0.55), min(651.2px, calc((100vw - 104px) * 0.55))',
-}
-const projectStages: Record<string, string> = locale === 'zh-CN'
-  ? { 'weapp-tailwindcss': '样式', 'weapp-vite': '构建', varo: '组件' }
-  : { 'weapp-tailwindcss': 'STYLE', 'weapp-vite': 'BUILD', varo: 'COMPOSE' }
+const homeProjects = await getHomeProjects(projects)
 ---
 
 <main id="main-content">
-  <section class="home-hero">
-    <div class:list={[shell, 'home-hero-grid']}>
-      <div class="home-hero-copy">
-        <p data-hero-enter style="--enter-delay: 0ms" class="home-kicker">{copy.hero.eyebrow}</p>
-        <h1 data-hero-enter style="--enter-delay: 45ms" class="home-hero-title">{copy.hero.title}<span class="home-hero-dot" aria-hidden="true">.</span></h1>
-        <p data-hero-enter style="--enter-delay: 90ms" class="home-hero-description">{copy.hero.description}</p>
-        <div data-hero-enter style="--enter-delay: 135ms" class="flex flex-wrap items-center gap-3">
-          <a class={buttonPrimary} href={`${localizePath(locale)}#projects`} data-analytics-event="navigate_section" data-analytics-section="projects">
-            {copy.hero.primary}
-            <ArrowRight size={18} stroke-width={1.9} aria-hidden="true" />
-          </a>
-          <a class={buttonSecondary} href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="site_source">
-            <GitFork size={18} stroke-width={1.9} aria-hidden="true" />
-            {copy.hero.secondary}
-          </a>
-        </div>
-      </div>
-
-      <div class="home-hero-stage" aria-label={copy.hero.visualLabel}>
-        {projects.map((project, index) => (
-          <figure class="home-hero-example" data-hero-example={project.id} style={`--showcase-ratio: ${project.data.visuals.showcase[0].width / project.data.visuals.showcase[0].height}`}>
-            <ShowcasePicture visual={project.data.visuals.showcase[0]} locale={locale} sizes={`(max-width: 720px) ${330 * heroRatios[index]}px, min(${390 * heroRatios[index]}px, calc((100vw - 112px) * ${heroRatios[index] / heroRatioTotal}))`} priority={index === 0} />
-            <figcaption><span>{project.data.locales[locale].name}</span><span>{projectStages[project.id]}</span></figcaption>
-          </figure>
-        ))}
-      </div>
-    </div>
-
-    <div class:list={[shell, 'home-project-rail']} aria-label={copy.nav.projects}>
-      {projects.map((project, index) => {
-        const content = project.data.locales[locale]
-        return (
-          <a data-hero-enter style={`--enter-delay: ${220 + index * 45}ms`} class="home-project-link" href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home" data-analytics-project={project.id}>
-            <span class="home-project-index">{String(index + 1).padStart(2, '0')}</span>
-            <img src={project.data.logo} width="34" height="34" alt="" />
-            <span class="min-w-0"><strong>{content.name}</strong><small>{projectStages[project.id] ?? 'TOOL'} / {content.tagline}</small></span>
-            <ArrowUpRight class="home-project-arrow" size={17} stroke-width={1.8} aria-hidden="true" />
-          </a>
-        )
-      })}
-    </div>
-  </section>
-
-  <section class="border-y border-line bg-panel" id="about">
-    <div class:list={[section, shell]}>
-      <header data-reveal class="mb-12 max-w-[720px]">
-        <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{copy.about.title}</h2>
-        <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.about.description}</p>
-      </header>
-      <ol class="m-0 grid list-none grid-cols-3 gap-0 border-y border-line p-0 max-[720px]:grid-cols-1 max-[720px]:border-b-0">
-        {copy.about.items.map((item, index) => {
-          const Icon = stepIcons[index]
-          return (
-            <li data-reveal style={`--reveal-delay: ${index * 70}ms`} class="relative min-h-[230px] border-r border-line px-7 py-8 last:border-r-0 max-[720px]:min-h-0 max-[720px]:border-r-0 max-[720px]:border-b max-[720px]:px-0">
-              <div class="mb-10 flex items-center justify-between">
-                <Icon class="text-brand" size={25} stroke-width={1.65} aria-hidden="true" />
-              </div>
-              <h3 class="mb-3 text-2xl font-[660]">{item.title}</h3>
-              <p class="mb-0 max-w-[340px] text-copy-muted">{item.body}</p>
-            </li>
-          )
-        })}
-      </ol>
-    </div>
-  </section>
-
-  <section class:list={[section, shell]} id="projects">
-    <header data-reveal class="mb-14 max-w-[720px]">
-      <p class="mb-3 font-mono text-xs font-[650] text-brand">{copy.projects.eyebrow}</p>
-      <h2 class="mb-4 text-[48px] font-[680] max-[720px]:text-[35px]">{copy.projects.title}</h2>
-      <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.projects.description}</p>
-    </header>
-
-    <div class="grid gap-20 max-[720px]:gap-14">
-      {projects.map((project, index) => {
-        const content = project.data.locales[locale]
-        const projectMetrics = metrics[project.id]
-        return (
-          <article data-project-row class:list={['home-project-row', { 'home-project-row-reversed': index === 1 }]} style={`--project-accent: ${project.data.accent}`}>
-            <a class="home-project-visual-link" href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home_visual" data-analytics-project={project.id} aria-label={locale === 'zh-CN' ? `打开 ${content.name} 官方站点` : `Open ${content.name} official site`}>
-              <div class="home-showcase-gallery" data-showcase-count={project.data.visuals.showcase.length}>
-                {project.data.visuals.showcase.map(visual => (
-                  <figure data-reveal data-project-visual class:list={['home-showcase-figure', { 'home-showcase-phone': project.id !== 'varo' }]}>
-                    <ShowcasePicture visual={visual} locale={locale} sizes={showcaseSizes[project.id]} />
-                    <figcaption>{visual.locales[locale].caption}</figcaption>
-                  </figure>
-                ))}
-              </div>
-            </a>
-
-            <div data-reveal data-project-copy style={`--reveal-delay: ${80 + index * 60}ms`}>
-              <p class="mb-4 font-mono text-[10px] font-bold text-brand">{String(index + 1).padStart(2, '0')} / {projectStages[project.id] ?? 'TOOL'}</p>
-              <div class="mb-5 flex items-center gap-3">
-                <img class="size-12 object-contain" src={project.data.logo} width="48" height="48" alt="" />
-                <span class:list={['inline-flex items-center gap-1.5 font-mono text-xs font-[650]', projectTone]}>
-                  <BadgeCheck size={15} stroke-width={1.8} aria-hidden="true" />
-                  {copy.projects.status[project.data.status]}
-                </span>
-              </div>
-              <h3 class="mb-4 text-[38px] font-[680] [overflow-wrap:anywhere] max-[720px]:text-[30px]"><a class="home-project-title-link" href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home_title" data-analytics-project={project.id}>{content.name}</a></h3>
-              <p class="mb-3 text-xl font-[620]">{content.tagline}</p>
-              <p class="mb-6 max-w-[590px] text-copy-muted">{content.description}</p>
-              <dl class="mb-7 grid grid-cols-2 gap-8 border-y border-line py-5">
-                <div><dt class="mb-1 text-xs text-copy-muted">{copy.projects.weeklyDownloads}</dt><dd class="m-0 font-mono text-xl font-[700]">{formatCompactNumber(projectMetrics.weeklyDownloads, numberLocale)}</dd></div>
-                <div><dt class="mb-1 text-xs text-copy-muted">{copy.projects.stars}</dt><dd class="m-0 font-mono text-xl font-[700]">{formatCompactNumber(projectMetrics.stars, numberLocale)}</dd></div>
-              </dl>
-              <div class="flex flex-wrap items-center gap-3">
-                <a class={buttonPrimary} href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="docs" data-analytics-project={project.id}>
-                  <BookOpen size={18} stroke-width={1.9} aria-hidden="true" />
-                  {copy.projects.documentation}
-                </a>
-                <a class={buttonSecondary} href={projectPath(locale, project.id)} data-analytics-event="select_project" data-analytics-project={project.id}>
-                  {copy.projects.details}
-                  <ArrowRight size={17} stroke-width={1.9} aria-hidden="true" />
-                </a>
-              </div>
-            </div>
-          </article>
-        )
-      })}
-    </div>
-  </section>
-
-  <section class="border-y border-line bg-panel-soft" id="commercial">
-    <div class:list={[section, shell]}>
-      <header data-reveal class="mb-12 max-w-[720px]">
-        <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{copy.commercial.title}</h2>
-        <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.commercial.description}</p>
-      </header>
-      <div class="grid grid-cols-3 gap-px overflow-hidden border border-line bg-line max-[760px]:grid-cols-1">
-        {copy.commercial.cards.map((card, index) => (
-          <article data-reveal style={`--reveal-delay: ${index * 70}ms`} class="bg-panel p-7">
-            <h3 class="mb-3 text-2xl font-[660]">{card.title}</h3>
-            <p class="mb-0 text-sm leading-[1.7] text-copy-muted">{card.body}</p>
-          </article>
-        ))}
-      </div>
-      <div class="mt-8 flex flex-wrap items-center gap-3">
-        <a class={buttonPrimary} href={`${localizePath(locale, '/pricing/')}#sponsor`} data-analytics-event="navigate_section" data-analytics-section="sponsor">{copy.commercial.trial}<Heart size={17} stroke-width={1.9} aria-hidden="true" /></a>
-        <a class={buttonSecondary} href={`${localizePath(locale, '/pricing/')}#services`} data-analytics-event="navigate_section" data-analytics-section="services"><ArrowRight size={17} stroke-width={1.9} aria-hidden="true" />{copy.commercial.services}</a>
-        <a class="inline-flex min-h-11 items-center gap-2 px-2 text-sm font-[650] text-copy-muted transition-colors hover:text-ink" href={`${localizePath(locale, '/pricing/')}#roadmap`} data-analytics-event="navigate_section" data-analytics-section="roadmap">{copy.commercial.pricing}<ArrowUpRight size={16} stroke-width={1.8} aria-hidden="true" /></a>
-      </div>
-    </div>
-  </section>
-
-  <section class="border-y border-line bg-panel-soft" id="vision">
-    <span id="principles" class="sr-only" aria-hidden="true"></span>
-    <div class:list={[section, shell, 'grid grid-cols-[.72fr_1.28fr] gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10']}>
-      <header data-reveal class="max-w-[470px]">
-        <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{copy.vision.title}</h2>
-        <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.vision.description}</p>
-      </header>
-      <div class="grid grid-cols-2 gap-px overflow-hidden rounded-panel border border-line bg-line max-[620px]:grid-cols-1">
-        {copy.vision.items.map((item, index) => {
-          const Icon = principleIcons[index]
-          return (
-            <article data-reveal data-principle-card style={`--reveal-delay: ${index * 70}ms`} class:list={['bg-panel p-7', index === 0 ? 'row-span-2 min-h-[330px] max-[620px]:row-auto max-[620px]:min-h-0' : 'min-h-[164px]']}>
-              <Icon class="mb-8 text-brand" size={25} stroke-width={1.6} aria-hidden="true" />
-              <h3 class="mb-2 text-xl font-[650]">{item.title}</h3>
-              <p class="mb-0 text-sm leading-[1.7] text-copy-muted">{item.body}</p>
-            </article>
-          )
-        })}
-      </div>
-    </div>
-  </section>
-
-  <section class:list={[section, shell]} id="releases">
-    <div class="grid grid-cols-[.75fr_1.25fr] gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10">
-      <header data-reveal class="max-w-[470px]">
-        <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{copy.releases.title}</h2>
-        <p class="mb-0 text-copy-muted">{copy.releases.description}</p>
-      </header>
-      <div data-reveal class="border-t border-line">
-        {projects.map(project => {
-          const projectMetrics = metrics[project.id]
-          return (
-            <article class="grid min-h-[112px] grid-cols-[48px_1fr_auto_42px] items-center gap-4 border-b border-line max-[520px]:grid-cols-[42px_1fr_auto]">
-              <img class="size-11 object-contain max-[520px]:size-9" src={project.data.logo} width="44" height="44" alt="" />
-              <div>
-                <h3 class="mb-1 text-base font-[650]">{project.data.locales[locale].name}</h3>
-                <p class="mb-0 text-xs text-copy-muted">{copy.releases.released} {formatReleaseDate(projectMetrics.releasedAt, numberLocale)}</p>
-              </div>
-              <strong class="font-mono text-sm">v{projectMetrics.version}</strong>
-              <a class:list={[iconControl, 'max-[520px]:hidden']} href={`https://www.npmjs.com/package/${project.data.packageName}`} aria-label={`${copy.releases.viewPackage}: ${project.data.packageName}`} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="package" data-analytics-project={project.id}>
-                <ArrowUpRight size={19} stroke-width={1.8} aria-hidden="true" />
-              </a>
-            </article>
-          )
-        })}
-      </div>
-    </div>
-  </section>
-
-  <section class="border-y border-line bg-panel">
-    <div data-reveal class:list={[shell, 'grid min-h-[260px] grid-cols-[72px_1fr_auto] items-center gap-8 py-12 max-[820px]:grid-cols-[58px_1fr] max-[620px]:grid-cols-1']}>
-      <img class="size-[72px] rounded-panel border border-line bg-panel-soft p-2.5 max-[820px]:size-[58px]" src="/logo.svg" width="72" height="72" alt="" />
-      <div>
-        <h2 class="mb-3 text-[34px] font-[670] max-[620px]:text-[30px]">{copy.collaboration.title}</h2>
-        <p class="mb-0 max-w-[650px] text-copy-muted">{copy.collaboration.description}</p>
-      </div>
-      <a class:list={[buttonSecondary, 'max-[820px]:col-start-2 max-[820px]:w-fit max-[620px]:col-auto']} href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="collaboration">
-        <GitFork size={18} stroke-width={1.9} aria-hidden="true" />
-        {copy.collaboration.action}
-      </a>
-    </div>
-  </section>
+  <HomeHero locale={locale} projects={homeProjects} />
+  <HomeAbout locale={locale} />
+  <HomeProjects locale={locale} projects={homeProjects} metrics={metrics} />
+  <HomeCommercial locale={locale} />
+  <HomeVision locale={locale} />
+  <HomeReleases locale={locale} projects={projects} metrics={metrics} />
+  <HomeCollaboration locale={locale} />
 </main>

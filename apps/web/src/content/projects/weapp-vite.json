@@ -59,65 +59,7 @@
           "caption": "Page stack, device viewport, and bottom safe area share one runtime boundary."
         }
       }
-    },
-    "showcase": [
-      {
-        "src": "/media/showcase/retail-detail-734.webp",
-        "avif": "/media/showcase/retail-detail-734.avif",
-        "width": 734,
-        "height": 1110,
-        "variants": [
-          {
-            "src": "/media/showcase/retail-detail-390.webp",
-            "avif": "/media/showcase/retail-detail-390.avif",
-            "width": 390
-          },
-          {
-            "src": "/media/showcase/retail-detail-734.webp",
-            "avif": "/media/showcase/retail-detail-734.avif",
-            "width": 734
-          }
-        ],
-        "locales": {
-          "zh-CN": {
-            "alt": "weapp-vite 构建的 TDesign 原生零售商品详情，展示连衣裙、价格和商品信息",
-            "caption": "由 weapp-vite 构建的 TDesign 原生零售案例：商品详情。"
-          },
-          "en": {
-            "alt": "TDesign native retail product detail built with weapp-vite, showing a dress, price and product information",
-            "caption": "TDesign native retail example built with weapp-vite: product detail."
-          }
-        }
-      },
-      {
-        "src": "/media/showcase/retail-specs-734.webp",
-        "avif": "/media/showcase/retail-specs-734.avif",
-        "width": 734,
-        "height": 847,
-        "variants": [
-          {
-            "src": "/media/showcase/retail-specs-390.webp",
-            "avif": "/media/showcase/retail-specs-390.avif",
-            "width": 390
-          },
-          {
-            "src": "/media/showcase/retail-specs-734.webp",
-            "avif": "/media/showcase/retail-specs-734.avif",
-            "width": 734
-          }
-        ],
-        "locales": {
-          "zh-CN": {
-            "alt": "TDesign 零售案例中的真实规格弹层，包含颜色、S M L 尺码、数量和购买按钮",
-            "caption": "打开规格选择后的实际状态，支持颜色、尺码与数量选择。"
-          },
-          "en": {
-            "alt": "Actual TDesign retail specification popup with color, S M L sizes, quantity and purchase buttons",
-            "caption": "The actual specification picker with color, size and quantity controls."
-          }
-        }
-      }
-    ]
+    }
   },
   "locales": {
     "zh-CN": {

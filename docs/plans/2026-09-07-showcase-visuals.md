@@ -1,5 +1,7 @@
 # 首页真实案例素材
 
+结构更新：首页素材现已迁移至独立的 `src/content/showcases/<id>.json`，不再写入项目的 `visuals.showcase`。以下实现记录保留当时状态；当前文件职责和数据流见 [首页代码边界](../architecture/homepage.md)。
+
 ## 实现边界
 
 首页新增 `visuals.showcase` 数组，Hero 和项目区域共享四张实际运行截图。详情页仍读取原来的 `primary`、`secondary`。桌面 Hero 并列展示零售首页、商品详情、AgentChat；720px 以下仅保留零售首页，项目区域逐张展示全部案例。图片保持原色、实际宽高比，无设备外壳或运行时演示依赖。

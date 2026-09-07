@@ -59,37 +59,7 @@
           "caption": "Web target output from the same case, used to verify cross-platform parity."
         }
       }
-    },
-    "showcase": [
-      {
-        "src": "/media/showcase/retail-home-734.webp",
-        "avif": "/media/showcase/retail-home-734.avif",
-        "width": 734,
-        "height": 1080,
-        "variants": [
-          {
-            "src": "/media/showcase/retail-home-390.webp",
-            "avif": "/media/showcase/retail-home-390.avif",
-            "width": 390
-          },
-          {
-            "src": "/media/showcase/retail-home-734.webp",
-            "avif": "/media/showcase/retail-home-734.avif",
-            "width": 734
-          }
-        ],
-        "locales": {
-          "zh-CN": {
-            "alt": "TDesign 零售参考案例的首页，包含搜索、轮播和服装商品列表",
-            "caption": "TDesign 原生零售参考案例。界面来自 TDesign，作为样式与组件组合的参考；非 Tailwind 移植版截图。"
-          },
-          "en": {
-            "alt": "TDesign retail reference home with search, a banner and apparel products",
-            "caption": "Native TDesign retail reference for styling and component composition. UI by TDesign; not a capture of the Tailwind port."
-          }
-        }
-      }
-    ]
+    }
   },
   "locales": {
     "zh-CN": {

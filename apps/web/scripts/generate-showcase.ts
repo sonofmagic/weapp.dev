@@ -1,4 +1,4 @@
-import type { ProjectDefinition, ProjectVisual } from '../src/types/project'
+import type { ProjectVisual } from '../src/types/project'
 import assert from 'node:assert/strict'
 import { createHash } from 'node:crypto'
 import { mkdir, readFile, writeFile } from 'node:fs/promises'
@@ -7,6 +7,7 @@ import sharp from 'sharp'
 
 const sourceRoot = new URL('../media-source/showcase/', import.meta.url)
 const publicRoot = new URL('../public/media/showcase/', import.meta.url)
+const contentRoot = new URL('../src/content/showcases/', import.meta.url)
 const manifest = JSON.parse(await readFile(new URL('captures.json', sourceRoot), 'utf8'))
 const scenes = [
   {
@@ -48,6 +49,7 @@ const scenes = [
 ]
 
 await mkdir(publicRoot, { recursive: true })
+await mkdir(contentRoot, { recursive: true })
 const showcases: Record<string, ProjectVisual[]> = {}
 const generated = []
 for (const scene of scenes) {
@@ -81,10 +83,8 @@ for (const scene of scenes) {
   generated.push({ ...capture, crop, output: visual })
 }
 for (const [project, showcase] of Object.entries(showcases)) {
-  const file = new URL(`../src/content/projects/${project}.json`, import.meta.url)
-  const data = JSON.parse(await readFile(file, 'utf8')) as ProjectDefinition
-  data.visuals.showcase = showcase
-  await writeFile(file, `${JSON.stringify(data, null, 2)}\n`)
+  const file = new URL(`${project}.json`, contentRoot)
+  await writeFile(file, `${JSON.stringify({ images: showcase }, null, 2)}\n`)
 }
 await writeFile(new URL('sources.json', publicRoot), `${JSON.stringify({ capturedAt: manifest.capturedAt, scenes: generated }, null, 2)}\n`)
 console.log(`Generated ${generated.length} showcases and their responsive WebP/AVIF variants.`)

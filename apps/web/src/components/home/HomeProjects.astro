@@ -1,0 +1,30 @@
+---
+import type { Locale, ProjectMetricsMap } from '../../types/project'
+import type { HomeProject } from '../../lib/home-projects'
+import { section, shell } from '../../styles/classes'
+import HomeProjectRow from './HomeProjectRow.astro'
+import { siteCopy } from '../../i18n/ui'
+
+interface Props {
+  locale: Locale
+  projects: HomeProject[]
+  metrics: ProjectMetricsMap
+}
+
+const { locale, projects, metrics } = Astro.props
+const copy = siteCopy[locale]
+---
+
+<section class:list={[section, shell]} id="projects">
+  <header data-reveal class="mb-14 max-w-[720px]">
+    <p class="mb-3 font-mono text-xs font-[650] text-brand">{copy.projects.eyebrow}</p>
+    <h2 class="mb-4 text-[48px] font-[680] max-[720px]:text-[35px]">{copy.projects.title}</h2>
+    <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.projects.description}</p>
+  </header>
+
+  <div class="grid gap-20 max-[720px]:gap-14">
+    {projects.map((project, index) => (
+      <HomeProjectRow locale={locale} project={project} index={index} metrics={metrics[project.id]} />
+    ))}
+  </div>
+</section>
