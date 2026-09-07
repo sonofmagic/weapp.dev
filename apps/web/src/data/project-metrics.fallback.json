@@ -1,17 +1,17 @@
 {
   "weapp-tailwindcss": {
-    "version": "5.4.2",
-    "releasedAt": "2026-08-31T04:31:20.473Z",
-    "stars": 1855,
+    "version": "5.5.1",
+    "releasedAt": "2026-09-04T00:34:09.588Z",
+    "stars": 1857,
     "weeklyDownloads": 10555,
-    "fetchedAt": "2026-09-02T05:18:54.202Z"
+    "fetchedAt": "2026-09-07T05:46:08.241Z"
   },
   "weapp-vite": {
-    "version": "7.0.1",
-    "releasedAt": "2026-09-02T02:31:24.332Z",
-    "stars": 472,
+    "version": "7.0.4",
+    "releasedAt": "2026-09-04T05:27:34.722Z",
+    "stars": 474,
     "weeklyDownloads": 2975,
-    "fetchedAt": "2026-09-02T05:18:54.275Z"
+    "fetchedAt": "2026-09-07T05:46:08.246Z"
   },
   "varo": {
     "version": "1.2.0",
