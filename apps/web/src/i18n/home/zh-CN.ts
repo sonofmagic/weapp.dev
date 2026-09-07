@@ -5,7 +5,7 @@ export default {
     description: '从 Tailwind CSS 样式、Vite 构建到可编辑双端组件，用一套开放工具链交付小程序与 H5。',
     primary: '查看项目',
     secondary: '查看 GitHub',
-    visualLabel: '真实案例：TDesign 零售模板与 Varo AgentChat 组件演示。',
+    visualLabel: '代码与交互示例：样式、构建与组件。',
   },
   about: {
     eyebrow: '构建链路',

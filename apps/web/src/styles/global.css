@@ -166,8 +166,7 @@
   }
 
   [data-motion='ready'] [data-reveal],
-  [data-motion='ready'] [data-reveal][data-visible],
-  [data-hero-enter] {
+  [data-motion='ready'] [data-reveal][data-visible] {
     opacity: 1;
     transform: none;
   }

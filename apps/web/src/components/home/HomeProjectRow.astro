@@ -1,12 +1,12 @@
 ---
-import { ArrowRight, BadgeCheck, BookOpen } from '@lucide/astro'
+import { ArrowRight, ArrowUpRight, BadgeCheck, BookOpen } from '@lucide/astro'
 import type { Locale, ProjectMetrics } from '../../types/project'
 import type { HomeProject } from '../../lib/home-projects'
 import { formatCompactNumber } from '../../lib/metrics'
 import { projectPath, siteCopy } from '../../i18n/ui'
 import { buttonPrimary, buttonSecondary, projectTone } from '../../styles/classes'
-import ShowcasePicture from '../ShowcasePicture.astro'
-import { showcaseSizes } from './media-sizes'
+import HomeDemo from './demos/HomeDemo.astro'
+import { demoCopy } from './demos/copy'
 
 interface Props {
   locale: Locale
@@ -22,16 +22,15 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
 ---
 
 <article data-project-row class:list={['home-project-row', { 'home-project-row-reversed': project.reversed }]} style={`--project-accent: ${project.data.accent}`}>
-  <a class="home-project-visual-link" href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home_visual" data-analytics-project={project.id} aria-label={locale === 'zh-CN' ? `打开 ${content.name} 官方站点` : `Open ${content.name} official site`}>
-    <div class="home-showcase-gallery" data-showcase-count={project.showcase.length}>
-      {project.showcase.map(visual => (
-        <figure data-reveal data-project-visual class:list={['home-showcase-figure', { 'home-showcase-phone': project.layout !== 'component' }]}>
-          <ShowcasePicture visual={visual} locale={locale} sizes={showcaseSizes[project.layout]} />
-          <figcaption>{visual.locales[locale].caption}</figcaption>
-        </figure>
-      ))}
+  <div class="home-project-demo">
+    <div class="home-demo-heading">
+      <span>{content.name}</span>
+      <a class="home-project-demo-link" href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home_visual" data-analytics-project={project.id} aria-label={locale === 'zh-CN' ? `打开 ${content.name} 官方站点` : `Open ${content.name} official site`}>
+        {demoCopy[locale].official}<ArrowUpRight size={16} aria-hidden="true" />
+      </a>
     </div>
-  </a>
+    <div class="home-lab"><HomeDemo kind={project.demo} locale={locale} instance={`project-${project.id}`} /></div>
+  </div>
 
   <div data-reveal data-project-copy style={`--reveal-delay: ${80 + index * 60}ms`}>
     <p class="mb-4 font-mono text-[10px] font-bold text-brand">{String(index + 1).padStart(2, '0')} / {project.stage[locale]}</p>

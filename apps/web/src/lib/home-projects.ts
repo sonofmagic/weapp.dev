@@ -1,15 +1,16 @@
-import type { Locale, ProjectDefinition, ProjectVisual } from '../types/project'
+import type { Locale, ProjectDefinition } from '../types/project'
+
+export type HomeDemoKind = 'style' | 'build' | 'registry'
 
 export interface HomeProjectPlacement {
   id: string
-  layout: 'phone' | 'phone-pair' | 'component'
+  demo: HomeDemoKind
   reversed: boolean
   stage: Record<Locale, string>
 }
 
 export interface HomeProject extends HomeProjectPlacement {
   data: ProjectDefinition
-  showcase: ProjectVisual[]
 }
 
 interface CatalogProject {
@@ -17,23 +18,11 @@ interface CatalogProject {
   data: ProjectDefinition
 }
 
-interface ShowcaseEntry {
-  id: string
-  data: { images: ProjectVisual[] }
-}
-
 export function assembleHomeProjects(
   projects: CatalogProject[],
-  showcases: ShowcaseEntry[],
   placements: HomeProjectPlacement[],
 ): HomeProject[] {
   const catalog = new Map(projects.map(project => [project.id, project.data]))
-  const images = new Map(showcases.map(showcase => [showcase.id, showcase.data.images]))
-  for (const showcase of showcases) {
-    if (!catalog.has(showcase.id)) {
-      throw new Error(`Showcase references unknown project: ${showcase.id}`)
-    }
-  }
   const used = new Set<string>()
   return placements.map((placement) => {
     if (used.has(placement.id)) {
@@ -41,10 +30,9 @@ export function assembleHomeProjects(
     }
     used.add(placement.id)
     const data = catalog.get(placement.id)
-    const showcase = images.get(placement.id)
-    if (!data || !showcase?.length) {
-      throw new Error(`Home project requires project data and showcase images: ${placement.id}`)
+    if (!data) {
+      throw new Error(`Home placement references unknown project: ${placement.id}`)
     }
-    return { ...placement, data, showcase }
+    return { ...placement, data }
   })
 }
