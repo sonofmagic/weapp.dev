@@ -27,9 +27,9 @@ describe('project definitions', () => {
       license && expect(license).toMatch(/^https:\/\//)
       expect(project.installCommand).toContain(project.packageName)
       expect(project.keywords.length).toBeGreaterThan(0)
-      for (const visual of Object.values(project.visuals)) {
-        expect(visual.src).toMatch(/^\/media\/projects\/.+\.webp$/)
-        expect(visual.avif).toMatch(/^\/media\/projects\/.+\.avif$/)
+      for (const visual of [project.visuals.primary, project.visuals.secondary, ...project.visuals.showcase]) {
+        expect(visual.src).toMatch(/^\/media\/(projects|showcase)\/.+\.webp$/)
+        expect(visual.avif).toMatch(/^\/media\/(projects|showcase)\/.+\.avif$/)
         expect(visual.width).toBeGreaterThan(0)
         expect(visual.height).toBeGreaterThan(0)
         expect(visual.locales['zh-CN'].alt).not.toHaveLength(0)

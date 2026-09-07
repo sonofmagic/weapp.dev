@@ -9,32 +9,46 @@ const projectDefinitions = [tailwindProject, viteProject, varoProject]
 const retiredVisuals = 'canvas, [data-shader-canvas], [data-shader], [data-shader-frame], [data-webgl-fallback], [data-art], .project-art, [class^="art-"], [class*=" art-"]'
 
 async function expectHomeVisuals(page: import('@playwright/test').Page, locale: 'zh-CN' | 'en') {
-  const hero = page.locator('.home-hero-stage img')
+  const heroVisual = tailwindProject.visuals.showcase[0]
+  const hero = page.locator('.home-hero-stage img').first()
   await expect(hero).toBeVisible()
-  await expect(hero).toHaveAttribute('src', '/media/brand/build-lens.webp')
-  await expect(hero).toHaveAttribute('alt', siteCopy[locale].hero.visualLabel)
-  await expect(hero).toHaveAttribute('width', '1600')
-  await expect(hero).toHaveAttribute('height', '1100')
+  await expect(hero).toHaveAttribute('src', heroVisual.src)
+  await expect(hero).toHaveAttribute('alt', heroVisual.locales[locale].alt)
+  await expect(hero).toHaveAttribute('width', String(heroVisual.width))
+  await expect(hero).toHaveAttribute('height', String(heroVisual.height))
   await expect(hero).toHaveAttribute('fetchpriority', 'high')
-  await expect(page.locator('.home-hero-stage source')).toHaveAttribute('srcset', '/media/brand/build-lens.avif')
-  await expect.poll(() => hero.evaluate(image => (image as HTMLImageElement).naturalWidth)).toBe(1600)
+  await expect.poll(() => hero.evaluate(image => (image as HTMLImageElement).naturalWidth)).toBeGreaterThan(0)
+  await expect(page.locator('img[fetchpriority="high"]')).toHaveCount(1)
+  await expect(page.locator('img[src*="build-lens"], img[src*="tailwind-weapp"], img[src*="vite-components"], img[src*="varo-home"]')).toHaveCount(0)
+  const desktop = page.viewportSize()!.width > 720
+  await expect(page.locator('.home-hero-example:visible')).toHaveCount(desktop ? 3 : 1)
   await expect(page.locator(retiredVisuals)).toHaveCount(0)
   const visuals = page.locator('#projects [data-project-visual]')
-  await expect(visuals).toHaveCount(3)
-  for (const [index, project] of projectDefinitions.entries()) {
-    const visual = project.visuals.primary
+  const expectedVisuals = projectDefinitions.flatMap(project => project.visuals.showcase)
+  await expect(visuals).toHaveCount(expectedVisuals.length)
+  for (const [index, visual] of expectedVisuals.entries()) {
     const figure = visuals.nth(index)
     const image = figure.locator('img')
     await figure.scrollIntoViewIfNeeded()
     await expect(image).toBeVisible()
     await expect(image).toHaveAttribute('src', visual.src)
-    await expect(figure.locator('source')).toHaveAttribute('srcset', visual.avif)
+    await expect(figure.locator('source')).toHaveAttribute('srcset', visual.variants.map(variant => `${variant.avif} ${variant.width}w`).join(', '))
+    await expect(image).toHaveAttribute('sizes', /.+/)
+    await expect(image).toHaveAttribute('srcset', visual.variants.map(variant => `${variant.src} ${variant.width}w`).join(', '))
     await expect(image).toHaveAttribute('width', String(visual.width))
     await expect(image).toHaveAttribute('height', String(visual.height))
     await expect(image).toHaveAttribute('loading', 'lazy')
     await expect(image).toHaveAttribute('alt', visual.locales[locale].alt)
     await expect(figure.locator('figcaption')).toHaveText(visual.locales[locale].caption)
-    await expect.poll(() => image.evaluate(element => (element as HTMLImageElement).naturalWidth)).toBe(visual.width)
+    await image.evaluate(element => (element as HTMLImageElement).decode())
+    const loaded = await image.evaluate((element) => {
+      const image = element as HTMLImageElement
+      return { src: new URL(image.currentSrc).pathname, complete: image.complete, width: image.naturalWidth, ratio: image.clientHeight / image.clientWidth }
+    })
+    expect(loaded.complete).toBe(true)
+    expect(loaded.width).toBeGreaterThan(0)
+    expect(visual.variants.flatMap(variant => [variant.src, variant.avif])).toContain(loaded.src)
+    expect(loaded.ratio).toBeCloseTo(visual.height / visual.width, 2)
   }
 }
 

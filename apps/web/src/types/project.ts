@@ -10,6 +10,15 @@ export interface LocalizedProjectContent {
   faqs: Array<{ question: string, answer: string }>
 }
 
+export interface ProjectVisual {
+  src: string
+  avif: string
+  width: number
+  height: number
+  variants?: Array<{ src: string, avif: string, width: number }>
+  locales: Record<Locale, { alt: string, caption: string }>
+}
+
 export interface ProjectDefinition {
   order: number
   status: 'stable' | 'beta' | 'planned'
@@ -25,13 +34,7 @@ export interface ProjectDefinition {
   logo: string
   accent: string
   platforms: string[]
-  visuals: Record<'primary' | 'secondary', {
-    src: string
-    avif: string
-    width: number
-    height: number
-    locales: Record<Locale, { alt: string, caption: string }>
-  }>
+  visuals: Record<'primary' | 'secondary', ProjectVisual> & { showcase: ProjectVisual[] }
   locales: Record<Locale, LocalizedProjectContent>
 }
 

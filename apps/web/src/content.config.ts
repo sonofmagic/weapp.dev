@@ -20,6 +20,11 @@ const projectVisual = z.object({
   avif: z.string().startsWith('/'),
   width: z.number().int().positive(),
   height: z.number().int().positive(),
+  variants: z.array(z.object({
+    src: z.string().startsWith('/'),
+    avif: z.string().startsWith('/'),
+    width: z.number().int().positive(),
+  })).min(1).optional(),
   locales: z.object({
     'zh-CN': z.object({ alt: z.string().min(1), caption: z.string().min(1) }),
     'en': z.object({ alt: z.string().min(1), caption: z.string().min(1) }),
@@ -46,6 +51,7 @@ const projects = defineCollection({
     visuals: z.object({
       primary: projectVisual,
       secondary: projectVisual,
+      showcase: z.array(projectVisual).min(1),
     }),
     locales: z.object({
       'zh-CN': localizedContent,
