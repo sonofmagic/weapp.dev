@@ -9,6 +9,7 @@
 - [Varo](https://weapp.dev/projects/varo/): Registry-first editable components, primitives, business blocks, and Agent UI for H5 and weapp-vite mini-programs.
 - [English project index](https://weapp.dev/en/): English overview of the stack.
 - [Delivery and sponsorship](https://weapp.dev/pricing/): Human migration services, roadmap status, and one-time open-source sponsorship tiers.
+- [Contributor program](https://weapp.dev/contributors/): Quarterly sharing of confirmed sponsorship with eligible contributors.
 
 ## Official sources
 
@@ -27,7 +28,7 @@
 - One-time tiers: ¥20 supporter, ¥200 Bronze, and ¥1,000 Silver.
 - ¥200 and above may receive public GitHub link recognition after identity confirmation, maintainer review, and explicit authorization.
 - Approved public recognition can be synchronized across weapp.dev, tw.weapp.dev, and vite.weapp.dev.
-- 20% of sponsorship income is allocated to mini-app ecosystem open-source projects; destinations are announced monthly or quarterly.
+- Confirmed sponsorship is split 60% core maintenance, 25% contributors fund, and 15% nearby open source; destinations are announced quarterly.
 - Sponsorship is not a purchase of technical support, templates, cloud-build minutes, or subscription access.
 
 ## Canonical pages
@@ -36,6 +37,8 @@
 - [English homepage](https://weapp.dev/en/)
 - [Chinese privacy notice](https://weapp.dev/privacy/)
 - [English privacy notice](https://weapp.dev/en/privacy/)
+- [Chinese contributor program](https://weapp.dev/contributors/)
+- [English contributor program](https://weapp.dev/en/contributors/)
 - [Release feed](https://weapp.dev/releases.xml)
 - [Sitemap](https://weapp.dev/sitemap-index.xml)
 

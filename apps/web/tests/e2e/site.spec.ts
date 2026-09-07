@@ -143,7 +143,10 @@ test('renders the bilingual pricing and delivery page', async ({ page }) => {
   await expect(page.getByText('¥200', { exact: true })).toBeVisible()
   await expect(page.getByText('¥1,000', { exact: true })).toBeVisible()
   await expect(page.getByText('¥2,000 起', { exact: true })).toBeVisible()
-  await expect(page.locator('#sponsor')).toContainText('20%')
+  await expect(page.locator('#sponsor')).toContainText('60%')
+  await expect(page.locator('#sponsor')).toContainText('25%')
+  await expect(page.locator('#sponsor')).toContainText('15%')
+  await expect(page.locator('#sponsor')).toContainText('贡献者基金')
   await expect(page.locator('#sponsor')).toContainText('赞助不是购买服务')
   await expect(page.locator('#sponsor')).toContainText('weapp.dev、tw.weapp.dev、vite.weapp.dev')
   await expect(page.locator('#sponsor')).toContainText('Easysearch')
@@ -161,6 +164,23 @@ test('renders the bilingual pricing and delivery page', async ({ page }) => {
   await expect(page).toHaveURL(/\/en\/pricing\/$/)
   await expect(page.getByRole('heading', { level: 1, name: 'Support open source first, then choose a service' })).toBeVisible()
   await expect(page.locator('#sponsor')).toContainText('¥1,000')
+  await expect(page.locator('#sponsor')).toContainText('Contributors fund')
+})
+
+test('renders the bilingual contributor program', async ({ page }) => {
+  await page.goto('/contributors/')
+  await expect(page.getByRole('heading', { level: 1, name: '把一部分赞助分给合过代码的人' })).toBeVisible()
+  await expect(page.getByText('25%', { exact: true })).toBeVisible()
+  await expect(page.getByText('贡献者基金', { exact: true }).first()).toBeVisible()
+  await expect(page.locator('#main-content').getByRole('link', { name: 'weapp-vite' })).toBeVisible()
+  await expect(page.getByRole('link', { name: '返回赞助页' })).toHaveAttribute('href', '/pricing/#sponsor')
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://weapp.dev/contributors/')
+  await expect(page.locator('link[hreflang="en-US"]')).toHaveAttribute('href', 'https://weapp.dev/en/contributors/')
+
+  await page.getByRole('link', { name: 'English' }).click()
+  await expect(page).toHaveURL(/\/en\/contributors\/$/)
+  await expect(page.getByRole('heading', { level: 1, name: 'Share some sponsorship with people who land the work' })).toBeVisible()
+  await expect(page.getByRole('link', { name: 'Back to sponsorship' })).toHaveAttribute('href', '/en/pricing/#sponsor')
 })
 
 test('home commercial entry points reach pricing and services', async ({ page }) => {
@@ -276,7 +296,7 @@ test('passes automated accessibility checks in light and dark themes', async ({ 
   await page.emulateMedia({ reducedMotion: 'reduce' })
   for (const theme of ['light', 'dark']) {
     await page.addInitScript(selectedTheme => localStorage.setItem('weapp-theme', selectedTheme), theme)
-    for (const path of ['/', '/en/', '/pricing/', '/en/pricing/']) {
+    for (const path of ['/', '/en/', '/pricing/', '/en/pricing/', '/contributors/', '/en/contributors/']) {
       await page.goto(path)
       await page.waitForFunction(() => [...document.querySelectorAll('[data-reveal]')].every(element => element.hasAttribute('data-visible')))
       const results = await new AxeBuilder({ page }).analyze()
@@ -370,7 +390,7 @@ test('opens analytics preferences directly from the privacy page', async ({ page
 })
 
 test('loads all local product visuals on key pages', async ({ page }) => {
-  for (const path of ['/', '/en/', '/projects/weapp-tailwindcss/', '/projects/weapp-vite/', '/projects/varo/', '/en/projects/weapp-tailwindcss/', '/en/projects/weapp-vite/', '/en/projects/varo/', '/pricing/', '/en/pricing/', '/privacy/', '/en/privacy/', '/404/']) {
+  for (const path of ['/', '/en/', '/projects/weapp-tailwindcss/', '/projects/weapp-vite/', '/projects/varo/', '/en/projects/weapp-tailwindcss/', '/en/projects/weapp-vite/', '/en/projects/varo/', '/pricing/', '/en/pricing/', '/privacy/', '/en/privacy/', '/contributors/', '/en/contributors/', '/404/']) {
     await page.goto(path)
     await expect(page.locator(retiredVisuals)).toHaveCount(0)
     await page.locator('img').evaluateAll(images => images.forEach((image) => {

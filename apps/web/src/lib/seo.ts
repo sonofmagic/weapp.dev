@@ -89,6 +89,7 @@ export function pricingSchema(locale: Locale) {
     'isPartOf': { '@id': `${siteUrl}/#website` },
     'about': [
       locale === 'zh-CN' ? '开源赞助' : 'Open-source sponsorship',
+      locale === 'zh-CN' ? '贡献者计划' : 'Contributor program',
       locale === 'zh-CN' ? '小程序工程迁移实施' : 'Mini-app engineering migration services',
       locale === 'zh-CN' ? '云构建与模板路线图' : 'Cloud-build and template roadmap',
     ],
@@ -103,6 +104,11 @@ export function pricingSchema(locale: Locale) {
         '@type': 'DonateAction',
         'name': locale === 'zh-CN' ? '支持 weapp.dev 开源' : 'Support weapp.dev open source',
         'target': 'https://github.com/sonofmagic/sponsors',
+      },
+      {
+        '@type': 'WebPage',
+        'name': locale === 'zh-CN' ? '贡献者计划' : 'Contributor program',
+        'url': absoluteUrl(locale === 'zh-CN' ? '/contributors/' : '/en/contributors/'),
       },
     ],
   }

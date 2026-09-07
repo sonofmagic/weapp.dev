@@ -81,6 +81,12 @@ pnpm dlx @varo/cli add --target weapp-vite button input card
 - **渐进接入：** 先稳定构建链路，再按页面引入新写法，不要求一次性重写业务。
 - **结果可验证：** 源码、发布记录、运行日志与截图链路公开，构建结果可以复现。
 
+## 赞助与贡献者计划
+
+已确认的开源赞助按净额拆成三桶：60% 核心维护、25% 贡献者基金、15% 周边开源。贡献者基金按季发放给有效合并的修复、功能、测试和文档，不是工资或兼职。
+
+[中文规则](https://weapp.dev/contributors/) · [English](https://weapp.dev/en/contributors/) · [赞助页](https://weapp.dev/pricing/#sponsor)
+
 ## 维护者与许可
 
 weapp.dev 由 [sonofmagic](https://github.com/sonofmagic) 发起并持续维护，汇集面向小程序开发的开源项目、文档与实践。

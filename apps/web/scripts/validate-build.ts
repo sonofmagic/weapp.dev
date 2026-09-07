@@ -18,6 +18,8 @@ const expectedFiles = [
   'en/projects/weapp-vite/index.html',
   'privacy/index.html',
   'en/privacy/index.html',
+  'contributors/index.html',
+  'en/contributors/index.html',
   'en/projects/varo/index.html',
   'releases.xml',
   'sitemap-index.xml',
