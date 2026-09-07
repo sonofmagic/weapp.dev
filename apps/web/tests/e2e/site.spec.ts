@@ -1,5 +1,42 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
+import varoProject from '../../src/content/projects/varo.json' with { type: 'json' }
+import tailwindProject from '../../src/content/projects/weapp-tailwindcss.json' with { type: 'json' }
+import viteProject from '../../src/content/projects/weapp-vite.json' with { type: 'json' }
+import { siteCopy } from '../../src/i18n/ui'
+
+const projectDefinitions = [tailwindProject, viteProject, varoProject]
+const retiredVisuals = 'canvas, [data-shader-canvas], [data-shader], [data-shader-frame], [data-webgl-fallback], [data-art], .project-art, [class^="art-"], [class*=" art-"]'
+
+async function expectHomeVisuals(page: import('@playwright/test').Page, locale: 'zh-CN' | 'en') {
+  const hero = page.locator('.home-hero-stage img')
+  await expect(hero).toBeVisible()
+  await expect(hero).toHaveAttribute('src', '/media/brand/build-lens.webp')
+  await expect(hero).toHaveAttribute('alt', siteCopy[locale].hero.visualLabel)
+  await expect(hero).toHaveAttribute('width', '1600')
+  await expect(hero).toHaveAttribute('height', '1100')
+  await expect(hero).toHaveAttribute('fetchpriority', 'high')
+  await expect(page.locator('.home-hero-stage source')).toHaveAttribute('srcset', '/media/brand/build-lens.avif')
+  await expect.poll(() => hero.evaluate(image => (image as HTMLImageElement).naturalWidth)).toBe(1600)
+  await expect(page.locator(retiredVisuals)).toHaveCount(0)
+  const visuals = page.locator('#projects [data-project-visual]')
+  await expect(visuals).toHaveCount(3)
+  for (const [index, project] of projectDefinitions.entries()) {
+    const visual = project.visuals.primary
+    const figure = visuals.nth(index)
+    const image = figure.locator('img')
+    await figure.scrollIntoViewIfNeeded()
+    await expect(image).toBeVisible()
+    await expect(image).toHaveAttribute('src', visual.src)
+    await expect(figure.locator('source')).toHaveAttribute('srcset', visual.avif)
+    await expect(image).toHaveAttribute('width', String(visual.width))
+    await expect(image).toHaveAttribute('height', String(visual.height))
+    await expect(image).toHaveAttribute('loading', 'lazy')
+    await expect(image).toHaveAttribute('alt', visual.locales[locale].alt)
+    await expect(figure.locator('figcaption')).toHaveText(visual.locales[locale].caption)
+    await expect.poll(() => image.evaluate(element => (element as HTMLImageElement).naturalWidth)).toBe(visual.width)
+  }
+}
 
 async function enableAnalyticsTestMode(page: import('@playwright/test').Page) {
   await page.addInitScript(() => {
@@ -27,15 +64,7 @@ async function mockAnalyticsScripts(
 test('renders the bilingual ecosystem home with valid metadata', async ({ page }) => {
   await page.goto('/')
   await expect(page.getByRole('heading', { level: 1, name: 'weapp.dev' })).toBeVisible()
-  await expect(page.locator('[data-shader="convergence"]')).toHaveCount(1)
-  await expect(page.locator('.home-hero-meta')).toHaveCount(0)
-  await expect(page.locator('.home-hero-stage')).not.toContainText('WebGL / 60 FPS')
-  await expect(page.locator('.home-hero-stage')).not.toContainText('MINI-APP TOOLCHAIN')
-  await expect(page.locator('.home-stage-readout, .home-stage-markers, .home-stage-orbit')).toHaveCount(0)
-  await expect.poll(() => page.locator('[data-shader="convergence"]').evaluate((canvas) => {
-    const element = canvas as HTMLCanvasElement
-    return element.width > 0 && element.height > 0
-  })).toBe(true)
+  await expectHomeVisuals(page, 'zh-CN')
   await expect(page.locator('#projects').getByRole('heading', { name: 'weapp-tailwindcss' })).toBeVisible()
   await expect(page.locator('#projects').getByRole('heading', { name: 'weapp-vite' })).toBeVisible()
   await expect(page.locator('#projects').getByRole('heading', { name: 'Varo' })).toBeVisible()
@@ -77,6 +106,14 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await page.getByRole('link', { name: 'English' }).click()
   await expect(page).toHaveURL(/\/en\/$/)
   await expect(page.getByText('Built for real mini-app projects')).toBeVisible()
+  await expectHomeVisuals(page, 'en')
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://weapp.dev/en/')
+  await expect(page.locator('link[hreflang="zh-CN"]')).toHaveAttribute('href', 'https://weapp.dev/')
+  await expect(page.locator('#projects a[data-analytics-event="select_project"]').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
+    '/en/projects/weapp-tailwindcss/',
+    '/en/projects/weapp-vite/',
+    '/en/projects/varo/',
+  ])
   await expect(page.locator('.home-project-rail a').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     'https://tw.weapp.dev/',
     'https://vite.weapp.dev/',
@@ -132,6 +169,53 @@ test('theme control changes and persists the selected theme', async ({ page }) =
   await expect(page.locator('html')).toHaveAttribute('data-theme', next)
 })
 
+test('home hero follows the active theme without an inverted surface', async ({ page }) => {
+  for (const theme of ['light', 'dark']) {
+    await page.addInitScript(selectedTheme => localStorage.setItem('weapp-theme', selectedTheme), theme)
+    await page.goto('/')
+    const colors = await page.locator('.home-hero').evaluate((hero) => {
+      const style = getComputedStyle(hero)
+      const body = getComputedStyle(document.body)
+      return { text: style.color === body.color, background: style.backgroundColor === body.backgroundColor }
+    })
+    expect(colors, theme).toEqual({ text: true, background: true })
+  }
+})
+
+test('reduced motion keeps content visible and product interactions stationary', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+  await page.goto('/')
+  const movingOrHidden = () => page.locator('[data-reveal], [data-hero-enter], [data-project-visual] img').evaluateAll(elements => elements.filter((element) => {
+    const style = getComputedStyle(element)
+    return style.opacity !== '1' || style.transform !== 'none' || style.animationName !== 'none' || style.transitionDuration !== '0s'
+  }).map(element => element.tagName))
+  expect(await movingOrHidden()).toEqual([])
+  for (const link of await page.locator('.home-project-visual-link').all()) {
+    await link.hover()
+    expect(await movingOrHidden()).toEqual([])
+    await link.focus()
+    expect(await movingOrHidden()).toEqual([])
+  }
+  await page.locator('[data-principle-card]').first().hover()
+  expect(await movingOrHidden()).toEqual([])
+  expect(await page.evaluate(() => document.getAnimations().length)).toBe(0)
+})
+
+test('reveals content after the timeout when the observer never reports visibility', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await page.clock.install()
+  await page.addInitScript(() => {
+    window.IntersectionObserver = class extends IntersectionObserver {
+      observe() {}
+    }
+  })
+  await page.goto('/')
+  await expect(page.locator('[data-reveal][data-visible]')).toHaveCount(0)
+  await page.clock.fastForward(4000)
+  await expect(page.locator('[data-reveal]:not([data-visible])')).toHaveCount(0)
+  await expect.poll(() => page.locator('[data-reveal]').evaluateAll(elements => elements.filter(element => getComputedStyle(element).opacity !== '1').length)).toBe(0)
+})
+
 test('project detail exposes docs, source, metrics, and future path', async ({ page }) => {
   await page.goto('/projects/weapp-vite/')
   await expect(page.getByRole('heading', { level: 1, name: 'weapp-vite' })).toBeVisible()
@@ -172,10 +256,12 @@ test('passes automated accessibility checks in light and dark themes', async ({ 
   await page.emulateMedia({ reducedMotion: 'reduce' })
   for (const theme of ['light', 'dark']) {
     await page.addInitScript(selectedTheme => localStorage.setItem('weapp-theme', selectedTheme), theme)
-    await page.goto('/')
-    await page.waitForFunction(() => [...document.querySelectorAll('[data-reveal]')].every(element => element.hasAttribute('data-visible')))
-    const results = await new AxeBuilder({ page }).analyze()
-    expect(results.violations, `${theme} theme violations`).toEqual([])
+    for (const path of ['/', '/en/', '/pricing/', '/en/pricing/']) {
+      await page.goto(path)
+      await page.waitForFunction(() => [...document.querySelectorAll('[data-reveal]')].every(element => element.hasAttribute('data-visible')))
+      const results = await new AxeBuilder({ page }).analyze()
+      expect(results.violations, `${path} ${theme} theme violations`).toEqual([])
+    }
   }
 })
 
@@ -264,8 +350,9 @@ test('opens analytics preferences directly from the privacy page', async ({ page
 })
 
 test('loads all local product visuals on key pages', async ({ page }) => {
-  for (const path of ['/', '/projects/weapp-tailwindcss/', '/projects/weapp-vite/', '/projects/varo/', '/404/']) {
+  for (const path of ['/', '/en/', '/projects/weapp-tailwindcss/', '/projects/weapp-vite/', '/projects/varo/', '/en/projects/weapp-tailwindcss/', '/en/projects/weapp-vite/', '/en/projects/varo/', '/pricing/', '/en/pricing/', '/privacy/', '/en/privacy/', '/404/']) {
     await page.goto(path)
+    await expect(page.locator(retiredVisuals)).toHaveCount(0)
     await page.locator('img').evaluateAll(images => images.forEach((image) => {
       (image as HTMLImageElement).loading = 'eager'
     }))
@@ -290,9 +377,12 @@ test('publishes only the official project destinations', async ({ page }) => {
 test('keeps core content and links available without JavaScript', async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false })
   const page = await context.newPage()
-  await page.goto('/')
-  await expect(page.getByRole('heading', { level: 1, name: 'weapp.dev' })).toBeVisible()
-  await expect(page.getByRole('link', { name: /阅读文档/ }).first()).toBeVisible()
+  for (const locale of ['zh-CN', 'en'] as const) {
+    await page.goto(locale === 'en' ? '/en/' : '/')
+    await expect(page.getByRole('heading', { level: 1, name: 'weapp.dev' })).toBeVisible()
+    await expect(page.getByRole('link', { name: siteCopy[locale].projects.documentation }).first()).toBeVisible()
+    await expectHomeVisuals(page, locale)
+  }
   await context.close()
 })
 

@@ -23,7 +23,7 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
     <div class:list={[shell, 'pricing-hero-inner']}>
       <div data-reveal>
         <p class="mb-4 font-mono text-xs font-[650] uppercase tracking-[0.12em] text-brand">{pricing.eyebrow}</p>
-        <h1 class="mb-6 max-w-[780px] text-[clamp(3rem,7vw,6.2rem)] font-[740] leading-[0.92]">{pricing.title}</h1>
+        <h1 class="mb-6 max-w-[780px] text-[64px] font-[740] leading-[1.15] max-[1000px]:text-[52px] max-[720px]:text-[36px]">{pricing.title}</h1>
         <p class="mb-8 max-w-[650px] text-xl leading-[1.5] text-copy-muted max-[720px]:text-base">{pricing.description}</p>
         <div class="flex flex-wrap items-center gap-3">
           <a class={buttonPrimary} href={githubUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="pricing_github">
@@ -76,7 +76,7 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
     </div>
   </section>
 
-  <section class="border-y border-line bg-ink text-canvas" id="sponsor">
+  <section class="border-y border-line bg-panel-soft" id="sponsor">
     <div class:list={[section, shell]}>
       <header data-reveal class="mb-12 max-w-[720px]">
         <p class="mb-3 font-mono text-xs font-[650] text-brand">01A / {locale === 'zh-CN' ? '开源赞助' : 'OPEN-SOURCE SPONSORSHIP'}</p>
@@ -208,7 +208,7 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
     </div>
   </section>
 
-  <section class="pricing-cta border-t border-line bg-ink text-canvas">
+  <section class="pricing-cta border-t border-line bg-panel-soft">
     <div data-reveal class:list={[shell, 'grid min-h-[300px] grid-cols-[1fr_auto] items-center gap-10 py-16 max-[720px]:grid-cols-1 max-[720px]:py-14']}>
       <div><h2 class="mb-3 max-w-[700px] text-[38px] font-[680] max-[720px]:text-[30px]">{pricing.ctaTitle}</h2><p class="mb-0 max-w-[650px] text-copy-muted">{pricing.ctaBody}</p></div>
       <a class={buttonPrimary} href={githubUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="pricing_cta"><GitFork size={18} stroke-width={1.9} aria-hidden="true" />{pricing.ctaAction}</a>
@@ -217,25 +217,24 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
 </main>
 
 <style is:global>
-  .pricing-hero { background: var(--text); color: var(--surface); }
+  .pricing-hero { background: var(--background); color: var(--text); }
   .pricing-hero-inner { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, .42fr); gap: 4rem; align-items: end; min-height: 520px; padding-top: 5rem; padding-bottom: 5rem; }
-  .pricing-hero-note { display: flex; gap: 1rem; align-items: flex-start; max-width: 290px; padding-bottom: .5rem; color: color-mix(in srgb, var(--surface) 68%, transparent); font-size: .86rem; }
+  .pricing-hero-note { display: flex; gap: 1rem; align-items: flex-start; max-width: 290px; padding-bottom: .5rem; color: var(--muted); font-size: .86rem; }
   .pricing-note-line { width: 2.5rem; height: 1px; margin-top: .7rem; flex: 0 0 auto; background: var(--accent); }
   .pricing-plan-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; overflow: hidden; border: 1px solid var(--border); background: var(--border); }
   .pricing-plan { display: flex; flex-direction: column; min-width: 0; padding: 1.75rem; background: var(--surface); }
   .pricing-plan-featured { background: color-mix(in srgb, var(--accent) 9%, var(--surface)); }
   .pricing-plan-badge { padding: .32rem .5rem; border: 1px solid color-mix(in srgb, var(--accent) 40%, var(--border)); color: var(--accent); font: 650 .6rem/1 var(--font-mono); letter-spacing: .04em; }
   .pricing-plan-status-planned { color: var(--muted); border-color: var(--border); }
-  .pricing-sponsor-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; overflow: hidden; border: 1px solid color-mix(in srgb, var(--surface) 20%, transparent); background: color-mix(in srgb, var(--surface) 20%, transparent); }
-  .pricing-sponsor-tier { display: flex; flex-direction: column; min-width: 0; min-height: 280px; padding: 1.75rem; background: color-mix(in srgb, var(--text) 90%, var(--surface)); }
-  .pricing-sponsor-button { margin-top: auto; width: fit-content; border-color: color-mix(in srgb, var(--surface) 25%, transparent); background: transparent; color: var(--surface); }
-  .pricing-sponsor-button:hover { background: color-mix(in srgb, var(--surface) 12%, transparent); }
-  .pricing-sponsor-allocation { max-width: 760px; margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid color-mix(in srgb, var(--surface) 20%, transparent); }
-  .pricing-public-sponsors { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid color-mix(in srgb, var(--surface) 20%, transparent); }
+  .pricing-sponsor-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; overflow: hidden; border: 1px solid var(--border); background: var(--border); }
+  .pricing-sponsor-tier { display: flex; flex-direction: column; min-width: 0; min-height: 280px; padding: 1.75rem; background: var(--surface); }
+  .pricing-sponsor-button { margin-top: auto; width: fit-content; }
+  .pricing-sponsor-allocation { max-width: 760px; margin-top: 2rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+  .pricing-public-sponsors { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--border); }
   .pricing-public-sponsor-list { display: grid; gap: 1.25rem; }
   .pricing-public-sponsor-group ul { display: flex; flex-wrap: wrap; gap: .75rem; }
-  .pricing-public-sponsor { display: inline-flex; align-items: center; gap: .5rem; min-height: 2.5rem; padding: .35rem .65rem .35rem .35rem; border: 1px solid color-mix(in srgb, var(--surface) 25%, transparent); color: var(--surface); font-size: .85rem; }
-  .pricing-public-sponsor:hover { background: color-mix(in srgb, var(--surface) 12%, transparent); }
+  .pricing-public-sponsor { display: inline-flex; align-items: center; gap: .5rem; min-height: 2.5rem; padding: .35rem .65rem .35rem .35rem; border: 1px solid var(--border); color: var(--text); font-size: .85rem; }
+  .pricing-public-sponsor:hover { background: var(--surface); }
   .pricing-public-sponsor img, .pricing-public-sponsor-fallback { width: 2rem; height: 2rem; border-radius: 999px; object-fit: cover; background: color-mix(in srgb, var(--accent) 30%, transparent); display: grid; place-items: center; font: 650 .8rem/1 var(--font-mono); }
   .pricing-template-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; overflow: hidden; border: 1px solid var(--border); background: var(--border); }
   .pricing-template { display: grid; grid-template-columns: 2rem 1fr; gap: 1rem; min-height: 170px; padding: 1.5rem; background: var(--surface); }

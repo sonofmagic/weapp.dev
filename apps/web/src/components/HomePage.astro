@@ -5,7 +5,6 @@ import type { ProjectEntry } from '../lib/projects'
 import { formatCompactNumber, formatReleaseDate } from '../lib/metrics'
 import { localizePath, projectPath, siteCopy } from '../i18n/ui'
 import { buttonPrimary, buttonSecondary, iconControl, projectTone, section, shell } from '../styles/classes'
-import ShaderCanvas from './ShaderCanvas.astro'
 
 interface Props {
   locale: Locale
@@ -42,8 +41,11 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
         </div>
       </div>
 
-      <figure data-reveal data-shader-frame class="home-hero-stage" style="--reveal-delay: 120ms">
-        <ShaderCanvas preset="convergence" label={copy.hero.visualLabel} class="home-hero-shader" scale={0.82} interactive />
+      <figure class="home-hero-stage">
+        <picture>
+          <source srcset="/media/brand/build-lens.avif" type="image/avif" />
+          <img src="/media/brand/build-lens.webp" width="1600" height="1100" alt={copy.hero.visualLabel} fetchpriority="high" />
+        </picture>
         <figcaption class="sr-only">{copy.hero.visualLabel}</figcaption>
       </figure>
     </div>
@@ -76,7 +78,6 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
             <li data-reveal style={`--reveal-delay: ${index * 70}ms`} class="relative min-h-[230px] border-r border-line px-7 py-8 last:border-r-0 max-[720px]:min-h-0 max-[720px]:border-r-0 max-[720px]:border-b max-[720px]:px-0">
               <div class="mb-10 flex items-center justify-between">
                 <Icon class="text-brand" size={25} stroke-width={1.65} aria-hidden="true" />
-                <span class="font-mono text-xs text-copy-muted">{String(index + 1).padStart(2, '0')}</span>
               </div>
               <h3 class="mb-3 text-2xl font-[660]">{item.title}</h3>
               <p class="mb-0 max-w-[340px] text-copy-muted">{item.body}</p>
@@ -104,24 +105,18 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
           <article data-project-row class:list={['group/project relative grid items-center gap-14 border-t border-line pt-14 first:border-t-0 first:pt-0 max-[960px]:gap-9', index === 0 ? 'grid-cols-[1.12fr_.88fr] max-[800px]:grid-cols-1' : 'grid-cols-[.82fr_1.18fr] max-[800px]:grid-cols-1']} style={`--project-accent: ${project.data.accent}`}>
             <a class:list={['home-project-visual-link', index === 1 ? 'order-2 max-[800px]:order-none' : '']} href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home_visual" data-analytics-project={project.id} aria-label={locale === 'zh-CN' ? `打开 ${content.name} 官方站点` : `Open ${content.name} official site`}>
             <figure data-reveal data-project-visual class="relative m-0 overflow-hidden rounded-panel border border-line bg-panel-soft">
-              <div class="project-art" data-art={project.id} data-shader-frame aria-label={visualCopy.alt}>
-                <ShaderCanvas
-                  preset={project.id === 'weapp-tailwindcss' ? 'marble' : project.id === 'weapp-vite' ? 'tunnel' : 'orbit'}
-                  label={visualCopy.alt}
-                  class="project-shader"
-                  scale={0.72}
-                />
-                <div class="art-chrome"><span></span><span></span><span></span><b>{project.data.packageName}</b></div>
-                {project.id === 'weapp-tailwindcss' && <div class="art-tailwind"><div class="art-sidebar"><i></i><i></i><i></i><i></i></div><div class="art-canvas"><strong>utility-first</strong><span class="art-line w-4/5"></span><span class="art-line w-3/5"></span><span class="art-line w-11/12"></span><div class="art-chip-row"><em>p-4</em><em>flex</em><em>gap-2</em></div></div></div>}
-                {project.id === 'weapp-vite' && <div class="art-vite"><div class="art-terminal"><span class="art-prompt">$</span> vite build --mode weapp<strong>✓ built in 1.42s</strong><small>dist/weapp / 24 modules</small></div><div class="art-bars"><i></i><i></i><i></i><i></i><i></i></div></div>}
-                {project.id === 'varo' && <div class="art-varo"><div class="art-component"><span class="art-avatar"></span><span class="art-line w-3/5"></span><span class="art-line w-4/5"></span><button type="button">Install block</button></div><div class="art-registry"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>}
+              <div class="aspect-[16/11] overflow-hidden">
+                <picture class="size-full">
+                  <source srcset={visual.avif} type="image/avif" />
+                  <img class="size-full object-cover object-top" src={visual.src} width={visual.width} height={visual.height} alt={visualCopy.alt} loading="lazy" />
+                </picture>
               </div>
               <figcaption class="border-t border-line bg-panel px-4 py-3 text-xs text-copy-muted">{visualCopy.caption}</figcaption>
             </figure>
             </a>
 
             <div data-reveal data-project-copy style={`--reveal-delay: ${80 + index * 60}ms`} class:list={[index === 1 ? 'order-1 max-[800px]:order-none' : '']}>
-              <p class="mb-4 font-mono text-[10px] font-bold tracking-[0.09em] text-brand">{String(index + 1).padStart(2, '0')} / {projectStages[project.id] ?? 'TOOL'}</p>
+              <p class="mb-4 font-mono text-[10px] font-bold text-brand">{String(index + 1).padStart(2, '0')} / {projectStages[project.id] ?? 'TOOL'}</p>
               <div class="mb-5 flex items-center gap-3">
                 <img class="size-12 object-contain" src={project.data.logo} width="48" height="48" alt="" />
                 <span class:list={['inline-flex items-center gap-1.5 font-mono text-xs font-[650]', projectTone]}>
@@ -156,14 +151,12 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
   <section class="border-y border-line bg-panel-soft" id="commercial">
     <div class:list={[section, shell]}>
       <header data-reveal class="mb-12 max-w-[720px]">
-        <p class="mb-3 font-mono text-xs font-[650] text-brand">{copy.commercial.eyebrow}</p>
         <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{copy.commercial.title}</h2>
         <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.commercial.description}</p>
       </header>
       <div class="grid grid-cols-3 gap-px overflow-hidden border border-line bg-line max-[760px]:grid-cols-1">
         {copy.commercial.cards.map((card, index) => (
           <article data-reveal style={`--reveal-delay: ${index * 70}ms`} class="bg-panel p-7">
-            <span class="mb-9 block font-mono text-xs text-brand">0{index + 1}</span>
             <h3 class="mb-3 text-2xl font-[660]">{card.title}</h3>
             <p class="mb-0 text-sm leading-[1.7] text-copy-muted">{card.body}</p>
           </article>
@@ -188,7 +181,7 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
         {copy.vision.items.map((item, index) => {
           const Icon = principleIcons[index]
           return (
-            <article data-reveal data-principle-card style={`--reveal-delay: ${index * 70}ms`} class:list={['bg-panel p-7 transition-[background-color,transform] duration-300 hover:-translate-y-1 hover:bg-panel-strong', index === 0 ? 'row-span-2 min-h-[330px] max-[620px]:row-auto max-[620px]:min-h-0' : 'min-h-[164px]']}>
+            <article data-reveal data-principle-card style={`--reveal-delay: ${index * 70}ms`} class:list={['bg-panel p-7', index === 0 ? 'row-span-2 min-h-[330px] max-[620px]:row-auto max-[620px]:min-h-0' : 'min-h-[164px]']}>
               <Icon class="mb-8 text-brand" size={25} stroke-width={1.6} aria-hidden="true" />
               <h3 class="mb-2 text-xl font-[650]">{item.title}</h3>
               <p class="mb-0 text-sm leading-[1.7] text-copy-muted">{item.body}</p>
@@ -202,7 +195,6 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
   <section class:list={[section, shell]} id="releases">
     <div class="grid grid-cols-[.75fr_1.25fr] gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10">
       <header data-reveal class="max-w-[470px]">
-        <p class="mb-3 font-mono text-xs font-[650] text-brand">{copy.releases.eyebrow}</p>
         <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{copy.releases.title}</h2>
         <p class="mb-0 text-copy-muted">{copy.releases.description}</p>
       </header>
@@ -241,25 +233,3 @@ const projectStages: Record<string, string> = locale === 'zh-CN'
     </div>
   </section>
 </main>
-
-<style is:global>
-  @media (max-width: 900px) {
-    .home-hero-grid { grid-template-columns: 1fr; gap: 2.2rem; min-height: 0; padding-top: 4.5rem; }
-    .home-hero-copy { max-width: 42rem; }
-    .home-hero-stage { min-height: min(60vw, 430px); }
-  }
-
-  @media (max-width: 620px) {
-    .home-hero-grid { gap: 1.25rem; padding-top: 2.6rem; padding-bottom: 1.5rem; }
-    .home-hero-title { font-size: clamp(3.25rem, 14vw, 4.5rem); }
-    .home-hero-description { margin-bottom: 1.4rem; font-size: 1rem; }
-    .home-hero-stage { min-height: 250px; border-radius: 8px; }
-    .home-project-rail { grid-template-columns: 1fr; }
-    .home-project-link, .home-project-link:first-child { grid-template-columns: 1.4rem 2rem minmax(0, 1fr) auto; padding: .85rem 0; border-right: 0; border-bottom: 1px solid color-mix(in srgb, var(--surface) 18%, transparent); }
-    .home-project-link:last-child { border-bottom: 0; }
-    .home-project-link img { width: 2rem; height: 2rem; }
-    .art-vite, .art-varo { padding: .85rem; }
-    .art-component { padding: .85rem; }
-    .art-canvas { padding: 1rem; }
-  }
-</style>
