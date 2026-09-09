@@ -7,6 +7,7 @@
 - [weapp-tailwindcss](https://weapp.dev/projects/weapp-tailwindcss/): Tailwind CSS v4 generation, class transforms, and platform-aware styling for mini-apps and cross-platform frameworks.
 - [weapp-vite](https://weapp.dev/projects/weapp-vite/): Vite-powered development, builds, runtime tooling, and multi-platform output for mini-app projects.
 - [Varo](https://weapp.dev/projects/varo/): Registry-first editable components, primitives, business blocks, and Agent UI for H5 and weapp-vite mini-programs.
+- [VPT](https://weapp.dev/projects/vite-plugin-taro/): Vite 8, React 19, and Taro 4 for WeChat, Alipay, and Web apps, with state-preserving hot reload, automatic WeChat subpackages, and Tailwind CSS v4.
 - [English project index](https://weapp.dev/en/): English overview of the stack.
 - [Delivery and sponsorship](https://weapp.dev/pricing/): Human migration services, roadmap status, and one-time open-source sponsorship tiers.
 - [Contributor program](https://weapp.dev/contributors/): Quarterly sharing of confirmed sponsorship with eligible contributors.
@@ -22,6 +23,9 @@
 - [weapp-vite on npm](https://www.npmjs.com/package/weapp-vite)
 - [Varo source and documentation](https://github.com/daguanren21/Varo#readme)
 - [Varo CLI on npm](https://www.npmjs.com/package/@varo/cli)
+- [VPT source](https://github.com/sep2/vite-plugin-taro)
+- [VPT documentation](https://vpt.js.org/)
+- [vite-plugin-taro on npm](https://www.npmjs.com/package/vite-plugin-taro)
 
 ## Open-source sponsorship
 

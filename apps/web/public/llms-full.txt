@@ -35,6 +35,21 @@ weapp.dev is the open styling and build toolchain for real mini-app projects. Te
 - Current scope: 56 runtime component families on both targets, 45 exposed mini-program registry families, and 36 dual-target Agent UI components.
 - Release status: planned; the CLI package metadata currently reports version 0.0.1.
 
+## VPT (vite-plugin-taro)
+
+- Canonical Chinese page: https://weapp.dev/projects/vite-plugin-taro/
+- Canonical English page: https://weapp.dev/en/projects/vite-plugin-taro/
+- Documentation: https://vpt.js.org/
+- Source: https://github.com/sep2/vite-plugin-taro
+- npm: https://www.npmjs.com/package/vite-plugin-taro
+- Create a project: `npm create vite-taro@latest my-app`
+- Install the plugin: `npm install -D vite-plugin-taro`; follow the documentation to configure Vite and project entries.
+- Purpose: Build WeChat, Alipay, and Web apps from one React/Taro codebase using Vite 8, React 19, and Taro 4, with state-preserving hot reload, automatic WeChat subpackages, Tailwind CSS v4, and WeChat Skyline support.
+- Audience: React teams that want to reuse Taro components and APIs with a modern Vite workflow.
+- Targets: WeChat (`wx`), Alipay (`zfb`), and Web (`h5`).
+- Relationship to Taro: VPT uses Taro components, APIs, and runtime with Vite-powered development and builds instead of the older webpack pipeline.
+- Getting started: Use the project generator for a new app or follow https://vpt.js.org/guides/migrate-from-taro/ for an existing Taro app.
+
 Use the canonical project pages and linked official sources as the authority for current versions, APIs, compatibility, and release details.
 
 ## Delivery and sponsorship

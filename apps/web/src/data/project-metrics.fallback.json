@@ -19,5 +19,12 @@
     "stars": 0,
     "weeklyDownloads": 0,
     "fetchedAt": "2026-08-26T00:00:00.000Z"
+  },
+  "vite-plugin-taro": {
+    "version": "0.7.1",
+    "releasedAt": "2026-09-07T16:45:56.067Z",
+    "stars": 50,
+    "weeklyDownloads": 934,
+    "fetchedAt": "2026-09-09T11:13:25.620Z"
   }
 }

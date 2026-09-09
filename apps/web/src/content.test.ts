@@ -1,13 +1,15 @@
 import { describe, expect, it } from 'vitest'
 import varo from './content/projects/varo.json'
+import vpt from './content/projects/vite-plugin-taro.json'
 import tailwind from './content/projects/weapp-tailwindcss.json'
 import vite from './content/projects/weapp-vite.json'
 
 describe('project definitions', () => {
-  const projects = [tailwind, vite, varo]
+  const projects = [tailwind, vite, varo, vpt]
   const officialDocsUrls: Record<string, string> = {
     'weapp-tailwindcss': 'https://tw.weapp.dev/',
     'weapp-vite': 'https://vite.weapp.dev/',
+    'vite-plugin-taro': 'https://vpt.js.org/',
     '@varo/cli': 'https://github.com/daguanren21/Varo#readme',
   }
 
