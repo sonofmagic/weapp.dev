@@ -1,0 +1,129 @@
+{
+  "order": 4,
+  "status": "stable",
+  "packageName": "vite-plugin-taro",
+  "github": "sep2/vite-plugin-taro",
+  "docsUrl": "https://vpt.js.org/",
+  "npmUrl": "https://www.npmjs.com/package/vite-plugin-taro",
+  "license": "https://opensource.org/license/mit",
+  "maintainer": "sep2 and contributors",
+  "keywords": [
+    "VPT",
+    "Vite",
+    "React",
+    "Taro",
+    "Tailwind CSS",
+    "WeChat Mini Program",
+    "Alipay Mini Program",
+    "HMR"
+  ],
+  "installCommand": "npm install -D vite-plugin-taro",
+  "futureDocsPath": "/docs/vite-plugin-taro/",
+  "logo": "/brands/vpt.svg",
+  "accent": "#17673d",
+  "platforms": [
+    "WeChat",
+    "Alipay",
+    "Web"
+  ],
+  "visuals": {
+    "primary": {
+      "src": "/media/projects/vpt-hmr-before.webp",
+      "avif": "/media/projects/vpt-hmr-before.avif",
+      "width": 1280,
+      "height": 1046,
+      "locales": {
+        "zh-CN": {
+          "alt": "VPT 的 React 源码与微信开发者工具中的应用，计数器值为 5",
+          "caption": "官方热更新演示：编辑前，微信小程序中的计数器已增加到 5。"
+        },
+        "en": {
+          "alt": "VPT React source beside the app in WeChat DevTools with its counter at 5",
+          "caption": "Official HMR demo: the WeChat mini-app counter is already at 5 before the edit."
+        }
+      }
+    },
+    "secondary": {
+      "src": "/media/projects/vpt-hmr-after.webp",
+      "avif": "/media/projects/vpt-hmr-after.avif",
+      "width": 734,
+      "height": 1000,
+      "locales": {
+        "zh-CN": {
+          "alt": "VPT 热更新后标题变为 Hello，计数器仍为 5",
+          "caption": "同一段演示的更新后画面（裁剪）：标题已变为 Hello，计数器仍为 5。"
+        },
+        "en": {
+          "alt": "After VPT hot reload, the heading reads Hello and the counter remains at 5",
+          "caption": "After the edit in the same demo (cropped): the heading reads Hello and the counter remains at 5."
+        }
+      }
+    }
+  },
+  "locales": {
+    "zh-CN": {
+      "name": "VPT",
+      "tagline": "用 Vite 和 React 开发小程序与 Web 应用",
+      "description": "基于 Vite 8、React 19 和 Taro 4，使用一份代码构建微信小程序、支付宝小程序与 Web 应用，提供保留状态的热更新、全自动分包和开箱即用的 Tailwind CSS v4。",
+      "audience": "希望复用 React 与 Taro 组件和 API，并使用现代 Vite 工具链开发微信、支付宝小程序与 Web 应用的前端团队。",
+      "useCases": [
+        "使用 npm create vite-taro@latest my-app 创建跨端 React 项目",
+        "在微信开发者工具中编辑 React 组件并保留页面、组件和输入状态",
+        "通过标准静态与动态导入自动规划微信小程序分包"
+      ],
+      "capabilities": [
+        "Vite 8 + React 19 + Taro 4",
+        "保留状态的热更新",
+        "微信小程序全自动分包",
+        "Tailwind CSS v4 开箱即用",
+        "微信 Skyline 渲染模式"
+      ],
+      "faqs": [
+        {
+          "question": "VPT 与 Taro 是什么关系？",
+          "answer": "VPT 是 vite-plugin-taro 的简称，使用 Taro 组件、API 和运行时，通过 Vite 驱动开发与构建，而不是沿用旧式 webpack 链路。"
+        },
+        {
+          "question": "VPT 支持哪些平台？",
+          "answer": "当前支持微信小程序、支付宝小程序与 Web（H5），分别使用 wx、zfb 和 h5 构建目标。"
+        },
+        {
+          "question": "如何开始使用 VPT？",
+          "answer": "新项目推荐运行 npm create vite-taro@latest my-app。已有 Taro 项目请阅读官方迁移指南；安装插件后仍需按文档配置 Vite 和项目入口。"
+        }
+      ]
+    },
+    "en": {
+      "name": "VPT",
+      "tagline": "Build mini-apps and the Web with Vite and React",
+      "description": "Build WeChat mini-programs, Alipay mini-programs, and Web apps from one codebase with Vite 8, React 19, and Taro 4, including state-preserving hot reload, automatic subpackages, and Tailwind CSS v4 out of the box.",
+      "audience": "Frontend teams that want to reuse React and Taro components and APIs while developing WeChat, Alipay, and Web apps with a modern Vite toolchain.",
+      "useCases": [
+        "Create a cross-platform React project with npm create vite-taro@latest my-app",
+        "Edit React components in WeChat DevTools while preserving page, component, and input state",
+        "Plan WeChat mini-program subpackages automatically from standard static and dynamic imports"
+      ],
+      "capabilities": [
+        "Vite 8 + React 19 + Taro 4",
+        "State-preserving hot reload",
+        "Automatic WeChat subpackages",
+        "Tailwind CSS v4 out of the box",
+        "WeChat Skyline rendering"
+      ],
+      "faqs": [
+        {
+          "question": "How does VPT relate to Taro?",
+          "answer": "VPT is short for vite-plugin-taro. It uses Taro components, APIs, and runtime with Vite-powered development and builds instead of the older webpack pipeline."
+        },
+        {
+          "question": "Which platforms does VPT support?",
+          "answer": "VPT currently supports WeChat mini-programs, Alipay mini-programs, and the Web (H5), using the wx, zfb, and h5 build targets respectively."
+        },
+        {
+          "question": "How do I get started with VPT?",
+          "answer": "For a new project, run npm create vite-taro@latest my-app. For an existing Taro project, follow the official migration guide; installing the plugin still requires configuring Vite and project entries as documented."
+        }
+      ]
+    }
+  }
+}

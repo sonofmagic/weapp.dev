@@ -75,6 +75,26 @@ pnpm dlx @varo/cli add --target weapp-vite button input card
 
 [文档](https://github.com/daguanren21/Varo#readme) · [源码](https://github.com/daguanren21/Varo) · [npm](https://www.npmjs.com/package/@varo/cli)
 
+## 更多生态项目
+
+### React 跨端开发 · VPT
+
+<img src="./apps/web/public/brands/vpt.svg" width="56" height="56" alt="VPT" />
+
+**稳定版 · 用 Vite 和 React 开发小程序与 Web 应用**
+
+[VPT（vite-plugin-taro）](https://weapp.dev/projects/vite-plugin-taro/) 基于 Vite 8、React 19 和 Taro 4，提供保留状态的热更新、微信小程序全自动分包和开箱即用的 Tailwind CSS v4。
+
+- **适合谁：** 希望复用 React 与 Taro 组件和 API，并采用现代 Vite 工具链的前端团队。
+- **常见用法：** 创建跨端 React 项目；在微信开发者工具中热更新并保留组件状态；通过标准导入自动规划微信小程序分包。
+- **支持平台：** WeChat、Alipay、Web。
+
+```bash
+npm create vite-taro@latest my-app
+```
+
+[文档](https://vpt.js.org/) · [源码](https://github.com/sep2/vite-plugin-taro) · [npm](https://www.npmjs.com/package/vite-plugin-taro)
+
 ## 工程约束比演示效果更重要
 
 - **多平台是构建目标：** 每次显式选择一个目标平台，避免用模糊兼容掩盖真实差异。
