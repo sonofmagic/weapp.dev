@@ -35,7 +35,7 @@ const copy = siteCopy[locale].contributors
         {copy.buckets.map(bucket => (
           <article>
             <Heart class="mb-6 text-brand" size={22} stroke-width={1.7} aria-hidden="true" />
-            <strong class="mb-2 block font-mono text-[2rem] font-[720] leading-none">{bucket.share}</strong>
+            <strong class="mb-2 block font-mono text-2xl font-[720] leading-none">{bucket.share}</strong>
             <h3 class="mb-2 text-lg font-[660]">{bucket.name}</h3>
             <p class="mb-0 text-sm leading-[1.7] text-copy-muted">{bucket.body}</p>
           </article>
