@@ -2,6 +2,7 @@ packages:
   - apps/*
   - packages/*
   - examples/*
-onlyBuiltDependencies:
-  - esbuild
-  - workerd
+allowBuilds:
+  esbuild: true
+  msgpackr-extract: true
+  workerd: true

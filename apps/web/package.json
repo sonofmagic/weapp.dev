@@ -27,24 +27,24 @@
     "test:e2e:analytics-live": "WEAPP_ANALYTICS_LIVE_TEST=1 playwright test tests/e2e/analytics-live.spec.ts --project=desktop"
   },
   "dependencies": {
-    "@astrojs/sitemap": "3.7.3",
+    "@astrojs/sitemap": "3.7.4",
     "@fontsource-variable/geist": "5.3.0",
     "@fontsource-variable/geist-mono": "5.3.0",
     "@fontsource-variable/sora": "5.3.0",
-    "@lucide/astro": "1.37.0",
-    "astro": "7.2.9"
+    "@lucide/astro": "1.42.0",
+    "astro": "7.3.2"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
     "@axe-core/playwright": "4.13.0",
-    "@playwright/test": "1.62.1",
-    "node-html-parser": "9.0.2",
+    "@playwright/test": "1.63.0",
+    "node-html-parser": "9.0.4",
     "sharp": "0.35.4",
     "tailwindcss": "4.3.3",
     "tsx": "4.23.13",
     "typescript": "6.0.3",
-    "vitest": "4.1.11",
-    "weapp-tailwindcss": "5.4.1",
-    "wrangler": "4.127.1"
+    "vitest": "5.0.0",
+    "weapp-tailwindcss": "5.5.2",
+    "wrangler": "4.130.0"
   }
 }
