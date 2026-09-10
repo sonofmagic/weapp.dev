@@ -1,7 +1,12 @@
-import type { ProjectMetrics, ProjectMetricsMap } from '../types/project'
+import type { ProjectDefinition, ProjectMetrics, ProjectMetricsMap } from '../types/project'
 import { readFile } from 'node:fs/promises'
 import { fileURLToPath } from 'node:url'
 import fallbackMetrics from '../data/project-metrics.fallback.json'
+
+/** Planned projects must not show vanity zeros as social proof. */
+export function showsPublicMetrics(status: ProjectDefinition['status']): boolean {
+  return status !== 'planned'
+}
 
 const generatedMetricsPath = fileURLToPath(new URL('../../.cache/project-metrics.json', import.meta.url))
 

@@ -8,7 +8,6 @@ for (const locale of ['zh-CN', 'en'] as const) {
   test(`${locale}: style controls change real CSS and keep instances independent`, async ({ page }) => {
     await page.goto(route)
     const hero = page.locator('hero-demos style-demo')
-    const project = page.locator('#projects style-demo')
     const button = hero.locator('[data-style-button]')
     const before = await button.evaluate((element) => {
       const style = getComputedStyle(element)
@@ -26,7 +25,7 @@ for (const locale of ['zh-CN', 'en'] as const) {
     expect(after.color).not.toBe(before.color)
     expect(after.radius).not.toBe(before.radius)
     expect(after.padding).not.toBe(before.padding)
-    await expect(project.locator('[data-style-button]')).toHaveClass('bg-emerald-700 text-white rounded-md px-6 py-3 font-medium')
+    await expect(page.locator('#projects .home-project-proof')).toHaveCount(3)
     await button.click()
     await expect(button).toHaveText(copy.saved)
     await expect(hero.locator('code')).toContainText(copy.saved)
@@ -45,7 +44,7 @@ for (const locale of ['zh-CN', 'en'] as const) {
     await expect(build.locator('[data-directory]')).toHaveText('dist/alipay/dist/')
     await expect(build.locator('[data-output-file="0"]')).toHaveText('index.axml')
     await expect(build.locator('[data-build-command]')).toHaveText('pnpm exec wv build -p alipay')
-    await expect(page.locator('#projects build-demo [data-directory]')).toHaveText('dist/weapp/dist/')
+    await expect(page.locator('#projects .home-project-proof-command')).toContainText('pnpm exec wv build -p weapp')
     await tabs.nth(1).focus()
     await page.keyboard.press('End')
     await expect(tabs.last()).toBeFocused()
@@ -61,7 +60,10 @@ for (const locale of ['zh-CN', 'en'] as const) {
 
   test(`${locale}: registry selection updates command and composition, preserving one choice`, async ({ page }) => {
     await page.goto(route)
-    const registry = page.locator('#projects registry-demo')
+    const tabs = page.locator('hero-demos [role="tab"]')
+    await tabs.nth(2).click()
+    const registry = page.locator('hero-demos registry-demo')
+    await expect(registry).toBeVisible()
     await registry.getByRole('checkbox', { name: 'button', exact: true }).uncheck()
     await expect(registry.locator('[data-registry-button]')).toBeHidden()
     await expect(registry.locator('code')).not.toContainText('button')
@@ -107,9 +109,9 @@ test('default examples remain readable without JavaScript', async ({ browser, vi
     await expect(page.locator('hero-demos style-demo code')).toContainText('bg-emerald-700')
     await expect(page.locator('hero-demos [role="tablist"]')).toBeHidden()
     await expect(page.locator('.demo-controls:visible, [data-copy]:visible')).toHaveCount(0)
-    await expect(page.locator('#projects build-demo [data-directory]')).toBeVisible()
-    await expect(page.locator('#projects registry-demo code')).toContainText('@varo-ui/cli')
-    await expect(page.locator('#projects registry-demo input[type="text"]')).toBeEditable()
+    await expect(page.locator('#projects .home-project-proof')).toHaveCount(3)
+    await expect(page.locator('#projects .home-lab')).toHaveCount(0)
+    await expect(page.locator('#projects').getByText('@varo-ui/cli')).toBeVisible()
   }
   await context.close()
 })

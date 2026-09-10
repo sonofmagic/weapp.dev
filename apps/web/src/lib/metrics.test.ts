@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formatCompactNumber, hasSameProjectMetricValues, isProjectMetrics, parseMetricsMap } from './metrics'
+import { formatCompactNumber, hasSameProjectMetricValues, isProjectMetrics, parseMetricsMap, showsPublicMetrics } from './metrics'
 
 const validMetrics = {
   version: '1.2.3',
@@ -34,5 +34,11 @@ describe('project metrics', () => {
 
   it('formats public metrics compactly', () => {
     expect(formatCompactNumber(11561, 'en')).toBe('11.6K')
+  })
+
+  it('hides vanity metrics for planned projects only', () => {
+    expect(showsPublicMetrics('planned')).toBe(false)
+    expect(showsPublicMetrics('stable')).toBe(true)
+    expect(showsPublicMetrics('beta')).toBe(true)
   })
 })

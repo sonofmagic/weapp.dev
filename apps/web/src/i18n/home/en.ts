@@ -30,6 +30,8 @@ export default {
       beta: 'Beta',
       planned: 'Planned',
     },
+    readinessTitle: 'Release readiness',
+    readinessBody: 'This component layer is still in progress. Public downloads and stars will appear after a stable release; zeros are not social proof.',
     proof: {
       styleLabel: 'Default style markup',
       styleFile: 'button.wxml',

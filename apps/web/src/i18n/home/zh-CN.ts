@@ -30,6 +30,8 @@ export default {
       beta: '测试版',
       planned: '规划中',
     },
+    readinessTitle: '发布就绪度',
+    readinessBody: '组件层仍在建设。公开下载与 Stars 会在稳定发布后展示，避免用 0 假装热度。',
     proof: {
       styleLabel: '默认样式写法',
       styleFile: 'button.wxml',

@@ -2,9 +2,9 @@
 import { ArrowLeft, ArrowUpRight, BookOpen, Check, ChevronDown, Copy, GitFork, Package, Star } from '@lucide/astro'
 import type { Locale, ProjectMetrics } from '../types/project'
 import type { ProjectEntry } from '../lib/projects'
-import { formatCompactNumber, formatReleaseDate } from '../lib/metrics'
+import { formatCompactNumber, formatReleaseDate, showsPublicMetrics } from '../lib/metrics'
 import { localizePath, siteCopy } from '../i18n/ui'
-import { buttonPrimary, buttonSecondary, iconControl, platformPill, projectTone, section, shell } from '../styles/classes'
+import { buttonPrimary, buttonSecondary, featuredTitle, iconControl, platformPill, projectTone, section, sectionTitle, shell } from '../styles/classes'
 
 interface Props {
   locale: Locale
@@ -20,6 +20,7 @@ const primaryVisual = project.data.visuals.primary
 const primaryVisualCopy = primaryVisual.locales[locale]
 const secondaryVisual = project.data.visuals.secondary
 const secondaryVisualCopy = secondaryVisual.locales[locale]
+const publicMetrics = showsPublicMetrics(project.data.status)
 ---
 
 <main id="main-content" style={`--project-accent: ${project.data.accent}`}>
@@ -36,9 +37,9 @@ const secondaryVisualCopy = secondaryVisual.locales[locale]
           {copy.projects.status[project.data.status]}
         </span>
       </div>
-      <h1 class="mb-5 text-[clamp(43px,5.4vw,68px)] font-[700] [overflow-wrap:anywhere]">{content.name}</h1>
+      <h1 class="mb-5 font-display text-[clamp(2.125rem,5.4vw,4.5rem)] font-[700] [overflow-wrap:anywhere]">{content.name}</h1>
       <p class="mb-3 text-2xl font-[620] leading-[1.35] max-[720px]:text-xl">{content.tagline}</p>
-      <p class="mb-8 max-w-[630px] text-[17px] leading-[1.7] text-copy-muted">{content.description}</p>
+      <p class="mb-8 max-w-[630px] text-lg leading-[1.7] text-copy-muted">{content.description}</p>
       <div class="flex flex-wrap items-center gap-3">
         <a class={buttonPrimary} href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="docs" data-analytics-project={project.id}>
           <BookOpen size={18} stroke-width={1.9} aria-hidden="true" />
@@ -92,7 +93,7 @@ const secondaryVisualCopy = secondaryVisual.locales[locale]
 
   <section class:list={[section, shell]}>
     <header data-reveal class="mb-10 max-w-[700px]">
-      <h2 class="mb-4 text-[42px] font-[680] max-[720px]:text-[33px]">{copy.project.visualProof}</h2>
+      <h2 class={sectionTitle}>{copy.project.visualProof}</h2>
       <p class="mb-0 text-copy-muted">{copy.project.visualProofDescription}</p>
     </header>
     <div class="grid grid-cols-[1.12fr_.88fr] items-start gap-5 max-[720px]:grid-cols-1">
@@ -120,13 +121,13 @@ const secondaryVisualCopy = secondaryVisual.locales[locale]
   <section class="border-y border-line bg-panel-soft">
     <div class:list={[section, shell, 'grid grid-cols-[1.15fr_.85fr] gap-20 max-[820px]:grid-cols-1 max-[820px]:gap-12']}>
       <div data-reveal>
-        <h2 class="mb-7 text-[36px] font-[670] max-[720px]:text-[30px]">{copy.project.capabilities}</h2>
+        <h2 class:list={[featuredTitle, 'mb-7']}>{copy.project.capabilities}</h2>
         <ul class="m-0 grid list-none grid-cols-2 gap-px overflow-hidden rounded-panel border border-line bg-line p-0 max-[560px]:grid-cols-1">
           {content.capabilities.map(capability => <li class="min-h-[112px] bg-panel p-5 font-display text-lg font-[620]">{capability}</li>)}
         </ul>
       </div>
       <div data-reveal>
-        <h2 class="mb-7 text-[36px] font-[670] max-[720px]:text-[30px]">{copy.project.useCases}</h2>
+        <h2 class:list={[featuredTitle, 'mb-7']}>{copy.project.useCases}</h2>
         <ol class="m-0 grid list-none gap-5 p-0">
           {content.useCases.map((useCase, index) => (
             <li class="grid grid-cols-[32px_1fr] gap-3">
@@ -144,16 +145,25 @@ const secondaryVisualCopy = secondaryVisual.locales[locale]
   </section>
 
   <section class="border-b border-line bg-panel">
-    <div class:list={[shell, 'grid grid-cols-3 max-[640px]:grid-cols-1']}>
-      <div data-reveal class="grid min-h-[164px] border-x border-line p-7 max-[640px]:min-h-[126px] max-[640px]:border-b"><span class="text-xs text-copy-muted">{copy.project.version}</span><strong class="self-center font-mono text-[30px]">v{metrics.version}</strong><small class="text-xs text-copy-muted">{formatReleaseDate(metrics.releasedAt, numberLocale)}</small></div>
-      <div data-reveal class="relative grid min-h-[164px] border-r border-line p-7 max-[640px]:min-h-[126px] max-[640px]:border-l max-[640px]:border-b"><span class="text-xs text-copy-muted">{copy.project.downloads}</span><strong class="self-center font-mono text-[30px]">{formatCompactNumber(metrics.weeklyDownloads, numberLocale)}</strong><Package class="absolute right-6 bottom-6 text-brand" size={20} stroke-width={1.7} aria-hidden="true" /></div>
-      <div data-reveal class="relative grid min-h-[164px] border-r border-line p-7 max-[640px]:min-h-[126px] max-[640px]:border-l"><span class="text-xs text-copy-muted">{copy.project.stars}</span><strong class="self-center font-mono text-[30px]">{formatCompactNumber(metrics.stars, numberLocale)}</strong><Star class="absolute right-6 bottom-6 text-brand" size={20} stroke-width={1.7} aria-hidden="true" /></div>
+    <div class:list={[shell, publicMetrics ? 'grid grid-cols-3 max-[640px]:grid-cols-1' : 'grid grid-cols-2 max-[640px]:grid-cols-1']}>
+      <div data-reveal class="grid min-h-[164px] border-x border-line p-7 max-[640px]:min-h-[126px] max-[640px]:border-b"><span class="text-xs text-copy-muted">{copy.project.version}</span><strong class="self-center font-mono text-2xl font-[700]">v{metrics.version}</strong><small class="text-xs text-copy-muted">{formatReleaseDate(metrics.releasedAt, numberLocale)}</small></div>
+      {publicMetrics ? (
+        <>
+          <div data-reveal class="relative grid min-h-[164px] border-r border-line p-7 max-[640px]:min-h-[126px] max-[640px]:border-l max-[640px]:border-b"><span class="text-xs text-copy-muted">{copy.project.downloads}</span><strong class="self-center font-mono text-2xl font-[700]">{formatCompactNumber(metrics.weeklyDownloads, numberLocale)}</strong><Package class="absolute right-6 bottom-6 text-brand" size={20} stroke-width={1.7} aria-hidden="true" /></div>
+          <div data-reveal class="relative grid min-h-[164px] border-r border-line p-7 max-[640px]:min-h-[126px] max-[640px]:border-l"><span class="text-xs text-copy-muted">{copy.project.stars}</span><strong class="self-center font-mono text-2xl font-[700]">{formatCompactNumber(metrics.stars, numberLocale)}</strong><Star class="absolute right-6 bottom-6 text-brand" size={20} stroke-width={1.7} aria-hidden="true" /></div>
+        </>
+      ) : (
+        <div data-reveal class="grid min-h-[164px] border-r border-line p-7 max-[640px]:min-h-[126px] max-[640px]:border-l" data-project-readiness>
+          <span class="text-xs text-copy-muted">{copy.project.readiness}</span>
+          <p class="self-center mb-0 max-w-[36rem] text-sm leading-[1.7] text-copy-muted">{copy.project.readinessNote}</p>
+        </div>
+      )}
     </div>
   </section>
 
   <section class:list={[section, shell]}>
     <header data-reveal class="mb-10">
-      <h2 class="mb-0 text-[42px] font-[680] max-[720px]:text-[33px]">{copy.project.faq}</h2>
+      <h2 class:list={[sectionTitle, 'mb-0']}>{copy.project.faq}</h2>
     </header>
     <div data-reveal class="border-t border-line">
       {content.faqs.map(faq => (
@@ -171,7 +181,7 @@ const secondaryVisualCopy = secondaryVisual.locales[locale]
   <section class:list={[shell, 'mb-24 grid grid-cols-[1fr_auto] items-center gap-10 rounded-panel border border-line bg-panel p-9 max-[620px]:grid-cols-1 max-[620px]:p-6']}>
     <div data-reveal>
       <p class="mb-3 font-mono text-xs font-[650] text-brand">{copy.project.futureDocs}</p>
-      <h2 class="mb-3 text-[26px] font-[660]"><code class="text-[22px] [overflow-wrap:anywhere] max-[620px]:text-base">{project.data.futureDocsPath}</code></h2>
+      <h2 class="mb-3 text-2xl font-[660]"><code class="text-xl [overflow-wrap:anywhere] max-[620px]:text-base">{project.data.futureDocsPath}</code></h2>
       <p class="mb-0 max-w-[640px] text-sm text-copy-muted">{copy.project.futureDocsNote}</p>
     </div>
     <a class:list={[iconControl, 'size-12 border border-line bg-panel-soft']} href={project.data.docsUrl} aria-label={copy.project.docs} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="docs" data-analytics-project={project.id}>

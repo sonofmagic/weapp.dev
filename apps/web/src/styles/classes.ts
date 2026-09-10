@@ -29,6 +29,9 @@ export const sectionDescription = 'mb-0 max-w-[620px] text-lg text-copy-muted ma
 
 export const featuredTitle = 'font-display text-[2.125rem] font-[680] max-[720px]:text-[1.5rem]'
 
+/** Page-level display titles for pricing / policy / 404 heroes. */
+export const pageTitle = 'font-display text-[clamp(2.125rem,6vw,4rem)] font-[700] leading-[1.12]'
+
 export const projectTone = 'text-[color-mix(in_srgb,var(--project-accent)_58%,var(--text))]'
 
 export const platformPill = 'rounded-[6px] border border-line bg-panel px-2.5 py-1.5 font-mono text-xs text-copy-muted'

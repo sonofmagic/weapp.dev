@@ -249,7 +249,9 @@ test('planned project exposes complete placeholder release data', async ({ page 
   await expect(page.getByText('@varo/cli')).toBeVisible()
   await expect(page.getByText('v0.0.1')).toBeVisible()
   await expect(page.getByText('/docs/varo/')).toBeVisible()
-  await expect(page.getByText('GitHub Stars')).toBeVisible()
+  await expect(page.locator('[data-project-readiness]')).toBeVisible()
+  await expect(page.getByText('GitHub Stars')).toHaveCount(0)
+  await expect(page.getByText('周下载')).toHaveCount(0)
 })
 
 test('passes automated accessibility checks in light and dark themes', async ({ page }) => {

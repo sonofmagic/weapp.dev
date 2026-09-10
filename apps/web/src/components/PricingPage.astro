@@ -3,7 +3,7 @@ import { ArrowRight, Check, Cloud, ExternalLink, GitFork, Heart, Layers2, LockKe
 import type { Locale } from '../types/project'
 import { localizePath, siteCopy } from '../i18n/ui'
 import { loadPublicSponsors } from '../lib/sponsors'
-import { buttonPrimary, buttonSecondary, section, shell } from '../styles/classes'
+import { buttonPrimary, buttonSecondary, featuredTitle, pageTitle, section, sectionTitle, shell } from '../styles/classes'
 
 interface Props {
   locale: Locale
@@ -23,7 +23,7 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
     <div class:list={[shell, 'pricing-hero-inner']}>
       <div data-reveal>
         <p class="mb-4 font-mono text-xs font-[650] uppercase tracking-[0.12em] text-brand">{pricing.eyebrow}</p>
-        <h1 class="mb-6 max-w-[780px] text-[64px] font-[740] leading-[1.15] max-[1000px]:text-[52px] max-[720px]:text-[36px]">{pricing.title}</h1>
+        <h1 class:list={[pageTitle, 'mb-6 max-w-[780px]']}>{pricing.title}</h1>
         <p class="mb-8 max-w-[650px] text-xl leading-[1.5] text-copy-muted max-[720px]:text-base">{pricing.description}</p>
         <div class="flex flex-wrap items-center gap-3">
           <a class={buttonPrimary} href={githubUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="pricing_github">
@@ -46,7 +46,7 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
   <section class:list={[section, shell]} id="plans">
     <header data-reveal class="mb-12 max-w-[700px]">
       <p class="mb-3 font-mono text-xs font-[650] text-brand">01 / {locale === 'zh-CN' ? '产品货架' : 'PRODUCT SHELF'}</p>
-      <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{locale === 'zh-CN' ? '从一次试用，到一套可复现的交付' : 'From one trial to a reproducible delivery path'}</h2>
+      <h2 class={sectionTitle}>{locale === 'zh-CN' ? '从一次试用，到一套可复现的交付' : 'From one trial to a reproducible delivery path'}</h2>
     </header>
     <div class="pricing-plan-grid">
       {pricing.plans.map((plan, index) => {
@@ -80,7 +80,7 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
     <div class:list={[section, shell]}>
       <header data-reveal class="mb-12 max-w-[720px]">
         <p class="mb-3 font-mono text-xs font-[650] text-brand">01A / {locale === 'zh-CN' ? '开源赞助' : 'OPEN-SOURCE SPONSORSHIP'}</p>
-        <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{pricing.sponsorTitle}</h2>
+        <h2 class={sectionTitle}>{pricing.sponsorTitle}</h2>
         <p class="mb-0 max-w-[650px] text-lg text-copy-muted max-[720px]:text-base">{pricing.sponsorDescription}</p>
       </header>
       <div class="pricing-sponsor-grid">
@@ -123,7 +123,7 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
             const sponsors = publicSponsors.filter(sponsor => sponsor.tier === tier)
             if (!sponsors.length) return null
             return <div class="pricing-public-sponsor-group">
-              <p class="mb-3 font-mono text-xs font-[650] uppercase text-brand">{tier}</p>
+              <p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.sponsorTierLabels[tier]}</p>
               <ul class="m-0 flex flex-wrap gap-3 p-0 list-none">
                 {sponsors.map(sponsor => <li><a class="pricing-public-sponsor" href={sponsor.kind === 'business' ? sponsor.brandUrl : sponsor.profileUrl} target="_blank" rel="noreferrer">
                   {sponsor.avatarUrl || sponsor.logoUrl ? <img src={sponsor.avatarUrl || sponsor.logoUrl} alt="" width="32" height="32" loading="lazy" /> : <span class="pricing-public-sponsor-fallback" aria-hidden="true">{(sponsor.brandName || sponsor.login || '?').slice(0, 1).toUpperCase()}</span>}
@@ -141,7 +141,7 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
     <div class:list={[section, shell]}>
       <header data-reveal class="mb-12 max-w-[700px]">
         <p class="mb-3 font-mono text-xs font-[650] text-brand">02 / {locale === 'zh-CN' ? '建设中的能力' : 'ROADMAP'}</p>
-        <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{pricing.roadmapTitle}</h2>
+        <h2 class={sectionTitle}>{pricing.roadmapTitle}</h2>
         <p class="mb-4 text-lg text-copy-muted max-[720px]:text-base">{pricing.roadmapDescription}</p>
         <h3 class="mb-3 text-xl font-[660]">{pricing.templatesTitle}</h3>
         <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{pricing.templatesDescription}</p>
@@ -165,7 +165,7 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
     <div class="grid grid-cols-[.76fr_1.24fr] gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10">
       <header data-reveal class="max-w-[470px]">
         <p class="mb-3 font-mono text-xs font-[650] text-brand">03 / {locale === 'zh-CN' ? '云构建' : 'CLOUD BUILDS'}</p>
-        <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{pricing.buildTitle}</h2>
+        <h2 class={sectionTitle}>{pricing.buildTitle}</h2>
         <p class="mb-0 text-copy-muted">{pricing.buildDescription}</p>
       </header>
       <ol class="pricing-build-path m-0 list-none p-0">
@@ -183,7 +183,7 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
     <div class:list={[section, shell]}>
       <header data-reveal class="mb-12 max-w-[700px]">
         <p class="mb-3 font-mono text-xs font-[650] text-brand">04 / {locale === 'zh-CN' ? '实施服务' : 'SERVICES'}</p>
-        <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{pricing.servicesTitle}</h2>
+        <h2 class={sectionTitle}>{pricing.servicesTitle}</h2>
       </header>
       <div class="pricing-service-list">
         {pricing.services.map((service, index) => (
@@ -200,7 +200,7 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
 
   <section class:list={[section, shell]} id="support">
     <div class="grid grid-cols-[.72fr_1.28fr] gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10">
-      <header data-reveal class="max-w-[470px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">05 / {locale === 'zh-CN' ? '支持边界' : 'SUPPORT'}</p><h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{pricing.slaTitle}</h2></header>
+      <header data-reveal class="max-w-[470px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">05 / {locale === 'zh-CN' ? '支持边界' : 'SUPPORT'}</p><h2 class={sectionTitle}>{pricing.slaTitle}</h2></header>
       <div data-reveal class="overflow-x-auto border-t border-line">
         <table class="pricing-sla-table w-full border-collapse text-left text-sm"><thead><tr><th>{locale === 'zh-CN' ? '层级' : 'Tier'}</th><th>{locale === 'zh-CN' ? '渠道' : 'Channel'}</th><th>{locale === 'zh-CN' ? '响应' : 'Response'}</th></tr></thead><tbody>{pricing.slaRows.map(row => <tr><th scope="row">{row.name}</th><td>{row.channel}</td><td>{row.response}</td></tr>)}</tbody></table>
       </div>
@@ -209,21 +209,21 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
 
   <section class="border-y border-line bg-panel-soft" id="boundary">
     <div class:list={[section, shell]}>
-      <header data-reveal class="mb-12 max-w-[700px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">06 / {locale === 'zh-CN' ? '开源边界' : 'OPEN-SOURCE BOUNDARY'}</p><h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{pricing.boundaryTitle}</h2></header>
+      <header data-reveal class="mb-12 max-w-[700px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">06 / {locale === 'zh-CN' ? '开源边界' : 'OPEN-SOURCE BOUNDARY'}</p><h2 class={sectionTitle}>{pricing.boundaryTitle}</h2></header>
       <div class="pricing-boundary-grid">{pricing.boundary.map((item, index) => <article data-reveal style={`--reveal-delay: ${index * 70}ms`}><span class="pricing-boundary-mark" aria-hidden="true">{index === 0 ? '+' : index === 1 ? '$' : 'x'}</span><h3 class="mb-2 text-xl font-[660]">{item.label}</h3><p class="mb-0 text-sm leading-[1.7] text-copy-muted">{item.body}</p></article>)}</div>
     </div>
   </section>
 
   <section class:list={[section, shell]} id="faq">
     <div class="grid grid-cols-[.72fr_1.28fr] gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10">
-      <header data-reveal class="max-w-[470px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">07 / FAQ</p><h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{pricing.faqTitle}</h2></header>
+      <header data-reveal class="max-w-[470px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">07 / FAQ</p><h2 class={sectionTitle}>{pricing.faqTitle}</h2></header>
       <div data-reveal class="border-t border-line">{pricing.faq.map(item => <details class="border-b border-line py-5"><summary class="cursor-pointer list-none pr-8 text-lg font-[650] [&::-webkit-details-marker]:hidden">{item.question}</summary><p class="mt-3 mb-0 max-w-[650px] text-sm leading-[1.7] text-copy-muted">{item.answer}</p></details>)}</div>
     </div>
   </section>
 
   <section class="pricing-cta border-t border-line bg-panel-soft">
     <div data-reveal class:list={[shell, 'grid min-h-[300px] grid-cols-[1fr_auto] items-center gap-10 py-16 max-[720px]:grid-cols-1 max-[720px]:py-14']}>
-      <div><h2 class="mb-3 max-w-[700px] text-[38px] font-[680] max-[720px]:text-[30px]">{pricing.ctaTitle}</h2><p class="mb-0 max-w-[650px] text-copy-muted">{pricing.ctaBody}</p></div>
+      <div><h2 class:list={[featuredTitle, "mb-3 max-w-[700px]"]}>{pricing.ctaTitle}</h2><p class="mb-0 max-w-[650px] text-copy-muted">{pricing.ctaBody}</p></div>
       <a class={buttonPrimary} href={githubUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="pricing_cta"><GitFork size={18} stroke-width={1.9} aria-hidden="true" />{pricing.ctaAction}</a>
     </div>
   </section>

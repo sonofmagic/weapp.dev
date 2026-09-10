@@ -34,6 +34,9 @@ const copy = siteCopy[locale]
     </div>
     <div>
       <h2 class="mb-4 font-mono text-xs font-[650] text-copy-muted">{copy.footer.resources}</h2>
+      <a class="mb-3 flex w-fit items-center gap-2 text-sm hover:text-brand" href={`${localizePath(locale)}#projects`} data-analytics-event="navigate_section" data-analytics-section="projects">
+        {copy.footer.docs}
+      </a>
       <a class="mb-3 flex w-fit items-center gap-2 text-sm hover:text-brand" href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="site_source">
         <GitFork size={15} stroke-width={1.8} aria-hidden="true" />
         {copy.footer.source}

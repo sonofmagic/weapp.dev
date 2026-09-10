@@ -35,6 +35,12 @@ typography:
     fontWeight: 740
     lineHeight: 1.08
     letterSpacing: "normal"
+  page:
+    fontFamily: "Sora Variable, PingFang SC, Microsoft YaHei, system-ui, sans-serif"
+    fontSize: "clamp(2.125rem, 6vw, 4rem)"
+    fontWeight: 700
+    lineHeight: 1.12
+    letterSpacing: "normal"
   headline:
     fontFamily: "Sora Variable, PingFang SC, Microsoft YaHei, system-ui, sans-serif"
     fontSize: "clamp(2.125rem, 3vw, 2.75rem)"
@@ -199,6 +205,7 @@ Syntax colors inside Style/Build/Registry demos. Not brand accents; do not use o
 ### Hierarchy
 
 - **Display** (740, `clamp(2.125rem, 4vw, 4.5rem)` / 1.08): Hero wordmark titles such as the homepage `weapp.dev` lockup.
+- **Page title** (700, `clamp(2.125rem, 6vw, 4rem)` / 1.12): Pricing, contributors, privacy, and 404 heroes (`pageTitle`).
 - **Headline** (680, `clamp(2.125rem, 3vw, 2.75rem)` / 1.08): Section titles (`sectionTitle`).
 - **Featured** (680, 2.125rem → 1.5rem on small screens): Featured project names in proof rows and compact banner titles.
 - **Title** (660–680, 1.5rem): Card and dialog headings.
