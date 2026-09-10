@@ -1,6 +1,6 @@
 export const shell = 'mx-auto w-[calc(100%-3rem)] max-w-[1240px] max-[720px]:w-[calc(100%-2rem)]'
 
-export const wordmark = 'inline-flex items-center gap-2.5 whitespace-nowrap font-display text-[15px] font-[720]'
+export const wordmark = 'inline-flex items-center gap-2.5 whitespace-nowrap font-display text-[0.9375rem] font-[720]'
 
 export const wordmarkMark = 'size-8 shrink-0'
 
@@ -23,10 +23,12 @@ export const sectionHeading = 'mb-12 max-w-[720px] max-[720px]:mb-9'
 
 export const compactSectionHeading = 'mb-10 max-w-[620px] max-[720px]:mb-8'
 
-export const sectionTitle = 'mb-4 font-display text-[44px] font-[680] max-[720px]:text-[34px]'
+export const sectionTitle = 'mb-4 font-display text-[2.75rem] font-[680] max-[720px]:text-[2.125rem]'
 
 export const sectionDescription = 'mb-0 max-w-[620px] text-lg text-copy-muted max-[720px]:text-base'
 
+export const featuredTitle = 'font-display text-[2.125rem] font-[680] max-[720px]:text-[1.5rem]'
+
 export const projectTone = 'text-[color-mix(in_srgb,var(--project-accent)_58%,var(--text))]'
 
-export const platformPill = 'rounded-[6px] border border-line bg-panel px-2.5 py-1.5 font-mono text-[11px] text-copy-muted'
+export const platformPill = 'rounded-[6px] border border-line bg-panel px-2.5 py-1.5 font-mono text-xs text-copy-muted'

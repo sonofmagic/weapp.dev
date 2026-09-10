@@ -10,6 +10,10 @@ colors:
   brand-on-dark-contrast: "#07130e"
   hub-mark: "#07C160"
   highlight: "#f2c94c"
+  demo-keyword: "#91431a"
+  demo-keyword-dark: "#f3b58d"
+  demo-string: "#176181"
+  demo-string-dark: "#85c9e6"
   canvas: "#f4f7f5"
   panel: "#ffffff"
   panel-soft: "#edf2ef"
@@ -37,17 +41,41 @@ typography:
     fontWeight: 680
     lineHeight: 1.08
     letterSpacing: "normal"
+  featured:
+    fontFamily: "Sora Variable, PingFang SC, Microsoft YaHei, system-ui, sans-serif"
+    fontSize: "2.125rem"
+    fontWeight: 680
+    lineHeight: 1.08
+    letterSpacing: "normal"
   title:
     fontFamily: "Sora Variable, PingFang SC, Microsoft YaHei, system-ui, sans-serif"
     fontSize: "1.5rem"
     fontWeight: 660
     lineHeight: 1.2
     letterSpacing: "normal"
+  wordmark:
+    fontFamily: "Sora Variable, PingFang SC, Microsoft YaHei, system-ui, sans-serif"
+    fontSize: "0.9375rem"
+    fontWeight: 720
+    lineHeight: 1
+    letterSpacing: "normal"
+  lead:
+    fontFamily: "Geist Variable, PingFang SC, Microsoft YaHei, system-ui, sans-serif"
+    fontSize: "1.125rem"
+    fontWeight: 400
+    lineHeight: 1.6
+    letterSpacing: "normal"
   body:
     fontFamily: "Geist Variable, PingFang SC, Microsoft YaHei, system-ui, sans-serif"
     fontSize: "1rem"
     fontWeight: 400
     lineHeight: 1.58
+    letterSpacing: "normal"
+  small:
+    fontFamily: "Geist Variable, PingFang SC, Microsoft YaHei, system-ui, sans-serif"
+    fontSize: "0.875rem"
+    fontWeight: 400
+    lineHeight: 1.5
     letterSpacing: "normal"
   label:
     fontFamily: "Geist Mono Variable, ui-monospace, monospace"
@@ -137,6 +165,13 @@ Omit. The system runs on one accent family plus neutrals.
 
 - **Signal Amber** (`{colors.highlight}`): Selection fill and `:focus-visible` outline only. Never a second brand color for large fills.
 
+### Demo chrome (labs only)
+
+Syntax colors inside Style/Build/Registry demos. Not brand accents; do not use on marketing chrome.
+
+- **Demo Keyword** (`{colors.demo-keyword}` / dark `{colors.demo-keyword-dark}`)
+- **Demo String** (`{colors.demo-string}` / dark `{colors.demo-string-dark}`)
+
 ### Neutral
 
 - **Mint Canvas** (`{colors.canvas}` / dark `{colors.canvas-dark}`): Page background.
@@ -163,10 +198,14 @@ Omit. The system runs on one accent family plus neutrals.
 
 ### Hierarchy
 
-- **Display** (740, up to 4.5rem / 1.08): Hero wordmark titles such as the homepage `weapp.dev` lockup.
-- **Headline** (680, 34–44px / 1.08): Section titles (`sectionTitle`).
-- **Title** (660–680, ~1.5–2rem): Card and dialog headings.
-- **Body** (400, 1rem / 1.58; large lead 1.125rem / 1.6): Running copy; keep readable measure near 40–65ch on marketing leads.
+- **Display** (740, `clamp(2.125rem, 4vw, 4.5rem)` / 1.08): Hero wordmark titles such as the homepage `weapp.dev` lockup.
+- **Headline** (680, `clamp(2.125rem, 3vw, 2.75rem)` / 1.08): Section titles (`sectionTitle`).
+- **Featured** (680, 2.125rem → 1.5rem on small screens): Featured project names in proof rows and compact banner titles.
+- **Title** (660–680, 1.5rem): Card and dialog headings.
+- **Wordmark** (720, 0.9375rem): Header/footer `weapp.dev` lockup text.
+- **Lead** (400, 1.125rem / 1.6): Marketing leads and hero description.
+- **Body** (400, 1rem / 1.58): Running copy; keep readable measure near 40–65ch on marketing leads.
+- **Small** (400, 0.875rem): Dense UI chrome, buttons, and demo controls.
 - **Label** (650, 0.75rem / 1.4 mono): Eyebrows, rail indices, platform pills, footer group labels.
 
 ### Named Rules
@@ -179,7 +218,7 @@ Omit. The system runs on one accent family plus neutrals.
 
 The shell is a centered rail: `max-width: 1240px`, horizontal inset `1.5rem` (desktop) / `1rem` (≤720px). Sections breathe with `7rem` vertical padding (`5rem` on small screens). Homepage project proof uses one project per row (copy + demo), not a three-column card grid. Dense index rails (three equal columns with hairline dividers) appear only as secondary navigation strips.
 
-Breakpoints observed in the incumbent system: `720px` (phone), `900px` / `960px` (tablet nav collapse), `1100px` (hero type step-down). Sticky header is `64px` (`58px` on small screens) with `scroll-padding-top: 84px`.
+Breakpoints observed in the incumbent system: `720px` (phone), `900px` / `960px` (tablet nav collapse). Hero display type scales via clamp rather than discrete breakpoint steps. Sticky header is `64px` (`58px` on small screens) with `scroll-padding-top: 84px`.
 
 **The Single-Target Row Rule.** Featured projects present as full-width rows with optional reversed demo/copy order. Do not revive the discarded three-column project card board.
 

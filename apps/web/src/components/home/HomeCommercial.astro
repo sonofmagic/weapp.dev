@@ -2,7 +2,7 @@
 import { ArrowRight, ArrowUpRight, Heart } from '@lucide/astro'
 import type { Locale } from '../../types/project'
 import { localizePath, siteCopy } from '../../i18n/ui'
-import { buttonPrimary, buttonSecondary, homeSection, shell } from '../../styles/classes'
+import { buttonPrimary, buttonSecondary, homeSection, sectionTitle, shell } from '../../styles/classes'
 
 interface Props {
   locale: Locale
@@ -15,7 +15,7 @@ const copy = siteCopy[locale]
 <section class="border-y border-line bg-panel-soft" id="commercial">
   <div class:list={[homeSection, shell]}>
     <header data-reveal class="mb-9 max-w-[720px]">
-      <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{copy.commercial.title}</h2>
+      <h2 class={sectionTitle}>{copy.commercial.title}</h2>
       <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.commercial.description}</p>
     </header>
     <div class="grid grid-cols-3 gap-px overflow-hidden border border-line bg-line max-[760px]:grid-cols-1">

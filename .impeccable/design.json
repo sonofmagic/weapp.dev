@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-09-10T15:00:00.000Z",
+  "generatedAt": "2026-09-10T15:56:07.000Z",
   "title": "Design System: weapp.dev",
   "extensions": {
     "colorMeta": {
@@ -8,141 +8,430 @@
         "role": "primary",
         "displayName": "WeUI Forest Green",
         "canonical": "#0e7958",
-        "tonalRamp": ["#062e21", "#0a4a34", "#0e7958", "#1a9a70", "#3bb289", "#69c7a5", "#a6dfc8", "#e5f6ef"]
+        "tonalRamp": [
+          "#062e21",
+          "#0a4a34",
+          "#0e7958",
+          "#1a9a70",
+          "#3bb289",
+          "#69c7a5",
+          "#a6dfc8",
+          "#e5f6ef"
+        ]
       },
       "brand-hover": {
         "role": "primary",
         "displayName": "Forest Green Hover",
         "canonical": "#096646",
-        "tonalRamp": ["#041f16", "#074530", "#096646", "#0e7958", "#2f9a74", "#69c7a5", "#a6dfc8", "#e5f6ef"]
+        "tonalRamp": [
+          "#041f16",
+          "#074530",
+          "#096646",
+          "#0e7958",
+          "#2f9a74",
+          "#69c7a5",
+          "#a6dfc8",
+          "#e5f6ef"
+        ]
       },
       "brand-contrast": {
         "role": "primary",
         "displayName": "Brand Contrast",
         "canonical": "#ffffff",
-        "tonalRamp": ["#0d1712", "#5a6861", "#aab8b0", "#d5ddd8", "#edf2ef", "#f4f7f5", "#fafcfb", "#ffffff"]
+        "tonalRamp": [
+          "#0d1712",
+          "#5a6861",
+          "#aab8b0",
+          "#d5ddd8",
+          "#edf2ef",
+          "#f4f7f5",
+          "#fafcfb",
+          "#ffffff"
+        ]
       },
       "brand-on-dark": {
         "role": "primary",
         "displayName": "Forest Green on Dark",
         "canonical": "#69c7a5",
-        "tonalRamp": ["#07130e", "#0e7958", "#2f9a74", "#69c7a5", "#86d7b9", "#a6dfc8", "#d5f0e4", "#eef9f4"]
+        "tonalRamp": [
+          "#07130e",
+          "#0e7958",
+          "#2f9a74",
+          "#69c7a5",
+          "#86d7b9",
+          "#a6dfc8",
+          "#d5f0e4",
+          "#eef9f4"
+        ]
       },
       "brand-on-dark-hover": {
         "role": "primary",
         "displayName": "Forest Green on Dark Hover",
         "canonical": "#86d7b9",
-        "tonalRamp": ["#07130e", "#0e7958", "#69c7a5", "#86d7b9", "#a6dfc8", "#c5ebd9", "#e5f6ef", "#f4fbf7"]
+        "tonalRamp": [
+          "#07130e",
+          "#0e7958",
+          "#69c7a5",
+          "#86d7b9",
+          "#a6dfc8",
+          "#c5ebd9",
+          "#e5f6ef",
+          "#f4fbf7"
+        ]
       },
       "brand-on-dark-contrast": {
         "role": "primary",
         "displayName": "Brand Contrast on Dark",
         "canonical": "#07130e",
-        "tonalRamp": ["#040a08", "#07130e", "#0b110e", "#15211b", "#304039", "#aab8b0", "#edf5f0", "#ffffff"]
+        "tonalRamp": [
+          "#040a08",
+          "#07130e",
+          "#0b110e",
+          "#15211b",
+          "#304039",
+          "#aab8b0",
+          "#edf5f0",
+          "#ffffff"
+        ]
       },
       "hub-mark": {
         "role": "primary",
         "displayName": "Hub Mark Green",
         "canonical": "#07C160",
-        "tonalRamp": ["#034d26", "#059648", "#07C160", "#2fd67c", "#63e29a", "#98edbb", "#c9f6da", "#eafbf1"]
+        "tonalRamp": [
+          "#034d26",
+          "#059648",
+          "#07C160",
+          "#2fd67c",
+          "#63e29a",
+          "#98edbb",
+          "#c9f6da",
+          "#eafbf1"
+        ]
       },
       "highlight": {
         "role": "tertiary",
         "displayName": "Signal Amber",
         "canonical": "#f2c94c",
-        "tonalRamp": ["#5c4810", "#8a6c18", "#c49a2a", "#f2c94c", "#f6d76f", "#f9e49a", "#fcf1c6", "#fef9e8"]
+        "tonalRamp": [
+          "#5c4810",
+          "#8a6c18",
+          "#c49a2a",
+          "#f2c94c",
+          "#f6d76f",
+          "#f9e49a",
+          "#fcf1c6",
+          "#fef9e8"
+        ]
       },
       "canvas": {
         "role": "neutral",
         "displayName": "Mint Canvas",
         "canonical": "#f4f7f5",
-        "tonalRamp": ["#0d1712", "#5a6861", "#aab8b0", "#d5ddd8", "#dfe8e3", "#edf2ef", "#f4f7f5", "#ffffff"]
+        "tonalRamp": [
+          "#0d1712",
+          "#5a6861",
+          "#aab8b0",
+          "#d5ddd8",
+          "#dfe8e3",
+          "#edf2ef",
+          "#f4f7f5",
+          "#ffffff"
+        ]
       },
       "panel": {
         "role": "neutral",
         "displayName": "Panel White",
         "canonical": "#ffffff",
-        "tonalRamp": ["#0d1712", "#5a6861", "#aab8b0", "#d5ddd8", "#dfe8e3", "#edf2ef", "#f4f7f5", "#ffffff"]
+        "tonalRamp": [
+          "#0d1712",
+          "#5a6861",
+          "#aab8b0",
+          "#d5ddd8",
+          "#dfe8e3",
+          "#edf2ef",
+          "#f4f7f5",
+          "#ffffff"
+        ]
       },
       "panel-soft": {
         "role": "neutral",
         "displayName": "Panel Soft",
         "canonical": "#edf2ef",
-        "tonalRamp": ["#0d1712", "#304039", "#5a6861", "#aab8b0", "#d5ddd8", "#dfe8e3", "#edf2ef", "#f4f7f5"]
+        "tonalRamp": [
+          "#0d1712",
+          "#304039",
+          "#5a6861",
+          "#aab8b0",
+          "#d5ddd8",
+          "#dfe8e3",
+          "#edf2ef",
+          "#f4f7f5"
+        ]
       },
       "panel-strong": {
         "role": "neutral",
         "displayName": "Panel Strong",
         "canonical": "#dfe8e3",
-        "tonalRamp": ["#0d1712", "#304039", "#5a6861", "#aab8b0", "#d5ddd8", "#dfe8e3", "#edf2ef", "#f4f7f5"]
+        "tonalRamp": [
+          "#0d1712",
+          "#304039",
+          "#5a6861",
+          "#aab8b0",
+          "#d5ddd8",
+          "#dfe8e3",
+          "#edf2ef",
+          "#f4f7f5"
+        ]
       },
       "ink": {
         "role": "neutral",
         "displayName": "Ink",
         "canonical": "#0d1712",
-        "tonalRamp": ["#050908", "#0d1712", "#1c2a23", "#3a4a42", "#5a6861", "#aab8b0", "#edf2ef", "#ffffff"]
+        "tonalRamp": [
+          "#050908",
+          "#0d1712",
+          "#1c2a23",
+          "#3a4a42",
+          "#5a6861",
+          "#aab8b0",
+          "#edf2ef",
+          "#ffffff"
+        ]
       },
       "muted": {
         "role": "neutral",
         "displayName": "Muted Copy",
         "canonical": "#5a6861",
-        "tonalRamp": ["#0d1712", "#1c2a23", "#3a4a42", "#5a6861", "#7d8c84", "#aab8b0", "#d5ddd8", "#edf2ef"]
+        "tonalRamp": [
+          "#0d1712",
+          "#1c2a23",
+          "#3a4a42",
+          "#5a6861",
+          "#7d8c84",
+          "#aab8b0",
+          "#d5ddd8",
+          "#edf2ef"
+        ]
       },
       "line": {
         "role": "neutral",
         "displayName": "Hairline",
         "canonical": "#d5ddd8",
-        "tonalRamp": ["#0d1712", "#304039", "#5a6861", "#aab8b0", "#c4cdc7", "#d5ddd8", "#edf2ef", "#f4f7f5"]
+        "tonalRamp": [
+          "#0d1712",
+          "#304039",
+          "#5a6861",
+          "#aab8b0",
+          "#c4cdc7",
+          "#d5ddd8",
+          "#edf2ef",
+          "#f4f7f5"
+        ]
       },
       "canvas-dark": {
         "role": "neutral",
         "displayName": "Night Canvas",
         "canonical": "#0b110e",
-        "tonalRamp": ["#050908", "#0b110e", "#111914", "#15211b", "#1a2a22", "#304039", "#aab8b0", "#edf5f0"]
+        "tonalRamp": [
+          "#050908",
+          "#0b110e",
+          "#111914",
+          "#15211b",
+          "#1a2a22",
+          "#304039",
+          "#aab8b0",
+          "#edf5f0"
+        ]
       },
       "panel-dark": {
         "role": "neutral",
         "displayName": "Panel Night",
         "canonical": "#111914",
-        "tonalRamp": ["#050908", "#0b110e", "#111914", "#15211b", "#1a2a22", "#304039", "#aab8b0", "#edf5f0"]
+        "tonalRamp": [
+          "#050908",
+          "#0b110e",
+          "#111914",
+          "#15211b",
+          "#1a2a22",
+          "#304039",
+          "#aab8b0",
+          "#edf5f0"
+        ]
       },
       "panel-soft-dark": {
         "role": "neutral",
         "displayName": "Panel Soft Night",
         "canonical": "#15211b",
-        "tonalRamp": ["#050908", "#0b110e", "#111914", "#15211b", "#1a2a22", "#304039", "#aab8b0", "#edf5f0"]
+        "tonalRamp": [
+          "#050908",
+          "#0b110e",
+          "#111914",
+          "#15211b",
+          "#1a2a22",
+          "#304039",
+          "#aab8b0",
+          "#edf5f0"
+        ]
       },
       "panel-strong-dark": {
         "role": "neutral",
         "displayName": "Panel Strong Night",
         "canonical": "#1a2a22",
-        "tonalRamp": ["#050908", "#0b110e", "#111914", "#15211b", "#1a2a22", "#304039", "#aab8b0", "#edf5f0"]
+        "tonalRamp": [
+          "#050908",
+          "#0b110e",
+          "#111914",
+          "#15211b",
+          "#1a2a22",
+          "#304039",
+          "#aab8b0",
+          "#edf5f0"
+        ]
       },
       "ink-dark": {
         "role": "neutral",
         "displayName": "Ink on Dark",
         "canonical": "#edf5f0",
-        "tonalRamp": ["#0b110e", "#304039", "#5a6861", "#aab8b0", "#c5d2ca", "#edf5f0", "#f5faf7", "#ffffff"]
+        "tonalRamp": [
+          "#0b110e",
+          "#304039",
+          "#5a6861",
+          "#aab8b0",
+          "#c5d2ca",
+          "#edf5f0",
+          "#f5faf7",
+          "#ffffff"
+        ]
       },
       "muted-dark": {
         "role": "neutral",
         "displayName": "Muted on Dark",
         "canonical": "#aab8b0",
-        "tonalRamp": ["#0b110e", "#1a2a22", "#304039", "#5a6861", "#7d8c84", "#aab8b0", "#d5ddd8", "#edf5f0"]
+        "tonalRamp": [
+          "#0b110e",
+          "#1a2a22",
+          "#304039",
+          "#5a6861",
+          "#7d8c84",
+          "#aab8b0",
+          "#d5ddd8",
+          "#edf5f0"
+        ]
       },
       "line-dark": {
         "role": "neutral",
         "displayName": "Hairline on Dark",
         "canonical": "#304039",
-        "tonalRamp": ["#0b110e", "#15211b", "#1a2a22", "#304039", "#45564d", "#5a6861", "#aab8b0", "#edf5f0"]
+        "tonalRamp": [
+          "#0b110e",
+          "#15211b",
+          "#1a2a22",
+          "#304039",
+          "#45564d",
+          "#5a6861",
+          "#aab8b0",
+          "#edf5f0"
+        ]
+      },
+      "demo-keyword": {
+        "role": "tertiary",
+        "displayName": "Demo Keyword",
+        "canonical": "#91431a",
+        "tonalRamp": [
+          "#3a1a0a",
+          "#5c2a10",
+          "#91431a",
+          "#b85a28",
+          "#d4895a",
+          "#f3b58d",
+          "#f8d4b8",
+          "#fcf0e6"
+        ]
+      },
+      "demo-keyword-dark": {
+        "role": "tertiary",
+        "displayName": "Demo Keyword Dark",
+        "canonical": "#f3b58d",
+        "tonalRamp": [
+          "#3a1a0a",
+          "#91431a",
+          "#b85a28",
+          "#f3b58d",
+          "#f6c9a8",
+          "#f8d4b8",
+          "#fbe6d4",
+          "#fdf3ea"
+        ]
+      },
+      "demo-string": {
+        "role": "tertiary",
+        "displayName": "Demo String",
+        "canonical": "#176181",
+        "tonalRamp": [
+          "#0a2836",
+          "#104560",
+          "#176181",
+          "#2a8bb0",
+          "#4eaccd",
+          "#85c9e6",
+          "#b7e0f1",
+          "#e5f5fb"
+        ]
+      },
+      "demo-string-dark": {
+        "role": "tertiary",
+        "displayName": "Demo String Dark",
+        "canonical": "#85c9e6",
+        "tonalRamp": [
+          "#0a2836",
+          "#176181",
+          "#2a8bb0",
+          "#85c9e6",
+          "#a5d8ed",
+          "#c5e7f4",
+          "#e0f3f9",
+          "#f2fafc"
+        ]
       }
     },
     "typographyMeta": {
-      "display": { "displayName": "Display", "purpose": "Hero wordmark titles such as the homepage weapp.dev lockup." },
-      "headline": { "displayName": "Headline", "purpose": "Section titles across marketing surfaces." },
-      "title": { "displayName": "Title", "purpose": "Card and dialog headings." },
-      "body": { "displayName": "Body", "purpose": "Running bilingual copy and leads." },
-      "label": { "displayName": "Label / Mono", "purpose": "Eyebrows, indices, pills, and language metadata." }
+      "display": {
+        "displayName": "Display",
+        "purpose": "Hero wordmark titles such as the homepage weapp.dev lockup."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Section titles across marketing surfaces."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Card and dialog headings."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running bilingual copy and leads."
+      },
+      "label": {
+        "displayName": "Label / Mono",
+        "purpose": "Eyebrows, indices, pills, and language metadata."
+      },
+      "featured": {
+        "displayName": "Featured",
+        "purpose": "Featured project names and compact banner titles."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "Header/footer weapp.dev lockup text."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Marketing leads and hero description."
+      },
+      "small": {
+        "displayName": "Small",
+        "purpose": "Dense UI chrome, buttons, and demo controls."
+      }
     },
     "shadows": [
       {
@@ -174,11 +463,26 @@
       }
     ],
     "breakpoints": [
-      { "name": "phone", "value": "720px" },
-      { "name": "tablet", "value": "900px" },
-      { "name": "nav-collapse", "value": "960px" },
-      { "name": "hero-step", "value": "1100px" },
-      { "name": "shell-max", "value": "1240px" }
+      {
+        "name": "phone",
+        "value": "720px"
+      },
+      {
+        "name": "tablet",
+        "value": "900px"
+      },
+      {
+        "name": "nav-collapse",
+        "value": "960px"
+      },
+      {
+        "name": "hero-step",
+        "value": "1100px"
+      },
+      {
+        "name": "shell-max",
+        "value": "1240px"
+      }
     ]
   },
   "components": [
@@ -187,7 +491,7 @@
       "kind": "button",
       "refersTo": "button-primary",
       "description": "Solid brand CTA with 6px radius and 1px press travel.",
-      "html": "<button class=\"ds-btn-primary\" type=\"button\">查看项目</button>",
+      "html": "<button class=\"ds-btn-primary\" type=\"button\">\u67e5\u770b\u9879\u76ee</button>",
       "css": ".ds-btn-primary { display: inline-flex; min-height: 2.75rem; align-items: center; justify-content: center; gap: 0.625rem; padding: 0.625rem 1rem; border: 1px solid transparent; border-radius: 6px; background: var(--accent, #0e7958); color: var(--accent-contrast, #fff); font: 680 0.875rem/1.2 var(--font-sans, \"Geist Variable\", system-ui, sans-serif); transition: background-color 200ms, transform 200ms; cursor: pointer; } .ds-btn-primary:hover { background: var(--accent-hover, #096646); } .ds-btn-primary:active { transform: translateY(1px); } .ds-btn-primary:focus-visible { outline: 3px solid var(--highlight, #f2c94c); outline-offset: 3px; }"
     },
     {
@@ -195,7 +499,7 @@
       "kind": "button",
       "refersTo": "button-secondary",
       "description": "Hairline panel button for secondary actions and outbound links.",
-      "html": "<button class=\"ds-btn-secondary\" type=\"button\">查看 GitHub</button>",
+      "html": "<button class=\"ds-btn-secondary\" type=\"button\">\u67e5\u770b GitHub</button>",
       "css": ".ds-btn-secondary { display: inline-flex; min-height: 2.75rem; align-items: center; justify-content: center; gap: 0.625rem; padding: 0.625rem 1rem; border: 1px solid var(--border, #d5ddd8); border-radius: 6px; background: var(--surface, #fff); color: var(--text, #0d1712); font: 680 0.875rem/1.2 var(--font-sans, \"Geist Variable\", system-ui, sans-serif); transition: background-color 200ms, border-color 200ms, transform 200ms; cursor: pointer; } .ds-btn-secondary:hover { border-color: var(--muted, #5a6861); background: var(--surface-soft, #edf2ef); } .ds-btn-secondary:active { transform: translateY(1px); } .ds-btn-secondary:focus-visible { outline: 3px solid var(--highlight, #f2c94c); outline-offset: 3px; }"
     },
     {
@@ -219,7 +523,7 @@
       "kind": "card",
       "refersTo": "panel-card",
       "description": "Flat panel surface with hairline border used for menus, dialogs, and framed media.",
-      "html": "<article class=\"ds-panel\"><h3 class=\"ds-panel-title\">开放的工具链</h3><p class=\"ds-panel-body\">每个工具都能独立使用，也能通过清晰边界组合起来。</p></article>",
+      "html": "<article class=\"ds-panel\"><h3 class=\"ds-panel-title\">\u5f00\u653e\u7684\u5de5\u5177\u94fe</h3><p class=\"ds-panel-body\">\u6bcf\u4e2a\u5de5\u5177\u90fd\u80fd\u72ec\u7acb\u4f7f\u7528\uff0c\u4e5f\u80fd\u901a\u8fc7\u6e05\u6670\u8fb9\u754c\u7ec4\u5408\u8d77\u6765\u3002</p></article>",
       "css": ".ds-panel { background: var(--surface, #fff); color: var(--text, #0d1712); border: 1px solid var(--border, #d5ddd8); border-radius: 8px; padding: 1.75rem; box-shadow: none; } .ds-panel-title { margin: 0 0 0.5rem; font: 660 1.25rem/1.2 var(--font-display, \"Sora Variable\", system-ui, sans-serif); } .ds-panel-body { margin: 0; color: var(--muted, #5a6861); font: 400 0.875rem/1.7 var(--font-sans, \"Geist Variable\", system-ui, sans-serif); }"
     },
     {
@@ -227,7 +531,7 @@
       "kind": "nav",
       "refersTo": null,
       "description": "Sticky translucent header with emblem wordmark and muted nav links.",
-      "html": "<header class=\"ds-header\"><a class=\"ds-wordmark\" href=\"/\"><span class=\"ds-mark\" aria-hidden=\"true\"></span><span>weapp.dev</span></a><nav class=\"ds-nav\" aria-label=\"Primary\"><a href=\"#projects\">项目</a><a href=\"#about\">关于</a></nav></header>",
+      "html": "<header class=\"ds-header\"><a class=\"ds-wordmark\" href=\"/\"><span class=\"ds-mark\" aria-hidden=\"true\"></span><span>weapp.dev</span></a><nav class=\"ds-nav\" aria-label=\"Primary\"><a href=\"#projects\">\u9879\u76ee</a><a href=\"#about\">\u5173\u4e8e</a></nav></header>",
       "css": ".ds-header { display: flex; align-items: center; height: 4rem; padding: 0 1.5rem; border-bottom: 1px solid color-mix(in srgb, var(--border, #d5ddd8) 70%, transparent); background: color-mix(in srgb, var(--background, #f4f7f5) 88%, transparent); backdrop-filter: blur(24px); } .ds-wordmark { display: inline-flex; align-items: center; gap: 0.625rem; color: var(--text, #0d1712); font: 720 0.9375rem/1 var(--font-display, \"Sora Variable\", system-ui, sans-serif); text-decoration: none; } .ds-mark { width: 2rem; height: 2rem; border-radius: 28%; background: #07C160; } .ds-nav { margin-left: auto; display: flex; gap: 1.5rem; } .ds-nav a { color: var(--muted, #5a6861); font: 590 0.875rem/1.2 var(--font-sans, \"Geist Variable\", system-ui, sans-serif); text-decoration: none; } .ds-nav a:hover, .ds-nav a:focus-visible { color: var(--text, #0d1712); } .ds-nav a:focus-visible { outline: 3px solid var(--highlight, #f2c94c); outline-offset: 3px; }"
     },
     {
@@ -235,7 +539,7 @@
       "kind": "nav",
       "refersTo": null,
       "description": "Dropdown/mobile sheet: panel fill, hairline, floating shadow.",
-      "html": "<div class=\"ds-menu\" role=\"menu\"><a class=\"ds-menu-item\" href=\"/projects/weapp-vite/\"><strong>weapp-vite</strong><small>面向小程序的现代 Vite 工程化</small></a></div>",
+      "html": "<div class=\"ds-menu\" role=\"menu\"><a class=\"ds-menu-item\" href=\"/projects/weapp-vite/\"><strong>weapp-vite</strong><small>\u9762\u5411\u5c0f\u7a0b\u5e8f\u7684\u73b0\u4ee3 Vite \u5de5\u7a0b\u5316</small></a></div>",
       "css": ".ds-menu { width: 22rem; padding: 0.5rem; border: 1px solid var(--border, #d5ddd8); border-radius: 8px; background: var(--surface, #fff); box-shadow: 0 24px 70px rgb(25 60 45 / 12%); } .ds-menu-item { display: grid; gap: 0.25rem; padding: 0.75rem; border-radius: 6px; color: inherit; text-decoration: none; } .ds-menu-item:hover, .ds-menu-item:focus-visible { background: var(--surface-soft, #edf2ef); } .ds-menu-item strong { font: 650 0.875rem/1.4 var(--font-display, \"Sora Variable\", system-ui, sans-serif); } .ds-menu-item small { color: var(--muted, #5a6861); font: 450 0.75rem/1.4 var(--font-sans, \"Geist Variable\", system-ui, sans-serif); } .ds-menu-item:focus-visible { outline: 3px solid var(--highlight, #f2c94c); outline-offset: 2px; }"
     },
     {
@@ -243,31 +547,59 @@
       "kind": "custom",
       "refersTo": null,
       "description": "Mono brand eyebrow used above section titles.",
-      "html": "<p class=\"ds-eyebrow\">为真实小程序工程而建</p>",
+      "html": "<p class=\"ds-eyebrow\">\u4e3a\u771f\u5b9e\u5c0f\u7a0b\u5e8f\u5de5\u7a0b\u800c\u5efa</p>",
       "css": ".ds-eyebrow { margin: 0 0 0.75rem; color: var(--accent, #0e7958); font: 650 0.75rem/1.4 var(--font-mono, \"Geist Mono Variable\", ui-monospace, monospace); }"
     }
   ],
   "narrative": {
     "northStar": "The Build Lens",
-    "overview": "weapp.dev looks through an engineering lens: cool, focused, and allergic to ecosystem-portal theatrics. The interface is neutral, technical, and product-led. Real project marks, interactive demos, metrics, and source links do the persuading; decoration stays secondary.\n\nSurfaces stay calm across light and dark themes. A mint-sage canvas carries WeUI-adjacent forest green as the single ecosystem accent, with Signal Amber reserved for focus and selection. Motion is restrained—reveal fades and 200ms state transitions only, and reduced-motion users get an immediate static state.",
+    "overview": "weapp.dev looks through an engineering lens: cool, focused, and allergic to ecosystem-portal theatrics. The interface is neutral, technical, and product-led. Real project marks, interactive demos, metrics, and source links do the persuading; decoration stays secondary.\n\nSurfaces stay calm across light and dark themes. A mint-sage canvas carries WeUI-adjacent forest green as the single ecosystem accent, with Signal Amber reserved for focus and selection. Motion is restrained\u2014reveal fades and 200ms state transitions only, and reduced-motion users get an immediate static state.",
     "keyCharacteristics": [
       "Emblem-plus-wordmark lockup with a fixed green Hub mark",
       "One accent family, dual-theme surfaces, bilingual Chinese/English parity",
       "Flat tonal layering by default; shadows only for floating chrome",
-      "Small radii (6–8px), solid primary actions, 1px press feedback",
+      "Small radii (6\u20138px), solid primary actions, 1px press feedback",
       "Evidence-first: demos, metrics, and project marks beat stock illustration"
     ],
     "rules": [
-      { "name": "The One Accent Rule", "body": "WeUI Forest Green is the only brand accent on a screen. Signal Amber is inspection-only (focus/selection), never a second marketing color.", "section": "colors" },
-      { "name": "The Honest Mark Rule", "body": "Project logos and the Hub mark stay true to source assets. Do not recolor, glow, or collage platform logos into the Hub mark.", "section": "colors" },
-      { "name": "The Mono-Means-Meta Rule", "body": "Geist Mono is for metadata and controls, not paragraphs. If it is a sentence, it is Geist Sans.", "section": "typography" },
-      { "name": "The Balanced Head Rule", "body": "Headings use text-wrap: balance; body uses pretty. Do not add letter-spacing tricks to display type.", "section": "typography" },
-      { "name": "The Single-Target Row Rule", "body": "Featured projects present as full-width rows with optional reversed demo/copy order. Do not revive the discarded three-column project card board.", "section": "layout" },
-      { "name": "The Flat-By-Default Rule", "body": "Content cards and section blocks stay flat. If it is not floating UI chrome, it does not cast shadow-panel.", "section": "elevation" },
-      { "name": "The Small-Radius Rule", "body": "Prefer 6–8px. Large squircles and fashion-soft 16–24px radii are out of system.", "section": "shapes" }
+      {
+        "name": "The One Accent Rule",
+        "body": "WeUI Forest Green is the only brand accent on a screen. Signal Amber is inspection-only (focus/selection), never a second marketing color.",
+        "section": "colors"
+      },
+      {
+        "name": "The Honest Mark Rule",
+        "body": "Project logos and the Hub mark stay true to source assets. Do not recolor, glow, or collage platform logos into the Hub mark.",
+        "section": "colors"
+      },
+      {
+        "name": "The Mono-Means-Meta Rule",
+        "body": "Geist Mono is for metadata and controls, not paragraphs. If it is a sentence, it is Geist Sans.",
+        "section": "typography"
+      },
+      {
+        "name": "The Balanced Head Rule",
+        "body": "Headings use text-wrap: balance; body uses pretty. Do not add letter-spacing tricks to display type.",
+        "section": "typography"
+      },
+      {
+        "name": "The Single-Target Row Rule",
+        "body": "Featured projects present as full-width rows with optional reversed demo/copy order. Do not revive the discarded three-column project card board.",
+        "section": "layout"
+      },
+      {
+        "name": "The Flat-By-Default Rule",
+        "body": "Content cards and section blocks stay flat. If it is not floating UI chrome, it does not cast shadow-panel.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Small-Radius Rule",
+        "body": "Prefer 6\u20138px. Large squircles and fashion-soft 16\u201324px radii are out of system.",
+        "section": "shapes"
+      }
     ],
     "dos": [
-      "Do keep Chinese and English surfaces visually paired—same hierarchy, marks, and spacing.",
+      "Do keep Chinese and English surfaces visually paired\u2014same hierarchy, marks, and spacing.",
       "Do ship static-first: default content and demo output readable with JS disabled.",
       "Do use real project marks, metrics, and demos as proof.",
       "Do preserve light/dark token roles rather than inventing a third theme.",

@@ -1,7 +1,7 @@
 ---
 import type { Locale, ProjectMetricsMap } from '../../types/project'
 import type { HomeProject } from '../../lib/home-projects'
-import { homeSection, shell } from '../../styles/classes'
+import { homeSection, sectionTitle, shell } from '../../styles/classes'
 import HomeProjectRow from './HomeProjectRow.astro'
 import { siteCopy } from '../../i18n/ui'
 
@@ -18,7 +18,7 @@ const copy = siteCopy[locale]
 <section class:list={[homeSection, shell]} id="projects">
   <header data-reveal class="mb-10 max-w-[720px]">
     <p class="mb-3 font-mono text-xs font-[650] text-brand">{copy.projects.eyebrow}</p>
-    <h2 class="mb-4 text-[48px] font-[680] max-[720px]:text-[35px]">{copy.projects.title}</h2>
+    <h2 class={sectionTitle}>{copy.projects.title}</h2>
     <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.projects.description}</p>
   </header>
 

@@ -1,7 +1,7 @@
 ---
 import { GitFork } from '@lucide/astro'
 import type { Locale } from '../../types/project'
-import { buttonSecondary, shell } from '../../styles/classes'
+import { buttonSecondary, featuredTitle, shell } from '../../styles/classes'
 import { siteCopy } from '../../i18n/ui'
 
 interface Props {
@@ -16,7 +16,7 @@ const copy = siteCopy[locale]
   <div data-reveal class:list={[shell, 'grid min-h-[200px] grid-cols-[72px_1fr_auto] items-center gap-8 py-10 max-[820px]:grid-cols-[58px_1fr] max-[620px]:grid-cols-1']}>
     <img class="size-[72px] rounded-panel border border-line bg-panel-soft p-2.5 max-[820px]:size-[58px]" src="/logo.svg" width="72" height="72" alt="" />
     <div>
-      <h2 class="mb-3 text-[34px] font-[670] max-[620px]:text-[30px]">{copy.collaboration.title}</h2>
+      <h2 class:list={[featuredTitle, 'mb-3']}>{copy.collaboration.title}</h2>
       <p class="mb-0 max-w-[650px] text-copy-muted">{copy.collaboration.description}</p>
     </div>
     <a class:list={[buttonSecondary, 'max-[820px]:col-start-2 max-[820px]:w-fit max-[620px]:col-auto']} href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="collaboration">

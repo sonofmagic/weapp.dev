@@ -1,7 +1,7 @@
 ---
 import { Layers2, Package, ScanLine } from '@lucide/astro'
 import type { Locale } from '../../types/project'
-import { homeSection, shell } from '../../styles/classes'
+import { homeSection, sectionTitle, shell } from '../../styles/classes'
 import { siteCopy } from '../../i18n/ui'
 
 interface Props {
@@ -16,7 +16,7 @@ const stepIcons = [Layers2, ScanLine, Package]
 <section class="border-y border-line bg-panel" id="about">
   <div class:list={[homeSection, shell]}>
     <header data-reveal class="mb-9 max-w-[720px]">
-      <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{copy.about.title}</h2>
+      <h2 class={sectionTitle}>{copy.about.title}</h2>
       <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.about.description}</p>
     </header>
     <ol class="m-0 grid list-none grid-cols-3 gap-0 border-y border-line p-0 max-[720px]:grid-cols-1 max-[720px]:border-b-0">

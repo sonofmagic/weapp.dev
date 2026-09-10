@@ -34,7 +34,7 @@
 
 .home-lab-tabs button {
   padding: 0.45rem 0.9rem;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   cursor: pointer;
   border-radius: 4px;
 }
@@ -180,7 +180,7 @@
   padding: 0.5rem 1.25rem;
   margin: 0;
   overflow: auto;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1.7;
   tab-size: 2;
 }
@@ -190,7 +190,7 @@
   right: 1.25rem;
   bottom: 0.5rem;
   left: 1.25rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   line-height: 1.4;
   color: var(--muted);
 }
@@ -216,7 +216,7 @@
 }
 
 .demo-small-tag {
-  font-size: 0.625rem;
+  font-size: 0.75rem;
 }
 
 .demo-button-stage,
@@ -276,7 +276,7 @@
 .demo-build-command {
   padding: 0.5rem 1.25rem;
   overflow-x: auto;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   white-space: nowrap;
 }
 
@@ -298,7 +298,7 @@
   display: flex;
   gap: 0.6rem;
   align-items: center;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
 }
 
 .demo-composition-heading svg {
@@ -309,7 +309,7 @@
 .demo-composition-input {
   display: grid;
   gap: 0.3rem;
-  font-size: 0.6875rem;
+  font-size: 0.75rem;
   color: var(--muted);
 }
 
@@ -317,7 +317,7 @@
   width: 100%;
   min-width: 0;
   padding: 0.45rem 0.65rem;
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   color: var(--text);
   border: 1px solid var(--border);
   border-radius: 4px;

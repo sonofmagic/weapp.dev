@@ -4,7 +4,7 @@ import type { Locale, ProjectMetrics } from '../../types/project'
 import type { HomeProject } from '../../lib/home-projects'
 import { formatCompactNumber } from '../../lib/metrics'
 import { projectPath, siteCopy } from '../../i18n/ui'
-import { buttonPrimary, buttonSecondary, projectTone } from '../../styles/classes'
+import { buttonPrimary, buttonSecondary, featuredTitle, projectTone } from '../../styles/classes'
 import HomeDemo from './demos/HomeDemo.astro'
 import { demoCopy } from './demos/copy'
 
@@ -33,7 +33,7 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
   </div>
 
   <div data-reveal data-project-copy style={`--reveal-delay: ${80 + index * 60}ms`}>
-    <p class="mb-4 font-mono text-[10px] font-bold text-brand">{String(index + 1).padStart(2, '0')} / {project.stage[locale]}</p>
+    <p class="mb-4 font-mono text-xs font-bold text-brand">{String(index + 1).padStart(2, '0')} / {project.stage[locale]}</p>
     <div class="mb-5 flex items-center gap-3">
       <img class="size-12 object-contain" src={project.data.logo} width="48" height="48" alt="" />
       <span class:list={['inline-flex items-center gap-1.5 font-mono text-xs font-[650]', projectTone]}>
@@ -41,12 +41,12 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
         {copy.projects.status[project.data.status]}
       </span>
     </div>
-    <h3 class="mb-4 text-[38px] font-[680] [overflow-wrap:anywhere] max-[720px]:text-[30px]"><a class="home-project-title-link" href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home_title" data-analytics-project={project.id}>{content.name}</a></h3>
-    <p class="mb-3 text-xl font-[620]">{content.tagline}</p>
+    <h3 class:list={[featuredTitle, 'mb-4 [overflow-wrap:anywhere]']}><a class="home-project-title-link" href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home_title" data-analytics-project={project.id}>{content.name}</a></h3>
+    <p class="mb-3 text-lg font-[620]">{content.tagline}</p>
     <p class="mb-6 max-w-[590px] text-copy-muted">{content.description}</p>
     <dl class="mb-7 grid grid-cols-2 gap-8 border-y border-line py-5">
-      <div><dt class="mb-1 text-xs text-copy-muted">{copy.projects.weeklyDownloads}</dt><dd class="m-0 font-mono text-xl font-[700]">{formatCompactNumber(projectMetrics.weeklyDownloads, numberLocale)}</dd></div>
-      <div><dt class="mb-1 text-xs text-copy-muted">{copy.projects.stars}</dt><dd class="m-0 font-mono text-xl font-[700]">{formatCompactNumber(projectMetrics.stars, numberLocale)}</dd></div>
+      <div><dt class="mb-1 text-xs text-copy-muted">{copy.projects.weeklyDownloads}</dt><dd class="m-0 font-mono text-lg font-[700]">{formatCompactNumber(projectMetrics.weeklyDownloads, numberLocale)}</dd></div>
+      <div><dt class="mb-1 text-xs text-copy-muted">{copy.projects.stars}</dt><dd class="m-0 font-mono text-lg font-[700]">{formatCompactNumber(projectMetrics.stars, numberLocale)}</dd></div>
     </dl>
     <div class="flex flex-wrap items-center gap-3">
       <a class={buttonPrimary} href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="docs" data-analytics-project={project.id}>
