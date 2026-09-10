@@ -42,13 +42,27 @@ export default {
     },
   },
   vision: {
-    eyebrow: '我们的愿景',
-    title: '让小程序工程拥有开放的现代底座',
-    description: '我们希望把样式、构建与组件能力连接成一套开放、可组合、可验证的工程生态。',
+    eyebrow: '边界地图',
+    title: '三层边界，各管一件事',
+    description: '选型时先看清谁负责什么。边界清晰，才能渐进接入，也避免把工具链当成又一个全能框架。',
+    ownsLabel: '负责',
+    notOwnsLabel: '不负责',
     items: [
-      { title: '开放的工具链', body: '每个工具都能独立使用，也能通过清晰边界组合起来。' },
-      { title: '熟悉的开发体验', body: '保留原生小程序、Vue SFC 与跨端框架的写法，降低迁移成本。' },
-      { title: '可验证的交付结果', body: '让构建输出、运行时表现和发布记录都可以被检查与复现。' },
+      {
+        title: '样式 · weapp-tailwindcss',
+        owns: 'Tailwind 类名到小程序可用样式的转换、体积与运行时约束。',
+        notOwns: '页面路由、打包生命周期，或组件源码仓库。',
+      },
+      {
+        title: '构建 · weapp-vite',
+        owns: '依赖、路由、分包与多平台单目标构建生命周期。',
+        notOwns: '样式语义转换，或业务组件的设计与分发。',
+      },
+      {
+        title: '组件 · Varo',
+        owns: '可编辑的双端组件、Blocks 与 Registry 安装约定。',
+        notOwns: '工程脚手架本身，或替代你现有的业务页面写法。',
+      },
     ],
   },
   releases: {

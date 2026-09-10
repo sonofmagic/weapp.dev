@@ -371,8 +371,8 @@
 
   .demo-controls-space,
   .demo-controls {
-    height: 5.5rem;
-    min-height: 5.5rem;
+    height: auto;
+    min-height: 0;
   }
 
   .demo-pane-heading,
@@ -383,7 +383,25 @@
 }
 
 @media (max-width: 620px) {
+  .home-lab-heading {
+    min-height: 2.75rem;
+    padding: 0.4rem 0.75rem;
+  }
+
   .home-lab-project {
+    display: none;
+  }
+
+  .home-lab-tabs button {
+    padding: 0.35rem 0.7rem;
+  }
+
+  .demo-controls {
+    gap: 0.45rem 0.65rem;
+    padding: 0.55rem 0.75rem;
+  }
+
+  .demo-controls-space {
     display: none;
   }
 }

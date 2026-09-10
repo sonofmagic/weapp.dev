@@ -42,13 +42,27 @@ export default {
     },
   },
   vision: {
-    eyebrow: 'Our vision',
-    title: 'An open, modern foundation for mini-app engineering',
-    description: 'We want to connect styling, builds, and components into an open, composable, and verifiable engineering ecosystem.',
+    eyebrow: 'Boundary map',
+    title: 'Three layers. One job each.',
+    description: 'Know who owns what before you adopt. Clear boundaries make progressive adoption possible and keep this from becoming another all-in-one framework.',
+    ownsLabel: 'Owns',
+    notOwnsLabel: 'Does not own',
     items: [
-      { title: 'Open tooling', body: 'Each tool works independently, then composes through clear boundaries when you need the full stack.' },
-      { title: 'Familiar development', body: 'Keep native mini-app syntax, Vue SFC, and cross-platform workflows while lowering migration cost.' },
-      { title: 'Verifiable delivery', body: 'Make build output, runtime behavior, and release records inspectable and reproducible.' },
+      {
+        title: 'Style · weapp-tailwindcss',
+        owns: 'Turning Tailwind classes into mini-app-ready styles under size and runtime constraints.',
+        notOwns: 'Routing, bundling lifecycles, or component source distribution.',
+      },
+      {
+        title: 'Build · weapp-vite',
+        owns: 'Dependencies, routes, subpackages, and single-target multi-platform build lifecycles.',
+        notOwns: 'Style semantics, or designing and shipping business components.',
+      },
+      {
+        title: 'Components · Varo',
+        owns: 'Editable dual-runtime components, Blocks, and Registry install conventions.',
+        notOwns: 'The project scaffold itself, or replacing how you write business pages.',
+      },
     ],
   },
   releases: {

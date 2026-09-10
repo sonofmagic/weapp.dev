@@ -10,7 +10,7 @@ export const siteCopy = {
     nav: {
       projects: '项目',
       about: '关于',
-      vision: '愿景',
+      vision: '边界',
       releases: '版本',
       pricing: '交付与赞助',
       github: 'GitHub',
@@ -247,7 +247,7 @@ export const siteCopy = {
     nav: {
       projects: 'Projects',
       about: 'About',
-      vision: 'Vision',
+      vision: 'Boundaries',
       releases: 'Releases',
       pricing: 'Delivery & support',
       github: 'GitHub',

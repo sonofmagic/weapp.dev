@@ -1,5 +1,4 @@
 ---
-import { BadgeCheck, Layers2, ShieldCheck } from '@lucide/astro'
 import type { Locale } from '../../types/project'
 import { homeSection, sectionTitle, shell } from '../../styles/classes'
 import { siteCopy } from '../../i18n/ui'
@@ -10,27 +9,33 @@ interface Props {
 
 const { locale } = Astro.props
 const copy = siteCopy[locale]
-const principleIcons = [Layers2, ShieldCheck, BadgeCheck]
 ---
 
 <section class="border-y border-line bg-panel-soft" id="vision">
   <span id="principles" class="sr-only" aria-hidden="true"></span>
-  <div class:list={[homeSection, shell, 'grid grid-cols-[.72fr_1.28fr] gap-12 max-[900px]:grid-cols-1 max-[900px]:gap-8']}>
-    <header data-reveal class="max-w-[470px]">
+  <div class:list={[homeSection, shell]}>
+    <header data-reveal class="mb-9 max-w-[720px]">
+      <p class="mb-3 font-mono text-xs font-[650] text-brand">{copy.vision.eyebrow}</p>
       <h2 class={sectionTitle}>{copy.vision.title}</h2>
       <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.vision.description}</p>
     </header>
-    <div class="grid grid-cols-2 gap-px overflow-hidden rounded-panel border border-line bg-line max-[620px]:grid-cols-1">
-      {copy.vision.items.map((item, index) => {
-        const Icon = principleIcons[index]
-        return (
-          <article data-reveal data-principle-card style={`--reveal-delay: ${index * 70}ms`} class:list={['bg-panel p-6', index === 0 ? 'row-span-2 min-h-[280px] max-[620px]:row-auto max-[620px]:min-h-0' : 'min-h-[140px]']}>
-            <Icon class="mb-6 text-brand" size={25} stroke-width={1.6} aria-hidden="true" />
-            <h3 class="mb-2 text-2xl font-[650]">{item.title}</h3>
-            <p class="mb-0 text-sm leading-[1.7] text-copy-muted">{item.body}</p>
-          </article>
-        )
-      })}
+    <div class="grid grid-cols-3 gap-px overflow-hidden rounded-panel border border-line bg-line max-[900px]:grid-cols-1">
+      {copy.vision.items.map((item, index) => (
+        <article data-reveal data-principle-card style={`--reveal-delay: ${index * 70}ms`} class="bg-panel p-6 max-[900px]:p-5">
+          <p class="mb-4 font-mono text-xs font-[650] text-brand">{String(index + 1).padStart(2, '0')}</p>
+          <h3 class="mb-5 text-xl font-[650]">{item.title}</h3>
+          <dl class="m-0 grid gap-4">
+            <div>
+              <dt class="mb-1 font-mono text-xs font-[650] text-copy-muted">{copy.vision.ownsLabel}</dt>
+              <dd class="m-0 text-sm leading-[1.7] text-ink">{item.owns}</dd>
+            </div>
+            <div>
+              <dt class="mb-1 font-mono text-xs font-[650] text-copy-muted">{copy.vision.notOwnsLabel}</dt>
+              <dd class="m-0 text-sm leading-[1.7] text-copy-muted">{item.notOwns}</dd>
+            </div>
+          </dl>
+        </article>
+      ))}
     </div>
   </div>
 </section>
