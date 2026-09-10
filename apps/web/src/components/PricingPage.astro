@@ -31,7 +31,7 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
             {pricing.ctaAction}
           </a>
           <a class={buttonSecondary} href={`${localizePath(locale)}#projects`} data-analytics-event="navigate_section" data-analytics-section="pricing_projects">
-            {locale === 'zh-CN' ? '先看开源项目' : 'Explore open source'}
+            {pricing.exploreOpenSource}
             <ArrowRight size={17} stroke-width={1.9} aria-hidden="true" />
           </a>
         </div>
@@ -45,8 +45,8 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
 
   <section class:list={[section, shell]} id="plans">
     <header data-reveal class="mb-12 max-w-[700px]">
-      <p class="mb-3 font-mono text-xs font-[650] text-brand">01 / {locale === 'zh-CN' ? '产品货架' : 'PRODUCT SHELF'}</p>
-      <h2 class={sectionTitle}>{locale === 'zh-CN' ? '从一次试用，到一套可复现的交付' : 'From one trial to a reproducible delivery path'}</h2>
+      <p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.shelfKicker}</p>
+      <h2 class={sectionTitle}>{pricing.shelfTitle}</h2>
     </header>
     <div class="pricing-plan-grid">
       {pricing.plans.map((plan, index) => {
@@ -55,7 +55,7 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
           <article data-reveal class:list={['pricing-plan', plan.featured ? 'pricing-plan-featured' : '']} style={`--reveal-delay: ${index * 60}ms`}>
             <div class="mb-8 flex items-center justify-between">
               <Icon class="text-brand" size={24} stroke-width={1.7} aria-hidden="true" />
-              <span class:list={['pricing-plan-badge', plan.status === 'planned' ? 'pricing-plan-status-planned' : '']}>{plan.status === 'planned' ? (locale === 'zh-CN' ? '规划中' : 'PLANNED') : (locale === 'zh-CN' ? '现在可用' : 'AVAILABLE')}</span>
+              <span class:list={['pricing-plan-badge', plan.status === 'planned' ? 'pricing-plan-status-planned' : '']}>{plan.status === 'planned' ? pricing.planPlanned : pricing.planAvailable}</span>
             </div>
             <h3 class="mb-2 text-2xl font-[680]">{plan.name}</h3>
             <p class="mb-6 min-h-12 text-sm leading-[1.65] text-copy-muted">{plan.description}</p>
@@ -79,7 +79,7 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
   <section class="border-y border-line bg-panel-soft" id="sponsor">
     <div class:list={[section, shell]}>
       <header data-reveal class="mb-12 max-w-[720px]">
-        <p class="mb-3 font-mono text-xs font-[650] text-brand">01A / {locale === 'zh-CN' ? '开源赞助' : 'OPEN-SOURCE SPONSORSHIP'}</p>
+        <p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.sponsorKicker}</p>
         <h2 class={sectionTitle}>{pricing.sponsorTitle}</h2>
         <p class="mb-0 max-w-[650px] text-lg text-copy-muted max-[720px]:text-base">{pricing.sponsorDescription}</p>
       </header>
@@ -99,7 +99,7 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
         ))}
       </div>
       <div data-reveal class="pricing-sponsor-allocation">
-        <p class="mb-2 font-[650]">{locale === 'zh-CN' ? '资金去向' : 'Where it goes'}</p>
+        <p class="mb-2 font-[650]">{pricing.allocationHeading}</p>
         <p class="mb-6 max-w-[760px] text-sm leading-[1.7] text-copy-muted">{pricing.sponsorAllocation}</p>
         <div class="pricing-allocation-grid">
           {pricing.sponsorAllocationBuckets.map(bucket => (
@@ -140,7 +140,7 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
   <section class="border-y border-line bg-panel-soft" id="roadmap">
     <div class:list={[section, shell]}>
       <header data-reveal class="mb-12 max-w-[700px]">
-        <p class="mb-3 font-mono text-xs font-[650] text-brand">02 / {locale === 'zh-CN' ? '建设中的能力' : 'ROADMAP'}</p>
+        <p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.roadmapKicker}</p>
         <h2 class={sectionTitle}>{pricing.roadmapTitle}</h2>
         <p class="mb-4 text-lg text-copy-muted max-[720px]:text-base">{pricing.roadmapDescription}</p>
         <h3 class="mb-3 text-xl font-[660]">{pricing.templatesTitle}</h3>
@@ -164,7 +164,7 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
   <section class:list={[section, shell]} id="cloud-build">
     <div class="grid grid-cols-[.76fr_1.24fr] gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10">
       <header data-reveal class="max-w-[470px]">
-        <p class="mb-3 font-mono text-xs font-[650] text-brand">03 / {locale === 'zh-CN' ? '云构建' : 'CLOUD BUILDS'}</p>
+        <p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.buildKicker}</p>
         <h2 class={sectionTitle}>{pricing.buildTitle}</h2>
         <p class="mb-0 text-copy-muted">{pricing.buildDescription}</p>
       </header>
@@ -182,7 +182,7 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
   <section class="border-y border-line bg-panel" id="services">
     <div class:list={[section, shell]}>
       <header data-reveal class="mb-12 max-w-[700px]">
-        <p class="mb-3 font-mono text-xs font-[650] text-brand">04 / {locale === 'zh-CN' ? '实施服务' : 'SERVICES'}</p>
+        <p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.servicesKicker}</p>
         <h2 class={sectionTitle}>{pricing.servicesTitle}</h2>
       </header>
       <div class="pricing-service-list">
@@ -194,29 +194,29 @@ const planIcons = [Layers2, Cloud, LockKeyhole, ShieldCheck]
           </article>
         ))}
       </div>
-      <p class="mt-7 mb-0 max-w-[720px] text-xs leading-[1.7] text-copy-muted">{locale === 'zh-CN' ? '服务只围绕工具链交付，不承接与产品无关的业务外包。服务收入连续两个月超过总收入 50% 时，将停止接收新单。' : 'Services stay tied to the toolchain and do not become unrelated product outsourcing. New work pauses if services exceed 50% of total revenue for two consecutive months.'}</p>
+      <p class="mt-7 mb-0 max-w-[720px] text-xs leading-[1.7] text-copy-muted">{pricing.servicesFootnote}</p>
     </div>
   </section>
 
   <section class:list={[section, shell]} id="support">
     <div class="grid grid-cols-[.72fr_1.28fr] gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10">
-      <header data-reveal class="max-w-[470px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">05 / {locale === 'zh-CN' ? '支持边界' : 'SUPPORT'}</p><h2 class={sectionTitle}>{pricing.slaTitle}</h2></header>
+      <header data-reveal class="max-w-[470px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.slaKicker}</p><h2 class={sectionTitle}>{pricing.slaTitle}</h2></header>
       <div data-reveal class="overflow-x-auto border-t border-line">
-        <table class="pricing-sla-table w-full border-collapse text-left text-sm"><thead><tr><th>{locale === 'zh-CN' ? '层级' : 'Tier'}</th><th>{locale === 'zh-CN' ? '渠道' : 'Channel'}</th><th>{locale === 'zh-CN' ? '响应' : 'Response'}</th></tr></thead><tbody>{pricing.slaRows.map(row => <tr><th scope="row">{row.name}</th><td>{row.channel}</td><td>{row.response}</td></tr>)}</tbody></table>
+        <table class="pricing-sla-table w-full border-collapse text-left text-sm"><thead><tr><th>{pricing.slaTier}</th><th>{pricing.slaChannel}</th><th>{pricing.slaResponse}</th></tr></thead><tbody>{pricing.slaRows.map(row => <tr><th scope="row">{row.name}</th><td>{row.channel}</td><td>{row.response}</td></tr>)}</tbody></table>
       </div>
     </div>
   </section>
 
   <section class="border-y border-line bg-panel-soft" id="boundary">
     <div class:list={[section, shell]}>
-      <header data-reveal class="mb-12 max-w-[700px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">06 / {locale === 'zh-CN' ? '开源边界' : 'OPEN-SOURCE BOUNDARY'}</p><h2 class={sectionTitle}>{pricing.boundaryTitle}</h2></header>
+      <header data-reveal class="mb-12 max-w-[700px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.boundaryKicker}</p><h2 class={sectionTitle}>{pricing.boundaryTitle}</h2></header>
       <div class="pricing-boundary-grid">{pricing.boundary.map((item, index) => <article data-reveal style={`--reveal-delay: ${index * 70}ms`}><span class="pricing-boundary-mark" aria-hidden="true">{index === 0 ? '+' : index === 1 ? '$' : 'x'}</span><h3 class="mb-2 text-xl font-[660]">{item.label}</h3><p class="mb-0 text-sm leading-[1.7] text-copy-muted">{item.body}</p></article>)}</div>
     </div>
   </section>
 
   <section class:list={[section, shell]} id="faq">
     <div class="grid grid-cols-[.72fr_1.28fr] gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10">
-      <header data-reveal class="max-w-[470px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">07 / FAQ</p><h2 class={sectionTitle}>{pricing.faqTitle}</h2></header>
+      <header data-reveal class="max-w-[470px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.faqKicker}</p><h2 class={sectionTitle}>{pricing.faqTitle}</h2></header>
       <div data-reveal class="border-t border-line">{pricing.faq.map(item => <details class="border-b border-line py-5"><summary class="cursor-pointer list-none pr-8 text-lg font-[650] [&::-webkit-details-marker]:hidden">{item.question}</summary><p class="mt-3 mb-0 max-w-[650px] text-sm leading-[1.7] text-copy-muted">{item.answer}</p></details>)}</div>
     </div>
   </section>
