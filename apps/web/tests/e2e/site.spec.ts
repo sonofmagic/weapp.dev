@@ -67,21 +67,15 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
     { href: 'https://vite.weapp.dev/', target: '_blank', rel: 'noreferrer' },
     { href: 'https://github.com/daguanren21/Varo#readme', target: '_blank', rel: 'noreferrer' },
   ])
-  await expect(page.locator('.home-project-demo-link').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
-    'https://tw.weapp.dev/',
-    'https://vite.weapp.dev/',
-    'https://github.com/daguanren21/Varo#readme',
-  ])
-  await expect(page.locator('.home-project-title-link').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
-    'https://tw.weapp.dev/',
-    'https://vite.weapp.dev/',
-    'https://github.com/daguanren21/Varo#readme',
-  ])
+  await expect(page.locator('.home-project-proof')).toHaveCount(3)
+  await expect(page.locator('#projects .home-lab')).toHaveCount(0)
+  await expect(page.locator('.home-hero .home-lab')).toHaveCount(1)
   await expect(page.locator('#projects a[data-analytics-event="select_project"]').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     '/projects/weapp-tailwindcss/',
     '/projects/weapp-vite/',
     '/projects/varo/',
   ])
+  await expect(page.locator('#projects a[data-analytics-event="click_outbound"][data-analytics-target="docs"]')).toHaveCount(3)
 
   await page.getByRole('link', { name: 'English' }).click()
   await expect(page).toHaveURL(/\/en\/$/)
@@ -196,7 +190,7 @@ test('reduced motion keeps content visible and product interactions stationary',
     return style.opacity !== '1' || style.transform !== 'none' || style.animationName !== 'none' || style.transitionDuration !== '0s'
   }).map(element => element.tagName))
   expect(await movingOrHidden()).toEqual([])
-  for (const link of await page.locator('.home-project-demo-link').all()) {
+  for (const link of await page.locator('#projects a[data-analytics-target="docs"]').all()) {
     await link.hover()
     expect(await movingOrHidden()).toEqual([])
     await link.focus()

@@ -1,12 +1,11 @@
 ---
-import { ArrowRight, ArrowUpRight, BadgeCheck, BookOpen } from '@lucide/astro'
+import { ArrowRight, BadgeCheck, BookOpen } from '@lucide/astro'
 import type { Locale, ProjectMetrics } from '../../types/project'
 import type { HomeProject } from '../../lib/home-projects'
 import { formatCompactNumber } from '../../lib/metrics'
 import { projectPath, siteCopy } from '../../i18n/ui'
 import { buttonPrimary, buttonSecondary, featuredTitle, projectTone } from '../../styles/classes'
-import HomeDemo from './demos/HomeDemo.astro'
-import { demoCopy } from './demos/copy'
+import HomeProjectProof from './HomeProjectProof.astro'
 
 interface Props {
   locale: Locale
@@ -22,14 +21,8 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
 ---
 
 <article data-project-row class:list={['home-project-row', { 'home-project-row-reversed': project.reversed }]} style={`--project-accent: ${project.data.accent}`}>
-  <div class="home-project-demo">
-    <div class="home-demo-heading">
-      <span>{content.name}</span>
-      <a class="home-project-demo-link" href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home_visual" data-analytics-project={project.id} aria-label={locale === 'zh-CN' ? `打开 ${content.name} 官方站点` : `Open ${content.name} official site`}>
-        {demoCopy[locale].official}<ArrowUpRight size={16} aria-hidden="true" />
-      </a>
-    </div>
-    <div class="home-lab"><HomeDemo kind={project.demo} locale={locale} instance={`project-${project.id}`} /></div>
+  <div class="home-project-proof-slot">
+    <HomeProjectProof kind={project.demo} locale={locale} projectName={content.name} />
   </div>
 
   <div data-reveal data-project-copy style={`--reveal-delay: ${80 + index * 60}ms`}>
@@ -41,7 +34,7 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
         {copy.projects.status[project.data.status]}
       </span>
     </div>
-    <h3 class:list={[featuredTitle, 'mb-4 [overflow-wrap:anywhere]']}><a class="home-project-title-link" href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home_title" data-analytics-project={project.id}>{content.name}</a></h3>
+    <h3 class:list={[featuredTitle, 'mb-4 [overflow-wrap:anywhere]']}>{content.name}</h3>
     <p class="mb-3 text-lg font-[620]">{content.tagline}</p>
     <p class="mb-6 max-w-[590px] text-copy-muted">{content.description}</p>
     <dl class="mb-7 grid grid-cols-2 gap-8 border-y border-line py-5">

@@ -1,0 +1,50 @@
+---
+import type { Locale } from '../../types/project'
+import type { HomeDemoKind } from '../../lib/home-projects'
+import { siteCopy } from '../../i18n/ui'
+import { defaultStyle, styleCode } from './demos/style'
+import { buildExample } from './demos/build'
+import { registryCode } from './demos/registry'
+import type { CodePart } from './demos/code'
+import CodePanel from './demos/CodePanel.astro'
+import './demos/demo.css'
+
+interface Props {
+  kind: HomeDemoKind
+  locale: Locale
+  projectName: string
+}
+
+const { kind, locale, projectName } = Astro.props
+const proof = siteCopy[locale].projects.proof
+const build = buildExample(0)
+
+const artifacts: Record<HomeDemoKind, { label: string, file: string, parts: CodePart[], command?: string }> = {
+  style: {
+    label: proof.styleLabel,
+    file: proof.styleFile,
+    parts: styleCode(defaultStyle, locale === 'zh-CN' ? '开始构建' : 'Start building'),
+  },
+  build: {
+    label: proof.buildLabel,
+    file: proof.buildFile,
+    parts: build.parts,
+    command: build.command,
+  },
+  registry: {
+    label: proof.registryLabel,
+    file: proof.registryFile,
+    parts: registryCode(['button', 'input', 'card']),
+  },
+}
+
+const artifact = artifacts[kind]
+---
+
+<aside class="home-project-proof" aria-label={`${projectName} · ${artifact.label}`}>
+  <div class="home-project-proof-heading">
+    <span class="home-project-proof-label">{artifact.label}</span>
+  </div>
+  {artifact.command ? <p class="home-project-proof-command"><code>{artifact.command}</code></p> : null}
+  <CodePanel parts={artifact.parts} locale={locale} filename={artifact.file} />
+</aside>

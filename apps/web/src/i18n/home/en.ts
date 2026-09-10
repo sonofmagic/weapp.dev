@@ -30,6 +30,14 @@ export default {
       beta: 'Beta',
       planned: 'Planned',
     },
+    proof: {
+      styleLabel: 'Default style markup',
+      styleFile: 'button.wxml',
+      buildLabel: 'Single-target build',
+      buildFile: 'vite.config.ts',
+      registryLabel: 'Install command',
+      registryFile: 'terminal',
+    },
   },
   vision: {
     eyebrow: 'Our vision',

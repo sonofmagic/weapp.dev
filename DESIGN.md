@@ -278,11 +278,11 @@ Sparse on the marketing site. When present (demo controls, analytics dialog togg
 
 ### Signature: Project proof row
 
-Homepage and related proof surfaces pair editorial copy with a live demo stage under a shared `--project-accent`. Titles may underline in the accent on hover; demos remain functional without client JS for their default state.
+Homepage project rows pair editorial copy with a static proof card (default markup, single-target build command, or install command) under a shared `--project-accent`. Interactive labs live only in the hero; project rows escalate with a sharper artifact. Each row exposes one primary docs CTA and one secondary details CTA.
 
 ### Signature: Interactive demos
 
-Style / Build / Registry demos use an `8px` framed stage, mono headings, and tighter `4px` inner controls. They demonstrate toolchain behavior; they are not decorative hero illustration.
+Style / Build / Registry demos use an `8px` framed stage, mono headings, and tighter `4px` inner controls. They demonstrate toolchain behavior in the hero only; they are not decorative illustration and are not repeated in project rows.
 
 ## Do's and Don'ts
 

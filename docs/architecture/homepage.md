@@ -9,7 +9,8 @@
 - `content/home-projects.ts` 显式指定项目顺序、演示类型、反向布局和双语阶段标签。新增目录项目不会自动进入首页。
 - `lib/home-projects.ts` 是纯组装器，只关联目录与首页选品，校验未知项目和重复选品。首页不再要求 showcase 图片。
 - `components/home/demos/` 的 Style、Build、Registry 分别拥有视图、局部状态及预设；`HomeDemo` 只按受限类型选择组件。
-- `HeroDemos` 只拥有标签选择和键盘导航；Hero 与项目区复用演示实现，每个实例的状态和表单名称独立。
+- `HeroDemos` 只拥有标签选择和键盘导航；**交互演示只出现在 Hero**。项目行使用 `HomeProjectProof` 展示更尖的静态产物（默认写法 / 构建命令 / 接入命令），避免重复演同一套 labs。
+- 项目行 CTA 只保留主入口「阅读文档」与次入口「项目详情」；标题不再外链，避免同一意图多扇门。
 - `CodePanel` 共享代码显示、复制与错误反馈；代码通过结构化文本片段生成，客户端使用 DOM textContent，避免 HTML 注入。
 - `demo.css` 只负责演示内部布局、容器断点与操作后的颜色过渡；`copy.ts` 维护演示双语文案。不要把演示状态或样式放进全局脚本。
 - 项目 JSON 继续拥有状态、链接、metrics 输入和详情页 `primary/secondary` 图片。历史 showcase collection、图片和采集命令保留，首页不再读取它们。
@@ -19,8 +20,10 @@ flowchart LR
   P[项目目录] --> D[详情页 / Header / Footer]
   P --> H[首页数据组合]
   E[首页选品配置] --> H
-  H --> R[Hero / 项目展示区]
+  H --> R[Hero 交互演示]
+  H --> P2[项目行静态证明]
   S[演示预设与双语文案] --> C[独立演示组件]
+  S --> P2
   C --> R
 ```
 

@@ -30,6 +30,14 @@ export default {
       beta: '测试版',
       planned: '规划中',
     },
+    proof: {
+      styleLabel: '默认样式写法',
+      styleFile: 'button.wxml',
+      buildLabel: '单目标构建',
+      buildFile: 'vite.config.ts',
+      registryLabel: '接入命令',
+      registryFile: 'terminal',
+    },
   },
   vision: {
     eyebrow: '我们的愿景',
