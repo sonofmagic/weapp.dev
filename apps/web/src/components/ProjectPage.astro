@@ -39,7 +39,12 @@ const publicMetrics = showsPublicMetrics(project.data.status)
       </div>
       <h1 class="mb-5 font-display text-[clamp(2.125rem,5.4vw,4.5rem)] font-[700] [overflow-wrap:anywhere]">{content.name}</h1>
       <p class="mb-3 text-2xl font-[620] leading-[1.35] max-[720px]:text-xl">{content.tagline}</p>
-      <p class="mb-8 max-w-[630px] text-lg leading-[1.7] text-copy-muted">{content.description}</p>
+      <p class="mb-6 max-w-[630px] text-lg leading-[1.7] text-copy-muted">{content.description}</p>
+      {project.id === 'vite-plugin-taro' ? (
+        <p class="mb-6 max-w-[630px] rounded-[6px] border border-line bg-panel-soft px-4 py-3 font-mono text-xs leading-[1.6] text-copy-muted" data-project-adjacent>
+          {copy.project.adjacentNote}
+        </p>
+      ) : null}
       <div class="flex flex-wrap items-center gap-3">
         <a class={buttonPrimary} href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="docs" data-analytics-project={project.id}>
           <BookOpen size={18} stroke-width={1.9} aria-hidden="true" />
@@ -49,8 +54,8 @@ const publicMetrics = showsPublicMetrics(project.data.status)
           <GitFork size={18} stroke-width={1.9} aria-hidden="true" />
           {copy.project.source}
         </a>
-        <a class={buttonSecondary} href={project.data.npmUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="package" data-analytics-project={project.id}>
-          <Package size={18} stroke-width={1.9} aria-hidden="true" />
+        <a class="inline-flex min-h-11 items-center gap-2 px-2 text-sm font-[650] text-copy-muted transition-colors hover:text-ink" href={project.data.npmUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="package" data-analytics-project={project.id}>
+          <Package size={17} stroke-width={1.8} aria-hidden="true" />
           {copy.project.npm}
         </a>
       </div>
