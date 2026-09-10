@@ -1,7 +1,7 @@
 ---
 import { Layers2, Package, ScanLine } from '@lucide/astro'
 import type { Locale } from '../../types/project'
-import { section, shell } from '../../styles/classes'
+import { homeSection, shell } from '../../styles/classes'
 import { siteCopy } from '../../i18n/ui'
 
 interface Props {
@@ -14,8 +14,8 @@ const stepIcons = [Layers2, ScanLine, Package]
 ---
 
 <section class="border-y border-line bg-panel" id="about">
-  <div class:list={[section, shell]}>
-    <header data-reveal class="mb-12 max-w-[720px]">
+  <div class:list={[homeSection, shell]}>
+    <header data-reveal class="mb-9 max-w-[720px]">
       <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{copy.about.title}</h2>
       <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.about.description}</p>
     </header>
@@ -23,8 +23,8 @@ const stepIcons = [Layers2, ScanLine, Package]
       {copy.about.items.map((item, index) => {
         const Icon = stepIcons[index]
         return (
-          <li data-reveal style={`--reveal-delay: ${index * 70}ms`} class="relative min-h-[230px] border-r border-line px-7 py-8 last:border-r-0 max-[720px]:min-h-0 max-[720px]:border-r-0 max-[720px]:border-b max-[720px]:px-0">
-            <div class="mb-10 flex items-center justify-between">
+          <li data-reveal style={`--reveal-delay: ${index * 70}ms`} class="relative min-h-[200px] border-r border-line px-7 py-6 last:border-r-0 max-[720px]:min-h-0 max-[720px]:border-r-0 max-[720px]:border-b max-[720px]:px-0">
+            <div class="mb-7 flex items-center justify-between">
               <Icon class="text-brand" size={25} stroke-width={1.65} aria-hidden="true" />
             </div>
             <h3 class="mb-3 text-2xl font-[660]">{item.title}</h3>

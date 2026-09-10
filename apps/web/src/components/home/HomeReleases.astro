@@ -3,7 +3,7 @@ import { ArrowUpRight } from '@lucide/astro'
 import type { Locale, ProjectMetricsMap } from '../../types/project'
 import type { ProjectEntry } from '../../lib/projects'
 import { formatReleaseDate } from '../../lib/metrics'
-import { iconControl, section, shell } from '../../styles/classes'
+import { homeSection, iconControl, shell } from '../../styles/classes'
 import { siteCopy } from '../../i18n/ui'
 
 interface Props {
@@ -17,8 +17,8 @@ const copy = siteCopy[locale]
 const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
 ---
 
-<section class:list={[section, shell]} id="releases">
-  <div class="grid grid-cols-[.75fr_1.25fr] gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10">
+<section class:list={[homeSection, shell]} id="releases">
+  <div class="grid grid-cols-[.75fr_1.25fr] gap-12 max-[900px]:grid-cols-1 max-[900px]:gap-8">
     <header data-reveal class="max-w-[470px]">
       <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{copy.releases.title}</h2>
       <p class="mb-0 text-copy-muted">{copy.releases.description}</p>
@@ -27,7 +27,7 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
       {projects.map(project => {
         const projectMetrics = metrics[project.id]
         return (
-          <article class="grid min-h-[112px] grid-cols-[48px_1fr_auto_42px] items-center gap-4 border-b border-line max-[520px]:grid-cols-[42px_1fr_auto]">
+          <article class="grid min-h-[96px] grid-cols-[48px_1fr_auto_42px] items-center gap-4 border-b border-line max-[520px]:grid-cols-[42px_1fr_auto]">
             <img class="size-11 object-contain max-[520px]:size-9" src={project.data.logo} width="44" height="44" alt="" />
             <div>
               <h3 class="mb-1 text-base font-[650]">{project.data.locales[locale].name}</h3>

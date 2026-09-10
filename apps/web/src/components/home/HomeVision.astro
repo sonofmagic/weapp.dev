@@ -1,7 +1,7 @@
 ---
 import { BadgeCheck, Layers2, ShieldCheck } from '@lucide/astro'
 import type { Locale } from '../../types/project'
-import { section, shell } from '../../styles/classes'
+import { homeSection, shell } from '../../styles/classes'
 import { siteCopy } from '../../i18n/ui'
 
 interface Props {
@@ -15,7 +15,7 @@ const principleIcons = [Layers2, ShieldCheck, BadgeCheck]
 
 <section class="border-y border-line bg-panel-soft" id="vision">
   <span id="principles" class="sr-only" aria-hidden="true"></span>
-  <div class:list={[section, shell, 'grid grid-cols-[.72fr_1.28fr] gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10']}>
+  <div class:list={[homeSection, shell, 'grid grid-cols-[.72fr_1.28fr] gap-12 max-[900px]:grid-cols-1 max-[900px]:gap-8']}>
     <header data-reveal class="max-w-[470px]">
       <h2 class="mb-4 text-[44px] font-[680] max-[720px]:text-[34px]">{copy.vision.title}</h2>
       <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.vision.description}</p>
@@ -24,8 +24,8 @@ const principleIcons = [Layers2, ShieldCheck, BadgeCheck]
       {copy.vision.items.map((item, index) => {
         const Icon = principleIcons[index]
         return (
-          <article data-reveal data-principle-card style={`--reveal-delay: ${index * 70}ms`} class:list={['bg-panel p-7', index === 0 ? 'row-span-2 min-h-[330px] max-[620px]:row-auto max-[620px]:min-h-0' : 'min-h-[164px]']}>
-            <Icon class="mb-8 text-brand" size={25} stroke-width={1.6} aria-hidden="true" />
+          <article data-reveal data-principle-card style={`--reveal-delay: ${index * 70}ms`} class:list={['bg-panel p-6', index === 0 ? 'row-span-2 min-h-[280px] max-[620px]:row-auto max-[620px]:min-h-0' : 'min-h-[140px]']}>
+            <Icon class="mb-6 text-brand" size={25} stroke-width={1.6} aria-hidden="true" />
             <h3 class="mb-2 text-xl font-[650]">{item.title}</h3>
             <p class="mb-0 text-sm leading-[1.7] text-copy-muted">{item.body}</p>
           </article>

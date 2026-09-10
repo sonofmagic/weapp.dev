@@ -16,6 +16,9 @@ export const iconControl = 'inline-grid size-10 shrink-0 cursor-pointer place-it
 
 export const section = 'py-28 max-[720px]:py-20'
 
+/** Tighter vertical rhythm for the homepage proof arc only. */
+export const homeSection = 'py-20 max-[720px]:py-14'
+
 export const sectionHeading = 'mb-12 max-w-[720px] max-[720px]:mb-9'
 
 export const compactSectionHeading = 'mb-10 max-w-[620px] max-[720px]:mb-8'

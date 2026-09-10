@@ -6,9 +6,9 @@
 .home-hero-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 2.5rem;
-  padding-top: 2.5rem;
-  padding-bottom: 2rem;
+  gap: 2rem;
+  padding-top: 2rem;
+  padding-bottom: 1.5rem;
 }
 
 .home-hero-copy {
@@ -57,9 +57,9 @@
 .home-project-row {
   display: grid;
   grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-  gap: 3.5rem;
+  gap: 2.25rem;
   align-items: center;
-  padding-top: 3.5rem;
+  padding-top: 2.25rem;
   border-top: 1px solid var(--border);
 }
 
