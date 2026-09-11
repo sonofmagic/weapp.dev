@@ -369,10 +369,11 @@
     display: none;
   }
 
+  /* Keep a fixed control band so Style/Build/Registry tabs do not resize the hero. */
   .demo-controls-space,
   .demo-controls {
-    height: auto;
-    min-height: 0;
+    height: 5.5rem;
+    min-height: 5.5rem;
   }
 
   .demo-pane-heading,
@@ -394,12 +395,6 @@
 
   .home-lab-tabs button {
     padding: 0.35rem 0.7rem;
-  }
-
-  .demo-controls-space,
-  .demo-controls {
-    height: auto;
-    min-height: 0;
   }
 
   .demo-controls {
