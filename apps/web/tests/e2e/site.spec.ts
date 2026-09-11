@@ -1,19 +1,18 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
-import { demoCopy } from '../../src/components/home/demos/copy'
 import { siteCopy } from '../../src/i18n/ui'
 
 const retiredVisuals = 'canvas, [data-shader-canvas], [data-shader], [data-shader-frame], [data-webgl-fallback], [data-art], .project-art, [class^="art-"], [class*=" art-"]'
 
-async function expectHomeVisuals(page: import('@playwright/test').Page, locale: 'zh-CN' | 'en') {
+async function expectHomeVisuals(page: import('@playwright/test').Page, _locale: 'zh-CN' | 'en') {
   await expect(page.locator('.home-hero-stage img, #projects picture')).toHaveCount(0)
   await expect(page.locator(retiredVisuals)).toHaveCount(0)
   await expect(page.locator('hero-demos [role="tabpanel"]:visible')).toHaveCount(1)
-  await expect(page.locator('hero-demos [data-demo="style"]')).toBeVisible()
-  await expect(page.locator('#projects [data-demo]')).toHaveCount(3)
-  await expect(page.locator('#projects [data-demo="style"]')).toContainText(demoCopy[locale].button)
-  await expect(page.locator('#projects [data-demo="build"]')).toContainText(demoCopy[locale].output)
-  await expect(page.locator('#projects [data-demo="registry"]')).toContainText(demoCopy[locale].registryNote)
+  await expect(page.locator('hero-demos')).toBeVisible()
+  await expect(page.locator('#projects .home-lab')).toHaveCount(0)
+  await expect(page.locator('#projects .home-project-proof')).toHaveCount(3)
+  await expect(page.locator('#projects .home-project-proof-command')).toContainText('pnpm exec wv build -p weapp')
+  await expect(page.locator('#projects').getByText('@varo-ui/cli')).toBeVisible()
   const images = await page.evaluate(() => performance.getEntriesByType('resource').map(entry => entry.name).filter(url => /\/media\/(?:showcase|projects)\//.test(url)))
   expect(images).toEqual([])
 }
@@ -146,7 +145,7 @@ test('renders the bilingual contributor program', async ({ page }) => {
 
 test('home commercial entry points reach pricing and services', async ({ page }) => {
   await page.goto('/')
-  await expect(page.locator('#commercial')).toContainText('赞助开源')
+  await expect(page.locator('#commercial')).toContainText('赞助与分账')
   await page.getByRole('link', { name: '支持开源' }).click()
   await expect(page).toHaveURL(/\/pricing\/#sponsor$/)
   await page.goto('/')
