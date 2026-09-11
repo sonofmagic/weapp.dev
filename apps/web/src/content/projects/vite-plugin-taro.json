@@ -63,8 +63,8 @@
   "locales": {
     "zh-CN": {
       "name": "VPT",
-      "tagline": "用 Vite 和 React 开发小程序与 Web 应用",
-      "description": "基于 Vite 8、React 19 和 Taro 4，使用一份代码构建微信小程序、支付宝小程序与 Web 应用，提供保留状态的热更新、全自动分包和开箱即用的 Tailwind CSS v4。",
+      "tagline": "给 Taro 接上 Vite",
+      "description": "在 Taro 项目里用 Vite 做开发与构建，而不是老的 webpack 链路。它是邻接项目，不是首页那三层之一。",
       "audience": "希望复用 React 与 Taro 组件和 API，并使用现代 Vite 工具链开发微信、支付宝小程序与 Web 应用的前端团队。",
       "useCases": [
         "使用 npm create vite-taro@latest my-app 创建跨端 React 项目",
@@ -95,8 +95,8 @@
     },
     "en": {
       "name": "VPT",
-      "tagline": "Build mini-apps and the Web with Vite and React",
-      "description": "Build WeChat mini-programs, Alipay mini-programs, and Web apps from one codebase with Vite 8, React 19, and Taro 4, including state-preserving hot reload, automatic subpackages, and Tailwind CSS v4 out of the box.",
+      "tagline": "Vite for Taro projects",
+      "description": "Use Vite for Taro development and builds instead of the older webpack pipeline. Adjacent to the homepage three-layer stack, not one of its pillars.",
       "audience": "Frontend teams that want to reuse React and Taro components and APIs while developing WeChat, Alipay, and Web apps with a modern Vite toolchain.",
       "useCases": [
         "Create a cross-platform React project with npm create vite-taro@latest my-app",

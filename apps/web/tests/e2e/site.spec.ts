@@ -53,7 +53,7 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', 'https://weapp.dev/og.png')
   await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(4)
   await expect(page.locator('#about')).toContainText('weapp-tailwindcss')
-  const docsLinks = page.locator('#projects').getByRole('link', { name: '阅读文档' })
+  const docsLinks = page.locator('#projects').getByRole('link', { name: '文档' })
   await expect(docsLinks).toHaveCount(3)
   await expect(docsLinks.evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     'https://tw.weapp.dev/',
@@ -146,10 +146,10 @@ test('renders the bilingual contributor program', async ({ page }) => {
 test('home commercial entry points reach pricing and services', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('#commercial')).toContainText('赞助与分账')
-  await page.getByRole('link', { name: '支持开源' }).click()
+  await page.getByRole('link', { name: '去赞助' }).click()
   await expect(page).toHaveURL(/\/pricing\/#sponsor$/)
   await page.goto('/')
-  await page.getByRole('link', { name: '查看可交付服务' }).click()
+  await page.getByRole('link', { name: '看服务报价' }).click()
   await expect(page).toHaveURL(/\/pricing\/#services$/)
 })
 
@@ -219,7 +219,7 @@ test('reveals content after the timeout when the observer never reports visibili
 test('project detail exposes docs, source, metrics, and future path', async ({ page }) => {
   await page.goto('/projects/weapp-vite/')
   await expect(page.getByRole('heading', { level: 1, name: 'weapp-vite' })).toBeVisible()
-  await expect(page.getByRole('link', { name: '阅读文档' }).first()).toHaveAttribute('href', 'https://vite.weapp.dev/')
+  await expect(page.getByRole('link', { name: '文档' }).first()).toHaveAttribute('href', 'https://vite.weapp.dev/')
   await expect(page.getByText('/docs/weapp-vite/')).toBeVisible()
   await expect(page.getByText('GitHub Stars')).toBeVisible()
   await expect(page.getByRole('heading', { name: '常见问题' })).toBeVisible()
@@ -244,8 +244,8 @@ test('publishes indexable SEO resources and keeps 404 out of the index', async (
 test('planned project exposes complete placeholder release data', async ({ page }) => {
   await page.goto('/projects/varo/')
   await expect(page.getByRole('heading', { level: 1, name: 'Varo' })).toBeVisible()
-  await expect(page.getByRole('link', { name: '查看源码' })).toHaveAttribute('href', 'https://github.com/daguanren21/Varo')
-  await expect(page.getByRole('link', { name: '阅读文档' }).first()).toHaveAttribute('href', 'https://github.com/daguanren21/Varo#readme')
+  await expect(page.getByRole('link', { name: '源码' })).toHaveAttribute('href', 'https://github.com/daguanren21/Varo')
+  await expect(page.getByRole('link', { name: '文档' }).first()).toHaveAttribute('href', 'https://github.com/daguanren21/Varo#readme')
   await expect(page.getByText('@varo/cli')).toBeVisible()
   await expect(page.getByText('v0.0.1')).toBeVisible()
   await expect(page.getByText('/docs/varo/')).toBeVisible()

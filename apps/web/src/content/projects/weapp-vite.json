@@ -64,8 +64,8 @@
   "locales": {
     "zh-CN": {
       "name": "weapp-vite",
-      "tagline": "面向小程序的现代 Vite 工程化工具链",
-      "description": "用 Vite 驱动小程序开发、构建和多平台输出，并提供 Vue SFC、Wevu 运行时、自动路由与工程扩展能力。",
+      "tagline": "用 Vite 做小程序工程构建",
+      "description": "处理依赖、路由、分包和多平台单目标构建。你可以继续写熟悉的页面结构，把构建链路交给它。",
       "audience": "需要现代 Vite 开发体验、Vue SFC 和多平台构建能力的小程序团队。",
       "useCases": [
         "用 Vite 启动和构建小程序项目",
@@ -91,8 +91,8 @@
     },
     "en": {
       "name": "weapp-vite",
-      "tagline": "A modern Vite toolchain for mini-app development",
-      "description": "Build, develop, and target multiple mini-app platforms with Vite, including Vue SFC support, the Wevu runtime, automatic routing, and extensible tooling.",
+      "tagline": "Vite builds for mini-app projects",
+      "description": "Owns dependencies, routes, subpackages, and single-target multi-platform builds. Keep your page structure; hand the build pipeline to Vite.",
       "audience": "Mini-app teams that need a modern Vite workflow, Vue SFC, and multi-platform builds.",
       "useCases": [
         "Start and build mini-app projects with Vite",

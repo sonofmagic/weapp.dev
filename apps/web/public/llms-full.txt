@@ -1,6 +1,6 @@
 # weapp.dev reference
 
-weapp.dev is the open styling and build toolchain for real mini-app projects. Teams can adopt its projects independently or combine them from Tailwind CSS input through Vite-powered builds and runtime verification. The Chinese homepage is https://weapp.dev/ and the English homepage is https://weapp.dev/en/. The site is maintained by sonofmagic and contributors. The source repository is https://github.com/sonofmagic/weapp.dev.
+weapp.dev hosts tools for real mini-app repos. weapp-tailwindcss handles styles, weapp-vite handles builds, and Varo handles editable components. Adopt them separately or together. The Chinese homepage is https://weapp.dev/ and the English homepage is https://weapp.dev/en/. The site is maintained by sonofmagic and contributors. The source repository is https://github.com/sonofmagic/weapp.dev.
 
 ## weapp-tailwindcss
 

@@ -63,8 +63,8 @@
   "locales": {
     "zh-CN": {
       "name": "Varo",
-      "tagline": "跨运行时组件系统的生产底座",
-      "description": "为 H5 与 weapp-vite 小程序提供 registry-first primitives、组件封装、主题 token、业务 Blocks 和 Agent UI，通过 CLI 交付可编辑源码与校验能力。",
+      "tagline": "可编辑的双端组件源码",
+      "description": "从 Registry 安装组件到仓库里改。面向 H5 和小程序，但工程脚手架和业务页面写法仍是你的事。当前还在规划中。",
       "audience": "需要在 H5 与小程序之间共享交互语义、组件源码和业务 Blocks 的 Vue 3 团队。",
       "useCases": [
         "从 Registry 安装可编辑的 H5 或小程序组件源码",
@@ -90,8 +90,8 @@
     },
     "en": {
       "name": "Varo",
-      "tagline": "Production foundation for cross-runtime component systems",
-      "description": "Registry-first primitives, UI wrappers, theme tokens, business blocks, and Agent UI for H5 and weapp-vite mini-programs, delivered as editable source through the CLI.",
+      "tagline": "Editable dual-runtime component source",
+      "description": "Install components from a registry and edit them in your repo. Aimed at H5 and mini-apps. Your scaffold and page authoring stay yours. Still planned.",
       "audience": "Vue 3 teams that need shared interaction semantics, component source, and business blocks across H5 and mini-program products.",
       "useCases": [
         "Install editable H5 or mini-program component source from the registry",
