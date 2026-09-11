@@ -81,13 +81,13 @@ export default {
   commercial: {
     eyebrow: 'Commercial delivery layer',
     title: 'Support open source, and the services we can deliver today.',
-    description: 'Core tools stay open. Today we deliver migration and training, while cloud builds, templates, and private components remain in development.',
+    description: 'Core tools stay open. Today the focus is sponsorship with a public split, plus deliverable migration and training.',
     cards: [
       { title: 'Migration and training', body: 'Human-delivered services for connecting real repositories to weapp-vite + weapp-tailwindcss.' },
-      { title: 'In development', body: 'Cloud builds, official templates, and private component registries will open after delivery is stable.' },
-      { title: 'Sponsor open source', body: 'One-time ¥20 / ¥200 / ¥1,000 support for maintenance; ¥200+ can receive an approved GitHub link across weapp.dev, tw.weapp.dev, and vite.weapp.dev.' },
+      { title: 'Sponsorship and splits', body: 'One-time ¥20 / ¥200 / ¥1,000 for maintenance; net receipts split 60% core, 25% contributors fund, 15% nearby open source.' },
+      { title: 'Public thanks', body: '¥200+ can receive an approved GitHub link across weapp.dev, tw.weapp.dev, and vite.weapp.dev after confirmation and authorization.' },
     ],
-    pricing: 'View roadmap',
+    pricing: 'See sponsorship splits',
     trial: 'Support open source',
     services: 'View deliverable services',
   },

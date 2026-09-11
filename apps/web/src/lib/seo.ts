@@ -88,10 +88,9 @@ export function pricingSchema(locale: Locale) {
     'inLanguage': locale === 'zh-CN' ? 'zh-CN' : 'en-US',
     'isPartOf': { '@id': `${siteUrl}/#website` },
     'about': [
-      locale === 'zh-CN' ? '开源赞助' : 'Open-source sponsorship',
+      locale === 'zh-CN' ? '开源赞助与分账' : 'Open-source sponsorship and fund splits',
       locale === 'zh-CN' ? '贡献者计划' : 'Contributor program',
       locale === 'zh-CN' ? '小程序工程迁移实施' : 'Mini-app engineering migration services',
-      locale === 'zh-CN' ? '云构建与模板路线图' : 'Cloud-build and template roadmap',
     ],
     'hasPart': [
       {

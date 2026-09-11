@@ -81,13 +81,13 @@ export default {
   commercial: {
     eyebrow: '商业化交付层',
     title: '支持开源，也支持真正能交付的服务',
-    description: '核心工具继续开放。当前先交付迁移与培训，同时公开建设中的云构建、模板和私有组件方向。',
+    description: '核心工具继续开放。当前重点是开源赞助与分账，以及可交付的迁移与培训服务。',
     cards: [
       { title: '迁移与培训', body: '当前可交付的人工服务，围绕 weapp-vite + weapp-tailwindcss 接入真实仓库。' },
-      { title: '建设中的能力', body: '云构建、官方模板和私有组件仓库会在具备稳定交付链路后再开放。' },
-      { title: '赞助开源', body: '一次性 ¥20 / ¥200 / ¥1,000 支持维护；¥200 起经确认和授权可展示 GitHub link，并同步 weapp.dev、tw.weapp.dev、vite.weapp.dev 公开名单。' },
+      { title: '赞助与分账', body: '一次性 ¥20 / ¥200 / ¥1,000 支持维护；净额按 60% 核心维护、25% 贡献者基金、15% 周边开源拆分。' },
+      { title: '公开致谢', body: '¥200 起经确认和授权可展示 GitHub link，并同步 weapp.dev、tw.weapp.dev、vite.weapp.dev 公开名单。' },
     ],
-    pricing: '查看路线图',
+    pricing: '查看赞助分账',
     trial: '支持开源',
     services: '查看可交付服务',
   },
