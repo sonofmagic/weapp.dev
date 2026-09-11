@@ -396,13 +396,15 @@
     padding: 0.35rem 0.7rem;
   }
 
+  .demo-controls-space,
+  .demo-controls {
+    height: auto;
+    min-height: 0;
+  }
+
   .demo-controls {
     gap: 0.45rem 0.65rem;
     padding: 0.55rem 0.75rem;
-  }
-
-  .demo-controls-space {
-    display: none;
   }
 }
 
