@@ -9,7 +9,7 @@
 环境要求：
 
 - Node.js 22.12.0 或更高版本，本仓库和 Cloudflare Builds 使用 22.23.2。
-- pnpm 10.33.4。
+- pnpm 12.3.4（与根目录 `package.json` 的 `packageManager` 一致）。
 
 ```bash
 corepack enable
