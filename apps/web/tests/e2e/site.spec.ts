@@ -96,7 +96,7 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
 
 test('renders the bilingual pricing and delivery page', async ({ page }) => {
   await page.goto('/pricing/')
-  await expect(page.getByRole('heading', { level: 1, name: '先看清钱怎么分，再决定如何支持' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1, name: '维护要花时间；钱怎么分，我们写在前面' })).toBeVisible()
   await expect(page.getByText('¥20', { exact: true })).toBeVisible()
   await expect(page.getByText('¥200', { exact: true })).toBeVisible()
   await expect(page.getByText('¥1,000', { exact: true })).toBeVisible()
@@ -122,7 +122,7 @@ test('renders the bilingual pricing and delivery page', async ({ page }) => {
 
   await page.getByRole('link', { name: 'English' }).click()
   await expect(page).toHaveURL(/\/en\/pricing\/$/)
-  await expect(page.getByRole('heading', { level: 1, name: 'See how money is shared, then decide how to support' })).toBeVisible()
+  await expect(page.getByRole('heading', { level: 1, name: 'Maintenance takes time; we put the money split up front' })).toBeVisible()
   await expect(page.locator('#sponsor')).toContainText('¥1,000')
   await expect(page.locator('#sponsor')).toContainText('Contributors fund')
 })
@@ -146,7 +146,7 @@ test('renders the bilingual contributor program', async ({ page }) => {
 test('home commercial entry points reach pricing and services', async ({ page }) => {
   await page.goto('/')
   await expect(page.locator('#commercial')).toContainText('赞助与分账')
-  await page.getByRole('link', { name: '去赞助' }).click()
+  await page.getByRole('link', { name: '赞助维护' }).click()
   await expect(page).toHaveURL(/\/pricing\/#sponsor$/)
   await page.goto('/')
   await page.getByRole('link', { name: '看服务报价' }).click()
