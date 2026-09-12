@@ -5,6 +5,15 @@ const httpsUrl = z.url().refine(
   'External project URLs must use HTTPS',
 )
 
+const npmPackageUrl = httpsUrl.refine((value) => {
+  const url = new URL(value)
+  return (url.hostname === 'www.npmjs.com' || url.hostname === 'npmjs.com')
+    && url.pathname.startsWith('/package/')
+    && url.pathname.length > '/package/'.length
+    && url.search === ''
+    && url.hash === ''
+}, 'npmUrl must be a canonical npm package URL')
+
 const localizedContent = z.object({
   name: z.string().min(1),
   tagline: z.string().min(1),
@@ -40,7 +49,7 @@ export const projectDefinitionSchema = z.object({
   packageName: z.string().min(1),
   github: z.string().regex(/^[\w.-]+\/[\w.-]+$/),
   docsUrl: httpsUrl,
-  npmUrl: httpsUrl.optional(),
+  npmUrl: npmPackageUrl.optional(),
   license: httpsUrl.optional(),
   maintainer: z.string().min(1),
   keywords: z.array(z.string().min(1)).min(1),

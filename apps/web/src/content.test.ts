@@ -98,4 +98,9 @@ describe('project definitions', () => {
       }
     }
   })
+
+  it('rejects non-package npm URLs at the content boundary', () => {
+    expect(projectDefinitionSchema.safeParse({ ...vite, npmUrl: 'https://www.npmjs.com/search?q=vite' }).success).toBe(false)
+    expect(projectDefinitionSchema.safeParse({ ...vite, npmUrl: 'https://registry.npmjs.org/weapp-vite' }).success).toBe(false)
+  })
 })
