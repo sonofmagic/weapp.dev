@@ -164,6 +164,23 @@ test('cleans up charts before reconnecting the same element', async ({ page }) =
   expect(errors).toEqual([])
 })
 
+test('loads each sponsor chart runtime chunk once', async ({ page }) => {
+  const requests: string[] = []
+  page.on('request', (request) => {
+    if (/\/_astro\/(?:core|charts|components|renderers|SponsorGraphs)\./.test(request.url())) {
+      requests.push(request.url())
+    }
+  })
+  await page.goto('/sponsors/')
+  await expect(page.locator('[data-sponsor-graphs]')).toHaveAttribute('data-ready', 'true')
+  const counts = new Map<string, number>()
+  for (const request of requests) {
+    counts.set(request, (counts.get(request) ?? 0) + 1)
+  }
+  expect(requests.length).toBeGreaterThan(0)
+  expect([...counts.values()].every(count => count === 1)).toBe(true)
+})
+
 for (const width of [1440, 768, 390]) {
   for (const theme of ['light', 'dark'] as const) {
     test(`fits ${width}px in ${theme} with reduced motion`, async ({ page }, testInfo) => {
