@@ -79,6 +79,14 @@ describe('sponsor graph data', () => {
     expect(graph.nodes.filter(node => node.kind === 'sponsor').map(node => node.id)).toEqual(['sponsor:valid'])
   })
 
+  it('returns the base graph when the snapshot has no item list', () => {
+    const graph = sponsorGraphData({ version: 1, repositoryUrl: 'https://github.com/sonofmagic/sponsors' } as never)
+
+    expect(graph.nodes.filter(node => node.kind === 'sponsor')).toEqual([])
+    expect(graph.relationEdges).toEqual([])
+    expect(graph.buckets.reduce((total, bucket) => total + bucket.share, 0)).toBe(100)
+  })
+
   it('creates valid project, sponsor, ledger and fund references', () => {
     const graph = sponsorGraphData({
       version: 1,
