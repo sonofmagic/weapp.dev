@@ -367,6 +367,7 @@ test('planned project exposes an honest readiness state', async ({ page }) => {
   await page.goto('/projects/weapp-sqlite/')
   const related = page.getByRole('link', { name: /相关项目:/ })
   await expect(related).toHaveCount(2)
+  await expect(page.locator('[aria-labelledby="project-related-title"]')).toHaveCount(1)
   await expect(related.first()).toHaveAttribute('href', '/projects/weapp-vite/')
   await expect(page.getByText('周下载')).toHaveCount(0)
   await page.goto('/')

@@ -140,8 +140,8 @@ const installCommand = project.data.installCommand ?? project.data.quickStart?.c
           {!project.data.platforms?.length ? <span class:list={[platformPill, 'px-3 py-2 text-xs']}>{locale === 'zh-CN' ? '平台待确认' : 'Platforms pending'}</span> : null}
         </div>
         {project.data.relatedProjects?.length ? <>
-          <h3 class="mt-8 mb-4 text-lg font-[650]">{locale === 'zh-CN' ? '相关项目' : 'Related projects'}</h3>
-          <div class="flex flex-wrap gap-2">{project.data.relatedProjects.map(relatedId => { const related = projects.find(item => item.id === relatedId); return related ? <a class="inline-flex items-center border border-line px-3 py-2 text-xs font-[650] hover:bg-panel-soft" href={projectPath(locale, related.id)} aria-label={`${locale === 'zh-CN' ? '相关项目' : 'Related project'}: ${related.data.locales[locale].name}`} data-analytics-event="select_related_project" data-analytics-project={related.id} data-analytics-from={project.id}>{related.data.locales[locale].name}</a> : null })}</div>
+          <h3 id="project-related-title" class="mt-8 mb-4 text-lg font-[650]">{locale === 'zh-CN' ? '相关项目' : 'Related projects'}</h3>
+          <div class="flex flex-wrap gap-2" aria-labelledby="project-related-title">{project.data.relatedProjects.map(relatedId => { const related = projects.find(item => item.id === relatedId); return related ? <a class="inline-flex items-center border border-line px-3 py-2 text-xs font-[650] hover:bg-panel-soft" href={projectPath(locale, related.id)} aria-label={`${locale === 'zh-CN' ? '相关项目' : 'Related project'}: ${related.data.locales[locale].name}`} data-analytics-event="select_related_project" data-analytics-project={related.id} data-analytics-from={project.id}>{related.data.locales[locale].name}</a> : null })}</div>
         </> : null}
       </div>
     </div>
