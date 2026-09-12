@@ -99,6 +99,8 @@ test.describe('without JavaScript', () => {
       await expect(graphs.locator('table').last().locator('tbody th[scope="row"]').first()).toBeVisible()
       await expect(graphs.locator('[data-search]')).toBeDisabled()
       await expect(graphs.locator('[data-chart="relation"]')).toBeHidden()
+      await expect(graphs.locator('.sponsor-graph-note')).toHaveCount(2)
+      await expect(graphs.locator('.sponsor-graph-note').first()).toContainText(route.startsWith('/en') ? 'Enable JavaScript' : '启用 JavaScript')
     })
   }
 })
