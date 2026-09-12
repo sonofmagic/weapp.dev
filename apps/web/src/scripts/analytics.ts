@@ -12,6 +12,7 @@ export type AnalyticsEventName
     | 'click_outbound'
     | 'navigate_section'
     | 'select_project'
+    | 'select_related_project'
     | 'switch_language'
 
 export type AnalyticsEventParams = Record<string, string | undefined>
@@ -45,6 +46,7 @@ const EVENT_PARAM_KEYS: Record<AnalyticsEventName, readonly string[]> = {
   click_outbound: ['target', 'project'],
   navigate_section: ['section'],
   select_project: ['project'],
+  select_related_project: ['from', 'project'],
   switch_language: ['from', 'to'],
 }
 

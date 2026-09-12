@@ -44,5 +44,7 @@ describe('analytics client policy', () => {
     })).toEqual({ project: 'weapp-vite', target: 'docs' })
     expect(mapBaiduEvent('switch_language', { from: 'zh-CN', to: 'en' }))
       .toEqual(['site', 'switch_language', 'zh-CN:en'])
+    expect(normalizeAnalyticsEvent('select_related_project', { from: 'varo', project: 'weapp-sqlite' }))
+      .toEqual({ from: 'varo', project: 'weapp-sqlite' })
   })
 })
