@@ -38,7 +38,7 @@ const copy = siteCopy[locale]
     </div>
   </div>
 
-  <nav class:list={[shell, 'home-project-rail']} aria-label={copy.nav.projects}>
+  <nav class:list={[shell, 'home-project-rail']} aria-label={locale === 'zh-CN' ? '首页项目入口' : 'Homepage project links'}>
     {projects.map((project, index) => {
       const content = project.data.locales[locale]
       return (
