@@ -545,6 +545,21 @@ test('provides a working mobile navigation menu', async ({ page }) => {
   await expect(mobileNav).not.toBeVisible()
 })
 
+test('announces the desktop project menu state in both locales', async ({ page }) => {
+  for (const route of ['/', '/en/']) {
+    await page.setViewportSize({ width: 1280, height: 800 })
+    await page.goto(route)
+    const summary = page.locator('[data-project-menu] summary')
+    await expect(summary).toHaveAttribute('aria-controls', 'project-navigation')
+    await expect(summary).toHaveAttribute('aria-expanded', 'false')
+    await summary.click()
+    await expect(summary).toHaveAttribute('aria-expanded', 'true')
+    await expect(page.locator('#project-navigation')).toBeVisible()
+    await summary.click()
+    await expect(summary).toHaveAttribute('aria-expanded', 'false')
+  }
+})
+
 test('defers project logos inside the header menus', async ({ page }) => {
   await page.goto('/')
   const logos = page.locator('[data-site-header] nav img')
