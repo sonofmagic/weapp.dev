@@ -225,6 +225,7 @@ for (const prefix of ['', '/en']) {
         await expect(page.locator('section[aria-labelledby="project-title"]')).toHaveCount(1)
         await expect(page.locator('section[aria-labelledby="project-faq-title"]')).toHaveCount(1)
         await expect(page.locator('section[aria-labelledby="project-future-docs-title"]')).toHaveCount(1)
+        await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute('content', prefix ? /logo and project overview$/ : /项目标识与项目概览$/)
         await expect(page.locator('section[aria-label]')).toHaveCount(2)
         await expect(page.getByRole('link', { name: prefix ? /Related project:/ : /相关项目:/ })).toHaveCount(2)
         await expect(page.getByRole('link', { name: prefix ? /Related project:/ : /相关项目:/ }).first()).toHaveAttribute('data-analytics-event', 'select_related_project')
