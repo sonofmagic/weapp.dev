@@ -1,12 +1,14 @@
 ---
-import { ArrowLeft, ArrowUpRight, BookOpen, Check, ChevronDown, Clock3, Copy, GitFork, Package, Star } from '@lucide/astro'
+import { ArrowLeft, ArrowUpRight, BookOpen, Check, ChevronDown, Copy, GitFork, Package, Star } from '@lucide/astro'
 import type { Locale, ProjectMetrics } from '../types/project'
 import type { ProjectEntry } from '../lib/projects'
 import { formatCompactNumber, formatReleaseDate, showsPublicMetrics } from '../lib/metrics'
 import { localizePath, projectPath, siteCopy } from '../i18n/ui'
-import { buttonPrimary, buttonSecondary, featuredTitle, iconControl, platformPill, projectTone, section, sectionTitle, shell } from '../styles/classes'
+import { buttonPrimary, buttonSecondary, featuredTitle, iconControl, platformPill, section, sectionTitle, shell } from '../styles/classes'
 import ProjectProofPanel from './ProjectProofPanel.astro'
 import RoadmapStrip from './RoadmapStrip.astro'
+import PlatformMatrix from './PlatformMatrix.astro'
+import ProjectStatusBadge from './ProjectStatusBadge.astro'
 
 interface Props {
   locale: Locale
@@ -39,14 +41,11 @@ const installCommand = project.data.installCommand ?? project.data.quickStart?.c
       </a>
       <div class="mb-5 flex items-center gap-3">
         <img class="size-12 object-contain" src={project.data.logo} width="48" height="48" alt="" decoding="async" />
-        <span class:list={['inline-flex items-center gap-1.5 font-mono text-xs font-[650]', projectTone]} role="status" data-project-status={project.data.status} aria-label={`${locale === 'zh-CN' ? '项目状态' : 'Project status'}: ${copy.projects.status[project.data.status]}`}>
-          {project.data.status === 'planned' ? <Clock3 size={15} stroke-width={2} aria-hidden="true" /> : <Check size={15} stroke-width={2} aria-hidden="true" />}
-          {copy.projects.status[project.data.status]}
-        </span>
+        <ProjectStatusBadge locale={locale} status={project.data.status} />
       </div>
       <div class="mb-5 flex flex-wrap gap-2">
         {project.data.role ? <span class="inline-flex items-center border border-line bg-panel-soft px-2.5 py-1.5 font-mono text-xs font-[650] text-brand">{roleLabel[project.data.role] || project.data.role}</span> : null}
-        {project.data.runtime?.map(runtime => <span class="inline-flex items-center border border-line px-2.5 py-1.5 font-mono text-xs text-copy-muted">{runtime}</span>)}
+        <PlatformMatrix locale={locale} platforms={project.data.platforms} runtime={project.data.runtime} />
         {project.data.dataCompleteness === 'planned' ? <span class="inline-flex items-center border border-line px-2.5 py-1.5 font-mono text-xs text-copy-muted">{locale === 'zh-CN' ? '资料整理中' : 'Data in progress'}</span> : null}
       </div>
       <h1 class="mb-5 font-display text-[clamp(2.125rem,5.4vw,4.5rem)] font-[700] [overflow-wrap:anywhere]">{content.name}</h1>
