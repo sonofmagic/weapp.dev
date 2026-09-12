@@ -27,6 +27,7 @@ export interface SponsorGraphEdge { source: string, target: string, value: numbe
 export interface SponsorGraphData { nodes: SponsorGraphNode[], edges: SponsorGraphEdge[], relationEdges: SponsorGraphEdge[], buckets: Array<{ id: string, name: string, share: number, body: string }> }
 
 const repositoryUrl = 'https://github.com/sonofmagic/sponsors'
+const sponsorRequestTimeoutMs = 8_000
 const fallback: SponsorSnapshot = {
   version: 1,
   repositoryUrl,
@@ -97,7 +98,7 @@ export async function loadPublicSponsors(): Promise<SponsorSnapshot> {
     if (import.meta.env.SPONSOR_API_TOKEN) {
       headers.Authorization = `Bearer ${import.meta.env.SPONSOR_API_TOKEN}`
     }
-    const response = await fetch(endpoint, { headers })
+    const response = await fetch(endpoint, { headers, signal: AbortSignal.timeout(sponsorRequestTimeoutMs) })
     if (!response.ok) {
       throw new Error(`Sponsor snapshot returned ${response.status}`)
     }
