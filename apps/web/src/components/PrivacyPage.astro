@@ -57,12 +57,14 @@ const flowIcons = [Activity, ChartNoAxesCombined, SlidersHorizontal]
         ))}
       </nav>
       <div class="border-t border-line">
-        {copy.sections.map((sectionCopy, index) => (
-          <section data-reveal id={`privacy-section-${index + 1}`} class="scroll-mt-24 border-b border-line py-9" aria-labelledby={`privacy-heading-${index + 1}`}>
-            <h2 id={`privacy-heading-${index + 1}`} class="mb-4 text-2xl font-[660]">{sectionCopy.title}</h2>
-            <p class="mb-0 max-w-[820px] leading-[1.8] text-copy-muted">{sectionCopy.body}</p>
+        {copy.sections.map((sectionCopy, index) => {
+          const headingId = `privacy-heading-${index + 1}`
+          const bodyId = `privacy-body-${index + 1}`
+          return <section data-reveal id={`privacy-section-${index + 1}`} class="scroll-mt-24 border-b border-line py-9" aria-labelledby={headingId} aria-describedby={bodyId}>
+            <h2 id={headingId} class="mb-4 text-2xl font-[660]">{sectionCopy.title}</h2>
+            <p id={bodyId} class="mb-0 max-w-[820px] leading-[1.8] text-copy-muted">{sectionCopy.body}</p>
           </section>
-        ))}
+        })}
       </div>
     </div>
   </section>
