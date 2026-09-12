@@ -73,6 +73,7 @@ test.describe('without JavaScript', () => {
       await expect(graphs.locator('canvas')).toHaveCount(0)
       await expect(graphs.locator('table').first()).toBeVisible()
       await expect(graphs.locator('table').last()).toBeVisible()
+      await expect(graphs.locator('table').last().locator('tbody th[scope="row"]').first()).toBeVisible()
       await expect(graphs.locator('[data-search]')).toBeDisabled()
       await expect(graphs.locator('[data-chart="relation"]')).toBeHidden()
     })

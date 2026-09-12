@@ -38,7 +38,7 @@ const labels = locale === 'zh-CN'
       <h3>{labels.nodes}</h3>
       <table><thead><tr><th>{labels.node}</th><th>{labels.kind}</th></tr></thead><tbody>{localizedGraph.nodes.map(node => <tr><th scope="row"><button type="button" data-node-id={node.id} disabled>{node.name}</button></th><td>{nodeKindLabels[node.kind]}</td></tr>)}</tbody></table>
       <h3>{labels.edges}</h3>
-      <table><thead><tr><th>{labels.source}</th><th>{labels.target}</th></tr></thead><tbody>{[...localizedGraph.edges, ...localizedGraph.relationEdges].map(edge => <tr><th>{localizedGraph.nodes.find(node => node.id === edge.source)?.name ?? edge.source}</th><td>{localizedGraph.nodes.find(node => node.id === edge.target)?.name ?? edge.target}</td></tr>)}</tbody></table>
+      <table><thead><tr><th>{labels.source}</th><th>{labels.target}</th></tr></thead><tbody>{[...localizedGraph.edges, ...localizedGraph.relationEdges].map(edge => <tr><th scope="row">{localizedGraph.nodes.find(node => node.id === edge.source)?.name ?? edge.source}</th><td>{localizedGraph.nodes.find(node => node.id === edge.target)?.name ?? edge.target}</td></tr>)}</tbody></table>
     </details>
   </div>
 </sponsor-graphs>
