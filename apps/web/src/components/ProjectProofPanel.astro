@@ -4,7 +4,7 @@ import type { ProjectEntry } from '../lib/projects'
 interface Props { locale: Locale; project: ProjectEntry }
 const { locale, project } = Astro.props
 const content = project.data.locales[locale]
-const statusLabel = locale === 'zh-CN' ? ({ stable: '稳定', beta: '测试', planned: '规划中' } as Record<string, string>) : ({ stable: 'Stable', beta: 'Beta', planned: 'Planned' } as Record<string, string>)
+const statusLabel = locale === 'zh-CN' ? ({ stable: '稳定', beta: '测试版', planned: '规划中' } as Record<string, string>) : ({ stable: 'Stable', beta: 'Beta', planned: 'Planned' } as Record<string, string>)
 const proof = {
   'weapp-vite': { zh: '单目标构建边界', en: 'Single-target build boundary', file: 'vite.config.ts', code: `weapp({\n  buildScope: 'wechat',\n  platforms: ['wechat'],\n})` },
   'weapp-tailwindcss': { zh: '小程序样式接入', en: 'Mini-app style integration', file: 'app.css', code: `@import 'tailwindcss';\n\n/* classes stay in your templates */\n<button class="px-4 py-2 text-white">\n  开始构建\n</button>` },

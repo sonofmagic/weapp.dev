@@ -5,7 +5,7 @@ import { getToolchainProjects } from '../lib/toolchain'
 import { projectPath } from '../i18n/ui'
 interface Props { locale: Locale; projects: ProjectEntry[] }
 const { locale, projects } = Astro.props
-const labels = locale === 'zh-CN' ? { engineering: '工程', styling: '样式', components: '组件', data: '数据', migration: '迁移', title: '从工程到交付，每一层各司其职', kicker: '工具链地图', view: '查看项目', status: { stable: '稳定', beta: '测试', planned: '规划中' } } : { engineering: 'Engineering', styling: 'Styling', components: 'Components', data: 'Data', migration: 'Migration', title: 'From engineering to delivery, each layer has a job', kicker: 'TOOLCHAIN MAP', view: 'View project', status: { stable: 'Stable', beta: 'Beta', planned: 'Planned' } }
+const labels = locale === 'zh-CN' ? { engineering: '工程', styling: '样式', components: '组件', data: '数据', migration: '迁移', title: '从工程到交付，每一层各司其职', kicker: '工具链地图', view: '查看项目', status: { stable: '稳定', beta: '测试版', planned: '规划中' } } : { engineering: 'Engineering', styling: 'Styling', components: 'Components', data: 'Data', migration: 'Migration', title: 'From engineering to delivery, each layer has a job', kicker: 'TOOLCHAIN MAP', view: 'View project', status: { stable: 'Stable', beta: 'Beta', planned: 'Planned' } }
 const items = getToolchainProjects(projects)
 ---
 <section class="toolchain-map" aria-labelledby="toolchain-title">

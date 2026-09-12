@@ -29,7 +29,7 @@ export default {
     stars: 'Stars',
     status: {
       stable: '稳定',
-      beta: '测试',
+      beta: '测试版',
       planned: '规划中',
     },
     readinessTitle: '现在还没公开指标',
