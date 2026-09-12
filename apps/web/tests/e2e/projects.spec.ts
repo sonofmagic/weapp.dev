@@ -155,6 +155,7 @@ for (const prefix of ['', '/en']) {
         await expect(page.getByRole('link', { name: prefix ? 'Back to projects' : '返回项目列表', exact: true })).toHaveAttribute('href', `${prefix}/projects/`)
         await expect(page.getByRole('link', { name: prefix ? /Related project:/ : /相关项目:/ })).toHaveCount(2)
         await expect(page.getByRole('link', { name: prefix ? /Related project:/ : /相关项目:/ }).first()).toHaveAttribute('data-analytics-event', 'select_related_project')
+        await expect(page.getByRole('link', { name: prefix ? /Related project:/ : /相关项目:/ }).first()).toHaveAttribute('data-analytics-from', slug)
         await expect(page.locator('html')).toHaveAttribute('data-theme', theme)
         await page.waitForFunction(() => [...document.querySelectorAll('[data-reveal]')].every(element => element.hasAttribute('data-visible')))
         const accessibility = await new AxeBuilder({ page }).include('main').analyze()
