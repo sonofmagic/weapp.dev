@@ -10,6 +10,7 @@ for (const route of ['/sponsors/', '/en/sponsors/']) {
     await expect(page.locator('[data-sponsor-snapshot]')).toHaveText(route.startsWith('/en') ? 'Public snapshot v1' : '公开快照 v1')
     await graphs.scrollIntoViewIfNeeded()
     await expect(graphs).toHaveAttribute('data-ready', 'true')
+    await expect(graphs).toHaveAttribute('aria-label', route.startsWith('/en') ? 'Sponsor graphs' : '赞助图谱')
     await expect(graphs.locator('[data-chart="flow"]')).toHaveAttribute('aria-describedby', 'sponsor-flow-help')
     await expect(graphs.locator('[data-chart="relation"]')).toHaveAttribute('aria-describedby', 'sponsor-relation-help')
     await expect(graphs.locator('[data-graph-card="relation"] header')).toContainText(route.startsWith('/en') ? 'sites' : '站点')
