@@ -73,6 +73,7 @@ for (const prefix of ['', '/en']) {
   test(`shows roadmap evidence for the planned data project on ${prefix || 'zh-CN'}`, async ({ page }) => {
     await page.goto(`${prefix}/projects/weapp-sqlite/`)
     await expect(page.getByRole('status', { name: prefix ? 'Project status: Planned' : '项目状态: 规划中' })).toBeVisible()
+    await expect(page.locator('[data-project-status="planned"]')).toHaveCount(1)
     await expect(page.locator('.roadmap-strip')).toBeVisible()
     await expect(page.locator('.roadmap-strip li')).toHaveCount(2)
     await expect(page.locator('.roadmap-status')).toHaveCount(2)
