@@ -40,4 +40,13 @@ describe('toolchain project ordering', () => {
     projects[2].data.dataCompleteness = 'complete'
     expect(() => validateToolchainCatalog(projects)).toThrow('Planned project cannot claim complete data')
   })
+
+  it('rejects status and maturity drift', () => {
+    const projects = [vite, tailwind, varo, sqlite, taro].map((data, index) => ({
+      id: ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro'][index],
+      data: projectDefinitionSchema.parse(data),
+    })) as unknown as ProjectEntry[]
+    projects[0].data.maturity = 'beta'
+    expect(() => validateToolchainCatalog(projects)).toThrow('Project status and maturity differ')
+  })
 })
