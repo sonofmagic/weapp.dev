@@ -401,6 +401,11 @@ for (const localePath of ['', '/en']) {
     await expect(page.locator('[data-site-header] a[aria-label="weapp.dev"]')).toHaveAttribute('aria-current', 'page')
   })
 
+  test(`prioritizes the localized header brand asset on ${localePath || 'zh-CN'}`, async ({ page }) => {
+    await page.goto(`${localePath}/`)
+    await expect(page.locator('[data-site-header] a[aria-label="weapp.dev"] img')).toHaveAttribute('fetchpriority', 'high')
+  })
+
   for (const slug of ['varo', 'weapp-sqlite']) {
     test(`keeps ${localePath || 'zh-CN'} ${slug} page in planning state`, async ({ page }) => {
       await page.goto(`${localePath}/projects/${slug}/`)

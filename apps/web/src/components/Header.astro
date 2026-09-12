@@ -25,7 +25,7 @@ const isPricing = currentPath === pricingPath
 <header data-site-header class="sticky top-0 z-30 h-16 border-b border-[color-mix(in_srgb,var(--border)_70%,transparent)] bg-[var(--header)] backdrop-blur-xl max-[720px]:h-[58px]">
   <div class:list={[shell, 'flex h-full items-center']}>
     <a class={wordmark} href={home} aria-label="weapp.dev" aria-current={currentPath === home ? 'page' : undefined}>
-      <img class={wordmarkMark} src="/logo.svg" width="64" height="64" alt="" decoding="async" />
+      <img class={wordmarkMark} src="/logo.svg" width="64" height="64" alt="" decoding="async" fetchpriority="high" />
       <span>weapp.dev</span>
     </a>
 
