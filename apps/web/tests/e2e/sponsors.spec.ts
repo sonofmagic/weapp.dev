@@ -246,7 +246,7 @@ test('does not initialize a detached component after a delayed import', async ({
   await expect(page.locator('[data-graph-loading]')).toBeHidden()
 })
 
-for (const route of ['/', '/en/']) {
+for (const route of ['/', '/en/', '/pricing/', '/en/pricing/', '/contributors/', '/en/contributors/', '/privacy/', '/en/privacy/', '/404/', '/en/404/']) {
   test(`does not fetch chart runtime on ${route}`, async ({ page }) => {
     const chartRequests: string[] = []
     page.on('request', (request) => {
