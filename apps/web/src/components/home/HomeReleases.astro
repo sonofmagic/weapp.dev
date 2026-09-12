@@ -29,7 +29,7 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
         const planned = project.data.status === 'planned'
         return (
           <article class="grid min-h-[96px] grid-cols-[48px_1fr_auto_42px] items-center gap-4 border-b border-line max-[520px]:grid-cols-[42px_1fr_auto]">
-            <img class="size-11 object-contain max-[520px]:size-9" src={project.data.logo} width="44" height="44" alt="" />
+            <img class="size-11 object-contain max-[520px]:size-9" src={project.data.logo} width="44" height="44" alt="" loading="lazy" decoding="async" />
             <div>
               <h3 class="mb-1 text-base font-[650]">{project.data.locales[locale].name}</h3>
               <p class="mb-0 text-xs text-copy-muted">{planned ? (locale === 'zh-CN' ? '规划中，尚无公开版本' : 'Planned, no public release yet') : `${copy.releases.released} ${formatReleaseDate(projectMetrics!.releasedAt, numberLocale)}`}</p>

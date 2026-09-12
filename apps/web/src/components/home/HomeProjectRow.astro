@@ -29,7 +29,7 @@ const publicMetrics = showsPublicMetrics(project.data.status)
   <div data-reveal data-project-copy style={`--reveal-delay: ${80 + index * 60}ms`}>
     <p class="mb-4 font-mono text-xs font-bold text-brand">{String(index + 1).padStart(2, '0')} / {project.stage[locale]}</p>
     <div class="mb-5 flex items-center gap-3">
-      <img class="size-12 object-contain" src={project.data.logo} width="48" height="48" alt="" />
+      <img class="size-12 object-contain" src={project.data.logo} width="48" height="48" alt="" loading="lazy" decoding="async" />
       <span class:list={['inline-flex items-center gap-1.5 font-mono text-xs font-[650]', projectTone]}>
         <BadgeCheck size={15} stroke-width={1.8} aria-hidden="true" />
         {copy.projects.status[project.data.status]}

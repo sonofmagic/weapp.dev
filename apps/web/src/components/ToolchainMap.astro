@@ -10,7 +10,7 @@ const items = getToolchainProjects(projects)
 ---
 <section class="toolchain-map" aria-labelledby="toolchain-title">
   <header data-reveal><p class="mb-3 font-mono text-xs font-[650] text-brand">TOOLCHAIN MAP</p><h2 id="toolchain-title">{labels.title}</h2></header>
-<ol class="toolchain-map-list">{items.map(({ project, role }, index) => { const content = project.data.locales[locale]; return <li data-reveal style={`--reveal-delay:${index * 60}ms`}><span class="toolchain-step">{String(index + 1).padStart(2, '0')}</span><div class="toolchain-connector" aria-hidden="true"></div><img src={project.data.logo} width="40" height="40" alt="" /><div class="toolchain-copy"><strong>{labels[role]}</strong><h3>{content.name}</h3><p>{content.tagline}</p></div><a href={projectPath(locale, project.id)} aria-label={`${labels.view}: ${content.name}`}>{labels.view}</a></li> })}</ol>
+<ol class="toolchain-map-list">{items.map(({ project, role }, index) => { const content = project.data.locales[locale]; return <li data-reveal style={`--reveal-delay:${index * 60}ms`}><span class="toolchain-step">{String(index + 1).padStart(2, '0')}</span><div class="toolchain-connector" aria-hidden="true"></div><img src={project.data.logo} width="40" height="40" alt="" loading="lazy" decoding="async" /><div class="toolchain-copy"><strong>{labels[role]}</strong><h3>{content.name}</h3><p>{content.tagline}</p></div><a href={projectPath(locale, project.id)} aria-label={`${labels.view}: ${content.name}`}>{labels.view}</a></li> })}</ol>
 </section>
 <style>
   .toolchain-map { padding: 2rem; border: 1px solid var(--border); background: var(--surface); }
