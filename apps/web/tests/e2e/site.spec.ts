@@ -520,6 +520,11 @@ test('defers project logos inside the header menus', async ({ page }) => {
   await expect(logos.evaluateAll(images => images.every(image => image.getAttribute('loading') === 'lazy' && image.getAttribute('decoding') === 'async'))).resolves.toBe(true)
 })
 
+test('labels the homepage demo stage as a landmark', async ({ page }) => {
+  await page.goto('/')
+  await expect(page.getByRole('region', { name: '下面可以点着玩：五层工具链的交互证明；完整工具链见项目地图。' })).toBeVisible()
+})
+
 test('opens analytics preferences directly from the privacy page', async ({ page }) => {
   await page.goto('/privacy/')
   await page.getByRole('button', { name: '打开统计偏好' }).click()
