@@ -17,8 +17,8 @@ const plannedProof = locale === 'zh-CN'
   : `status: planned\napi: to be confirmed\nplatforms: to be confirmed\n\n# no production API is promised yet`
 const displayProof = project.data.status === 'planned' ? { zh: '规划边界', en: 'Planning boundary', file: 'planning.md', code: plannedProof } : proof
 ---
-<section class="project-proof-panel" aria-labelledby="project-proof-title">
-  <div><p class="mb-2 font-mono text-xs font-[650] text-brand">{locale === 'zh-CN' ? '工程证据' : 'ENGINEERING PROOF'}</p><h2 id="project-proof-title">{displayProof ? (locale === 'zh-CN' ? displayProof.zh : displayProof.en) : content.tagline}</h2><p>{locale === 'zh-CN' ? '从一段真实的配置、命令或边界说明开始判断项目是否适合你的工程。' : 'Start with a real config, command, or boundary note when deciding if this project fits your codebase.'}</p></div>
+<section class="project-proof-panel" aria-labelledby="project-proof-title" aria-describedby="project-proof-description">
+  <div><p class="mb-2 font-mono text-xs font-[650] text-brand">{locale === 'zh-CN' ? '工程证据' : 'ENGINEERING PROOF'}</p><h2 id="project-proof-title">{displayProof ? (locale === 'zh-CN' ? displayProof.zh : displayProof.en) : content.tagline}</h2><p id="project-proof-description">{locale === 'zh-CN' ? '从一段真实的配置、命令或边界说明开始判断项目是否适合你的工程。' : 'Start with a real config, command, or boundary note when deciding if this project fits your codebase.'}</p></div>
   <div class="project-proof-code"><div class="project-proof-code-head"><span>{displayProof?.file ?? 'project.md'}</span><span>{statusLabel[project.data.status]}</span></div>{project.data.proof?.length ? <ul class="project-proof-list">{project.data.proof.map(item => <li>{typeof item === 'string' ? item : item[locale]}</li>)}</ul> : <pre><code>{displayProof?.code ?? content.description}</code></pre>}</div>
 </section>
 <style>
