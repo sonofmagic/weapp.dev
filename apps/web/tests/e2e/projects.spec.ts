@@ -48,7 +48,7 @@ for (const prefix of ['', '/en']) {
     await expect(page.locator('[data-project-card]').first().locator('img')).toHaveAttribute('fetchpriority', 'high')
     await expect(page.locator('[data-project-card]').nth(1).locator('img')).toHaveAttribute('loading', 'lazy')
     await expect(page.locator('[data-project-card][data-project-id="weapp-sqlite"]')).toHaveAttribute('data-roadmap-count', '2')
-    await expect(page.locator('[data-project-card] [role="status"]')).toHaveCount(5)
+    await expect(page.locator('[data-project-card] [data-project-status]')).toHaveCount(5)
     for (const id of ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro']) {
       await expect(page.locator(`[data-project-card][data-project-id="${id}"]`)).toHaveAttribute('aria-labelledby', `project-card-${id}`)
       await expect(page.locator(`[data-project-card][data-project-id="${id}"]`)).toHaveAttribute('aria-describedby', `project-card-description-${id}`)
@@ -91,7 +91,7 @@ for (const prefix of ['', '/en']) {
 
   test(`shows roadmap evidence for the planned data project on ${prefix || 'zh-CN'}`, async ({ page }) => {
     await page.goto(`${prefix}/projects/weapp-sqlite/`)
-    await expect(page.getByRole('status', { name: prefix ? 'Project status: Planned' : '项目状态: 规划中' })).toBeVisible()
+    await expect(page.locator('[data-project-status="planned"]')).toHaveAttribute('aria-label', prefix ? 'Project status: Planned' : '项目状态: 规划中')
     await expect(page.locator('[data-project-status="planned"]')).toHaveCount(1)
     await expect(page.locator('.roadmap-strip')).toBeVisible()
     await expect(page.locator('.roadmap-strip li')).toHaveCount(2)
