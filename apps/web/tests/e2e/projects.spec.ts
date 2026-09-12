@@ -40,6 +40,7 @@ for (const prefix of ['', '/en']) {
     }
     await expect(role).toBeEnabled()
     await expect(visible).toHaveCount(5)
+    await expect(page.locator('[data-project-card]').filter({ hasText: 'weapp-sqlite' })).toContainText(zh ? '2 项路线' : '2 roadmap items')
     await role.selectOption('data')
     await expect(visible).toHaveCount(1)
     await expect(visible.getByRole('heading')).toHaveText('weapp-sqlite')
