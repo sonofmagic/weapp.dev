@@ -24,7 +24,7 @@ const labels = locale === 'zh-CN'
     <header><div><p class="sponsor-graph-kicker">01</p><h2 id="sponsor-flow-title">{labels.flow}</h2><p>{labels.flowHelp}</p></div></header>
     <div class="sponsor-chart" data-chart="flow" hidden role="img" aria-label={labels.flow}></div>
     <p class="sponsor-graph-error" data-graph-error hidden role="status" aria-live="polite">{labels.error}</p>
-    <details open><summary>{labels.table}</summary><table><thead><tr><th>{locale === 'zh-CN' ? '资金桶' : 'Bucket'}</th><th>{locale === 'zh-CN' ? '比例' : 'Share'}</th></tr></thead><tbody>{localizedGraph.buckets.map(bucket => <tr><th>{bucket.name}</th><td>{bucket.share}%</td></tr>)}</tbody></table></details>
+    <details open><summary>{labels.table}</summary><table><thead><tr><th scope="col">{locale === 'zh-CN' ? '资金桶' : 'Bucket'}</th><th scope="col">{locale === 'zh-CN' ? '比例' : 'Share'}</th></tr></thead><tbody>{localizedGraph.buckets.map(bucket => <tr><th scope="row">{bucket.name}</th><td>{bucket.share}%</td></tr>)}</tbody></table></details>
   </div>
   <div class="sponsor-graph-card" data-graph-card="relation" aria-labelledby="sponsor-relation-title">
     <header><div><p class="sponsor-graph-kicker">02</p><h2 id="sponsor-relation-title">{labels.relation}</h2><p>{labels.relationHelp}</p></div><button type="button" data-reset disabled>{labels.reset}</button></header>
@@ -36,9 +36,9 @@ const labels = locale === 'zh-CN'
     <details open>
       <summary>{labels.table}</summary>
       <h3>{labels.nodes}</h3>
-      <table><thead><tr><th>{labels.node}</th><th>{labels.kind}</th></tr></thead><tbody>{localizedGraph.nodes.map(node => <tr><th scope="row"><button type="button" data-node-id={node.id} disabled>{node.name}</button></th><td>{nodeKindLabels[node.kind]}</td></tr>)}</tbody></table>
+      <table><thead><tr><th scope="col">{labels.node}</th><th scope="col">{labels.kind}</th></tr></thead><tbody>{localizedGraph.nodes.map(node => <tr><th scope="row"><button type="button" data-node-id={node.id} disabled>{node.name}</button></th><td>{nodeKindLabels[node.kind]}</td></tr>)}</tbody></table>
       <h3>{labels.edges}</h3>
-      <table><thead><tr><th>{labels.source}</th><th>{labels.target}</th><th>{labels.edgeType}</th></tr></thead><tbody>{[...localizedGraph.edges, ...localizedGraph.relationEdges].map(edge => <tr><th scope="row">{localizedGraph.nodes.find(node => node.id === edge.source)?.name ?? edge.source}</th><td>{localizedGraph.nodes.find(node => node.id === edge.target)?.name ?? edge.target}</td><td>{edge.label === 'display' ? labels.display : labels.funding}</td></tr>)}</tbody></table>
+      <table><thead><tr><th scope="col">{labels.source}</th><th scope="col">{labels.target}</th><th scope="col">{labels.edgeType}</th></tr></thead><tbody>{[...localizedGraph.edges, ...localizedGraph.relationEdges].map(edge => <tr><th scope="row">{localizedGraph.nodes.find(node => node.id === edge.source)?.name ?? edge.source}</th><td>{localizedGraph.nodes.find(node => node.id === edge.target)?.name ?? edge.target}</td><td>{edge.label === 'display' ? labels.display : labels.funding}</td></tr>)}</tbody></table>
     </details>
   </div>
 </sponsor-graphs>
