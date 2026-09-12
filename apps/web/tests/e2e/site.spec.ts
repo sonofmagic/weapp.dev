@@ -14,6 +14,7 @@ async function expectHomeVisuals(page: import('@playwright/test').Page, _locale:
   await expect(page.locator('#projects .home-project-proof-command')).toContainText('pnpm exec wv build -p weapp')
   await expect(page.locator('[data-project-id="weapp-sqlite"] .home-project-proof-list')).toContainText(_locale === 'zh-CN' ? '运行时边界待确认' : 'Runtime boundaries are still being confirmed')
   await expect(page.locator('[data-project-id="weapp-sqlite"] .home-project-proof')).toHaveAttribute('data-proof-count', '2')
+  await expect(page.locator('[data-project-id="weapp-sqlite"] .home-project-proof-list')).toHaveAttribute('aria-label', _locale === 'zh-CN' ? '规划证明条目' : 'Planning proof items')
   const images = await page.evaluate(() => performance.getEntriesByType('resource').map(entry => entry.name).filter(url => /\/media\/(?:showcase|projects)\//.test(url)))
   expect(images.every(url => url.includes('/media/projects/vpt-hmr-'))).toBe(true)
   expect(images.length).toBeLessThanOrEqual(2)
