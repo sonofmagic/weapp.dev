@@ -24,6 +24,7 @@ const labels = locale === 'zh-CN'
 </section>
 <script>
   class SponsorGraphs extends HTMLElement {
+    cleanup?: () => void
     async connectedCallback() {
       if (this.dataset.ready) return
       try {
@@ -50,12 +51,20 @@ const labels = locale === 'zh-CN'
         this.querySelector<HTMLInputElement>('[data-search]')!.addEventListener('input', renderRelation)
         this.querySelector<HTMLSelectElement>('[data-kind]')!.addEventListener('change', renderRelation)
         this.querySelector<HTMLButtonElement>('[data-reset]')!.addEventListener('click', () => { this.querySelector<HTMLInputElement>('[data-search]')!.value = ''; this.querySelector<HTMLSelectElement>('[data-kind]')!.value = ''; renderRelation() })
-        const resize = () => { flow.resize(); relation.resize() }
-        new ResizeObserver(resize).observe(this)
+        const resize = () => { if (!document.hidden) { flow.resize(); relation.resize() } }
+        const observer = new ResizeObserver(resize)
+        observer.observe(this)
+        document.addEventListener('visibilitychange', resize)
+        this.cleanup = () => { observer.disconnect(); document.removeEventListener('visibilitychange', resize); flow.dispose(); relation.dispose() }
         this.dataset.ready = 'true'
       } catch {
         this.querySelectorAll<HTMLElement>('[data-graph-error]').forEach((error) => { error.hidden = false })
       }
+    }
+    disconnectedCallback() {
+      this.cleanup?.()
+      this.cleanup = undefined
+      delete this.dataset.ready
     }
   }
   customElements.define('sponsor-graphs', SponsorGraphs)
