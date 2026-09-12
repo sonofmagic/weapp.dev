@@ -55,4 +55,11 @@ describe('home project composition', () => {
     }).success).toBe(false)
     expect(showcaseSchema.safeParse({ ...tailwindImages, status: 'stable' }).success).toBe(false)
   })
+
+  it('requires secure external project links', () => {
+    expect(projectDefinitionSchema.safeParse({ ...tailwind, docsUrl: 'http://docs.example.com/' }).success).toBe(false)
+    expect(projectDefinitionSchema.safeParse({ ...tailwind, npmUrl: 'http://npm.example.com/' }).success).toBe(false)
+    expect(projectDefinitionSchema.safeParse({ ...tailwind, license: 'http://example.com/license' }).success).toBe(false)
+    expect(projectDefinitionSchema.safeParse({ ...tailwind, docsUrl: 'https://docs.example.com/' }).success).toBe(true)
+  })
 })

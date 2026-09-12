@@ -1,5 +1,10 @@
 import { z } from 'astro/zod'
 
+const httpsUrl = z.url().refine(
+  value => new URL(value).protocol === 'https:',
+  'External project URLs must use HTTPS',
+)
+
 const localizedContent = z.object({
   name: z.string().min(1),
   tagline: z.string().min(1),
@@ -34,9 +39,9 @@ export const projectDefinitionSchema = z.object({
   status: z.enum(['stable', 'beta', 'planned']),
   packageName: z.string().min(1),
   github: z.string().regex(/^[\w.-]+\/[\w.-]+$/),
-  docsUrl: z.url(),
-  npmUrl: z.url(),
-  license: z.url().optional(),
+  docsUrl: httpsUrl,
+  npmUrl: httpsUrl,
+  license: httpsUrl.optional(),
   maintainer: z.string().min(1),
   keywords: z.array(z.string().min(1)).min(1),
   installCommand: z.string().min(1),
