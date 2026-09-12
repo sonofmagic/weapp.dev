@@ -1,6 +1,14 @@
+import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 
 for (const route of ['/sponsors/', '/en/sponsors/']) {
+  test(`passes automated accessibility checks on ${route}`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto(route)
+    const results = await new AxeBuilder({ page }).include('main').analyze()
+    expect(results.violations, `${route} accessibility violations`).toEqual([])
+  })
+
   test(`protects external links on ${route}`, async ({ page }) => {
     await page.goto(route)
     const links = await page.locator('a[target="_blank"]').evaluateAll(elements => elements.map(element => element.getAttribute('rel')))
