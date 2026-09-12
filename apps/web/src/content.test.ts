@@ -81,4 +81,21 @@ describe('project definitions', () => {
     expect(definition.locales['zh-CN'].description).toContain('规划')
     expect(definition.locales.en.description).toContain('planned')
   })
+
+  it('keeps published package links canonical and planned links empty', () => {
+    const expected: Record<string, string> = {
+      'weapp-vite': 'https://www.npmjs.com/package/weapp-vite',
+      'weapp-tailwindcss': 'https://www.npmjs.com/package/weapp-tailwindcss',
+      'vite-plugin-taro': 'https://www.npmjs.com/package/vite-plugin-taro',
+    }
+
+    for (const project of projects) {
+      if (project.status === 'planned') {
+        expect(project.npmUrl).toBeUndefined()
+      }
+      else {
+        expect(project.npmUrl).toBe(expected[project.packageName])
+      }
+    }
+  })
 })
