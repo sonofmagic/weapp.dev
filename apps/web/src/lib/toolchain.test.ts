@@ -45,6 +45,12 @@ describe('toolchain project ordering', () => {
     expect(() => validateToolchainCatalog(outsideToolchain)).toThrow('Related project is outside the toolchain')
   })
 
+  it('keeps two related paths for every core project', () => {
+    for (const project of [vite, tailwind, varo, sqlite, taro]) {
+      expect(projectDefinitionSchema.parse(project).relatedProjects).toHaveLength(2)
+    }
+  })
+
   it('rejects a planned project marked as complete', () => {
     const projects = [vite, tailwind, varo, sqlite, taro].map((data, index) => ({
       id: ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro'][index],
