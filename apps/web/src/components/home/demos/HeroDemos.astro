@@ -45,5 +45,5 @@ const copy = demoCopy[locale]
       this.dataset.ready = 'true'
     }
   }
-  customElements.define('hero-demos', HeroDemos)
+  if (!customElements.get('hero-demos')) customElements.define('hero-demos', HeroDemos)
 </script>
