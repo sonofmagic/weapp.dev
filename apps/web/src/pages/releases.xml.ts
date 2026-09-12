@@ -10,7 +10,10 @@ export const GET: APIRoute = async () => {
   const projects = await getProjects()
   const metrics = await loadProjectMetrics()
   const items = projects.map((project) => {
-    const release = metrics[project.id] ?? { version: 'planned', releasedAt: '2026-01-01T00:00:00.000Z' }
+    const release = metrics[project.id]
+    if (project.data.status === 'planned' || !release) {
+      return ''
+    }
     const link = `https://www.npmjs.com/package/${project.data.packageName}`
     return `<item><title>${escapeXml(project.data.packageName)} ${escapeXml(release.version)}</title><link>${link}</link><guid isPermaLink="false">${escapeXml(project.data.packageName)}@${escapeXml(release.version)}</guid><pubDate>${new Date(release.releasedAt).toUTCString()}</pubDate><description>${escapeXml(project.data.locales.en.tagline)}</description></item>`
   }).join('')

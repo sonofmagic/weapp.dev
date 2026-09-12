@@ -1,5 +1,6 @@
 import type { ProjectDefinition } from '../types/project'
 import { describe, expect, it } from 'vitest'
+import varo from '../content/projects/varo.json'
 import tailwind from '../content/projects/weapp-tailwindcss.json'
 import fallbackMetrics from '../data/project-metrics.fallback.json'
 import { breadcrumbSchema, canonicalUrl, organizationSchema, pricingSchema, projectSchema, serializeJsonLd } from './seo'
@@ -20,6 +21,15 @@ describe('SEO helpers', () => {
     expect(entity.sameAs).toContain('https://www.npmjs.com/package/weapp-tailwindcss')
     expect(breadcrumb.itemListElement).toHaveLength(3)
     expect(JSON.parse(serializeJsonLd(entity))).toEqual(entity)
+  })
+
+  it('does not publish release or package claims for planned projects', () => {
+    const project = { id: 'varo', data: varo as unknown as ProjectDefinition }
+    const entity = projectSchema('en', project, fallbackMetrics.varo)
+    expect(entity).not.toHaveProperty('version')
+    expect(entity).not.toHaveProperty('dateModified')
+    expect(entity).not.toHaveProperty('downloadUrl')
+    expect(entity.sameAs).not.toContain('https://www.npmjs.com/package/@varo/cli')
   })
 
   it('derives organization links from project definitions', () => {

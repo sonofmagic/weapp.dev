@@ -120,6 +120,7 @@ export function projectSchema(
 ) {
   const content = project.data.locales[locale]
   const path = locale === 'zh-CN' ? `/projects/${project.id}/` : `/en/projects/${project.id}/`
+  const isPlanned = project.data.status === 'planned'
 
   return {
     '@context': 'https://schema.org',
@@ -130,19 +131,18 @@ export function projectSchema(
     'url': absoluteUrl(path),
     'image': absoluteUrl(project.data.visuals?.primary.src ?? '/logo.svg'),
     'codeRepository': `https://github.com/${project.data.github}`,
-    'downloadUrl': project.data.npmUrl,
+    ...(isPlanned ? {} : { downloadUrl: project.data.npmUrl }),
     'programmingLanguage': ['TypeScript', 'JavaScript'],
     'keywords': project.data.keywords.join(', '),
     'runtimePlatform': project.data.platforms,
     'license': project.data.license,
-    'version': metrics.version,
-    'dateModified': metrics.releasedAt,
+    ...(isPlanned ? {} : { version: metrics.version, dateModified: metrics.releasedAt }),
     'maintainer': {
       '@type': 'Organization',
       'name': project.data.maintainer,
     },
     'isPartOf': { '@id': organizationId },
-    'sameAs': [project.data.docsUrl, project.data.npmUrl, `https://github.com/${project.data.github}`],
+    'sameAs': [project.data.docsUrl, ...(isPlanned ? [] : [project.data.npmUrl]), `https://github.com/${project.data.github}`],
   }
 }
 

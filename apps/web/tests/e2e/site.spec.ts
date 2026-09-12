@@ -241,17 +241,24 @@ test('publishes indexable SEO resources and keeps 404 out of the index', async (
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'noindex, follow')
 })
 
-test('planned project exposes complete placeholder release data', async ({ page }) => {
+test('planned project exposes an honest readiness state', async ({ page }) => {
   await page.goto('/projects/varo/')
   await expect(page.getByRole('heading', { level: 1, name: 'Varo' })).toBeVisible()
   await expect(page.getByRole('link', { name: '源码' }).first()).toHaveAttribute('href', 'https://github.com/daguanren21/Varo')
   await expect(page.getByRole('link', { name: '文档' }).first()).toHaveAttribute('href', 'https://github.com/daguanren21/Varo#readme')
   await expect(page.getByText('@varo/cli')).toBeVisible()
-  await expect(page.getByText('v0.0.1')).toBeVisible()
+  await expect(page.getByText('v0.0.1')).toHaveCount(0)
   await expect(page.getByText('/docs/varo/')).toBeVisible()
   await expect(page.locator('[data-project-readiness]')).toBeVisible()
   await expect(page.getByText('GitHub Stars')).toHaveCount(0)
   await expect(page.getByText('周下载')).toHaveCount(0)
+  await page.goto('/')
+  const releaseRow = page.locator('#releases article').filter({ hasText: 'Varo' })
+  await expect(releaseRow).toContainText('规划中')
+  await expect(releaseRow).not.toContainText('0.0.1')
+  await expect(releaseRow.locator('a')).toHaveCount(0)
+  const rss = await page.request.get('/releases.xml')
+  expect(await rss.text()).not.toContain('@varo/cli 0.0.1')
 })
 
 test('passes automated accessibility checks in light and dark themes', async ({ page }) => {
