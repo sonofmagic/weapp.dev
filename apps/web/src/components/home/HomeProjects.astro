@@ -30,5 +30,5 @@ const copy = siteCopy[locale]
       <HomeProjectRow locale={locale} project={project} index={index} metrics={metrics[project.id]} />
     ))}
   </div>
-  <HomeAdjacentProjects locale={locale} projects={catalogProjects} featuredIds={projects.map(project => project.id)} />
+  <HomeAdjacentProjects locale={locale} projects={catalogProjects} featuredIds={projects.slice(0, 3).map(project => project.id)} />
 </section>

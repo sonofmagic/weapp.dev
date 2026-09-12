@@ -50,7 +50,9 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.locator('#projects').getByRole('heading', { name: 'weapp-tailwindcss' })).toBeVisible()
   await expect(page.locator('#projects').getByRole('heading', { name: 'weapp-vite' })).toBeVisible()
   await expect(page.locator('#projects').getByRole('heading', { name: 'Varo' })).toBeVisible()
-  await expect(page.locator('.home-adjacent-projects')).toHaveCount(0)
+  await expect(page.locator('.home-adjacent-projects')).toHaveCount(1)
+  await expect(page.locator('.home-adjacent-projects')).toContainText('需要本地数据或迁移现有 React 工程时')
+  await expect(page.locator('.home-adjacent-projects article')).toHaveCount(2)
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://weapp.dev/')
   await expect(page.locator('link[hreflang="en-US"]')).toHaveAttribute('href', 'https://weapp.dev/en/')
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index, follow')
@@ -61,11 +63,13 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(4)
   await expect(page.locator('#about')).toContainText('weapp-tailwindcss')
   const docsLinks = page.locator('#projects').getByRole('link', { name: '文档' })
-  await expect(docsLinks).toHaveCount(5)
+  await expect(docsLinks).toHaveCount(7)
   await expect(docsLinks.evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     'https://vite.weapp.dev/',
     'https://tw.weapp.dev/',
     'https://github.com/daguanren21/Varo#readme',
+    'https://github.com/weapp-sqlite/weapp-sqlite#readme',
+    'https://vpt.js.org/',
     'https://github.com/weapp-sqlite/weapp-sqlite#readme',
     'https://vpt.js.org/',
   ])
@@ -91,14 +95,18 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
     '/projects/varo/',
     '/projects/weapp-sqlite/',
     '/projects/vite-plugin-taro/',
+    '/projects/weapp-sqlite/',
+    '/projects/vite-plugin-taro/',
   ])
-  await expect(page.locator('#projects a[data-analytics-event="click_outbound"][data-analytics-target="docs"]')).toHaveCount(5)
+  await expect(page.locator('#projects a[data-analytics-event="click_outbound"][data-analytics-target="docs"]')).toHaveCount(7)
 
   await page.getByRole('link', { name: 'English' }).click()
   await expect(page).toHaveURL(/\/en\/$/)
   await expect(page.getByText('Tools for real mini-app repos')).toBeVisible()
   await expectHomeVisuals(page, 'en')
-  await expect(page.locator('.home-adjacent-projects')).toHaveCount(0)
+  await expect(page.locator('.home-adjacent-projects')).toHaveCount(1)
+  await expect(page.locator('.home-adjacent-projects')).toContainText('When you need local data or a React migration path')
+  await expect(page.locator('.home-adjacent-projects article')).toHaveCount(2)
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://weapp.dev/en/')
   await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute('content', 'en_US')
   await expect(page.locator('meta[property="og:locale:alternate"]')).toHaveAttribute('content', 'zh_CN')
@@ -108,6 +116,8 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
     '/en/projects/weapp-vite/',
     '/en/projects/weapp-tailwindcss/',
     '/en/projects/varo/',
+    '/en/projects/weapp-sqlite/',
+    '/en/projects/vite-plugin-taro/',
     '/en/projects/weapp-sqlite/',
     '/en/projects/vite-plugin-taro/',
   ])
