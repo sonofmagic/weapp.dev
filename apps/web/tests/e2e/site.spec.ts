@@ -414,6 +414,11 @@ for (const localePath of ['', '/en']) {
     await expect(page.locator('[data-site-header] a[aria-label="weapp.dev"]')).toHaveAttribute('aria-current', 'page')
   })
 
+  test(`marks the localized footer brand link as current on ${localePath || 'zh-CN'}`, async ({ page }) => {
+    await page.goto(`${localePath}/`)
+    await expect(page.locator('footer a:has(img[src="/logo.svg"])')).toHaveAttribute('aria-current', 'page')
+  })
+
   test(`prioritizes the localized header brand asset on ${localePath || 'zh-CN'}`, async ({ page }) => {
     await page.goto(`${localePath}/`)
     await expect(page.locator('[data-site-header] a[aria-label="weapp.dev"] img')).toHaveAttribute('fetchpriority', 'high')
