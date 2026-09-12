@@ -106,6 +106,9 @@ const allPlatforms = [...new Set(getToolchainProjects(projects).flatMap(({ proje
   .projects-index-list img { width: 3.25rem; height: 3.25rem; object-fit: contain; }
   .projects-index-copy h2 { margin: .55rem 0 .4rem; font: 680 1.5rem/1.15 var(--font-display); overflow-wrap: anywhere; }
   .projects-index-copy p { max-width: 680px; margin: 0 0 .9rem; color: var(--muted); font-size: .92rem; line-height: 1.65; }
+  .projects-index-quickstart { display:flex; flex-wrap:wrap; align-items:baseline; gap:.55rem; margin-top:1rem; color:var(--muted); font:650 .72rem/1.5 var(--font-mono); }
+  .projects-index-quickstart code { overflow-wrap:anywhere; color:var(--text); font:500 .78rem/1.5 var(--font-mono); }
+  .projects-index-quickstart em { font-style:normal; }
   .projects-platform { display: inline-flex; width: fit-content; border: 1px solid var(--border); padding: .28rem .5rem; color: var(--muted); font: 650 .7rem/1 var(--font-mono); }
   .projects-index-actions { display: flex; flex-direction: column; align-items: stretch; gap: .4rem; min-width: 112px; }
   @media (max-width:720px) { .projects-index-list article { grid-template-columns: 1.75rem 2.75rem minmax(0,1fr); gap: .8rem; } .projects-index-list img { width: 2.75rem; height: 2.75rem; } .projects-index-actions { grid-column: 3; flex-direction: row; align-items: center; } .projects-support-entry { align-items:flex-start; flex-direction:column; gap:1rem; margin-top:4rem; margin-bottom:4rem; } }

@@ -9,7 +9,7 @@ interface Props { locale: Locale; project: ProjectEntry; role: string; index: nu
 const { locale, project, role, index } = Astro.props
 const content = project.data.locales[locale]
 const roleLabels = locale === 'zh-CN' ? { engineering: '工程与构建', styling: '样式系统', components: '组件与交付', data: '本地数据', migration: 'Taro / React 迁移' } : { engineering: 'Engineering', styling: 'Styling', components: 'Components', data: 'Local data', migration: 'Taro / React migration' }
-const copy = locale === 'zh-CN' ? { docs: '阅读文档', details: '项目详情', roadmap: '项路线' } : { docs: 'Read docs', details: 'Project details', roadmap: 'roadmap items' }
+const copy = locale === 'zh-CN' ? { docs: '阅读文档', details: '项目详情', roadmap: '项路线', quickStart: '第一步' } : { docs: 'Read docs', details: 'Project details', roadmap: 'roadmap items', quickStart: 'First step' }
 ---
 <article data-project-card data-project-id={project.id} aria-labelledby={`project-card-${project.id}`} aria-describedby={`project-card-description-${project.id}`} data-role={role} data-maturity={project.data.status} data-platforms={project.data.platforms?.join('|') ?? ''} data-roadmap-count={project.data.roadmap?.length ?? 0} data-reveal style={`--reveal-delay:${index * 50}ms`}>
   <div class="projects-index-number">{String(index + 1).padStart(2, '0')}</div>
@@ -19,6 +19,7 @@ const copy = locale === 'zh-CN' ? { docs: '阅读文档', details: '项目详情
     <h2 id={`project-card-${project.id}`}>{content.name}</h2>
     <p id={`project-card-description-${project.id}`}>{content.description}</p>
     <div class="flex flex-wrap gap-2">{project.data.platforms?.map(platform => <span class="projects-platform">{platform}</span>)}{project.data.status === 'planned' && !project.data.platforms?.length ? <span class="projects-platform">{locale === 'zh-CN' ? '平台待确认' : 'Platforms pending'}</span> : null}{project.data.roadmap?.length ? <span class="projects-platform">{project.data.roadmap.length} {copy.roadmap}</span> : null}</div>
+    <div class="projects-index-quickstart" aria-label={project.data.installCommand ? `${copy.quickStart}: ${project.data.installCommand}` : (locale === 'zh-CN' ? '第一步：资料待确认' : 'First step: details pending')}><span>{copy.quickStart}</span>{project.data.installCommand ? <code>{project.data.installCommand}</code> : <em>{locale === 'zh-CN' ? '资料待确认' : 'Details pending'}</em>}</div>
   </div>
   <div class="projects-index-actions"><a class={buttonPrimary} href={project.data.docsUrl} target="_blank" rel="noopener noreferrer" aria-label={`${copy.docs}: ${content.name}`} data-analytics-event="click_outbound" data-analytics-target="docs" data-analytics-project={project.id}>{copy.docs}</a><a class="inline-flex min-h-11 items-center justify-center px-2 text-sm font-[650] text-copy-muted hover:text-ink" href={projectPath(locale, project.id)} aria-label={`${copy.details}: ${content.name}`} data-analytics-event="select_project" data-analytics-project={project.id}>{copy.details}</a></div>
 </article>
