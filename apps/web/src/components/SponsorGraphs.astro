@@ -104,24 +104,29 @@ const labels = locale === 'zh-CN'
         }] })
 
         let compact = relation.getWidth() < 480
+        const compactNodeLimit = 48
         const renderRelation = () => {
           const query = search.value.trim().toLowerCase()
           const nodes = graph.nodes.filter(node => (!kindSelect.value || node.kind === kindSelect.value) && (!query || node.name.toLowerCase().includes(query)))
-          const ids = new Set(nodes.map(node => node.id))
+          const visibleNodes = compact ? nodes.slice(0, compactNodeLimit) : nodes
+          const ids = new Set(visibleNodes.map(node => node.id))
           relation.setOption({ ...chartStyle(), animation: !reduce.matches, tooltip: { renderMode: 'richText' }, series: [{
             type: 'graph', layout: compact ? 'none' : 'force', roam: true,
             ...(compact ? { left: '23%', right: '23%', top: '12%', bottom: '22%' } : {}),
-            data: nodes.map((node, index) => ({ id: node.id, name: node.name, value: node.value, ...(compact ? { x: index % 2, y: Math.floor(index / 2) } : {}), symbolSize: node.kind === 'sponsor' ? 24 : 32 })),
+            data: visibleNodes.map((node, index) => ({ id: node.id, name: node.name, value: node.value, ...(compact ? { x: index % 2, y: Math.floor(index / 2) } : {}), symbolSize: node.kind === 'sponsor' ? 24 : 32 })),
             links: [...graph.edges, ...graph.relationEdges].filter(edge => ids.has(edge.source) && ids.has(edge.target)).map(edge => ({ source: edge.source, target: edge.target, value: edge.value })),
             force: { repulsion: 120, edgeLength: 90, layoutAnimation: !reduce.matches },
             label: { ...labelStyle(), show: true, position: compact ? 'bottom' : 'right', ...(compact ? { width: 120, overflow: 'truncate' } : {}) }, labelLayout: { hideOverlap: true }, emphasis: { focus: 'adjacency' },
           }] }, { notMerge: true })
-          this.querySelector<HTMLElement>('[data-status]')!.textContent = zh ? `${nodes.length} 个节点` : `${nodes.length} nodes`
+          const limited = visibleNodes.length < nodes.length
+          this.querySelector<HTMLElement>('[data-status]')!.textContent = zh
+            ? `${visibleNodes.length}${limited ? ` / ${nodes.length}` : ''} 个节点`
+            : `${visibleNodes.length}${limited ? ` / ${nodes.length}` : ''} nodes`
           const visibleEdges = [...graph.edges, ...graph.relationEdges].filter(edge => ids.has(edge.source) && ids.has(edge.target)).length
           const summary = this.querySelector<HTMLElement>('[data-summary]')!
           summary.textContent = nodes.length === 0
             ? (zh ? '当前公开快照没有可展示的关系数据。' : 'The current public snapshot has no relationship data to display.')
-            : (zh ? `当前筛选：${nodes.length} 个节点，${visibleEdges} 条连接。` : `Current filter: ${nodes.length} nodes, ${visibleEdges} connections.`)
+            : (zh ? `当前筛选：${visibleNodes.length}${limited ? ` / ${nodes.length}` : ''} 个节点，${visibleEdges} 条连接。` : `Current filter: ${visibleNodes.length}${limited ? ` / ${nodes.length}` : ''} nodes, ${visibleEdges} connections.`)
           details.hidden = true
         }
         const selectNode = (id: string | undefined) => {
