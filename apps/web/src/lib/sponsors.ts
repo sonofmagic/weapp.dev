@@ -101,15 +101,20 @@ export async function loadPublicSponsors(): Promise<SponsorSnapshot> {
     if (!response.ok) {
       throw new Error(`Sponsor snapshot returned ${response.status}`)
     }
-    const payload = await response.json() as Record<string, unknown>
-    const items = Array.isArray(payload.items)
-      ? payload.items.map(sanitize).filter((item): item is PublicSponsor => Boolean(item)).reduce<PublicSponsor[]>((unique, item) => {
-          if (!unique.some(existing => existing.id === item.id)) {
-            unique.push(item)
-          }
-          return unique
-        }, [])
-      : []
+    const rawPayload = await response.json() as unknown
+    if (!rawPayload || typeof rawPayload !== 'object' || Array.isArray(rawPayload)) {
+      throw new TypeError('Sponsor snapshot payload must be an object')
+    }
+    const payload = rawPayload as Record<string, unknown>
+    if (!Array.isArray(payload.items)) {
+      throw new TypeError('Sponsor snapshot payload is missing items')
+    }
+    const items = payload.items.map(sanitize).filter((item): item is PublicSponsor => Boolean(item)).reduce<PublicSponsor[]>((unique, item) => {
+      if (!unique.some(existing => existing.id === item.id)) {
+        unique.push(item)
+      }
+      return unique
+    }, [])
     const version = typeof payload.version === 'number' && Number.isInteger(payload.version) && payload.version > 0 ? payload.version : 1
     return { version, repositoryUrl, total: items.length, items }
   }

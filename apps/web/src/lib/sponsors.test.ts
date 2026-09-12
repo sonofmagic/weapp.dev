@@ -65,6 +65,15 @@ describe('sponsor graph data', () => {
     expect(snapshot.items[0]?.displaySites).toContain('weapp')
   })
 
+  it('falls back when a successful response has an invalid payload shape', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({ version: 9 }), { status: 200 })))
+
+    const snapshot = await loadPublicSponsors()
+
+    expect(snapshot.version).toBe(1)
+    expect(snapshot.items[0]?.brandName).toBe('Easysearch')
+  })
+
   it('keeps only valid public sponsors from a remote payload', async () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({
       version: 4,
