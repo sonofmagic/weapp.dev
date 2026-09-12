@@ -33,6 +33,7 @@
 }
 
 .home-lab-tabs button {
+  min-height: 2.5rem;
   padding: 0.45rem 0.9rem;
   font-size: 0.875rem;
   cursor: pointer;

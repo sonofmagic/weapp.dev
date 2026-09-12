@@ -10,7 +10,7 @@ const copy = demoCopy[locale]
 ---
 <hero-demos class="home-lab" role="region" aria-label={copy.playground}>
   <div class="home-lab-heading">
-    <div class="home-lab-tabs" role="tablist" aria-label={copy.playground} hidden>
+    <div class="home-lab-tabs" role="tablist" aria-orientation="horizontal" aria-label={copy.playground} hidden>
       {projects.map((project, index) => <button type="button" role="tab" id={`hero-tab-${project.demo}`} aria-controls={`hero-panel-${project.demo}`} aria-selected={index === 0 ? 'true' : 'false'} tabindex={index === 0 ? 0 : -1}>{copy.tabs[project.demo]}</button>)}
     </div>
     <span class="home-lab-project" data-active-project aria-live="polite">{projects[0].data.locales[locale].name}</span>
