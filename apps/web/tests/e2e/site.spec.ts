@@ -419,6 +419,32 @@ for (const [route, footerPath] of [
 }
 
 for (const prefix of ['', '/en']) {
+  test(`keeps project filters shareable and keyboard-resettable on ${prefix || 'zh-CN'}`, async ({ page }) => {
+    await page.goto(`${prefix}/projects/`)
+    const role = page.locator('[data-filter-role]')
+    const maturity = page.locator('[data-filter-maturity]')
+    const reset = page.locator('[data-filter-reset]')
+    const count = page.locator('[data-filter-count]')
+    await expect(role).toBeEnabled()
+    await role.selectOption('engineering')
+    await expect(page).toHaveURL(new RegExp(`${prefix ? '/en' : ''}/projects/\\?role=engineering$`))
+    await expect(page.locator('[data-project-card]:visible')).toHaveCount(1)
+    await expect(count).toContainText(prefix ? 'project' : '项目')
+    await maturity.selectOption('planned')
+    await expect(page).toHaveURL(new RegExp(`${prefix ? '/en' : ''}/projects/\\?role=engineering&maturity=planned$`))
+    await expect(page.locator('[data-filter-empty]')).toBeVisible()
+    await reset.focus()
+    await page.keyboard.press('Enter')
+    await expect(page).toHaveURL(new RegExp(`${prefix ? '/en' : ''}/projects/$`))
+    await expect(page.locator('[data-project-card]:visible')).toHaveCount(5)
+    await page.goto(`${prefix}/projects/?maturity=planned`)
+    await expect(maturity).toHaveValue('planned')
+    await expect(page.locator('[data-project-card]:visible')).toHaveCount(2)
+    await page.goBack()
+    await expect(maturity).toHaveValue('')
+    await expect(page.locator('[data-project-card]:visible')).toHaveCount(5)
+  })
+
   test(`planned projects expose no package or install actions on ${prefix || '/'}`, async ({ page }) => {
     for (const slug of ['varo', 'weapp-sqlite']) {
       await page.goto(`${prefix}/projects/${slug}/`)
