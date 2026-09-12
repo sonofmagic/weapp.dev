@@ -174,6 +174,7 @@ export function initAnalytics(): void {
   const privacySignal = hasPrivacySignal(navigator)
   const shouldRun = window.location.hostname === 'weapp.dev' || window.__WEAPP_ANALYTICS_TEST__ === true
   const preferenceElements = getPreferenceElements()
+  let lastPreferenceTrigger: HTMLElement | null = null
   const providerStates: Record<AnalyticsProvider, {
     configured: boolean
     loaded: boolean
@@ -206,6 +207,11 @@ export function initAnalytics(): void {
     enabled.disabled = privacySignal
     privacyNotice?.toggleAttribute('hidden', !privacySignal)
     dialog.showModal()
+  }
+
+  const closePreferences = () => {
+    preferenceElements.dialog?.close()
+    lastPreferenceTrigger?.focus()
   }
 
   window.weappAnalytics = { openPreferences, track }
@@ -306,16 +312,19 @@ export function initAnalytics(): void {
   })
 
   document.querySelectorAll<HTMLElement>('[data-analytics-preferences-open]').forEach((button) => {
-    button.addEventListener('click', openPreferences)
+    button.addEventListener('click', () => {
+      lastPreferenceTrigger = button
+      openPreferences()
+    })
   })
   document.querySelectorAll<HTMLElement>('[data-analytics-preferences-close]').forEach((button) => {
-    button.addEventListener('click', () => preferenceElements.dialog?.close())
+    button.addEventListener('click', closePreferences)
   })
   document.querySelector<HTMLFormElement>('[data-analytics-preferences-form]')?.addEventListener('submit', (event) => {
     event.preventDefault()
     const enabled = preferenceElements.enabled?.checked === true && !privacySignal
     writeAnalyticsConsent(localStorage, enabled ? 'granted' : 'denied')
-    preferenceElements.dialog?.close()
+    closePreferences()
     if (enabled) {
       void loadProviders()
     }

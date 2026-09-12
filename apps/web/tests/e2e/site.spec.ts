@@ -827,6 +827,8 @@ test('opens analytics preferences directly from the privacy page', async ({ page
   await page.getByRole('button', { name: '打开统计偏好' }).click()
   await expect(page.getByRole('dialog', { name: '统计偏好' })).toBeVisible()
   await expect(page.locator('[data-analytics-dialog]')).toHaveAttribute('aria-describedby', 'analytics-dialog-description')
+  await page.getByRole('button', { name: '关闭' }).click()
+  await expect(page.getByRole('button', { name: '打开统计偏好' })).toBeFocused()
   await page.goto('/en/privacy/')
   await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute('content', 'weapp.dev privacy and data practices')
 })
