@@ -24,7 +24,7 @@ export interface SponsorSnapshot {
 export type SponsorGraphNodeKind = 'sponsor' | 'project' | 'fund' | 'site'
 export interface SponsorGraphNode { id: string, name: string, kind: SponsorGraphNodeKind, value?: number, url?: string }
 export interface SponsorGraphEdge { source: string, target: string, value: number, label?: string }
-export interface SponsorGraphData { nodes: SponsorGraphNode[], edges: SponsorGraphEdge[], buckets: Array<{ id: string, name: string, share: number, body: string }> }
+export interface SponsorGraphData { nodes: SponsorGraphNode[], edges: SponsorGraphEdge[], relationEdges: SponsorGraphEdge[], buckets: Array<{ id: string, name: string, share: number, body: string }> }
 
 const repositoryUrl = 'https://github.com/sonofmagic/sponsors'
 const fallback: SponsorSnapshot = {
@@ -124,11 +124,13 @@ export function sponsorGraphData(snapshot: SponsorSnapshot): SponsorGraphData {
   const nodes: SponsorGraphNode[] = projects.map(([id, name, url]) => ({ id, name, kind: 'project', url }))
   nodes.push(...sites.map(([id, name, url]) => ({ id, name, kind: 'site' as const, url })))
   const edges: SponsorGraphEdge[] = []
+  const relationEdges: SponsorGraphEdge[] = []
   for (const sponsor of snapshot.items) {
     const name = sponsor.brandName || sponsor.login || sponsor.id
     nodes.push({ id: `sponsor:${sponsor.id}`, name, kind: 'sponsor', url: sponsor.brandUrl || sponsor.profileUrl })
-    // Display consent does not identify which project received a sponsorship.
-    // Keep sponsors unlinked until the snapshot provides explicit attribution.
+    for (const site of sponsor.displaySites) {
+      relationEdges.push({ source: `sponsor:${sponsor.id}`, target: `site:${site}`, value: 1, label: 'display' })
+    }
   }
   const buckets = [
     { id: 'fund:core', name: 'Core maintenance', share: 60, body: 'Maintainer time, tests, CI, domain and docs.' },
@@ -140,5 +142,5 @@ export function sponsorGraphData(snapshot: SponsorSnapshot): SponsorGraphData {
     edges.push({ source: 'ledger:net', target: bucket.id, value: bucket.share, label: `${bucket.share}%` })
   }
   nodes.push({ id: 'ledger:net', name: 'Confirmed net receipts', kind: 'fund', value: 100 })
-  return { nodes, edges, buckets }
+  return { nodes, edges, relationEdges, buckets }
 }
