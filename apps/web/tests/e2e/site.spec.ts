@@ -647,9 +647,10 @@ test('provides a working mobile navigation menu', async ({ page }) => {
 })
 
 test('announces the desktop project menu state in both locales', async ({ page }) => {
-  for (const route of ['/', '/en/']) {
+  for (const [route, navigationName] of [['/', '主导航'], ['/en/', 'Primary navigation']] as const) {
     await page.setViewportSize({ width: 1280, height: 800 })
     await page.goto(route)
+    await expect(page.getByRole('navigation', { name: navigationName })).toBeVisible()
     const summary = page.locator('[data-project-menu] summary')
     await expect(summary).toHaveAttribute('aria-controls', 'project-navigation')
     await expect(summary).toHaveAttribute('aria-expanded', 'false')
