@@ -58,6 +58,15 @@ export const projectDefinitionSchema = z.object({
   runtime: z.array(z.string().min(1)).optional(),
   relatedProjects: z.array(z.string().min(1)).optional(),
   dataCompleteness: z.enum(['complete', 'partial', 'planned']).optional(),
+  quickStart: z.object({
+    command: z.string().min(1).optional(),
+    note: z.string().min(1).optional(),
+  }).optional(),
+  proof: z.array(z.string().min(1)).min(1).optional(),
+  roadmap: z.array(z.object({
+    label: z.string().min(1),
+    status: z.enum(['planned', 'in-progress', 'shipped']).optional(),
+  })).min(1).optional(),
   locales: z.object({
     'zh-CN': localizedContent,
     'en': localizedContent,
