@@ -22,13 +22,15 @@ const stepIcons = [Layers2, ScanLine, Package, Database, Waypoints]
     <ol class="m-0 grid list-none grid-cols-5 gap-0 border-y border-line p-0 max-[960px]:grid-cols-3 max-[720px]:grid-cols-1 max-[720px]:border-b-0">
       {copy.about.items.map((item, index) => {
         const Icon = stepIcons[index]
+        const titleId = `about-step-title-${index + 1}`
+        const bodyId = `about-step-body-${index + 1}`
         return (
-          <li data-reveal style={`--reveal-delay: ${index * 70}ms`} class="relative min-h-[200px] border-r border-line px-7 py-6 last:border-r-0 max-[720px]:min-h-0 max-[720px]:border-r-0 max-[720px]:border-b max-[720px]:px-0">
+          <li data-reveal style={`--reveal-delay: ${index * 70}ms`} class="relative min-h-[200px] border-r border-line px-7 py-6 last:border-r-0 max-[720px]:min-h-0 max-[720px]:border-r-0 max-[720px]:border-b max-[720px]:px-0" aria-labelledby={titleId} aria-describedby={bodyId}>
             <div class="mb-7 flex items-center justify-between">
               <Icon class="text-brand" size={25} stroke-width={1.65} aria-hidden="true" />
             </div>
-            <h3 class="mb-3 text-2xl font-[660]">{item.title}</h3>
-            <p class="mb-0 max-w-[340px] text-copy-muted">{item.body}</p>
+            <h3 id={titleId} class="mb-3 text-2xl font-[660]">{item.title}</h3>
+            <p id={bodyId} class="mb-0 max-w-[340px] text-copy-muted">{item.body}</p>
           </li>
         )
       })}
