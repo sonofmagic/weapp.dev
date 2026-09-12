@@ -87,6 +87,8 @@ for (const prefix of ['', '/en']) {
     await maturity.selectOption('stable')
     await expect(visible).toHaveCount(0)
     await expect(page.locator('[data-filter-empty]')).toBeVisible()
+    await expect(page.locator('[data-filter-empty]')).toHaveAttribute('role', 'status')
+    await expect(page.locator('[data-filter-empty]')).toHaveAttribute('aria-live', 'polite')
     await page.locator('[data-filter-clear]').focus()
     await page.keyboard.press('Enter')
     await expect(role).toBeFocused()
