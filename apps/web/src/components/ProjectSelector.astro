@@ -61,7 +61,7 @@ const copy = locale === 'zh-CN' ? {
   .project-selector-projects a { display:inline-flex; align-items:center; gap:.4rem; padding:.3rem .5rem; border:1px solid var(--border); color:var(--text); font:650 .75rem/1 var(--font-mono); }
   .project-selector-projects img { width:1.5rem; height:1.5rem; object-fit:contain; }
   .project-selector-command { display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; margin-top:.75rem; color:var(--muted); font:650 .7rem/1.4 var(--font-mono); }
-  .project-selector-command code { overflow:auto; max-width:100%; border:1px solid var(--border); padding:.35rem .5rem; color:var(--text); background:var(--surface); font:inherit; }
+  .project-selector-command code { display:inline-block; overflow:auto; max-width:100%; border:1px solid var(--border); padding:.35rem .5rem; color:var(--text); background:var(--surface); font:inherit; }
   .project-selector-command code:focus-visible { outline:3px solid var(--highlight); outline-offset:2px; }
   .project-selector-command button { min-height:2rem; border:1px solid var(--border); padding:.35rem .5rem; color:var(--muted); background:var(--surface); font:650 .7rem/1.4 var(--font-mono); cursor:pointer; }
   .project-selector-command button:enabled:hover,.project-selector-command button:focus-visible { border-color:var(--accent); color:var(--text); }
