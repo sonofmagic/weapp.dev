@@ -433,6 +433,8 @@ test('keeps homepage command copying readable when the clipboard API is unavaila
   await copyButton.click()
   await expect(copyButton).toHaveAttribute('aria-label', 'Copy manually')
   await expect(copyButton.locator('[data-selector-copy-text]')).toHaveText('Copy manually')
+  await expect(copyButton.locator('[data-selector-copy-text]')).toHaveAttribute('role', 'status')
+  await expect(copyButton.locator('[data-selector-copy-text]')).toHaveAttribute('aria-live', 'polite')
 })
 
 test('provides a working mobile navigation menu', async ({ page }) => {
