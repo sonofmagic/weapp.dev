@@ -41,6 +41,8 @@ for (const prefix of ['', '/en']) {
     const visible = page.locator('[data-project-card]:visible')
     await expect(page.locator('[data-project-filters]')).toHaveAttribute('aria-label', zh ? '筛选工具链项目' : 'Filter toolchain projects')
     await expect(page.locator('[data-project-filters]')).toHaveAttribute('aria-controls', 'toolchain-project-list')
+    await expect(page.locator('[data-project-filters]')).toHaveAttribute('aria-describedby', 'project-filter-count')
+    await expect(page.locator('#project-filter-count')).toHaveAttribute('aria-live', 'polite')
     await expect(page.locator('#toolchain-project-list')).toBeVisible()
     for (const control of await page.locator('[data-project-filters] [aria-controls]').all()) {
       await expect(control).toHaveAttribute('aria-controls', 'toolchain-project-list')
