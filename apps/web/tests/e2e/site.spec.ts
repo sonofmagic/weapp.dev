@@ -148,6 +148,8 @@ test('renders the bilingual pricing and delivery page', async ({ page }) => {
   await expect(page.locator('#sponsor')).toContainText('15%')
   await expect(page.locator('#sponsor')).toContainText('贡献者基金')
   await expect(page.locator('#sponsor')).toContainText('到账后怎么分')
+  await expect(page.locator('.pricing-sponsor-tier[aria-labelledby]')).toHaveCount(4)
+  await expect(page.locator('.pricing-allocation-stack article[aria-labelledby]')).toHaveCount(3)
   for (const id of ['sponsor', 'services', 'support', 'boundary', 'faq']) {
     await expect(page.locator(`#${id}`)).toHaveAttribute('aria-labelledby', `pricing-${id}-title`)
   }

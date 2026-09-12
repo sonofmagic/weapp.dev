@@ -54,9 +54,9 @@ const githubUrl = 'https://github.com/sonofmagic/weapp.dev'
       <div class="pricing-sponsor-split">
         <div data-reveal class="pricing-sponsor-grid">
           {pricing.sponsorTiers.map((tier, index) => (
-            <article class="pricing-sponsor-tier" style={`--reveal-delay: ${index * 50}ms`}>
+            <article class="pricing-sponsor-tier" style={`--reveal-delay: ${index * 50}ms`} aria-labelledby={`pricing-sponsor-tier-title-${index + 1}`}>
               <Heart class="mb-5 text-brand" size={22} stroke-width={1.7} aria-hidden="true" />
-              <h3 class="mb-2 text-lg font-[660]">{tier.name}</h3>
+              <h3 id={`pricing-sponsor-tier-title-${index + 1}`} class="mb-2 text-lg font-[660]">{tier.name}</h3>
               <strong class="mb-1 block font-mono text-2xl font-[720] leading-none">{tier.price}</strong>
               <span class="mb-4 block text-xs text-copy-muted">{tier.cadence}</span>
               <p class="mb-5 text-sm leading-[1.7] text-copy-muted">{tier.body}</p>
@@ -72,10 +72,10 @@ const githubUrl = 'https://github.com/sonofmagic/weapp.dev'
           <p class="mb-2 font-mono text-xs font-[650] text-brand">{pricing.allocationHeading}</p>
           <p class="mb-6 text-sm leading-[1.7] text-copy-muted">{pricing.sponsorAllocation}</p>
           <div class="pricing-allocation-stack">
-            {pricing.sponsorAllocationBuckets.map(bucket => (
-              <article>
+            {pricing.sponsorAllocationBuckets.map((bucket, index) => (
+              <article aria-labelledby={`pricing-allocation-title-${index + 1}`}>
                 <strong class="mb-1 block font-mono text-2xl font-[720] leading-none">{bucket.share}</strong>
-                <h3 class="mb-1 text-base font-[660]">{bucket.name}</h3>
+                <h3 id={`pricing-allocation-title-${index + 1}`} class="mb-1 text-base font-[660]">{bucket.name}</h3>
                 <p class="mb-0 text-sm leading-[1.7] text-copy-muted">{bucket.body}</p>
               </article>
             ))}
