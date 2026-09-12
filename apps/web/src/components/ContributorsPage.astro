@@ -32,11 +32,11 @@ const copy = siteCopy[locale].contributors
     <section data-reveal class="mb-20" aria-labelledby="allocation-title">
       <h2 id="allocation-title" class="mb-6 text-xl font-[650]">{copy.allocationTitle}</h2>
       <div class="contributors-bucket-grid">
-        {copy.buckets.map(bucket => (
-          <article>
+        {copy.buckets.map((bucket, index) => (
+          <article aria-labelledby={`contributors-bucket-title-${index + 1}`}>
             <Heart class="mb-6 text-brand" size={22} stroke-width={1.7} aria-hidden="true" />
             <strong class="mb-2 block font-mono text-2xl font-[720] leading-none">{bucket.share}</strong>
-            <h3 class="mb-2 text-lg font-[660]">{bucket.name}</h3>
+            <h3 id={`contributors-bucket-title-${index + 1}`} class="mb-2 text-lg font-[660]">{bucket.name}</h3>
             <p class="mb-0 text-sm leading-[1.7] text-copy-muted">{bucket.body}</p>
           </article>
         ))}
