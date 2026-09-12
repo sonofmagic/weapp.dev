@@ -65,7 +65,10 @@ export const projectDefinitionSchema = z.object({
       z.object({ 'zh-CN': z.string().min(1), 'en': z.string().min(1) }),
     ]).optional(),
   }).optional(),
-  proof: z.array(z.string().min(1)).min(1).optional(),
+  proof: z.array(z.union([
+    z.string().min(1),
+    z.object({ 'zh-CN': z.string().min(1), 'en': z.string().min(1) }),
+  ])).min(1).optional(),
   roadmap: z.array(z.object({
     label: z.union([
       z.string().min(1),

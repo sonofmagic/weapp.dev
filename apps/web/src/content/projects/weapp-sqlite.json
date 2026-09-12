@@ -36,8 +36,8 @@
     }
   },
   "proof": [
-    "运行时边界待确认",
-    "迁移与同步策略待确认"
+    { "zh-CN": "运行时边界待确认", "en": "Runtime boundaries are still being confirmed" },
+    { "zh-CN": "迁移与同步策略待确认", "en": "Migration and sync strategy are still being confirmed" }
   ],
   "roadmap": [
     { "label": { "zh-CN": "确认运行时与平台边界", "en": "Confirm runtime and platform boundaries" }, "status": "planned" },

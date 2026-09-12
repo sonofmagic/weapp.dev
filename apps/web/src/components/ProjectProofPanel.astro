@@ -19,7 +19,7 @@ const displayProof = project.data.status === 'planned' ? { zh: '规划边界', e
 ---
 <section class="project-proof-panel" aria-labelledby="project-proof-title">
   <div><p class="mb-2 font-mono text-xs font-[650] text-brand">{locale === 'zh-CN' ? '工程证据' : 'ENGINEERING PROOF'}</p><h2 id="project-proof-title">{displayProof ? (locale === 'zh-CN' ? displayProof.zh : displayProof.en) : content.tagline}</h2><p>{locale === 'zh-CN' ? '从一段真实的配置、命令或边界说明开始判断项目是否适合你的工程。' : 'Start with a real config, command, or boundary note when deciding if this project fits your codebase.'}</p></div>
-  <div class="project-proof-code"><div class="project-proof-code-head"><span>{displayProof?.file ?? 'project.md'}</span><span>{statusLabel[project.data.status]}</span></div><pre><code>{displayProof?.code ?? content.description}</code></pre></div>
+  <div class="project-proof-code"><div class="project-proof-code-head"><span>{displayProof?.file ?? 'project.md'}</span><span>{statusLabel[project.data.status]}</span></div>{project.data.proof?.length ? <ul class="project-proof-list">{project.data.proof.map(item => <li>{typeof item === 'string' ? item : item[locale]}</li>)}</ul> : <pre><code>{displayProof?.code ?? content.description}</code></pre>}</div>
 </section>
 <style>
   .project-proof-panel { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:2rem; align-items:stretch; padding:1.5rem; border:1px solid var(--border); background:var(--surface-soft); }
@@ -28,5 +28,6 @@ const displayProof = project.data.status === 'planned' ? { zh: '规划边界', e
   .project-proof-code { min-width:0; overflow:hidden; border:1px solid var(--border); background:var(--surface); }
   .project-proof-code-head { display:flex; justify-content:space-between; gap:1rem; padding:.7rem .85rem; border-bottom:1px solid var(--border); color:var(--muted); font:650 .7rem/1 var(--font-mono); }
   .project-proof-code pre { margin:0; overflow-x:auto; padding:1rem; color:var(--text); font:400 .8rem/1.7 var(--font-mono); }
+  .project-proof-list { display:grid; gap:.7rem; margin:0; padding:1.1rem 1.25rem 1.25rem 2.25rem; color:var(--text); font-size:.85rem; line-height:1.6; }
   @media (max-width:720px) { .project-proof-panel { grid-template-columns:1fr; gap:1.25rem; padding:1rem; } }
 </style>
