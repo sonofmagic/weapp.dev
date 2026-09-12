@@ -5,6 +5,7 @@ for (const prefix of ['', '/en']) {
   test(`keeps the homepage toolchain map in flow order on ${prefix || 'zh-CN'}`, async ({ page }) => {
     await page.goto(`${prefix}/`)
     await expect(page.locator('.toolchain-map header p')).toHaveText(prefix ? 'TOOLCHAIN MAP' : '工具链地图')
+    await expect(page.getByRole('navigation', { name: prefix ? 'Homepage project links' : '首页项目入口' })).toBeVisible()
     const ids = ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro']
     const links = page.locator('.toolchain-map-list li a')
     await expect(links).toHaveCount(5)
