@@ -53,6 +53,7 @@ const labels = locale === 'zh-CN'
         use([GraphChart, SankeyChart, GridComponent, TooltipComponent, LegendComponent, CanvasRenderer])
         const graph: import('../lib/sponsors').SponsorGraphData = JSON.parse(this.dataset.graph || '{}')
         const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
+        const kindLabels = this.dataset.locale === 'zh-CN' ? { sponsor: '赞助者', project: '项目', fund: '资金桶', site: '站点' } : { sponsor: 'Sponsor', project: 'Project', fund: 'Fund', site: 'Site' }
         const flow = init(this.querySelector('[data-chart="flow"]'))
         const relation = init(this.querySelector('[data-chart="relation"]'))
         const ledgerName = graph.nodes.find((node) => node.id === 'ledger:net')?.name ?? 'Confirmed net receipts'
@@ -65,7 +66,7 @@ const labels = locale === 'zh-CN'
         const nodes = graph.nodes.filter((n) => (!kind || n.kind === kind) && (!query || n.name.toLowerCase().includes(query)))
         const ids = new Set(nodes.map((n) => n.id))
         relation.setOption({ animation: !reduce, tooltip: {}, series: [{ type: 'graph', layout: 'force', roam: true, data: nodes.map((n) => ({ id: n.id, name: n.name, value: n.value, symbolSize: n.kind === 'sponsor' ? 24 : 32 })), links: graph.edges.filter((e) => ids.has(e.source) && ids.has(e.target)).map((e) => ({ source: e.source, target: e.target, value: e.value })), force: { repulsion: 120, edgeLength: 90 }, label: { show: true, position: 'right' }, emphasis: { focus: 'adjacency' } }] })
-        this.querySelector<HTMLElement>('[data-status]')!.textContent = `${nodes.length} nodes`
+        this.querySelector<HTMLElement>('[data-status]')!.textContent = this.dataset.locale === 'zh-CN' ? `${nodes.length} 个节点` : `${nodes.length} nodes`
         this.querySelector<HTMLElement>('[data-node-details]')!.hidden = true
       }
       relation.on('click', (params) => {
@@ -77,7 +78,7 @@ const labels = locale === 'zh-CN'
         const kind = this.querySelector<HTMLElement>('[data-node-kind]')!
         const link = this.querySelector<HTMLAnchorElement>('[data-node-link]')!
         name.textContent = selected.name
-        kind.textContent = selected.kind
+        kind.textContent = kindLabels[selected.kind as keyof typeof kindLabels] ?? selected.kind
         link.hidden = !selected.url
         if (selected.url) link.href = selected.url
         details.hidden = false
