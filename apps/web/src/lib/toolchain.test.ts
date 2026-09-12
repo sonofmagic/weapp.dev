@@ -41,6 +41,18 @@ describe('toolchain project ordering', () => {
     expect(() => validateToolchainCatalog(projects)).toThrow('Planned project cannot claim complete data')
   })
 
+  it('rejects package actions that contradict project status', () => {
+    const projects = [vite, tailwind, varo, sqlite, taro].map((data, index) => ({
+      id: ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro'][index],
+      data: projectDefinitionSchema.parse(data),
+    })) as unknown as ProjectEntry[]
+    projects[2].data.installCommand = 'pnpm dlx @varo/cli'
+    expect(() => validateToolchainCatalog(projects)).toThrow('Planned project cannot publish package actions')
+    projects[2].data.installCommand = undefined
+    projects[0].data.npmUrl = undefined
+    expect(() => validateToolchainCatalog(projects)).toThrow('Active project is missing package actions')
+  })
+
   it('rejects status and maturity drift', () => {
     const projects = [vite, tailwind, varo, sqlite, taro].map((data, index) => ({
       id: ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro'][index],

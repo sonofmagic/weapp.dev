@@ -45,6 +45,12 @@ export function validateToolchainCatalog(projects: ProjectEntry[]): void {
     if (project.data.status === 'planned' && project.data.dataCompleteness === 'complete') {
       throw new Error(`Planned project cannot claim complete data: ${project.id}`)
     }
+    if (project.data.status === 'planned' && (project.data.npmUrl || project.data.installCommand)) {
+      throw new Error(`Planned project cannot publish package actions: ${project.id}`)
+    }
+    if (project.data.status !== 'planned' && (!project.data.npmUrl || !project.data.installCommand)) {
+      throw new Error(`Active project is missing package actions: ${project.id}`)
+    }
     if (project.data.maturity && project.data.maturity !== project.data.status) {
       throw new Error(`Project status and maturity differ: ${project.id}`)
     }
