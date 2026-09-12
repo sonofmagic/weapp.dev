@@ -68,7 +68,7 @@ function sanitize(value: unknown): PublicSponsor | undefined {
     return undefined
   }
   const displaySites = Array.isArray(item.displaySites)
-    ? item.displaySites.filter((site): site is SponsorSite => allSites.includes(site as SponsorSite))
+    ? [...new Set(item.displaySites.filter((site): site is SponsorSite => allSites.includes(site as SponsorSite)))]
     : []
   if (!displaySites.includes('weapp')) {
     return undefined
