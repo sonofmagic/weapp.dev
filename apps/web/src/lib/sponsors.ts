@@ -153,7 +153,9 @@ export function sponsorGraphData(snapshot: SponsorSnapshot): SponsorGraphData {
       continue
     }
     seenSponsorIds.add(sponsorId)
-    const name = sponsor.brandName || sponsor.login || sponsorId
+    const brandName = typeof sponsor.brandName === 'string' ? sponsor.brandName.trim() : ''
+    const login = typeof sponsor.login === 'string' ? sponsor.login.trim() : ''
+    const name = brandName || login || sponsorId
     const sponsorUrl = sanitizeUrl(sponsor.brandUrl) ?? sanitizeUrl(sponsor.profileUrl)
     nodes.push({ id: `sponsor:${sponsorId}`, name, kind: 'sponsor', ...(sponsorUrl ? { url: sponsorUrl } : {}) })
     const displaySites = Array.isArray(sponsor.displaySites) ? sponsor.displaySites : []

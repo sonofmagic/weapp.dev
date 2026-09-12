@@ -87,6 +87,17 @@ describe('sponsor graph data', () => {
     expect(graph.buckets.reduce((total, bucket) => total + bucket.share, 0)).toBe(100)
   })
 
+  it('falls back to the sponsor ID when public labels are not strings', () => {
+    const graph = sponsorGraphData({
+      version: 1,
+      repositoryUrl: 'https://github.com/sonofmagic/sponsors',
+      total: 1,
+      items: [{ id: 'typed-id', brandName: { unsafe: true }, login: 42, displaySites: ['weapp'] }],
+    } as never)
+
+    expect(graph.nodes.find(node => node.id === 'sponsor:typed-id')?.name).toBe('typed-id')
+  })
+
   it('creates valid project, sponsor, ledger and fund references', () => {
     const graph = sponsorGraphData({
       version: 1,
