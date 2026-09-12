@@ -35,11 +35,12 @@ const flowIcons = [Activity, ChartNoAxesCombined, SlidersHorizontal]
       <ol class="m-0 grid list-none grid-cols-[1fr_auto_1fr_auto_1fr] items-center gap-5 p-0 max-[720px]:grid-cols-1 max-[720px]:items-start">
         {copy.dataFlowItems.map((item, index) => {
           const Icon = flowIcons[index]
+          const itemId = `data-flow-item-${index + 1}`
           return (
             <>
-              <li class="flex items-center gap-3">
+              <li class="flex items-center gap-3" aria-labelledby={itemId}>
                 <span class="grid size-10 shrink-0 place-items-center rounded-[6px] bg-panel-soft text-brand"><Icon size={19} stroke-width={1.7} aria-hidden="true" /></span>
-                <span class="text-sm font-[620]">{item}</span>
+                <span id={itemId} class="text-sm font-[620]">{item}</span>
               </li>
               {index < copy.dataFlowItems.length - 1 && <ArrowRight class="text-copy-muted max-[720px]:ml-3 max-[720px]:rotate-90" size={18} stroke-width={1.7} aria-hidden="true" />}
             </>
