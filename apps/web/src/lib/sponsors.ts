@@ -77,16 +77,20 @@ function sanitize(value: unknown): PublicSponsor | undefined {
   const id = item.id.trim()
   const login = typeof item.login === 'string' ? item.login.trim() : ''
   const brandName = typeof item.brandName === 'string' ? item.brandName.trim() : ''
+  const profileUrl = sanitizeUrl(item.profileUrl)
+  const avatarUrl = sanitizeUrl(item.avatarUrl)
+  const brandUrl = sanitizeUrl(item.brandUrl)
+  const logoUrl = sanitizeUrl(item.logoUrl)
   return {
     id,
     kind: item.kind,
     tier: item.tier as SponsorTier,
     ...(login ? { login } : {}),
-    ...(sanitizeUrl(item.profileUrl) ? { profileUrl: sanitizeUrl(item.profileUrl) } : {}),
-    ...(sanitizeUrl(item.avatarUrl) ? { avatarUrl: sanitizeUrl(item.avatarUrl) } : {}),
+    ...(profileUrl ? { profileUrl } : {}),
+    ...(avatarUrl ? { avatarUrl } : {}),
     ...(brandName ? { brandName } : {}),
-    ...(sanitizeUrl(item.brandUrl) ? { brandUrl: sanitizeUrl(item.brandUrl) } : {}),
-    ...(sanitizeUrl(item.logoUrl) ? { logoUrl: sanitizeUrl(item.logoUrl) } : {}),
+    ...(brandUrl ? { brandUrl } : {}),
+    ...(logoUrl ? { logoUrl } : {}),
     displaySites,
   }
 }
