@@ -22,6 +22,7 @@ for (const route of ['/sponsors/', '/en/sponsors/']) {
     const graphs = page.locator('[data-sponsor-graphs]')
     await expect(graphs).toHaveAttribute('data-ready', 'true')
     const initialCount = await graphs.locator('[data-status]').textContent()
+    await expect(graphs.locator('[data-kind] option[value="site"]')).toHaveText(route.startsWith('/en') ? 'Sites' : '站点')
     await graphs.locator('[data-kind]').selectOption('project')
     await graphs.locator('[data-search]').fill('weapp-vite')
     await expect(graphs.locator('[data-status]')).toHaveText(route.startsWith('/en') ? '1 nodes' : '1 个节点')
