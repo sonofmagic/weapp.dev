@@ -21,15 +21,15 @@ const labels = locale === 'zh-CN'
 ---
 <sponsor-graphs role="region" aria-label={labels.relation} class="sponsor-graphs" data-sponsor-graphs data-locale={locale} data-graph={JSON.stringify(localizedGraph)} aria-busy="false">
   <div class="sponsor-graph-card" data-graph-card="flow" aria-labelledby="sponsor-flow-title">
-    <header><div><p class="sponsor-graph-kicker">01</p><h2 id="sponsor-flow-title">{labels.flow}</h2><p>{labels.flowHelp}</p></div></header>
-    <div class="sponsor-chart" data-chart="flow" hidden role="img" aria-label={labels.flow}></div>
+    <header><div><p class="sponsor-graph-kicker">01</p><h2 id="sponsor-flow-title">{labels.flow}</h2><p id="sponsor-flow-help">{labels.flowHelp}</p></div></header>
+    <div class="sponsor-chart" data-chart="flow" hidden role="img" aria-label={labels.flow} aria-describedby="sponsor-flow-help"></div>
     <p class="sponsor-graph-error" data-graph-error hidden role="status" aria-live="polite">{labels.error}</p>
     <details open><summary>{labels.table}</summary><table><thead><tr><th scope="col">{locale === 'zh-CN' ? '资金桶' : 'Bucket'}</th><th scope="col">{locale === 'zh-CN' ? '比例' : 'Share'}</th></tr></thead><tbody>{localizedGraph.buckets.map(bucket => <tr><th scope="row">{bucket.name}</th><td>{bucket.share}%</td></tr>)}</tbody></table></details>
   </div>
   <div class="sponsor-graph-card" data-graph-card="relation" aria-labelledby="sponsor-relation-title">
-    <header><div><p class="sponsor-graph-kicker">02</p><h2 id="sponsor-relation-title">{labels.relation}</h2><p>{labels.relationHelp}</p></div><button type="button" data-reset disabled>{labels.reset}</button></header>
+    <header><div><p class="sponsor-graph-kicker">02</p><h2 id="sponsor-relation-title">{labels.relation}</h2><p id="sponsor-relation-help">{labels.relationHelp}</p></div><button type="button" data-reset disabled>{labels.reset}</button></header>
     <div class="sponsor-graph-tools" role="toolbar" aria-label={labels.relation}><input type="search" disabled aria-label={locale === 'zh-CN' ? '搜索节点' : 'Search nodes'} data-search placeholder={locale === 'zh-CN' ? '搜索节点' : 'Search nodes'} /><select data-kind disabled aria-label={locale === 'zh-CN' ? '按节点类型筛选' : 'Filter by node type'}><option value="">{labels.all}</option><option value="sponsor">{locale === 'zh-CN' ? '赞助者' : 'Sponsors'}</option><option value="project">{locale === 'zh-CN' ? '项目' : 'Projects'}</option><option value="fund">{locale === 'zh-CN' ? '资金桶' : 'Funds'}</option><option value="site">{locale === 'zh-CN' ? '站点' : 'Sites'}</option></select></div>
-    <div class="sponsor-chart" data-chart="relation" hidden role="img" aria-label={labels.relation}></div>
+    <div class="sponsor-chart" data-chart="relation" hidden role="img" aria-label={labels.relation} aria-describedby="sponsor-relation-help"></div>
     <p class="sponsor-graph-status" data-status aria-live="polite"></p>
     <aside aria-label={labels.details} class="sponsor-node-details" data-node-details hidden aria-live="polite"><strong data-node-name></strong><span data-node-kind></span><a data-node-link target="_blank" rel="noreferrer" hidden>{labels.open}</a></aside>
     <p class="sponsor-graph-error" data-graph-error hidden role="status" aria-live="polite">{labels.error}</p>
