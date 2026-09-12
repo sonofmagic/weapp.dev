@@ -629,22 +629,25 @@ test('keeps every key route stable across responsive viewports', async ({ page }
     { width: 1024, height: 900 },
     { width: 1440, height: 1000 },
   ]
+  const routes = ['/', '/projects/', '/projects/weapp-sqlite/', '/sponsors/']
   for (const viewport of viewports) {
     await page.setViewportSize(viewport)
-    await page.goto('/')
-    const layout = await page.evaluate(() => {
-      const heroCta = document.querySelector<HTMLAnchorElement>('[data-analytics-section="projects"]')
-      return {
-        overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
-        heroCtaPresent: Boolean(heroCta),
-        wrappedControls: [...document.querySelectorAll<HTMLElement>('a, button, summary')]
-          .filter(element => element.scrollWidth > element.clientWidth + 1)
-          .map(element => element.textContent?.trim() || element.getAttribute('aria-label')),
-      }
-    })
-    expect(layout.heroCtaPresent, `${viewport.width}px hero CTA`).toBe(true)
-    expect(layout.overflow, `${viewport.width}px overflow`).toBe(false)
-    expect(layout.wrappedControls, `${viewport.width}px wrapped controls`).toEqual([])
+    for (const route of routes) {
+      await page.goto(route)
+      const layout = await page.evaluate(() => {
+        const heroCta = document.querySelector<HTMLAnchorElement>('.home-hero [data-analytics-section="projects"]')
+        return {
+          overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+          heroCtaPresent: Boolean(heroCta),
+          wrappedControls: [...document.querySelectorAll<HTMLElement>('a, button, summary')]
+            .filter(element => element.scrollWidth > element.clientWidth + 1)
+            .map(element => element.textContent?.trim() || element.getAttribute('aria-label')),
+        }
+      })
+      expect(layout.heroCtaPresent, `${route} ${viewport.width}px hero CTA`).toBe(route === '/')
+      expect(layout.overflow, `${route} ${viewport.width}px overflow`).toBe(false)
+      expect(layout.wrappedControls, `${route} ${viewport.width}px wrapped controls`).toEqual([])
+    }
   }
 })
 
