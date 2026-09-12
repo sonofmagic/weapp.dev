@@ -8,8 +8,15 @@ for (const prefix of ['', '/en']) {
     const ids = ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro']
     const links = page.locator('.toolchain-map-list li a')
     await expect(links).toHaveCount(5)
-    const sqliteNode = page.locator('.toolchain-map-list li').filter({ hasText: 'weapp-sqlite' })
-    await expect(sqliteNode.locator('.toolchain-status')).toHaveText(prefix ? 'Planned' : '规划中')
+    const statusLabels = prefix ? { stable: 'Stable', planned: 'Planned' } : { stable: '稳定', planned: '规划中' }
+    for (const id of ['weapp-vite', 'weapp-tailwindcss', 'vite-plugin-taro']) {
+      const node = page.locator('.toolchain-map-list li').filter({ has: page.locator(`a[href="${prefix}/projects/${id}/"]`) })
+      await expect(node.locator('.toolchain-status')).toHaveText(statusLabels.stable)
+    }
+    for (const id of ['varo', 'weapp-sqlite']) {
+      const node = page.locator('.toolchain-map-list li').filter({ has: page.locator(`a[href="${prefix}/projects/${id}/"]`) })
+      await expect(node.locator('.toolchain-status')).toHaveText(statusLabels.planned)
+    }
     await expect(links.evaluateAll(items => items.map(item => item.getAttribute('href')))).resolves.toEqual(ids.map(id => `${prefix}/projects/${id}/`))
   })
 
