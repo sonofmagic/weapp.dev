@@ -178,6 +178,8 @@ test('renders the bilingual contributor program', async ({ page }) => {
   await expect(page.getByRole('link', { name: '返回赞助页' })).toHaveAttribute('href', '/pricing/#sponsor')
   await expect(page.locator('.contributors-table caption')).toHaveText('贡献者积分规则')
   await expect(page.locator('.contributors-table thead th')).toHaveCount(3)
+  await expect(page.locator('#contributors-section-1')).toHaveAttribute('aria-labelledby', 'contributors-heading-1')
+  await expect(page.locator('#contributors-weights-title').locator('xpath=..')).toHaveAttribute('aria-labelledby', 'contributors-weights-title')
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://weapp.dev/contributors/')
   await expect(page.locator('link[hreflang="en-US"]')).toHaveAttribute('href', 'https://weapp.dev/en/contributors/')
 
@@ -187,6 +189,8 @@ test('renders the bilingual contributor program', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'Back to sponsorship' })).toHaveAttribute('href', '/en/pricing/#sponsor')
   await expect(page.locator('.contributors-table caption')).toHaveText('Contributor point rules')
   await expect(page.locator('.contributors-table thead th')).toHaveCount(3)
+  await expect(page.locator('#contributors-section-1')).toHaveAttribute('aria-labelledby', 'contributors-heading-1')
+  await expect(page.locator('#contributors-weights-title').locator('xpath=..')).toHaveAttribute('aria-labelledby', 'contributors-weights-title')
 })
 
 test('home commercial entry points reach pricing and services', async ({ page }) => {

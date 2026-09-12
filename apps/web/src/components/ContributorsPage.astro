@@ -52,14 +52,14 @@ const copy = siteCopy[locale].contributors
       </nav>
       <div class="border-t border-line">
         {copy.sections.map((sectionCopy, index) => (
-          <section data-reveal id={`contributors-section-${index + 1}`} class="scroll-mt-24 border-b border-line py-9">
-            <h2 class="mb-4 text-2xl font-[660]">{sectionCopy.title}</h2>
+          <section data-reveal id={`contributors-section-${index + 1}`} class="scroll-mt-24 border-b border-line py-9" aria-labelledby={`contributors-heading-${index + 1}`}>
+            <h2 id={`contributors-heading-${index + 1}`} class="mb-4 text-2xl font-[660]">{sectionCopy.title}</h2>
             <p class="mb-0 max-w-[820px] leading-[1.8] text-copy-muted">{sectionCopy.body}</p>
           </section>
         ))}
 
-        <section data-reveal class="scroll-mt-24 border-b border-line py-9">
-          <h2 class="mb-4 text-2xl font-[660]">{copy.weightsTitle}</h2>
+        <section data-reveal class="scroll-mt-24 border-b border-line py-9" aria-labelledby="contributors-weights-title">
+          <h2 id="contributors-weights-title" class="mb-4 text-2xl font-[660]">{copy.weightsTitle}</h2>
           <table class="contributors-table w-full border-collapse text-left text-sm">
             <caption class="sr-only">{locale === 'zh-CN' ? '贡献者积分规则' : 'Contributor point rules'}</caption>
             <thead><tr><th scope="col">{locale === 'zh-CN' ? '积分' : 'Points'}</th><th scope="col">{locale === 'zh-CN' ? '贡献类型' : 'Contribution'}</th><th scope="col">{locale === 'zh-CN' ? '规则' : 'Rule'}</th></tr></thead>
@@ -75,8 +75,8 @@ const copy = siteCopy[locale].contributors
           </table>
         </section>
 
-        <section data-reveal class="scroll-mt-24 border-b border-line py-9">
-          <h2 class="mb-4 text-2xl font-[660]">{copy.reposTitle}</h2>
+        <section data-reveal class="scroll-mt-24 border-b border-line py-9" aria-labelledby="contributors-repos-title">
+          <h2 id="contributors-repos-title" class="mb-4 text-2xl font-[660]">{copy.reposTitle}</h2>
           <ul class="m-0 mb-4 grid list-none gap-2 p-0">
             {copy.repos.map(repo => (
               <li>
@@ -87,8 +87,8 @@ const copy = siteCopy[locale].contributors
           <p class="mb-0 max-w-[820px] text-sm leading-[1.8] text-copy-muted">{copy.reposNote}</p>
         </section>
 
-        <section data-reveal class="scroll-mt-24 py-9">
-          <h2 class="mb-4 text-2xl font-[660]">{copy.payoutTitle}</h2>
+        <section data-reveal class="scroll-mt-24 py-9" aria-labelledby="contributors-payout-title">
+          <h2 id="contributors-payout-title" class="mb-4 text-2xl font-[660]">{copy.payoutTitle}</h2>
           <ol class="m-0 grid max-w-[820px] list-decimal gap-3 py-0 pl-5 text-sm leading-[1.8] text-copy-muted">
             {copy.payout.map(item => <li>{item}</li>)}
           </ol>
