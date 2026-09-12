@@ -65,6 +65,12 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute('content', 'weapp.dev 小程序工程工具链地图')
   await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(4)
   await expect(page.locator('#about')).toContainText('weapp-tailwindcss')
+  for (const [section, title] of [['about', 'about-title'], ['projects', 'projects-title'], ['vision', 'vision-title'], ['releases', 'releases-title'], ['commercial', 'commercial-title']] as const) {
+    await expect(page.locator(`#${section}`)).toHaveAttribute('aria-labelledby', title)
+  }
+  await expect(page.locator('.home-toolchain-shell').first()).toHaveAttribute('aria-labelledby', 'toolchain-title')
+  await expect(page.locator('.home-toolchain-shell').nth(1)).toHaveAttribute('aria-labelledby', 'start-here-title')
+  await expect(page.locator('section[aria-labelledby="collaboration-title"]')).toHaveCount(1)
   const docsLinks = page.locator('#projects').getByRole('link', { name: '文档' })
   await expect(docsLinks).toHaveCount(7)
   await expect(docsLinks.evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([

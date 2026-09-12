@@ -13,10 +13,10 @@ const copy = siteCopy[locale]
 const stepIcons = [Layers2, ScanLine, Package, Database, Waypoints]
 ---
 
-<section class="border-y border-line bg-panel" id="about">
+<section class="border-y border-line bg-panel" id="about" aria-labelledby="about-title">
   <div class:list={[homeSection, shell]}>
     <header data-reveal class="mb-11 max-w-[720px]">
-      <h2 class={sectionTitle}>{copy.about.title}</h2>
+      <h2 id="about-title" class={sectionTitle}>{copy.about.title}</h2>
       <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.about.description}</p>
     </header>
     <ol class="m-0 grid list-none grid-cols-5 gap-0 border-y border-line p-0 max-[960px]:grid-cols-3 max-[720px]:grid-cols-1 max-[720px]:border-b-0">

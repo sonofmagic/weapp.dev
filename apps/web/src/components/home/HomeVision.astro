@@ -11,12 +11,12 @@ const { locale } = Astro.props
 const copy = siteCopy[locale]
 ---
 
-<section class="border-y border-line bg-panel-soft" id="vision">
+<section class="border-y border-line bg-panel-soft" id="vision" aria-labelledby="vision-title">
   <span id="principles" class="sr-only" aria-hidden="true"></span>
   <div class:list={[homeSection, shell]}>
     <header data-reveal class="mb-9 max-w-[720px]">
       <p class="mb-3 font-mono text-xs font-[650] text-brand">{copy.vision.eyebrow}</p>
-      <h2 class={sectionTitle}>{copy.vision.title}</h2>
+      <h2 id="vision-title" class={sectionTitle}>{copy.vision.title}</h2>
       <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.vision.description}</p>
     </header>
     <div class="grid grid-cols-5 gap-px overflow-hidden rounded-panel border border-line bg-line max-[1100px]:grid-cols-3 max-[720px]:grid-cols-1">

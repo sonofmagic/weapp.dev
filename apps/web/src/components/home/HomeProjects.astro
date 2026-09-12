@@ -18,10 +18,10 @@ const { locale, projects, catalogProjects, metrics } = Astro.props
 const copy = siteCopy[locale]
 ---
 
-<section class:list={[homeSection, shell]} id="projects">
+<section class:list={[homeSection, shell]} id="projects" aria-labelledby="projects-title">
   <header data-reveal class="mb-10 max-w-[720px]">
     <p class="mb-3 font-mono text-xs font-[650] text-brand">{copy.projects.eyebrow}</p>
-    <h2 class={sectionTitle}>{copy.projects.title}</h2>
+    <h2 id="projects-title" class={sectionTitle}>{copy.projects.title}</h2>
     <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.projects.description}</p>
   </header>
 

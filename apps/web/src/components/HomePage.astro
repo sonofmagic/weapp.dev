@@ -25,8 +25,8 @@ const homeProjects = await getHomeProjects(projects)
 
 <main id="main-content">
   <HomeHero locale={locale} projects={homeProjects} />
-  <section class="home-toolchain-shell"><div class="mx-auto max-w-[1240px] px-6 max-[720px]:px-4"><ToolchainMap locale={locale} projects={projects} /></div></section>
-  <section class="home-toolchain-shell"><div class="mx-auto max-w-[1240px] px-6 max-[720px]:px-4"><ProjectSelector locale={locale} projects={projects} /></div></section>
+  <section class="home-toolchain-shell" aria-labelledby="toolchain-title"><div class="mx-auto max-w-[1240px] px-6 max-[720px]:px-4"><ToolchainMap locale={locale} projects={projects} /></div></section>
+  <section class="home-toolchain-shell" aria-labelledby="start-here-title"><div class="mx-auto max-w-[1240px] px-6 max-[720px]:px-4"><ProjectSelector locale={locale} projects={projects} /></div></section>
   <HomeAbout locale={locale} />
   <HomeProjects locale={locale} projects={homeProjects} catalogProjects={projects} metrics={metrics} />
   <HomeVision locale={locale} />

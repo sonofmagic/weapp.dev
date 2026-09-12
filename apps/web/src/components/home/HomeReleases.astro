@@ -17,10 +17,10 @@ const copy = siteCopy[locale]
 const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
 ---
 
-<section class:list={[homeSection, shell]} id="releases">
+<section class:list={[homeSection, shell]} id="releases" aria-labelledby="releases-title">
   <div class="grid grid-cols-[.75fr_1.25fr] gap-12 max-[900px]:grid-cols-1 max-[900px]:gap-8">
     <header data-reveal class="max-w-[470px]">
-      <h2 class={sectionTitle}>{copy.releases.title}</h2>
+      <h2 id="releases-title" class={sectionTitle}>{copy.releases.title}</h2>
       <p class="mb-0 text-copy-muted">{copy.releases.description}</p>
     </header>
     <div data-reveal class="border-t border-line">
