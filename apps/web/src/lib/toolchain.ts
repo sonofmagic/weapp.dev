@@ -52,6 +52,12 @@ export function validateToolchainCatalog(projects: ProjectEntry[]): void {
       if (!byId.has(relatedId)) {
         throw new Error(`Unknown related project ${relatedId} on ${project.id}`)
       }
+      if (relatedId === project.id) {
+        throw new Error(`Project cannot relate to itself: ${project.id}`)
+      }
+      if (!roleById[relatedId]) {
+        throw new Error(`Related project is outside the toolchain: ${relatedId}`)
+      }
     }
     if (project.data.status === 'planned' && project.data.dataCompleteness === 'complete') {
       throw new Error(`Planned project cannot claim complete data: ${project.id}`)

@@ -36,6 +36,13 @@ describe('toolchain project ordering', () => {
     const invalid = structuredClone(projects) as ProjectEntry[]
     invalid[0].data.relatedProjects = ['missing-project']
     expect(() => validateToolchainCatalog(invalid)).toThrow('Unknown related project')
+    const selfRelated = structuredClone(projects) as ProjectEntry[]
+    selfRelated[0].data.relatedProjects = ['weapp-vite']
+    expect(() => validateToolchainCatalog(selfRelated)).toThrow('Project cannot relate to itself')
+    const outsideToolchain = structuredClone(projects) as ProjectEntry[]
+    outsideToolchain.push({ id: 'other-project', collection: 'projects', data: { ...outsideToolchain[0].data, relatedProjects: [] } })
+    outsideToolchain[0].data.relatedProjects = ['other-project']
+    expect(() => validateToolchainCatalog(outsideToolchain)).toThrow('Related project is outside the toolchain')
   })
 
   it('rejects a planned project marked as complete', () => {
