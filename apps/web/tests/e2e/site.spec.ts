@@ -504,6 +504,20 @@ test('supports keyboard navigation and activation', async ({ page }) => {
   await expect(page.locator('[data-active-project]')).toHaveText('weapp-tailwindcss')
 })
 
+test('protects all new-window links across key routes', async ({ page }) => {
+  const routes = ['/', '/en/', '/projects/', '/en/projects/', '/pricing/', '/en/pricing/', '/contributors/', '/en/contributors/', '/sponsors/', '/en/sponsors/']
+  for (const route of routes) {
+    await page.goto(route)
+    const unsafe = await page.locator('a[target="_blank"]').evaluateAll(links => links
+      .filter((link) => {
+        const tokens = (link.getAttribute('rel') || '').split(/\s+/)
+        return !tokens.includes('noopener') || !tokens.includes('noreferrer')
+      })
+      .map(link => link.getAttribute('href')))
+    expect(unsafe, `${route} has unprotected external links`).toEqual([])
+  }
+})
+
 test('keeps secondary project logos lazy and asynchronously decoded', async ({ page }) => {
   await page.goto('/')
   for (const selector of ['.toolchain-map-list img', '#projects .home-project-row img', '#releases img']) {
