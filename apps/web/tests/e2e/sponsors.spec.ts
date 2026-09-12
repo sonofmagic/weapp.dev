@@ -144,6 +144,7 @@ test('does not initialize a detached component after a delayed import', async ({
   })
   await page.goto('/sponsors/', { waitUntil: 'domcontentloaded' })
   await requestStarted
+  await expect(page.locator('[data-graph-loading]')).toBeVisible()
   const component = await page.locator('[data-sponsor-graphs]').elementHandle()
   await component!.evaluate(element => element.remove())
   const finished = page.waitForResponse(response => /\/_astro\/core\./.test(response.url()))
@@ -154,6 +155,7 @@ test('does not initialize a detached component after a delayed import', async ({
   await component!.evaluate(element => document.querySelector('main')!.append(element))
   await expect(page.locator('[data-sponsor-graphs]')).toHaveAttribute('data-ready', 'true')
   await expect(page.locator('[data-sponsor-graphs] canvas')).toHaveCount(2)
+  await expect(page.locator('[data-graph-loading]')).toBeHidden()
 })
 
 for (const route of ['/', '/en/']) {
