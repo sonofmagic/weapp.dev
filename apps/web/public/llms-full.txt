@@ -29,7 +29,7 @@ weapp.dev hosts tools for real mini-app repos. weapp-tailwindcss handles styles,
 - Canonical Chinese page: https://weapp.dev/projects/varo/
 - Canonical English page: https://weapp.dev/en/projects/varo/
 - Documentation and source: https://github.com/daguanren21/Varo#readme
-- Purpose: Registry-first primitives, editable UI source, theme tokens, business blocks, and Agent UI for H5 and weapp-vite mini-programs.
+- Purpose: Planned Registry, editable UI source, theme token, business block, and Agent UI boundaries for H5 and weapp-vite mini-programs.
 - Release status: planned; package metadata, install instructions, runtime capabilities, and performance data are not published yet.
 
 ## VPT (vite-plugin-taro)

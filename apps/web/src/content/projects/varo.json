@@ -37,11 +37,11 @@
       "locales": {
         "zh-CN": {
           "alt": "Varo 文档首页展示跨运行时组件系统能力",
-          "caption": "Varo 以 primitives、可复制源码与交付校验统一 H5 和小程序组件系统。"
+          "caption": "Varo 正在规划 primitives、可复制源码与交付校验如何服务 H5 和小程序组件系统。"
         },
         "en": {
           "alt": "Varo documentation home showing the cross-runtime component system",
-          "caption": "Varo unifies H5 and mini-program component systems through primitives, editable source, and delivery checks."
+          "caption": "Varo is planning how primitives, editable source, and delivery checks should serve H5 and mini-program component systems."
         }
       }
     },
