@@ -61,6 +61,8 @@ const copy = siteCopy[locale].contributors
         <section data-reveal class="scroll-mt-24 border-b border-line py-9">
           <h2 class="mb-4 text-2xl font-[660]">{copy.weightsTitle}</h2>
           <table class="contributors-table w-full border-collapse text-left text-sm">
+            <caption class="sr-only">{locale === 'zh-CN' ? '贡献者积分规则' : 'Contributor point rules'}</caption>
+            <thead><tr><th scope="col">{locale === 'zh-CN' ? '积分' : 'Points'}</th><th scope="col">{locale === 'zh-CN' ? '贡献类型' : 'Contribution'}</th><th scope="col">{locale === 'zh-CN' ? '规则' : 'Rule'}</th></tr></thead>
             <tbody>
               {copy.weights.map(weight => (
                 <tr>
