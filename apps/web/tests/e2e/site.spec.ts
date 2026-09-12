@@ -73,6 +73,9 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   ])
   await expect(page.locator('.home-project-proof')).toHaveCount(5)
   await expect(page.locator('.home-project-row[data-project-id]')).toHaveCount(5)
+  for (const id of ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro']) {
+    await expect(page.locator(`.home-project-row[data-project-id="${id}"]`)).toHaveAttribute('aria-labelledby', `home-project-title-${id}`)
+  }
   await expect(page.locator('#projects .home-lab')).toHaveCount(0)
   await expect(page.locator('.home-hero .home-lab')).toHaveCount(1)
   await expect(page.locator('#projects a[data-analytics-event="select_project"]').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
