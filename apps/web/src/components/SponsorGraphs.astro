@@ -55,7 +55,8 @@ const labels = locale === 'zh-CN'
         const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
         const flow = init(this.querySelector('[data-chart="flow"]'))
         const relation = init(this.querySelector('[data-chart="relation"]'))
-      flow.setOption({ animation: !reduce, tooltip: { trigger: 'item' }, series: [{ type: 'sankey', data: graph.nodes.filter((n) => n.id.startsWith('fund:') || n.id === 'ledger:net').map((n) => ({ name: n.name })), links: graph.edges.filter((e) => e.source === 'ledger:net').map((e) => ({ source: 'Confirmed net receipts', target: graph.nodes.find((n) => n.id === e.target)?.name, value: e.value })), emphasis: { focus: 'adjacency' }, lineStyle: { color: 'gradient', curveness: 0.5 } }] })
+        const ledgerName = graph.nodes.find((node) => node.id === 'ledger:net')?.name ?? 'Confirmed net receipts'
+        flow.setOption({ animation: !reduce, tooltip: { trigger: 'item' }, series: [{ type: 'sankey', data: graph.nodes.filter((n) => n.id.startsWith('fund:') || n.id === 'ledger:net').map((n) => ({ name: n.name })), links: graph.edges.filter((e) => e.source === 'ledger:net').map((e) => ({ source: ledgerName, target: graph.nodes.find((n) => n.id === e.target)?.name, value: e.value })), emphasis: { focus: 'adjacency' }, lineStyle: { color: 'gradient', curveness: 0.5 } }] })
       const renderRelation = () => {
         const search = this.querySelector<HTMLInputElement>('[data-search]')!
         const kindSelect = this.querySelector<HTMLSelectElement>('[data-kind]')!
