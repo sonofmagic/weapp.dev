@@ -19,7 +19,11 @@
   "accent": "#07c160",
   "role": "Components",
   "maturity": "planned",
-  "runtime": ["Vue 3", "H5", "weapp-vite"],
+  "runtime": [
+    "Vue 3",
+    "H5",
+    "weapp-vite"
+  ],
   "dataCompleteness": "partial",
   "platforms": [
     "H5",

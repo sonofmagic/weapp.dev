@@ -1,5 +1,5 @@
 {
-  "order": 2,
+  "order": 1,
   "status": "stable",
   "packageName": "weapp-vite",
   "github": "weapp-vite/weapp-vite",
@@ -21,7 +21,11 @@
   "accent": "#2ba245",
   "role": "Engineering",
   "maturity": "stable",
-  "runtime": ["Vite", "Vue SFC", "Wevu"],
+  "runtime": [
+    "Vite",
+    "Vue SFC",
+    "Wevu"
+  ],
   "dataCompleteness": "complete",
   "platforms": [
     "WeChat",

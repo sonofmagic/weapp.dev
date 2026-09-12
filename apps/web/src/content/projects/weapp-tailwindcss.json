@@ -1,5 +1,5 @@
 {
-  "order": 1,
+  "order": 2,
   "status": "stable",
   "packageName": "weapp-tailwindcss",
   "github": "sonofmagic/weapp-tailwindcss",
@@ -21,7 +21,10 @@
   "accent": "#0ea5e9",
   "role": "Styling",
   "maturity": "stable",
-  "runtime": ["Tailwind CSS", "Mini Program"],
+  "runtime": [
+    "Tailwind CSS",
+    "Mini Program"
+  ],
   "dataCompleteness": "complete",
   "platforms": [
     "WeChat",
