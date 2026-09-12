@@ -12,10 +12,12 @@ for (const prefix of ['', '/en']) {
     for (const id of ['weapp-vite', 'weapp-tailwindcss', 'vite-plugin-taro']) {
       const node = page.locator('.toolchain-map-list li').filter({ has: page.locator(`a[href="${prefix}/projects/${id}/"]`) })
       await expect(node.locator('.toolchain-status')).toHaveText(statusLabels.stable)
+      await expect(node.locator('.toolchain-status')).toHaveAttribute('aria-label', prefix ? 'Project status: Stable' : '项目状态: 稳定')
     }
     for (const id of ['varo', 'weapp-sqlite']) {
       const node = page.locator('.toolchain-map-list li').filter({ has: page.locator(`a[href="${prefix}/projects/${id}/"]`) })
       await expect(node.locator('.toolchain-status')).toHaveText(statusLabels.planned)
+      await expect(node.locator('.toolchain-status')).toHaveAttribute('aria-label', prefix ? 'Project status: Planned' : '项目状态: 规划中')
     }
     await expect(links.evaluateAll(items => items.map(item => item.getAttribute('href')))).resolves.toEqual(ids.map(id => `${prefix}/projects/${id}/`))
     for (const id of ids) {
