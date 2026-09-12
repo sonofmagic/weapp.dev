@@ -49,4 +49,13 @@ describe('toolchain project ordering', () => {
     projects[0].data.maturity = 'beta'
     expect(() => validateToolchainCatalog(projects)).toThrow('Project status and maturity differ')
   })
+
+  it('rejects a declared role that differs from the flow role', () => {
+    const projects = [vite, tailwind, varo, sqlite, taro].map((data, index) => ({
+      id: ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro'][index],
+      data: projectDefinitionSchema.parse(data),
+    })) as unknown as ProjectEntry[]
+    projects[0].data.role = 'Styling'
+    expect(() => validateToolchainCatalog(projects)).toThrow('Project role differs from toolchain role')
+  })
 })

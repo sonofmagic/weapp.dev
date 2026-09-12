@@ -13,6 +13,14 @@ const roleById: Record<string, ToolchainRole> = {
   'vite-plugin-taro': 'migration',
 }
 
+const declaredRoleById: Record<string, string> = {
+  'weapp-vite': 'Engineering',
+  'weapp-tailwindcss': 'Styling',
+  'varo': 'Components',
+  'weapp-sqlite': 'Local data',
+  'vite-plugin-taro': 'Migration',
+}
+
 export function getToolchainProjects(projects: ProjectEntry[]) {
   return projects
     .filter(project => roleById[project.id])
@@ -39,6 +47,9 @@ export function validateToolchainCatalog(projects: ProjectEntry[]): void {
     }
     if (project.data.maturity && project.data.maturity !== project.data.status) {
       throw new Error(`Project status and maturity differ: ${project.id}`)
+    }
+    if (declaredRoleById[project.id] && project.data.role !== declaredRoleById[project.id]) {
+      throw new Error(`Project role differs from toolchain role: ${project.id}`)
     }
   }
 }
