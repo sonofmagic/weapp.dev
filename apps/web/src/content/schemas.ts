@@ -60,7 +60,10 @@ export const projectDefinitionSchema = z.object({
   dataCompleteness: z.enum(['complete', 'partial', 'planned']).optional(),
   quickStart: z.object({
     command: z.string().min(1).optional(),
-    note: z.string().min(1).optional(),
+    note: z.union([
+      z.string().min(1),
+      z.object({ 'zh-CN': z.string().min(1), 'en': z.string().min(1) }),
+    ]).optional(),
   }).optional(),
   proof: z.array(z.string().min(1)).min(1).optional(),
   roadmap: z.array(z.object({

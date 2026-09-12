@@ -30,7 +30,10 @@
   ],
   "dataCompleteness": "planned",
   "quickStart": {
-    "note": "首版资料整理中，暂不提供安装命令或生产 API。"
+    "note": {
+      "zh-CN": "首版资料整理中，暂不提供安装命令或生产 API。",
+      "en": "The first release is being specified; no install command or production API is available yet."
+    }
   },
   "proof": [
     "运行时边界待确认",

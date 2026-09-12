@@ -26,6 +26,7 @@ const primaryVisualCopy = primaryVisual.locales[locale]
 const secondaryVisual = project.data.visuals?.secondary ?? primaryVisual
 const secondaryVisualCopy = secondaryVisual.locales[locale]
 const publicMetrics = showsPublicMetrics(project.data.status)
+const quickStartNote = typeof project.data.quickStart?.note === 'string' ? project.data.quickStart.note : project.data.quickStart?.note?.[locale]
 ---
 
 <main id="main-content" style={`--project-accent: ${project.data.accent}`}>
@@ -88,7 +89,7 @@ const publicMetrics = showsPublicMetrics(project.data.status)
         <h2 class="mb-3 text-2xl font-[660]">{copy.project.install}</h2>
         <p class="mb-0 text-sm text-copy-muted">{content.audience}</p>
       </div>
-      {project.data.status === 'planned' || !project.data.installCommand ? <div data-reveal class="rounded-panel border border-line bg-panel-soft px-5 py-4 text-sm leading-[1.7] text-copy-muted">{copy.project.readinessNote}</div> : <div data-reveal class="grid grid-cols-[1fr_auto] overflow-hidden rounded-panel border border-line bg-canvas">
+      {project.data.status === 'planned' || !project.data.installCommand ? <div data-reveal class="rounded-panel border border-line bg-panel-soft px-5 py-4 text-sm leading-[1.7] text-copy-muted">{quickStartNote || copy.project.readinessNote}</div> : <div data-reveal class="grid grid-cols-[1fr_auto] overflow-hidden rounded-panel border border-line bg-canvas">
         <pre class="m-0 min-w-0 overflow-x-auto px-5 py-4 text-sm"><code>{project.data.installCommand}</code></pre>
         <button
           class="inline-flex min-w-[116px] items-center justify-center gap-2 border-l border-line bg-panel-soft px-4 text-sm font-[650] transition-colors hover:bg-panel-strong max-[480px]:min-w-11 max-[480px]:px-3"
