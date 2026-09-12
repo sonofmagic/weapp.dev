@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, BadgeCheck, BookOpen } from '@lucide/astro'
+import { ArrowRight, BadgeCheck, BookOpen, Clock3 } from '@lucide/astro'
 import type { Locale, ProjectMetrics } from '../../types/project'
 import type { HomeProject } from '../../lib/home-projects'
 import { formatCompactNumber, showsPublicMetrics } from '../../lib/metrics'
@@ -31,7 +31,7 @@ const publicMetrics = showsPublicMetrics(project.data.status)
     <div class="mb-5 flex items-center gap-3">
       <img class="size-12 object-contain" src={project.data.logo} width="48" height="48" alt="" loading="lazy" decoding="async" />
       <span class:list={['inline-flex items-center gap-1.5 font-mono text-xs font-[650]', projectTone]} role="status" aria-label={`${locale === 'zh-CN' ? '项目状态' : 'Project status'}: ${copy.projects.status[project.data.status]}`}>
-        <BadgeCheck size={15} stroke-width={1.8} aria-hidden="true" />
+        {project.data.status === 'planned' ? <Clock3 size={15} stroke-width={1.8} aria-hidden="true" /> : <BadgeCheck size={15} stroke-width={1.8} aria-hidden="true" />}
         {copy.projects.status[project.data.status]}
       </span>
     </div>
