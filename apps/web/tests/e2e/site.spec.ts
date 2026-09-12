@@ -454,6 +454,15 @@ for (const prefix of ['', '/en']) {
     }
   })
 
+  test(`cleans invalid project filter parameters on ${prefix || 'zh-CN'}`, async ({ page }) => {
+    await page.goto(`${prefix}/projects/?role=unknown&maturity=planned&platform=unknown`)
+    await expect(page).toHaveURL(new RegExp(`${prefix ? '/en' : ''}/projects/\\?maturity=planned$`))
+    await expect(page.locator('[data-filter-role]')).toHaveValue('')
+    await expect(page.locator('[data-filter-platform]')).toHaveValue('')
+    await expect(page.locator('[data-filter-maturity]')).toHaveValue('planned')
+    await expect(page.locator('[data-project-card]:visible')).toHaveCount(2)
+  })
+
   test(`planned projects expose no package or install actions on ${prefix || '/'}`, async ({ page }) => {
     for (const slug of ['varo', 'weapp-sqlite']) {
       await page.goto(`${prefix}/projects/${slug}/`)
