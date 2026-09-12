@@ -18,9 +18,10 @@ interface Props {
   projectName: string
   status?: ProjectDefinition['status']
   proof?: ProjectDefinition['proof']
+  proofId?: string
 }
 
-const { kind, locale, projectName, status, proof: projectProof } = Astro.props
+const { kind, locale, projectName, status, proof: projectProof, proofId } = Astro.props
 const proof = siteCopy[locale].projects.proof
 const build = buildExample(0)
 
@@ -57,7 +58,7 @@ const artifact = artifacts[kind]
 const planned = status === 'planned'
 ---
 
-<aside class="home-project-proof" data-proof-count={projectProof?.length ?? 0} aria-label={`${projectName} · ${artifact.label}`}>
+<aside id={proofId} class="home-project-proof" data-proof-count={projectProof?.length ?? 0} aria-label={`${projectName} · ${artifact.label}`}>
   <div class="home-project-proof-heading">
     <span class="home-project-proof-label">{artifact.label}</span>
   </div>

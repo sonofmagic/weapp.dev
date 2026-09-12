@@ -19,18 +19,20 @@ const content = project.data.locales[locale]
 const copy = siteCopy[locale]
 const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
 const publicMetrics = showsPublicMetrics(project.data.status)
+const proofId = `home-project-proof-${project.id}`
+const statusId = `home-project-status-${project.id}`
 ---
 
-<article data-project-row data-project-id={project.id} data-roadmap-count={project.data.roadmap?.length ?? 0} aria-labelledby={`home-project-title-${project.id}`} aria-describedby={`home-project-description-${project.id}`} class:list={['home-project-row', { 'home-project-row-reversed': project.reversed }]} style={`--project-accent: ${project.data.accent}`}>
+<article data-project-row data-project-id={project.id} data-roadmap-count={project.data.roadmap?.length ?? 0} aria-labelledby={`home-project-title-${project.id}`} aria-describedby={`home-project-description-${project.id} ${statusId} ${proofId}`} class:list={['home-project-row', { 'home-project-row-reversed': project.reversed }]} style={`--project-accent: ${project.data.accent}`}>
   <div class="home-project-proof-slot">
-    <HomeProjectProof kind={project.demo} locale={locale} projectName={content.name} status={project.data.status} proof={project.data.proof} />
+    <HomeProjectProof kind={project.demo} locale={locale} projectName={content.name} status={project.data.status} proof={project.data.proof} proofId={proofId} />
   </div>
 
   <div data-reveal data-project-copy style={`--reveal-delay: ${80 + index * 60}ms`}>
     <p class="mb-4 font-mono text-xs font-bold text-brand">{String(index + 1).padStart(2, '0')} / {project.stage[locale]}</p>
     <div class="mb-5 flex items-center gap-3">
       <img class="size-12 object-contain" src={project.data.logo} width="48" height="48" alt="" loading="lazy" decoding="async" />
-      <span class:list={['inline-flex items-center gap-1.5 font-mono text-xs font-[650]', projectTone]} data-project-status={project.data.status} aria-label={`${locale === 'zh-CN' ? '项目状态' : 'Project status'}: ${copy.projects.status[project.data.status]}`}>
+      <span id={statusId} class:list={['inline-flex items-center gap-1.5 font-mono text-xs font-[650]', projectTone]} data-project-status={project.data.status} aria-label={`${locale === 'zh-CN' ? '项目状态' : 'Project status'}: ${copy.projects.status[project.data.status]}`}>
         {project.data.status === 'planned' ? <Clock3 size={15} stroke-width={1.8} aria-hidden="true" /> : <BadgeCheck size={15} stroke-width={1.8} aria-hidden="true" />}
         {copy.projects.status[project.data.status]}
       </span>
