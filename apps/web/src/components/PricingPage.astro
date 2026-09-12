@@ -18,11 +18,11 @@ const githubUrl = 'https://github.com/sonofmagic/weapp.dev'
 ---
 
 <main id="main-content">
-  <section class="pricing-hero">
+  <section class="pricing-hero" aria-labelledby="pricing-title">
     <div class:list={[shell, 'pricing-hero-inner']}>
       <div data-reveal>
         <p class="mb-4 font-mono text-xs font-[650] uppercase tracking-[0.12em] text-brand">{pricing.eyebrow}</p>
-        <h1 class:list={[pageTitle, 'mb-6 max-w-[780px]']}>{pricing.title}</h1>
+        <h1 id="pricing-title" class:list={[pageTitle, 'mb-6 max-w-[780px]']}>{pricing.title}</h1>
         <p class="mb-8 max-w-[650px] text-xl leading-[1.6] text-copy-muted max-[720px]:text-base">{pricing.description}</p>
         <div class="flex flex-wrap items-center gap-3">
           <a class={buttonPrimary} href="#sponsor" data-analytics-event="navigate_section" data-analytics-section="pricing_hero_sponsor">
@@ -109,7 +109,7 @@ const githubUrl = 'https://github.com/sonofmagic/weapp.dev'
     </div>
   </section>
 
-  <section class:list={[shell, 'py-10']} id="plans">
+  <section class:list={[shell, 'py-10']} id="plans" aria-label={locale === 'zh-CN' ? '开源社区入口' : 'Open source community path'}>
     <div data-reveal class="pricing-community-line">
       <p class="mb-0 text-sm leading-[1.7] text-copy-muted">{pricing.communityLine}</p>
       <a class="inline-flex min-h-11 items-center gap-2 text-sm font-[650] text-brand hover:text-ink" href={`${localizePath(locale)}#projects`} data-analytics-event="navigate_section" data-analytics-section="pricing_community">

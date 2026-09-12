@@ -144,6 +144,8 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
 
 test('renders the bilingual pricing and delivery page', async ({ page }) => {
   await page.goto('/pricing/')
+  await expect(page.locator('section[aria-labelledby="pricing-title"]')).toHaveCount(1)
+  await expect(page.locator('#plans')).toHaveAttribute('aria-label', '开源社区入口')
   await expect(page.getByRole('heading', { level: 1, name: '维护要花时间；钱怎么分，我们写在前面' })).toBeVisible()
   await expect(page.getByText('¥20', { exact: true })).toBeVisible()
   await expect(page.getByText('¥200', { exact: true })).toBeVisible()
@@ -178,6 +180,8 @@ test('renders the bilingual pricing and delivery page', async ({ page }) => {
   await page.getByRole('link', { name: 'English' }).click()
   await expect(page).toHaveURL(/\/en\/pricing\/$/)
   await expect(page.getByRole('heading', { level: 1, name: 'Maintenance takes time; we put the money split up front' })).toBeVisible()
+  await expect(page.locator('section[aria-labelledby="pricing-title"]')).toHaveCount(1)
+  await expect(page.locator('#plans')).toHaveAttribute('aria-label', 'Open source community path')
   await expect(page.locator('#sponsor')).toContainText('¥1,000')
   await expect(page.locator('#sponsor')).toContainText('Contributors fund')
   await expect(page.locator('.pricing-sla-table caption')).toHaveText('Support response levels')
@@ -186,6 +190,7 @@ test('renders the bilingual pricing and delivery page', async ({ page }) => {
 
 test('renders the bilingual contributor program', async ({ page }) => {
   await page.goto('/contributors/')
+  await expect(page.locator('section[aria-labelledby="contributors-title"]')).toHaveCount(1)
   await expect(page.getByRole('heading', { level: 1, name: '把一部分赞助分给合过代码的人' })).toBeVisible()
   await expect(page.getByText('25%', { exact: true })).toBeVisible()
   await expect(page.getByText('贡献者基金', { exact: true }).first()).toBeVisible()
@@ -206,6 +211,7 @@ test('renders the bilingual contributor program', async ({ page }) => {
   await page.getByRole('link', { name: 'English' }).click()
   await expect(page).toHaveURL(/\/en\/contributors\/$/)
   await expect(page.getByRole('heading', { level: 1, name: 'Share some sponsorship with people who land the work' })).toBeVisible()
+  await expect(page.locator('section[aria-labelledby="contributors-title"]')).toHaveCount(1)
   await expect(page.getByRole('link', { name: 'Back to sponsorship' })).toHaveAttribute('href', '/en/pricing/#sponsor')
   await expect(page.locator('.contributors-bucket-grid article')).toHaveCount(3)
   await expect(page.locator('.contributors-bucket-grid article').first()).toHaveAttribute('aria-labelledby', 'contributors-bucket-title-1')

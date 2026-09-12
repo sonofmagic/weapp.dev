@@ -13,11 +13,11 @@ const copy = siteCopy[locale].contributors
 ---
 
 <main id="main-content">
-  <section class:list={[section, shell]}>
+  <section class:list={[section, shell]} aria-labelledby="contributors-title">
     <header data-reveal class="mb-16 grid grid-cols-[.7fr_1.3fr] gap-16 max-[820px]:mb-12 max-[820px]:grid-cols-1 max-[820px]:gap-8">
       <div>
         <p class="mb-3 font-mono text-xs font-[650] text-brand">{copy.eyebrow}</p>
-        <h1 class:list={[pageTitle, "mb-5"]}>{copy.title}</h1>
+        <h1 id="contributors-title" class:list={[pageTitle, "mb-5"]}>{copy.title}</h1>
         <p class="mb-0 font-mono text-xs text-copy-muted">{copy.updated}</p>
       </div>
       <div class="self-end">
