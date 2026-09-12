@@ -10,7 +10,7 @@ export default defineConfig({
     // The CLI detaches in agent environments; Playwright needs a foreground server.
     command: `node --input-type=module -e "import { preview } from 'astro'; await preview({ server: { host: '127.0.0.1', port: 4321 } })"`,
     url: 'http://127.0.0.1:4321',
-    reuseExistingServer: true,
+    reuseExistingServer: false,
   },
   use: {
     baseURL: 'http://127.0.0.1:4321',
