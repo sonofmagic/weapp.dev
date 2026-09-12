@@ -60,8 +60,8 @@ for (const route of ['/sponsors/', '/en/sponsors/']) {
     await page.goto(route)
     const flow = page.locator('[data-graph-card="flow"]')
     await expect(flow).toContainText(route.startsWith('/en')
-      ? 'Actual amounts appear when the public ledger includes them'
-      : '公开账本金额可用后会显示实际金额')
+      ? 'current public snapshot contains no amounts'
+      : '当前公开快照不含金额')
     await expect(flow.locator('table tbody tr')).toHaveCount(3)
     await expect(flow.locator('table tbody td')).toHaveText(['60%', '25%', '15%'])
   })
