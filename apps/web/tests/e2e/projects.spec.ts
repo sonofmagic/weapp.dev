@@ -22,6 +22,7 @@ for (const prefix of ['', '/en']) {
       const node = page.locator(`.toolchain-map-list li[data-project-id="${id}"]`)
       await expect(node).toHaveAttribute('aria-labelledby', `toolchain-project-${id}`)
       await expect(node.locator(`#toolchain-project-${id}`)).toBeVisible()
+      await expect(node).toHaveAttribute('aria-describedby', `toolchain-description-${id}`)
     }
   })
 
