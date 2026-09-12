@@ -22,6 +22,7 @@ const labels = locale === 'zh-CN'
 <sponsor-graphs role="region" aria-label={labels.graphRegion} class="sponsor-graphs" data-sponsor-graphs data-locale={locale} data-graph={JSON.stringify(localizedGraph)} aria-busy="false">
   <div class="sponsor-graph-card" data-graph-card="flow" aria-labelledby="sponsor-flow-title">
     <header><div><p class="sponsor-graph-kicker">01</p><h2 id="sponsor-flow-title">{labels.flow}</h2><p id="sponsor-flow-help">{labels.flowHelp}</p></div></header>
+    <p class="sponsor-graph-loading" data-graph-loading role="status" aria-live="polite" hidden>{locale === 'zh-CN' ? '正在加载图表…' : 'Loading chart…'}</p>
     <div class="sponsor-chart" data-chart="flow" hidden role="img" aria-label={labels.flow} aria-describedby="sponsor-flow-help"></div>
     <p class="sponsor-graph-error" data-graph-error hidden role="status" aria-live="polite">{labels.error}</p>
     <details open><summary>{labels.table}</summary><table><thead><tr><th scope="col">{locale === 'zh-CN' ? '资金桶' : 'Bucket'}</th><th scope="col">{locale === 'zh-CN' ? '比例' : 'Share'}</th></tr></thead><tbody>{localizedGraph.buckets.map(bucket => <tr><th scope="row">{bucket.name}</th><td>{bucket.share}%</td></tr>)}</tbody></table></details>
@@ -63,6 +64,7 @@ const labels = locale === 'zh-CN'
       const kindSelect = this.querySelector<HTMLSelectElement>('[data-kind]')!
       const details = this.querySelector<HTMLElement>('[data-node-details]')!
       this.setAttribute('aria-busy', 'true')
+      this.querySelectorAll<HTMLElement>('[data-graph-loading]').forEach(loading => { loading.hidden = false })
       this.querySelectorAll<HTMLElement>('[data-graph-error]').forEach(error => { error.hidden = true })
       this.cleanup = () => charts.forEach(chart => chart.dispose())
 
@@ -77,6 +79,7 @@ const labels = locale === 'zh-CN'
         const zh = this.dataset.locale === 'zh-CN'
         const kindLabels = zh ? { sponsor: '赞助者', project: '项目', fund: '资金桶', site: '站点' } : { sponsor: 'Sponsor', project: 'Project', fund: 'Fund', site: 'Site' }
         chartElements.forEach(element => { element.hidden = false })
+        this.querySelectorAll<HTMLElement>('[data-graph-loading]').forEach(loading => { loading.hidden = true })
         const flow = init(this.querySelector<HTMLElement>('[data-chart="flow"]')!)
         charts.push(flow)
         const relation = init(this.querySelector<HTMLElement>('[data-chart="relation"]')!)
@@ -188,6 +191,7 @@ const labels = locale === 'zh-CN'
         this.cleanup = undefined
         connection.abort()
         chartElements.forEach(element => { element.hidden = true })
+        this.querySelectorAll<HTMLElement>('[data-graph-loading]').forEach(loading => { loading.hidden = true })
         this.querySelectorAll<HTMLDetailsElement>('details').forEach(table => { table.open = true })
         this.querySelectorAll<HTMLElement>('[data-graph-error]').forEach(error => { error.hidden = false })
       } finally {
@@ -203,6 +207,7 @@ const labels = locale === 'zh-CN'
       delete this.dataset.ready
       this.setAttribute('aria-busy', 'false')
       this.querySelectorAll<HTMLElement>('[data-chart], [data-node-details]').forEach(element => { element.hidden = true })
+      this.querySelectorAll<HTMLElement>('[data-graph-loading]').forEach(loading => { loading.hidden = true })
       this.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLButtonElement>('input, select, button').forEach(control => { control.disabled = true })
     }
   }
@@ -218,6 +223,7 @@ const labels = locale === 'zh-CN'
   .sponsor-graph-card header p:last-child { margin:0; color:var(--muted); font-size:.9rem; }
   .sponsor-graph-kicker { margin:0 0 .5rem; color:var(--accent); font:650 .75rem/1 var(--font-mono); }
   .sponsor-chart { width:100%; height:360px; min-height:360px; margin-top:1rem; }
+  .sponsor-graph-loading { margin:1rem 0 0; color:var(--muted); font:650 .78rem/1.4 var(--font-mono); }
   .sponsor-graph-tools { display:flex; gap:.75rem; margin-top:1rem; }
   .sponsor-graph-tools input,.sponsor-graph-tools select,.sponsor-graph-card button { min-height:2.5rem; border:1px solid var(--border); padding:.5rem .7rem; background:var(--surface); color:var(--text); }
   .sponsor-graph-tools input { flex:1; min-width:0; }
