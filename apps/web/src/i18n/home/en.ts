@@ -14,7 +14,7 @@ export default {
     items: [
       { title: 'Author', body: 'Keep writing native mini-app pages, Vue SFCs, or your current cross-platform setup. Do not reshuffle page boundaries just for tooling.' },
       { title: 'Build', body: 'Hand classes and styles to weapp-tailwindcss. Hand deps, routes, and single-target multi-platform builds to weapp-vite.' },
-      { title: 'Compose', body: 'When you actually need components, install editable source from the Varo registry and verify it in the real runtime.' },
+      { title: 'Compose', body: 'When you need component delivery, evaluate Varo’s editable-source boundary; installation guidance will follow a stable release.' },
       { title: 'Store', body: 'When you need structured local data, follow the runtime boundaries and migration plan for weapp-sqlite.' },
       { title: 'Migrate', body: 'Existing Taro / React projects can move their development and build pipeline to Vite with VPT.' },
     ],
