@@ -346,6 +346,14 @@ test('passes automated accessibility checks in light and dark themes', async ({ 
   }
 })
 
+test('exposes labeled footer navigation landmarks in both locales', async ({ page }) => {
+  for (const path of ['/', '/en/']) {
+    await page.goto(path)
+    await expect(page.getByRole('navigation', { name: path === '/' ? '项目' : 'Projects' })).toBeVisible()
+    await expect(page.getByRole('navigation', { name: path === '/' ? '资源' : 'Resources' })).toBeVisible()
+  }
+})
+
 test('supports keyboard navigation and activation', async ({ page }) => {
   await page.goto('/')
   await page.keyboard.press('Tab')
