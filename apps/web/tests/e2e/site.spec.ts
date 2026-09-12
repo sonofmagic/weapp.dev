@@ -289,6 +289,18 @@ for (const localePath of ['', '/en']) {
   }
 }
 
+for (const localePath of ['', '/en']) {
+  test(`planned project pages pass accessibility checks on ${localePath || 'zh-CN'}`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    for (const slug of ['varo', 'weapp-sqlite']) {
+      await page.goto(`${localePath}/projects/${slug}/`)
+      await page.waitForFunction(() => [...document.querySelectorAll('[data-reveal]')].every(element => element.hasAttribute('data-visible')))
+      const accessibility = await new AxeBuilder({ page }).include('main').analyze()
+      expect(accessibility.violations).toEqual([])
+    }
+  })
+}
+
 test('passes automated accessibility checks in light and dark themes', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   for (const theme of ['light', 'dark']) {
