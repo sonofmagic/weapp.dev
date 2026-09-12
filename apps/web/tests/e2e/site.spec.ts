@@ -46,6 +46,8 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.locator('#projects').getByRole('heading', { name: 'weapp-tailwindcss' })).toBeVisible()
   await expect(page.locator('#projects').getByRole('heading', { name: 'weapp-vite' })).toBeVisible()
   await expect(page.locator('#projects').getByRole('heading', { name: 'Varo' })).toBeVisible()
+  await expect(page.locator('.home-adjacent-proof')).toHaveCount(2)
+  await expect(page.locator('.home-adjacent-proof').first()).toContainText('规划中')
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://weapp.dev/')
   await expect(page.locator('link[hreflang="en-US"]')).toHaveAttribute('href', 'https://weapp.dev/en/')
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index, follow')
@@ -81,6 +83,7 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page).toHaveURL(/\/en\/$/)
   await expect(page.getByText('Tools for real mini-app repos')).toBeVisible()
   await expectHomeVisuals(page, 'en')
+  await expect(page.locator('.home-adjacent-proof').first()).toContainText('Planned')
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://weapp.dev/en/')
   await expect(page.locator('link[hreflang="zh-CN"]')).toHaveAttribute('href', 'https://weapp.dev/')
   await expect(page.locator('#projects a[data-analytics-event="select_project"]').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
