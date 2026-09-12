@@ -3,16 +3,17 @@ import { ArrowLeft, ArrowUpRight, BookOpen, Check, ChevronDown, Copy, GitFork, P
 import type { Locale, ProjectMetrics } from '../types/project'
 import type { ProjectEntry } from '../lib/projects'
 import { formatCompactNumber, formatReleaseDate, showsPublicMetrics } from '../lib/metrics'
-import { localizePath, siteCopy } from '../i18n/ui'
+import { localizePath, projectPath, siteCopy } from '../i18n/ui'
 import { buttonPrimary, buttonSecondary, featuredTitle, iconControl, platformPill, projectTone, section, sectionTitle, shell } from '../styles/classes'
 
 interface Props {
   locale: Locale
   project: ProjectEntry
+  projects: ProjectEntry[]
   metrics: ProjectMetrics
 }
 
-const { locale, project, metrics } = Astro.props
+const { locale, project, projects, metrics } = Astro.props
 const copy = siteCopy[locale]
 const content = project.data.locales[locale]
 const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
@@ -37,6 +38,11 @@ const publicMetrics = showsPublicMetrics(project.data.status)
           <Check size={15} stroke-width={2} aria-hidden="true" />
           {copy.projects.status[project.data.status]}
         </span>
+      </div>
+      <div class="mb-5 flex flex-wrap gap-2">
+        {project.data.role ? <span class="inline-flex items-center border border-line bg-panel-soft px-2.5 py-1.5 font-mono text-xs font-[650] text-brand">{project.data.role}</span> : null}
+        {project.data.runtime?.map(runtime => <span class="inline-flex items-center border border-line px-2.5 py-1.5 font-mono text-xs text-copy-muted">{runtime}</span>)}
+        {project.data.dataCompleteness === 'planned' ? <span class="inline-flex items-center border border-line px-2.5 py-1.5 font-mono text-xs text-copy-muted">{locale === 'zh-CN' ? '资料整理中' : 'Data in progress'}</span> : null}
       </div>
       <h1 class="mb-5 font-display text-[clamp(2.125rem,5.4vw,4.5rem)] font-[700] [overflow-wrap:anywhere]">{content.name}</h1>
       <p class="mb-3 text-2xl font-[620] leading-[1.35] max-[720px]:text-xl">{content.tagline}</p>
@@ -146,6 +152,10 @@ const publicMetrics = showsPublicMetrics(project.data.status)
         <div class="flex flex-wrap gap-2">
           {project.data.platforms.map(platform => <span class:list={[platformPill, 'px-3 py-2 text-xs']}>{platform}</span>)}
         </div>
+        {project.data.relatedProjects?.length ? <>
+          <h3 class="mt-8 mb-4 text-lg font-[650]">{locale === 'zh-CN' ? '相关项目' : 'Related projects'}</h3>
+          <div class="flex flex-wrap gap-2">{project.data.relatedProjects.map(relatedId => { const related = projects.find(item => item.id === relatedId); return related ? <a class="inline-flex items-center border border-line px-3 py-2 text-xs font-[650] hover:bg-panel-soft" href={projectPath(locale, related.id)}>{related.data.locales[locale].name}</a> : null })}</div>
+        </> : null}
       </div>
     </div>
   </section>
