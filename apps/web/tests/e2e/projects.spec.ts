@@ -81,6 +81,7 @@ for (const prefix of ['', '/en']) {
     await expect(page.getByText(prefix ? 'The first release is being specified; no install command or production API is available yet.' : '首版资料整理中，暂不提供安装命令或生产 API。')).toBeVisible()
     await expect(page.locator('.project-proof-list')).toContainText(prefix ? 'Runtime boundaries are still being confirmed' : '运行时边界待确认')
     await expect(page.locator('.project-proof-panel')).toHaveAttribute('aria-describedby', 'project-proof-description')
+    await expect(page.locator('.project-proof-panel')).toHaveAttribute('data-proof-count', '2')
   })
 
   test(`marks the current project navigation entry on ${prefix}/projects/`, async ({ page }) => {
