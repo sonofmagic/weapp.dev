@@ -98,7 +98,7 @@ const githubUrl = 'https://github.com/sonofmagic/weapp.dev'
               <p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.sponsorTierLabels[tier]}</p>
               <ul class="m-0 flex flex-wrap gap-3 p-0 list-none">
                 {sponsors.map(sponsor => <li><a class="pricing-public-sponsor" href={sponsor.kind === 'business' ? sponsor.brandUrl : sponsor.profileUrl} target="_blank" rel="noreferrer">
-                  {sponsor.avatarUrl || sponsor.logoUrl ? <img src={sponsor.avatarUrl || sponsor.logoUrl} alt="" width="32" height="32" loading="lazy" /> : <span class="pricing-public-sponsor-fallback" aria-hidden="true">{(sponsor.brandName || sponsor.login || '?').slice(0, 1).toUpperCase()}</span>}
+                  {sponsor.avatarUrl || sponsor.logoUrl ? <><img src={sponsor.avatarUrl || sponsor.logoUrl} alt="" width="32" height="32" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling?.style.removeProperty('display')" /><span class="pricing-public-sponsor-fallback" aria-hidden="true" style="display:none">{(sponsor.brandName || sponsor.login || '?').slice(0, 1).toUpperCase()}</span></> : <span class="pricing-public-sponsor-fallback" aria-hidden="true">{(sponsor.brandName || sponsor.login || '?').slice(0, 1).toUpperCase()}</span>}
                   <span>{sponsor.brandName || sponsor.login}</span><ExternalLink size={14} stroke-width={1.8} aria-hidden="true" />
                 </a></li>)}
               </ul>
