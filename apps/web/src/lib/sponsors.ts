@@ -154,7 +154,7 @@ export function sponsorGraphData(snapshot: SponsorSnapshot): SponsorGraphData {
     seenSponsorIds.add(sponsorId)
     const name = sponsor.brandName || sponsor.login || sponsorId
     nodes.push({ id: `sponsor:${sponsorId}`, name, kind: 'sponsor', url: sponsor.brandUrl || sponsor.profileUrl })
-    for (const site of sponsor.displaySites) {
+    for (const site of [...new Set(sponsor.displaySites)].filter(site => allSites.includes(site))) {
       relationEdges.push({ source: `sponsor:${sponsorId}`, target: `site:${site}`, value: 1, label: 'display' })
     }
   }

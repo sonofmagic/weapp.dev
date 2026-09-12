@@ -39,6 +39,19 @@ describe('sponsor graph data', () => {
     expect(graph.relationEdges.filter(edge => edge.source === 'sponsor:direct')).toEqual([{ source: 'sponsor:direct', target: 'site:weapp', value: 1, label: 'display' }])
   })
 
+  it('drops invalid or duplicate site references before building graph edges', () => {
+    const graph = sponsorGraphData({
+      version: 1,
+      repositoryUrl: 'https://github.com/sonofmagic/sponsors',
+      total: 1,
+      items: [{ id: 'acme', kind: 'business', tier: 'gold', displaySites: ['weapp', 'unknown', 'weapp'] as never }],
+    })
+
+    expect(graph.relationEdges).toEqual([{ source: 'sponsor:acme', target: 'site:weapp', value: 1, label: 'display' }])
+    const nodeIds = new Set(graph.nodes.map(node => node.id))
+    expect(graph.relationEdges.every(edge => nodeIds.has(edge.source) && nodeIds.has(edge.target))).toBe(true)
+  })
+
   it('creates valid project, sponsor, ledger and fund references', () => {
     const graph = sponsorGraphData({
       version: 1,
