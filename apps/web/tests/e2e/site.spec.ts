@@ -46,6 +46,7 @@ async function mockAnalyticsScripts(
 test('renders the bilingual ecosystem home with valid metadata', async ({ page }) => {
   await page.goto('/')
   await expect(page.getByRole('heading', { level: 1, name: 'weapp.dev' })).toBeVisible()
+  await expect(page.locator('.home-hero')).toHaveAttribute('aria-labelledby', 'home-hero-title')
   await expectHomeVisuals(page, 'zh-CN')
   await expect(page.locator('#projects').getByRole('heading', { name: 'weapp-tailwindcss' })).toBeVisible()
   await expect(page.locator('#projects').getByRole('heading', { name: 'weapp-vite' })).toBeVisible()
@@ -112,6 +113,7 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await page.getByRole('link', { name: 'English' }).click()
   await expect(page).toHaveURL(/\/en\/$/)
   await expect(page.getByText('Tools for real mini-app repos')).toBeVisible()
+  await expect(page.locator('.home-hero')).toHaveAttribute('aria-labelledby', 'home-hero-title')
   await expectHomeVisuals(page, 'en')
   await expect(page.locator('.home-adjacent-projects')).toHaveCount(1)
   await expect(page.locator('.home-adjacent-projects')).toContainText('When you need local data or a React migration path')

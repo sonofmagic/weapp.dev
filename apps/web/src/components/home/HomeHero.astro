@@ -15,11 +15,11 @@ const { locale, projects } = Astro.props
 const copy = siteCopy[locale]
 ---
 
-<section class="home-hero">
+<section class="home-hero" aria-labelledby="home-hero-title">
   <div class:list={[shell, 'home-hero-grid']}>
     <div class="home-hero-copy">
       <p class="home-kicker">{copy.hero.eyebrow}</p>
-      <h1 class="home-hero-title">{copy.hero.title}<span class="home-hero-dot" aria-hidden="true">.</span></h1>
+      <h1 id="home-hero-title" class="home-hero-title">{copy.hero.title}<span class="home-hero-dot" aria-hidden="true">.</span></h1>
       <p class="home-hero-description">{copy.hero.description}</p>
       <div class="flex flex-wrap items-center gap-3">
         <a class={buttonPrimary} href={localizePath(locale, '/projects/')} data-analytics-event="navigate_page" data-analytics-page="projects_index">
