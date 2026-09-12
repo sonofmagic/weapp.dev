@@ -762,6 +762,7 @@ test('opens analytics preferences directly from the privacy page', async ({ page
   await expect(page.locator('[id="privacy-section-1"]')).toHaveAttribute('aria-describedby', 'privacy-body-1')
   await page.getByRole('button', { name: '打开统计偏好' }).click()
   await expect(page.getByRole('dialog', { name: '统计偏好' })).toBeVisible()
+  await expect(page.locator('[data-analytics-dialog]')).toHaveAttribute('aria-describedby', 'analytics-dialog-description')
 })
 
 test('loads all local product visuals on key pages', async ({ page }) => {
