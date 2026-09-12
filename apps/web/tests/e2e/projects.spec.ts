@@ -89,6 +89,13 @@ for (const prefix of ['', '/en']) {
     await expect(visible).toHaveCount(5)
   })
 
+  test(`passes automated accessibility checks on ${prefix}/projects/`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto(`${prefix}/projects/`)
+    const results = await new AxeBuilder({ page }).include('main').analyze()
+    expect(results.violations, `${prefix || 'zh-CN'} project index accessibility violations`).toEqual([])
+  })
+
   test(`persists project filters in the URL on ${prefix || 'zh-CN'}`, async ({ page }) => {
     await page.goto(`${prefix}/projects/?role=engineering&platform=WeChat`)
     await expect(page.locator('[data-filter-role]')).toHaveValue('engineering')
