@@ -116,7 +116,7 @@ const publicMetrics = showsPublicMetrics(project.data.status)
         <div class="aspect-[16/11] overflow-hidden">
           <picture>
             <source srcset={primaryVisual.avif} type="image/avif" />
-            <img class="size-full object-cover object-top" src={primaryVisual.src} width={primaryVisual.width} height={primaryVisual.height} alt={primaryVisualCopy.alt} loading="lazy" />
+            <img class="size-full object-cover object-top" src={primaryVisual.src} width={primaryVisual.width} height={primaryVisual.height} alt={primaryVisualCopy.alt} loading="lazy" decoding="async" />
           </picture>
         </div>
         <figcaption class="border-t border-line px-4 py-3 text-sm text-copy-muted">{primaryVisualCopy.caption}</figcaption>
@@ -125,7 +125,7 @@ const publicMetrics = showsPublicMetrics(project.data.status)
         <div class="aspect-[4/5] overflow-hidden">
           <picture>
             <source srcset={secondaryVisual.avif} type="image/avif" />
-            <img class="size-full object-cover object-top" src={secondaryVisual.src} width={secondaryVisual.width} height={secondaryVisual.height} alt={secondaryVisualCopy.alt} loading="lazy" />
+            <img class="size-full object-cover object-top" src={secondaryVisual.src} width={secondaryVisual.width} height={secondaryVisual.height} alt={secondaryVisualCopy.alt} loading="lazy" decoding="async" />
           </picture>
         </div>
         <figcaption class="border-t border-line px-4 py-3 text-sm text-copy-muted">{secondaryVisualCopy.caption}</figcaption>

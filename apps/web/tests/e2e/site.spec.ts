@@ -236,7 +236,7 @@ test('project detail exposes docs, source, metrics, and future path', async ({ p
   await expect(page.getByRole('heading', { name: 'FAQ' })).toBeVisible()
   await expect(page.locator('pre code').filter({ hasText: 'pnpm add -D weapp-vite' })).toHaveCount(1)
   await expect(page.getByRole('link', { name: 'npm' }).first()).toHaveAttribute('href', 'https://www.npmjs.com/package/weapp-vite')
-  await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(5)
+  await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(3)
 })
 
 test('publishes indexable SEO resources and keeps 404 out of the index', async ({ page, request }) => {
