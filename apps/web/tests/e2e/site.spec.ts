@@ -265,6 +265,17 @@ test('planned project exposes an honest readiness state', async ({ page }) => {
   expect(await rss.text()).not.toContain('@varo/cli 0.0.1')
 })
 
+for (const prefix of ['', '/en']) {
+  test(`planned projects expose no package or install actions on ${prefix || '/'}`, async ({ page }) => {
+    for (const slug of ['varo', 'weapp-sqlite']) {
+      await page.goto(`${prefix}/projects/${slug}/`)
+      await expect(page.getByRole('link', { name: 'npm' })).toHaveCount(0)
+      await expect(page.locator('[data-copy-command]')).toHaveCount(0)
+      await expect(page.locator('main')).toContainText(prefix ? 'Planned' : '规划中')
+    }
+  })
+}
+
 for (const localePath of ['', '/en']) {
   for (const slug of ['varo', 'weapp-sqlite']) {
     test(`keeps ${localePath || 'zh-CN'} ${slug} page in planning state`, async ({ page }) => {
