@@ -152,6 +152,9 @@ for (const prefix of ['', '/en']) {
   test(`labels the project detail audience in ${prefix || 'zh-CN'}`, async ({ page }) => {
     await page.goto(`${prefix}/projects/weapp-vite/`)
     await expect(page.locator('.quick-start-audience')).toContainText(prefix ? 'For' : '适合')
+    const metadata = page.locator(`[role="list"][aria-label="${prefix ? 'Platforms and runtimes' : '平台与运行时'}"]`)
+    await expect(metadata).toHaveCount(1)
+    await expect(metadata.locator('[role="listitem"]')).not.toHaveCount(0)
   })
 
   test(`decodes the project detail hero visual asynchronously on ${prefix || 'zh-CN'}`, async ({ page }) => {

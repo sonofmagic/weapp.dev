@@ -3,7 +3,7 @@ import type { Locale, ProjectDefinition } from '../types/project'
 interface Props { locale: Locale; platforms: ProjectDefinition['platforms']; runtime?: ProjectDefinition['runtime'] }
 const { locale, platforms = [], runtime = [] } = Astro.props
 ---
-{platforms.length || runtime.length ? <div class="flex flex-wrap gap-2" role="group" aria-label={locale === 'zh-CN' ? '平台与运行时' : 'Platforms and runtimes'}>
-  {platforms.map(platform => <span class="inline-flex items-center border border-line px-2.5 py-1.5 font-mono text-xs text-copy-muted">{platform}</span>)}
-  {runtime.map(item => <span class="inline-flex items-center border border-line bg-panel-soft px-2.5 py-1.5 font-mono text-xs text-copy-muted">{item}</span>)}
+{platforms.length || runtime.length ? <div class="flex flex-wrap gap-2" role="list" aria-label={locale === 'zh-CN' ? '平台与运行时' : 'Platforms and runtimes'}>
+  {platforms.map(platform => <span role="listitem" class="inline-flex items-center border border-line px-2.5 py-1.5 font-mono text-xs text-copy-muted">{platform}</span>)}
+  {runtime.map(item => <span role="listitem" class="inline-flex items-center border border-line bg-panel-soft px-2.5 py-1.5 font-mono text-xs text-copy-muted">{item}</span>)}
 </div> : null}
