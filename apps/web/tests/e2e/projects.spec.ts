@@ -52,6 +52,21 @@ for (const prefix of ['', '/en']) {
   })
 }
 
+for (const prefix of ['', '/en']) {
+  test(`audits all project detail pages in ${prefix || 'zh-CN'} for accessibility`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    for (const theme of ['light', 'dark'] as const) {
+      await page.emulateMedia({ colorScheme: theme, reducedMotion: 'reduce' })
+      for (const slug of ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro']) {
+        await page.goto(`${prefix}/projects/${slug}/`)
+        await page.waitForFunction(() => [...document.querySelectorAll('[data-reveal]')].every(element => element.hasAttribute('data-visible')))
+        const accessibility = await new AxeBuilder({ page }).include('main').analyze()
+        expect(accessibility.violations, `${prefix || 'zh-CN'} ${theme} ${slug}`).toEqual([])
+      }
+    }
+  })
+}
+
 test.describe('project catalog without JavaScript', () => {
   test.use({ javaScriptEnabled: false })
   for (const prefix of ['', '/en']) {
