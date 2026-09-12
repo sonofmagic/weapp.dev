@@ -73,6 +73,8 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.locator('.home-toolchain-shell').first()).not.toHaveAttribute('aria-labelledby')
   await expect(page.locator('.home-toolchain-shell').nth(1)).not.toHaveAttribute('aria-labelledby')
   await expect(page.locator('section[aria-labelledby="collaboration-title"]')).toHaveCount(1)
+  await expect(page.locator('[data-principle-card]').first()).toHaveAttribute('aria-labelledby', 'vision-principle-title-1')
+  await expect(page.locator('[data-principle-card]').first()).toHaveAttribute('aria-describedby', 'vision-principle-owns-1 vision-principle-not-owns-1')
   const docsLinks = page.locator('#projects').getByRole('link', { name: '文档' })
   await expect(docsLinks).toHaveCount(7)
   await expect(docsLinks.evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([

@@ -20,22 +20,25 @@ const copy = siteCopy[locale]
       <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.vision.description}</p>
     </header>
     <div class="grid grid-cols-5 gap-px overflow-hidden rounded-panel border border-line bg-line max-[1100px]:grid-cols-3 max-[720px]:grid-cols-1">
-      {copy.vision.items.map((item, index) => (
-        <article data-reveal data-principle-card style={`--reveal-delay: ${index * 70}ms`} class="bg-panel p-6 max-[900px]:p-5">
+      {copy.vision.items.map((item, index) => {
+        const titleId = `vision-principle-title-${index + 1}`
+        const ownsId = `vision-principle-owns-${index + 1}`
+        const notOwnsId = `vision-principle-not-owns-${index + 1}`
+        return <article data-reveal data-principle-card style={`--reveal-delay: ${index * 70}ms`} class="bg-panel p-6 max-[900px]:p-5" aria-labelledby={titleId} aria-describedby={`${ownsId} ${notOwnsId}`}>
           <p class="mb-4 font-mono text-xs font-[650] text-brand">{String(index + 1).padStart(2, '0')}</p>
-          <h3 class="mb-5 text-xl font-[650]">{item.title}</h3>
+          <h3 id={titleId} class="mb-5 text-xl font-[650]">{item.title}</h3>
           <dl class="m-0 grid gap-4">
             <div>
               <dt class="mb-1 font-mono text-xs font-[650] text-copy-muted">{copy.vision.ownsLabel}</dt>
-              <dd class="m-0 text-sm leading-[1.7] text-ink">{item.owns}</dd>
+              <dd id={ownsId} class="m-0 text-sm leading-[1.7] text-ink">{item.owns}</dd>
             </div>
             <div>
               <dt class="mb-1 font-mono text-xs font-[650] text-copy-muted">{copy.vision.notOwnsLabel}</dt>
-              <dd class="m-0 text-sm leading-[1.7] text-copy-muted">{item.notOwns}</dd>
+              <dd id={notOwnsId} class="m-0 text-sm leading-[1.7] text-copy-muted">{item.notOwns}</dd>
             </div>
           </dl>
         </article>
-      ))}
+      })}
     </div>
   </div>
 </section>
