@@ -16,8 +16,8 @@ const localizedGraph = {
   buckets: graph.buckets.map(bucket => ({ ...bucket, name: graphNameOverrides[bucket.id] ?? bucket.name })),
 }
 const labels = locale === 'zh-CN'
-  ? { flow: '资金流', relation: '关系图谱', flowHelp: '公开账本金额可用后会显示实际金额；当前展示分配比例。', relationHelp: '可筛选赞助者、项目、资金桶和站点。公开快照未提供赞助的项目归属，因此不展示赞助者到项目的连线。', all: '全部', reset: '重置视图', table: '可读数据', nodes: '节点列表', edges: '连接列表', kind: '类型', node: '节点', source: '起点', target: '终点', details: '节点详情', open: '打开链接', error: '图表运行时暂时不可用，请使用下方可读数据。' }
-  : { flow: 'Funding flow', relation: 'Relationship graph', flowHelp: 'Actual amounts appear when the public ledger includes them; the current view shows allocation shares.', relationHelp: 'Filter sponsors, projects, fund buckets and sites. The public snapshot has no project attribution, so sponsors are not linked to projects.', all: 'All', reset: 'Reset view', table: 'Accessible data', nodes: 'Nodes', edges: 'Connections', kind: 'Type', node: 'Node', source: 'From', target: 'To', details: 'Node details', open: 'Open link', error: 'The chart runtime is unavailable. Use the accessible data below.' }
+  ? { flow: '资金流', relation: '关系图谱', flowHelp: '公开账本金额可用后会显示实际金额；当前展示分配比例。', relationHelp: '可筛选赞助者、项目、资金桶和站点。公开快照未提供赞助的项目归属，因此不展示赞助者到项目的连线。', all: '全部', reset: '重置视图', table: '可读数据', nodes: '节点列表', edges: '连接列表', kind: '类型', node: '节点', source: '起点', target: '终点', edgeType: '连接类型', funding: '资金流', display: '展示关系', details: '节点详情', open: '打开链接', error: '图表运行时暂时不可用，请使用下方可读数据。' }
+  : { flow: 'Funding flow', relation: 'Relationship graph', flowHelp: 'Actual amounts appear when the public ledger includes them; the current view shows allocation shares.', relationHelp: 'Filter sponsors, projects, fund buckets and sites. The public snapshot has no project attribution, so sponsors are not linked to projects.', all: 'All', reset: 'Reset view', table: 'Accessible data', nodes: 'Nodes', edges: 'Connections', kind: 'Type', node: 'Node', source: 'From', target: 'To', edgeType: 'Connection type', funding: 'Funding flow', display: 'Display relationship', details: 'Node details', open: 'Open link', error: 'The chart runtime is unavailable. Use the accessible data below.' }
 ---
 <sponsor-graphs role="region" aria-label={labels.relation} class="sponsor-graphs" data-sponsor-graphs data-locale={locale} data-graph={JSON.stringify(localizedGraph)} aria-busy="false">
   <div class="sponsor-graph-card" data-graph-card="flow" aria-labelledby="sponsor-flow-title">
@@ -38,7 +38,7 @@ const labels = locale === 'zh-CN'
       <h3>{labels.nodes}</h3>
       <table><thead><tr><th>{labels.node}</th><th>{labels.kind}</th></tr></thead><tbody>{localizedGraph.nodes.map(node => <tr><th scope="row"><button type="button" data-node-id={node.id} disabled>{node.name}</button></th><td>{nodeKindLabels[node.kind]}</td></tr>)}</tbody></table>
       <h3>{labels.edges}</h3>
-      <table><thead><tr><th>{labels.source}</th><th>{labels.target}</th></tr></thead><tbody>{[...localizedGraph.edges, ...localizedGraph.relationEdges].map(edge => <tr><th scope="row">{localizedGraph.nodes.find(node => node.id === edge.source)?.name ?? edge.source}</th><td>{localizedGraph.nodes.find(node => node.id === edge.target)?.name ?? edge.target}</td></tr>)}</tbody></table>
+      <table><thead><tr><th>{labels.source}</th><th>{labels.target}</th><th>{labels.edgeType}</th></tr></thead><tbody>{[...localizedGraph.edges, ...localizedGraph.relationEdges].map(edge => <tr><th scope="row">{localizedGraph.nodes.find(node => node.id === edge.source)?.name ?? edge.source}</th><td>{localizedGraph.nodes.find(node => node.id === edge.target)?.name ?? edge.target}</td><td>{edge.label === 'display' ? labels.display : labels.funding}</td></tr>)}</tbody></table>
     </details>
   </div>
 </sponsor-graphs>
