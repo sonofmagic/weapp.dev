@@ -410,6 +410,31 @@ test('keeps command copying accessible when the clipboard API is unavailable', a
   await expect(copyButton.locator('[data-copy-text]')).toHaveAttribute('aria-live', 'polite')
 })
 
+test('copies the first command from the homepage adoption path', async ({ page, context }) => {
+  await context.grantPermissions(['clipboard-read', 'clipboard-write'])
+  await page.goto('/')
+  const path = page.locator('.project-selector-list article').first()
+  const copyButton = path.locator('[data-selector-copy]')
+  await expect(copyButton).toHaveAttribute('aria-label', '复制命令')
+  await copyButton.click()
+  await expect(copyButton).toHaveAttribute('aria-label', '已复制')
+  await expect.poll(() => page.evaluate(() => navigator.clipboard.readText())).toBe('pnpm add -D weapp-vite')
+})
+
+test('keeps homepage command copying readable when the clipboard API is unavailable', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: { writeText: async () => { throw new Error('clipboard unavailable') } },
+    })
+  })
+  await page.goto('/en/')
+  const copyButton = page.locator('.project-selector-list article').first().locator('[data-selector-copy]')
+  await copyButton.click()
+  await expect(copyButton).toHaveAttribute('aria-label', 'Copy manually')
+  await expect(copyButton.locator('[data-selector-copy-text]')).toHaveText('Copy manually')
+})
+
 test('provides a working mobile navigation menu', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto('/')
