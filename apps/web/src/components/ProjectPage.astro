@@ -24,17 +24,17 @@ const content = project.data.locales[locale]
 const roleLabel = locale === 'zh-CN' ? ({ Engineering: '工程与构建', Styling: '样式系统', Components: '组件与交付', 'Local data': '本地数据', Migration: 'Taro / React 迁移' } as Record<string, string>) : ({ Engineering: 'Engineering', Styling: 'Styling', Components: 'Components', 'Local data': 'Local data', Migration: 'Taro / React migration' } as Record<string, string>)
 const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
 const hasVisuals = Boolean(project.data.visuals)
-const primaryVisual = project.data.visuals?.primary ?? { src: '/logo.svg', avif: '/logo.svg', width: 64, height: 64, locales: { 'zh-CN': { alt: content.name, caption: copy.project.readinessNote }, en: { alt: content.name, caption: copy.project.readinessNote } } }
-const primaryVisualCopy = primaryVisual.locales[locale]
+const primaryVisual = project.data.visuals?.primary
+const primaryVisualCopy = primaryVisual?.locales[locale]
 const secondaryVisual = project.data.visuals?.secondary ?? primaryVisual
-const secondaryVisualCopy = secondaryVisual.locales[locale]
+const secondaryVisualCopy = secondaryVisual?.locales[locale]
 const publicMetrics = showsPublicMetrics(project.data.status)
 const quickStartNote = typeof project.data.quickStart?.note === 'string' ? project.data.quickStart.note : project.data.quickStart?.note?.[locale]
 const installCommand = project.data.installCommand ?? project.data.quickStart?.command
 ---
 
 <main id="main-content" style={`--project-accent: ${project.data.accent}`}>
-  <section class:list={[shell, 'grid min-h-[min(690px,calc(100dvh-100px))] grid-cols-[.92fr_1.08fr] items-center gap-12 py-10 max-[820px]:min-h-0 max-[820px]:grid-cols-1 max-[820px]:gap-8 max-[720px]:py-8']}>
+  <section class:list={[shell, 'project-detail-hero grid items-center gap-12 py-10 max-[820px]:gap-8 max-[720px]:py-8', hasVisuals ? 'min-h-[min(690px,calc(100dvh-100px))] grid-cols-[.92fr_1.08fr] max-[820px]:min-h-0 max-[820px]:grid-cols-1' : 'grid-cols-1']}>
     <div data-reveal>
       <a class="mb-10 inline-flex items-center gap-2 text-sm font-[620] text-copy-muted transition-colors hover:text-ink max-[720px]:mb-8" href={localizePath(locale, '/projects/')} data-analytics-event="navigate_section" data-analytics-section="projects">
         <ArrowLeft size={17} stroke-width={1.9} aria-hidden="true" />
@@ -73,7 +73,7 @@ const installCommand = project.data.installCommand ?? project.data.quickStart?.c
       </div>
     </div>
 
-    {hasVisuals ? <figure data-reveal style="--reveal-delay: 100ms" class="m-0 overflow-hidden rounded-panel border border-line bg-panel-soft">
+    {primaryVisual && primaryVisualCopy ? <figure data-reveal style="--reveal-delay: 100ms" class="m-0 overflow-hidden rounded-panel border border-line bg-panel-soft">
       <div class="aspect-[16/11] overflow-hidden">
         <picture>
           <source srcset={primaryVisual.avif} type="image/avif" />
@@ -81,17 +81,17 @@ const installCommand = project.data.installCommand ?? project.data.quickStart?.c
         </picture>
       </div>
       <figcaption class="border-t border-line px-4 py-3 text-sm text-copy-muted">{primaryVisualCopy.caption}</figcaption>
-    </figure> : <div data-reveal class="grid min-h-80 place-items-center rounded-panel border border-line bg-panel-soft p-8 text-center text-sm text-copy-muted">{copy.project.readinessNote}</div>}
+    </figure> : null}
   </section>
 
   <QuickStartPanel locale={locale} status={project.data.status} audience={content.audience} note={quickStartNote} command={installCommand} projectId={project.id} />
 
-  <section class:list={[section, shell]}>
+  {primaryVisual && primaryVisualCopy && secondaryVisual && secondaryVisualCopy ? <section class:list={[section, shell]} aria-labelledby="project-visuals-title">
     <header data-reveal class="mb-10 max-w-[700px]">
-      <h2 class={sectionTitle}>{copy.project.visualProof}</h2>
+      <h2 id="project-visuals-title" class={sectionTitle}>{copy.project.visualProof}</h2>
       <p class="mb-0 text-copy-muted">{copy.project.visualProofDescription}</p>
     </header>
-    {hasVisuals ? <div class="grid grid-cols-[1.12fr_.88fr] items-start gap-5 max-[720px]:grid-cols-1">
+    <div class="grid grid-cols-[1.12fr_.88fr] items-start gap-5 max-[720px]:grid-cols-1">
       <figure data-reveal class="m-0 overflow-hidden rounded-panel border border-line bg-panel">
         <div class="aspect-[16/11] overflow-hidden">
           <picture>
@@ -110,8 +110,8 @@ const installCommand = project.data.installCommand ?? project.data.quickStart?.c
         </div>
         <figcaption class="border-t border-line px-4 py-3 text-sm text-copy-muted">{secondaryVisualCopy.caption}</figcaption>
       </figure>
-    </div> : <div class="border border-line bg-panel-soft p-7 text-sm text-copy-muted">{copy.project.readinessNote}</div>}
-  </section>
+    </div>
+  </section> : null}
 
   <section class:list={[section, shell]}><ProjectProofPanel locale={locale} project={project} /></section>
   <section class:list={[section, shell]}><RoadmapStrip locale={locale} project={project} /></section>

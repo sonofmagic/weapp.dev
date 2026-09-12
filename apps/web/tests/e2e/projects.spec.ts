@@ -192,6 +192,10 @@ test.describe('project catalog without JavaScript', () => {
       await page.locator('[data-project-card][data-role="data"] .projects-index-actions a').last().click()
       await expect(page).toHaveURL(`${prefix}/projects/weapp-sqlite/`)
       await expect(page.getByRole('heading', { level: 1 })).toHaveText('weapp-sqlite')
+      await expect(page.getByRole('region', { name: prefix ? 'Integration status' : '接入状态', exact: true })).toBeVisible()
+      await expect(page.locator('main figure')).toHaveCount(0)
+      await expect(page.locator('.project-proof-panel')).toBeVisible()
+      await expect(page.locator('.roadmap-strip')).toBeVisible()
       const back = page.getByRole('link', { name: prefix ? 'Back to projects' : '返回项目列表', exact: true })
       await back.focus()
       await page.keyboard.press('Enter')
@@ -203,6 +207,19 @@ test.describe('project catalog without JavaScript', () => {
 
 for (const width of [1440, 768, 390]) {
   for (const theme of ['light', 'dark'] as const) {
+    test(`keeps the planned project detail compact at ${width}px in ${theme}`, async ({ page }, testInfo) => {
+      await page.setViewportSize({ width, height: 1000 })
+      await page.emulateMedia({ colorScheme: theme, reducedMotion: 'reduce' })
+      await page.goto('/en/projects/weapp-sqlite/')
+      await expect(page.getByRole('heading', { level: 1, name: 'weapp-sqlite' })).toBeVisible()
+      await expect(page.getByRole('region', { name: 'Integration status', exact: true })).toBeInViewport()
+      await expect(page.locator('main figure')).toHaveCount(0)
+      expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false)
+      const readiness = page.getByText('Planned projects omit downloads and stars. Public numbers return after a stable release.', { exact: true })
+      await expect(readiness).toHaveCount(1)
+      await page.screenshot({ path: testInfo.outputPath('planned-project-detail.png') })
+    })
+
     test(`keeps project filters readable at ${width}px in ${theme}`, async ({ page }, testInfo) => {
       await page.setViewportSize({ width, height: 1000 })
       await page.emulateMedia({ colorScheme: theme, reducedMotion: 'reduce' })
