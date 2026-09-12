@@ -1,5 +1,5 @@
 ---
-import { Layers2, Package, ScanLine } from '@lucide/astro'
+import { Database, Layers2, Package, ScanLine, Waypoints } from '@lucide/astro'
 import type { Locale } from '../../types/project'
 import { homeSection, sectionTitle, shell } from '../../styles/classes'
 import { siteCopy } from '../../i18n/ui'
@@ -10,7 +10,7 @@ interface Props {
 
 const { locale } = Astro.props
 const copy = siteCopy[locale]
-const stepIcons = [Layers2, ScanLine, Package]
+const stepIcons = [Layers2, ScanLine, Package, Database, Waypoints]
 ---
 
 <section class="border-y border-line bg-panel" id="about">
@@ -19,7 +19,7 @@ const stepIcons = [Layers2, ScanLine, Package]
       <h2 class={sectionTitle}>{copy.about.title}</h2>
       <p class="mb-0 text-lg text-copy-muted max-[720px]:text-base">{copy.about.description}</p>
     </header>
-    <ol class="m-0 grid list-none grid-cols-3 gap-0 border-y border-line p-0 max-[720px]:grid-cols-1 max-[720px]:border-b-0">
+    <ol class="m-0 grid list-none grid-cols-5 gap-0 border-y border-line p-0 max-[960px]:grid-cols-3 max-[720px]:grid-cols-1 max-[720px]:border-b-0">
       {copy.about.items.map((item, index) => {
         const Icon = stepIcons[index]
         return (

@@ -2,25 +2,27 @@ export default {
   hero: {
     eyebrow: '给真实小程序项目用的工具',
     title: 'weapp.dev',
-    description: '样式用 weapp-tailwindcss，工程用 weapp-vite，组件层有 Varo。你可以先接一层试试，叠起来也行。',
+    description: '工程用 weapp-vite，样式用 weapp-tailwindcss，组件交付有 Varo，本地数据看 weapp-sqlite，Taro 团队还有 VPT。你可以先接一层，之后再叠加。',
     primary: '看看项目',
     secondary: 'GitHub',
-    visualLabel: '下面可以点着玩：样式、构建、组件三个小例子。',
+    visualLabel: '下面可以点着玩：样式、构建、组件三个交互例子；完整工具链见项目地图。',
   },
   about: {
     eyebrow: '怎么接',
-    title: '写法可以先不动',
-    description: '现有页面不用推倒重来。样式、构建、组件各管一段；先接最痛的那一层就好，不必一次做完。',
+    title: '写法可以先不动，工具链逐层接入',
+    description: '现有页面不用推倒重来。工程、样式、组件、数据和迁移各管一段；先接最痛的那一层就好。',
     items: [
       { title: '编写', body: '继续写原生小程序、Vue SFC，或你现在的跨端框架。页面边界不用为了工具先改一轮。' },
       { title: '构建', body: '类名和样式交给 weapp-tailwindcss；依赖、路由和多平台单目标构建交给 weapp-vite。' },
       { title: '组装', body: '真需要组件时，再从 Varo Registry 装可编辑源码，在真机或开发者工具里验一遍。' },
+      { title: '存储', body: '需要本地结构化数据时，关注 weapp-sqlite 的运行时边界和迁移计划。' },
+      { title: '迁移', body: '已有 Taro / React 项目可以通过 VPT 把开发构建链路切到 Vite。' },
     ],
   },
   projects: {
     eyebrow: '项目',
-    title: '三个项目，职责分开',
-    description: '只装一个也完全够用。后面若要叠第二层，边界仍然清楚，不用担心缠成一团。',
+    title: '五个项目，职责分开',
+    description: '只装一个也完全够用。后面若要叠加工程、样式、组件、数据或迁移能力，边界仍然清楚。',
     documentation: '文档',
     details: '详情',
     weeklyDownloads: '周下载',
@@ -44,7 +46,7 @@ export default {
   vision: {
     eyebrow: '边界',
     title: '选型前先看谁管什么',
-    description: '别把它当成又一个全能框架。先分清样式、构建、组件各自的活，后面少走弯路。',
+    description: '别把它当成又一个全能框架。先分清五层各自的活，后面少走弯路。',
     ownsLabel: '负责',
     notOwnsLabel: '不负责',
     items: [

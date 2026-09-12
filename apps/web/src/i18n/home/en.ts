@@ -2,25 +2,27 @@ export default {
   hero: {
     eyebrow: 'Tools for real mini-app repos',
     title: 'weapp.dev',
-    description: 'weapp-tailwindcss for styles, weapp-vite for the build, Varo for components. Start with one layer if you want; stacking later is fine.',
+    description: 'weapp-vite for engineering, weapp-tailwindcss for styles, Varo for component delivery, weapp-sqlite for local data, and VPT for Taro teams. Start with one layer and add another when you need it.',
     primary: 'Browse projects',
     secondary: 'GitHub',
-    visualLabel: 'Try the style, build, and component demos below.',
+    visualLabel: 'Try the style, build, and component demos below; the full stack lives in the project map.',
   },
   about: {
     eyebrow: 'Adoption',
     title: 'You can keep your current syntax',
-    description: 'No full rewrite required. Style, build, and components each own a slice. Start with the layer that hurts most; you do not have to finish everything at once.',
+    description: 'No full rewrite required. Engineering, styling, components, data, and migration each own one job. Start with the layer that hurts most.',
     items: [
       { title: 'Author', body: 'Keep writing native mini-app pages, Vue SFCs, or your current cross-platform setup. Do not reshuffle page boundaries just for tooling.' },
       { title: 'Build', body: 'Hand classes and styles to weapp-tailwindcss. Hand deps, routes, and single-target multi-platform builds to weapp-vite.' },
       { title: 'Compose', body: 'When you actually need components, install editable source from the Varo registry and verify it in the real runtime.' },
+      { title: 'Store', body: 'When you need structured local data, follow the runtime boundaries and migration plan for weapp-sqlite.' },
+      { title: 'Migrate', body: 'Existing Taro / React projects can move their development and build pipeline to Vite with VPT.' },
     ],
   },
   projects: {
     eyebrow: 'Projects',
-    title: 'Three projects, separate jobs',
-    description: 'Installing just one is often enough. If you add a second layer later, the boundaries stay clear so things do not tangle.',
+    title: 'Five projects, separate jobs',
+    description: 'Installing just one is often enough. Add engineering, styling, components, data, or migration later without tangling the boundaries.',
     documentation: 'Docs',
     details: 'Details',
     weeklyDownloads: 'Weekly downloads',
@@ -44,7 +46,7 @@ export default {
   vision: {
     eyebrow: 'Boundaries',
     title: 'Check ownership before you adopt',
-    description: 'This is not another all-in-one framework. Separate style, build, and components first, and you will save yourself some pain later.',
+    description: 'This is not another all-in-one framework. Separate all five layers first, and you will save yourself some pain later.',
     ownsLabel: 'Owns',
     notOwnsLabel: 'Does not own',
     items: [
