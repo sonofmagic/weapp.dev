@@ -54,6 +54,8 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://weapp.dev/')
   await expect(page.locator('link[hreflang="en-US"]')).toHaveAttribute('href', 'https://weapp.dev/en/')
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index, follow')
+  await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute('content', 'zh_CN')
+  await expect(page.locator('meta[property="og:locale:alternate"]')).toHaveAttribute('content', 'en_US')
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', 'https://weapp.dev/og.png')
   await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(4)
   await expect(page.locator('#about')).toContainText('weapp-tailwindcss')
@@ -97,6 +99,8 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expectHomeVisuals(page, 'en')
   await expect(page.locator('.home-adjacent-projects')).toHaveCount(0)
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://weapp.dev/en/')
+  await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute('content', 'en_US')
+  await expect(page.locator('meta[property="og:locale:alternate"]')).toHaveAttribute('content', 'zh_CN')
   await expect(page.locator('link[hreflang="zh-CN"]')).toHaveAttribute('href', 'https://weapp.dev/')
   await expect(page.locator('#projects a[data-analytics-event="select_project"]').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     '/en/projects/weapp-vite/',
