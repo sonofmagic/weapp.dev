@@ -186,6 +186,14 @@ for (const prefix of ['', '/en']) {
     }
   })
 
+  test(`publishes all five projects in the localized ItemList schema on ${prefix}/projects/`, async ({ page }) => {
+    await page.goto(`${prefix}/projects/`)
+    const schema = await page.locator('script[type="application/ld+json"]').evaluateAll(scripts => scripts.map(script => JSON.parse(script.textContent ?? '{}')).find(value => value['@type'] === 'ItemList'))
+    expect(schema).toBeTruthy()
+    expect(schema.numberOfItems).toBe(5)
+    expect(schema.itemListElement.map((item: { name: string }) => item.name)).toEqual(['weapp-vite', 'weapp-tailwindcss', 'Varo', 'weapp-sqlite', 'VPT'])
+  })
+
   test(`ignores unknown project filters on ${prefix}/projects/`, async ({ page }) => {
     await page.goto(`${prefix}/projects/?role=unknown&maturity=invalid&platform=not-real`)
     await expect(page.locator('[data-filter-role]')).toHaveValue('')
