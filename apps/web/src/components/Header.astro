@@ -115,6 +115,9 @@ const isPricing = currentPath === pricingPath
     const syncExpanded = () => summary?.setAttribute('aria-expanded', menu.hasAttribute('open') ? 'true' : 'false')
     menu.addEventListener('toggle', syncExpanded)
     syncExpanded()
+    document.addEventListener('click', (event) => {
+      if (menu.hasAttribute('open') && !menu.contains(event.target)) menu.removeAttribute('open')
+    })
     menu.addEventListener('keydown', (event) => {
       if (event.key === 'Escape' && menu.hasAttribute('open')) {
         menu.removeAttribute('open')

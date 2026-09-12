@@ -543,6 +543,10 @@ test('provides a working mobile navigation menu', async ({ page }) => {
   await menu.click()
   await expect(menu).toHaveAttribute('aria-expanded', 'false')
   await expect(mobileNav).not.toBeVisible()
+  await menu.click()
+  await page.locator('#main-content').click({ position: { x: 12, y: 12 } })
+  await expect(menu).toHaveAttribute('aria-expanded', 'false')
+  await expect(mobileNav).not.toBeVisible()
 })
 
 test('announces the desktop project menu state in both locales', async ({ page }) => {
