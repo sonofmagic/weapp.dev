@@ -668,11 +668,13 @@ test('announces the desktop project menu state in both locales', async ({ page }
 })
 
 test('defers project logos inside the header menus', async ({ page }) => {
-  await page.goto('/')
-  await expect(page.locator('[data-site-header] > div > a img')).toHaveAttribute('decoding', 'async')
-  const logos = page.locator('[data-site-header] nav img')
-  await expect(logos).toHaveCount(10)
-  await expect(logos.evaluateAll(images => images.every(image => image.getAttribute('loading') === 'lazy' && image.getAttribute('decoding') === 'async'))).resolves.toBe(true)
+  for (const route of ['/', '/en/']) {
+    await page.goto(route)
+    await expect(page.locator('[data-site-header] > div > a img')).toHaveAttribute('decoding', 'async')
+    const logos = page.locator('[data-site-header] nav img')
+    await expect(logos).toHaveCount(10)
+    await expect(logos.evaluateAll(images => images.every(image => image.getAttribute('loading') === 'lazy' && image.getAttribute('decoding') === 'async'))).resolves.toBe(true)
+  }
 })
 
 test('defers the footer brand mark below the first viewport', async ({ page }) => {
