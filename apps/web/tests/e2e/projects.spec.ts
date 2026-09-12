@@ -112,6 +112,7 @@ for (const prefix of ['', '/en']) {
     await expect(readiness).toBeVisible()
     await expect(readiness).not.toHaveAttribute('role', 'status')
     await expect(page.locator('section[aria-labelledby="quick-start-title"]')).toHaveCount(1)
+    await expect(page.locator('section[aria-labelledby="quick-start-title"]')).toHaveAttribute('aria-describedby', 'quick-start-audience-weapp-sqlite quick-start-note-weapp-sqlite')
     await expect(page.locator('.project-proof-list')).toContainText(prefix ? 'Runtime boundaries are still being confirmed' : '运行时边界待确认')
     await expect(page.locator('.project-proof-code-head span[aria-label]')).toHaveAttribute('aria-label', prefix ? 'Project status: Planned' : '项目状态: 规划中')
     await expect(page.locator('.project-proof-panel')).toHaveAttribute('aria-describedby', 'project-proof-description project-proof-status-weapp-sqlite')
