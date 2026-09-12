@@ -51,21 +51,9 @@ const labels = locale === 'zh-CN'
   class SponsorGraphs extends HTMLElement {
     private connection?: AbortController
     private cleanup?: () => void
-    private deferObserver?: IntersectionObserver
 
     async connectedCallback() {
       if (this.connection) return
-      if ('IntersectionObserver' in window) {
-        this.setAttribute('aria-busy', 'true')
-        this.deferObserver = new IntersectionObserver(([entry]) => {
-          if (!entry?.isIntersecting) return
-          this.deferObserver?.disconnect()
-          this.deferObserver = undefined
-          void this.connectedCallback()
-        }, { rootMargin: '240px 0px' })
-        this.deferObserver.observe(this)
-        return
-      }
       const connection = new AbortController()
       this.connection = connection
       const { signal } = connection
@@ -212,8 +200,6 @@ const labels = locale === 'zh-CN'
     }
 
     disconnectedCallback() {
-      this.deferObserver?.disconnect()
-      this.deferObserver = undefined
       this.connection?.abort()
       this.connection = undefined
       this.cleanup?.()
