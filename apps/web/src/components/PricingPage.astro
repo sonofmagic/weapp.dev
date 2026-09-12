@@ -60,7 +60,7 @@ const githubUrl = 'https://github.com/sonofmagic/weapp.dev'
               <strong class="mb-1 block font-mono text-2xl font-[720] leading-none">{tier.price}</strong>
               <span id={`pricing-sponsor-tier-cadence-${index + 1}`} class="mb-4 block text-xs text-copy-muted">{tier.cadence}</span>
               <p id={`pricing-sponsor-tier-body-${index + 1}`} class="mb-5 text-sm leading-[1.7] text-copy-muted">{tier.body}</p>
-              <a class:list={['pricing-sponsor-button', buttonSecondary]} href={githubUrl} target="_blank" rel="noopener noreferrer" data-analytics-event="click_outbound" data-analytics-target={`sponsor_${index + 1}`}>
+              <a class:list={['pricing-sponsor-button', buttonSecondary]} href={githubUrl} aria-label={`${pricing.sponsorAction}: ${tier.name}`} target="_blank" rel="noopener noreferrer" data-analytics-event="click_outbound" data-analytics-target={`sponsor_${index + 1}`}>
                 {pricing.sponsorAction}
                 <ExternalLink size={16} stroke-width={1.8} aria-hidden="true" />
               </a>
