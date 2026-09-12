@@ -673,6 +673,13 @@ test('defers project logos inside the header menus', async ({ page }) => {
   await expect(logos.evaluateAll(images => images.every(image => image.getAttribute('loading') === 'lazy' && image.getAttribute('decoding') === 'async'))).resolves.toBe(true)
 })
 
+test('defers the footer brand mark below the first viewport', async ({ page }) => {
+  await page.goto('/')
+  const mark = page.locator('footer img[src="/logo.svg"]')
+  await expect(mark).toHaveAttribute('loading', 'lazy')
+  await expect(mark).toHaveAttribute('decoding', 'async')
+})
+
 test('labels the homepage demo stage as a landmark', async ({ page }) => {
   await page.goto('/')
   await expect(page.getByRole('region', { name: '下面可以点着玩：五层工具链的交互证明；完整工具链见项目地图。' })).toBeVisible()
