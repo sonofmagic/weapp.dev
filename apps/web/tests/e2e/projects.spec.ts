@@ -85,6 +85,11 @@ for (const prefix of ['', '/en']) {
     await expect(current.first()).toHaveAttribute('href', `${prefix}/projects/`)
   })
 
+  test(`decodes the project detail logo asynchronously on ${prefix || 'zh-CN'}`, async ({ page }) => {
+    await page.goto(`${prefix}/projects/weapp-vite/`)
+    await expect(page.locator('main#main-content > section').first().locator('img').first()).toHaveAttribute('decoding', 'async')
+  })
+
   test(`offers five adoption paths and their documentation on ${prefix}/`, async ({ page }) => {
     await page.goto(`${prefix}/`)
     const paths = page.locator('.project-selector-list article')
