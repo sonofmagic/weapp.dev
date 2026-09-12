@@ -26,7 +26,7 @@ const labels = locale === 'zh-CN'
     <p class="sponsor-graph-note" data-no-js-note>{locale === 'zh-CN' ? '当前显示资金桶分配表；启用 JavaScript 后可加载交互式资金流图。' : 'The allocation table is shown here. Enable JavaScript to load the interactive funding flow.'}</p>
     <div class="sponsor-chart" data-chart="flow" hidden role="img" aria-label={labels.flow} aria-describedby="sponsor-flow-help sponsor-flow-summary"></div>
     <p id="sponsor-flow-summary" class="sr-only">{locale === 'zh-CN' ? `当前展示 ${localizedGraph.buckets.length} 个资金桶及其分配比例。` : `The current view shows ${localizedGraph.buckets.length} funding buckets and their allocation shares.`}</p>
-    <p class="sponsor-graph-error" data-graph-error hidden role="status" aria-live="polite">{labels.error} <button type="button" data-graph-retry>{locale === 'zh-CN' ? '重试图表' : 'Retry charts'}</button></p>
+    <p class="sponsor-graph-error" data-graph-error hidden role="status" aria-live="polite">{labels.error} <button type="button" data-graph-retry aria-label={`${locale === 'zh-CN' ? '重试' : 'Retry'}：${labels.flow}`}>{locale === 'zh-CN' ? '重试图表' : 'Retry charts'}</button></p>
     <details open><summary>{labels.table}</summary><table><caption class="sr-only">{locale === 'zh-CN' ? '资金桶分配比例' : 'Funding bucket allocation shares'}</caption><thead><tr><th scope="col">{locale === 'zh-CN' ? '资金桶' : 'Bucket'}</th><th scope="col">{locale === 'zh-CN' ? '比例' : 'Share'}</th></tr></thead><tbody>{localizedGraph.buckets.map(bucket => <tr><th scope="row">{bucket.name}</th><td>{bucket.share}%</td></tr>)}</tbody></table></details>
   </section>
   <section class="sponsor-graph-card" data-graph-card="relation" aria-labelledby="sponsor-relation-title" aria-describedby="sponsor-relation-help sponsor-relation-summary">
@@ -37,7 +37,7 @@ const labels = locale === 'zh-CN'
     <p class="sponsor-graph-status" data-status role="status" aria-live="polite" aria-atomic="true"></p>
     <p id="sponsor-relation-summary" class="sponsor-graph-summary" data-summary>{labels.summary.replace('{nodes}', String(localizedGraph.nodes.length)).replace('{edges}', String(localizedGraph.edges.length + localizedGraph.relationEdges.length))}</p>
     <aside aria-label={labels.details} class="sponsor-node-details" data-node-details hidden role="status" aria-live="polite"><strong data-node-name></strong><span data-node-kind></span><a data-node-link target="_blank" rel="noopener noreferrer" hidden>{labels.open}</a></aside>
-    <p class="sponsor-graph-error" data-graph-error hidden role="status" aria-live="polite">{labels.error} <button type="button" data-graph-retry>{locale === 'zh-CN' ? '重试图表' : 'Retry charts'}</button></p>
+    <p class="sponsor-graph-error" data-graph-error hidden role="status" aria-live="polite">{labels.error} <button type="button" data-graph-retry aria-label={`${locale === 'zh-CN' ? '重试' : 'Retry'}：${labels.relation}`}>{locale === 'zh-CN' ? '重试图表' : 'Retry charts'}</button></p>
     <details open>
       <summary>{labels.table}</summary>
       <h3>{labels.nodes}</h3>

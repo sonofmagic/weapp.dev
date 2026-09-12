@@ -105,6 +105,8 @@ for (const route of ['/sponsors/', '/en/sponsors/']) {
     const graphs = page.locator('[data-sponsor-graphs]')
     await expect(graphs.locator('[data-graph-error]').first()).toBeVisible()
     await expect(graphs.locator('[data-graph-retry]').first()).toBeFocused()
+    await expect(graphs.locator('[data-graph-retry]').first()).toHaveAttribute('aria-label', route.startsWith('/en') ? 'Retry：Funding flow' : '重试：资金流')
+    await expect(graphs.locator('[data-graph-retry]').nth(1)).toHaveAttribute('aria-label', route.startsWith('/en') ? 'Retry：Relationship graph' : '重试：关系图谱')
     await expect(graphs.locator('[data-graph-error]').first()).toHaveAttribute('role', 'status')
     await expect(graphs.locator('[data-chart="flow"]')).toBeHidden()
     await expect(graphs.locator('canvas')).toHaveCount(0)
