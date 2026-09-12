@@ -128,6 +128,7 @@ const labels = locale === 'zh-CN'
           this.querySelector<HTMLElement>('[data-node-kind]')!.textContent = kindLabels[selected.kind]
           const link = this.querySelector<HTMLAnchorElement>('[data-node-link]')!
           link.removeAttribute('href')
+          link.setAttribute('aria-label', zh ? `打开链接：${selected.name}` : `Open link: ${selected.name}`)
           link.hidden = !selected.url
           if (selected.url) link.href = selected.url
           details.hidden = false

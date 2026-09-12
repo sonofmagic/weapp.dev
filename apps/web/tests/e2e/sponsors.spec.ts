@@ -49,6 +49,8 @@ for (const route of ['/sponsors/', '/en/sponsors/']) {
     await graphs.locator('[data-kind]').selectOption('project')
     await graphs.locator('[data-search]').fill('weapp-vite')
     await expect(graphs.locator('[data-status]')).toHaveText(route.startsWith('/en') ? '1 nodes' : '1 个节点')
+    await graphs.locator('[data-node-id="project:weapp-vite"]').click()
+    await expect(graphs.locator('[data-node-link]')).toHaveAttribute('aria-label', route.startsWith('/en') ? 'Open link: weapp-vite' : '打开链接：weapp-vite')
     await graphs.locator('[data-search]').fill('no-matching-node')
     await expect(graphs.locator('[data-status]')).toHaveText(route.startsWith('/en') ? '0 nodes' : '0 个节点')
     await expect(graphs.locator('[data-summary]')).toHaveText(route.startsWith('/en') ? 'The current public snapshot has no relationship data to display.' : '当前公开快照没有可展示的关系数据。')
