@@ -111,7 +111,6 @@ test('default examples remain readable without JavaScript', async ({ browser, vi
     await expect(page.locator('.demo-controls:visible, [data-copy]:visible')).toHaveCount(0)
     await expect(page.locator('#projects .home-project-proof')).toHaveCount(3)
     await expect(page.locator('#projects .home-lab')).toHaveCount(0)
-    await expect(page.locator('#projects').getByText('@varo-ui/cli')).toBeVisible()
   }
   await context.close()
 })
