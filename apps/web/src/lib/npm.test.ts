@@ -10,5 +10,7 @@ describe('npm package URLs', () => {
   it('rejects non-canonical npm destinations', () => {
     expect(isCanonicalNpmPackageUrl('https://registry.npmjs.org/weapp-vite')).toBe(false)
     expect(isCanonicalNpmPackageUrl('https://www.npmjs.com/package/weapp-vite?tab=readme')).toBe(false)
+    expect(isCanonicalNpmPackageUrl('https://user:pass@www.npmjs.com/package/weapp-vite')).toBe(false)
+    expect(isCanonicalNpmPackageUrl('https://www.npmjs.com:8443/package/weapp-vite')).toBe(false)
   })
 })
