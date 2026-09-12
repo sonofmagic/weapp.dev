@@ -49,6 +49,16 @@ for (const route of ['/sponsors/', '/en/sponsors/']) {
     await expect(graphs.locator('[data-summary]')).toContainText(route.startsWith('/en') ? 'Current filter:' : '当前筛选：')
     expect(errors).toEqual([])
   })
+
+  test(`explains the public snapshot amount fallback on ${route}`, async ({ page }) => {
+    await page.goto(route)
+    const flow = page.locator('[data-graph-card="flow"]')
+    await expect(flow).toContainText(route.startsWith('/en')
+      ? 'Actual amounts appear when the public ledger includes them'
+      : '公开账本金额可用后会显示实际金额')
+    await expect(flow.locator('table tbody tr')).toHaveCount(3)
+    await expect(flow.locator('table tbody td')).toHaveText(['60%', '25%', '15%'])
+  })
 }
 
 for (const route of ['/sponsors/', '/en/sponsors/']) {
