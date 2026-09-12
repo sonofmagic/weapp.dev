@@ -385,6 +385,17 @@ test('supports keyboard navigation and activation', async ({ page }) => {
   await expect(page.locator('[data-active-project]')).toHaveText('weapp-tailwindcss')
 })
 
+test('keeps secondary project logos lazy and asynchronously decoded', async ({ page }) => {
+  await page.goto('/')
+  for (const selector of ['.toolchain-map-list img', '#projects .home-project-row img', '#releases img']) {
+    const images = page.locator(selector)
+    await expect(images).not.toHaveCount(0)
+    await expect(images.evaluateAll(items => items.map(item => ({ loading: item.getAttribute('loading'), decoding: item.getAttribute('decoding') })))).resolves.toEqual(
+      Array.from({ length: await images.count() }, () => ({ loading: 'lazy', decoding: 'async' })),
+    )
+  }
+})
+
 test('has no horizontal overflow or clipped interactive labels', async ({ page }) => {
   await page.goto('/')
   const overflow = await page.evaluate(() => ({
