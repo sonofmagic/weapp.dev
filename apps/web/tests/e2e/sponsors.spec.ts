@@ -18,6 +18,7 @@ for (const route of ['/sponsors/', '/en/sponsors/']) {
     await expect(graphs.locator('[data-chart="flow"] canvas')).toHaveCount(1)
     await expect(graphs.locator('[data-chart="relation"] canvas')).toHaveCount(1)
     await expect(graphs).toHaveAttribute('aria-busy', 'false')
+    await expect(graphs.locator('[data-summary]')).toContainText(route.startsWith('/en') ? 'Current filter:' : '当前筛选：')
     expect(errors).toEqual([])
   })
 }
@@ -38,6 +39,7 @@ for (const route of ['/sponsors/', '/en/sponsors/']) {
     await expect(graphs.locator('[data-status]')).toHaveText(route.startsWith('/en') ? '1 nodes' : '1 个节点')
     await graphs.locator('[data-search]').fill('no-matching-node')
     await expect(graphs.locator('[data-status]')).toHaveText(route.startsWith('/en') ? '0 nodes' : '0 个节点')
+    await expect(graphs.locator('[data-summary]')).toHaveText(route.startsWith('/en') ? 'The current public snapshot has no relationship data to display.' : '当前公开快照没有可展示的关系数据。')
     const node = graphs.locator('[data-node-id="project:weapp-vite"]')
     await node.focus()
     await page.keyboard.press('Enter')
