@@ -120,6 +120,7 @@ for (const width of [1440, 768, 390]) {
       await expect(page.locator('html')).toHaveAttribute('data-theme', theme)
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)
       expect(overflow).toBe(false)
+      await expect(graphs.locator('[data-reset]')).toHaveCSS('white-space', 'nowrap')
       await graphs.locator('[data-graph-card="flow"]').screenshot({ path: testInfo.outputPath('funding-flow.png'), style: '[data-site-header], body > a[href="#main-content"] { visibility: hidden !important; }' })
       await graphs.locator('[data-graph-card="relation"]').screenshot({ path: testInfo.outputPath('relations.png'), style: '[data-site-header], body > a[href="#main-content"] { visibility: hidden !important; }' })
     })
