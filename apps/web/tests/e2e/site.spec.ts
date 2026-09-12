@@ -253,6 +253,7 @@ test('planned project exposes an honest readiness state', async ({ page }) => {
   await expect(page.locator('.project-proof-code code')).not.toContainText('pnpm dlx')
   await expect(page.getByText('v0.0.1')).toHaveCount(0)
   await expect(page.getByText('/docs/varo/')).toBeVisible()
+  await expect(page.locator('meta[property="article:modified_time"]')).toHaveCount(0)
   await expect(page.locator('[data-project-readiness]')).toBeVisible()
   await expect(page.getByText('GitHub Stars')).toHaveCount(0)
   await expect(page.getByText('周下载')).toHaveCount(0)

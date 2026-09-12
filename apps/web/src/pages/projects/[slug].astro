@@ -34,7 +34,7 @@ const projectMetrics = metrics[project.id] ?? { version: 'planned', releasedAt: 
   type="article"
   imageAlt={`${content.name} logo and project overview`}
   author={project.data.maintainer}
-  dateModified={projectMetrics.releasedAt}
+  dateModified={project.data.status === 'planned' ? undefined : projectMetrics.releasedAt}
   schemas={[projectSchema(locale, project, projectMetrics), breadcrumbSchema(locale, project)]}
 >
   <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />
