@@ -7,4 +7,4 @@ import { sponsorsSchema } from '../../lib/seo'
 import { getProjects } from '../../lib/projects'
 const projects = await getProjects()
 ---
-<BaseLayout locale="en" title="Sponsor graph | weapp.dev" description="Public sponsorship, project maintenance and contributors fund graph" schemas={[sponsorsSchema('en')]}><Header locale="en" projects={projects} currentPath={Astro.url.pathname} /><SponsorsPage locale="en" /><Footer locale="en" projects={projects} currentPath={Astro.url.pathname} /></BaseLayout>
+<BaseLayout locale="en" title="Sponsor graph | weapp.dev" description="Public sponsorship, project maintenance and contributors fund graph" imageAlt="weapp.dev sponsor graph and funding flow" schemas={[sponsorsSchema('en')]}><Header locale="en" projects={projects} currentPath={Astro.url.pathname} /><SponsorsPage locale="en" /><Footer locale="en" projects={projects} currentPath={Astro.url.pathname} /></BaseLayout>
