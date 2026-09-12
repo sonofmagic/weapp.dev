@@ -83,4 +83,8 @@ describe('toolchain project ordering', () => {
     projects[0].data.role = 'Styling'
     expect(() => validateToolchainCatalog(projects)).toThrow('Project role differs from toolchain role')
   })
+
+  it('keeps project roles within the documented toolchain vocabulary', () => {
+    expect(() => projectDefinitionSchema.parse({ ...vite, role: 'Documentation' })).toThrow()
+  })
 })

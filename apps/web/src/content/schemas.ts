@@ -53,7 +53,7 @@ export const projectDefinitionSchema = z.object({
     primary: projectVisualSchema,
     secondary: projectVisualSchema,
   }).strict().optional(),
-  role: z.string().min(1),
+  role: z.enum(['Engineering', 'Styling', 'Components', 'Local data', 'Migration']),
   maturity: z.enum(['stable', 'beta', 'planned']),
   runtime: z.array(z.string().min(1)).min(1),
   relatedProjects: z.array(z.string().min(1)).min(1),
