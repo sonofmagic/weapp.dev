@@ -13,7 +13,7 @@ const copy = demoCopy[locale]
     <div class="home-lab-tabs" role="tablist" aria-label={copy.playground} hidden>
       {projects.map((project, index) => <button type="button" role="tab" id={`hero-tab-${project.demo}`} aria-controls={`hero-panel-${project.demo}`} aria-selected={index === 0 ? 'true' : 'false'} tabindex={index === 0 ? 0 : -1}>{copy.tabs[index]}</button>)}
     </div>
-    <span class="home-lab-project" data-active-project>{projects[0].data.locales[locale].name}</span>
+    <span class="home-lab-project" data-active-project aria-live="polite">{projects[0].data.locales[locale].name}</span>
   </div>
   {projects.map((project, index) => <div role="tabpanel" id={`hero-panel-${project.demo}`} aria-labelledby={`hero-tab-${project.demo}`} hidden={index !== 0} data-project-name={project.data.locales[locale].name} tabindex="0"><HomeDemo kind={project.demo} locale={locale} instance={`hero-${project.demo}`} /></div>)}
 </hero-demos>

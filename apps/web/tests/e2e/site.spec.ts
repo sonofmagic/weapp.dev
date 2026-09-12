@@ -376,6 +376,13 @@ test('supports keyboard navigation and activation', async ({ page }) => {
   const initial = await page.locator('html').getAttribute('data-theme')
   await page.keyboard.press('Enter')
   await expect(page.locator('html')).toHaveAttribute('data-theme', initial === 'dark' ? 'light' : 'dark')
+
+  const demoTabs = page.getByRole('tab')
+  await expect(demoTabs).toHaveCount(5)
+  await demoTabs.first().focus()
+  await page.keyboard.press('ArrowRight')
+  await expect(demoTabs.nth(1)).toHaveAttribute('aria-selected', 'true')
+  await expect(page.locator('[data-active-project]')).toHaveText('weapp-tailwindcss')
 })
 
 test('has no horizontal overflow or clipped interactive labels', async ({ page }) => {
