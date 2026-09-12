@@ -275,6 +275,7 @@ for (const prefix of ['', '/en']) {
     const current = page.locator('[data-site-header] a[aria-current="page"]')
     await expect(current).toHaveCount(2)
     await expect(current.first()).toHaveAttribute('href', `${prefix}/projects/weapp-vite/`)
+    await expect(page.locator(`footer a[aria-current="page"][href="${prefix}/projects/weapp-vite/"]`)).toHaveCount(1)
   })
 }
 
