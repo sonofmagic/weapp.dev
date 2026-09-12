@@ -41,6 +41,7 @@ for (const prefix of ['', '/en']) {
     }
     await expect(role).toBeEnabled()
     await expect(visible).toHaveCount(5)
+    await expect(page.locator('[data-project-card][data-project-id="weapp-sqlite"]')).toHaveAttribute('data-roadmap-count', '2')
     await expect(page.locator('[data-project-card] [role="status"]')).toHaveCount(5)
     for (const id of ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro']) {
       await expect(page.locator(`[data-project-card][data-project-id="${id}"]`)).toHaveAttribute('aria-labelledby', `project-card-${id}`)
