@@ -336,7 +336,15 @@ for (const localePath of ['', '/en']) {
     test(`keeps ${localePath || 'zh-CN'} ${slug} page in planning state`, async ({ page }) => {
       await page.goto(`${localePath}/projects/${slug}/`)
       await expect(page.locator('[data-project-readiness]')).toBeVisible()
-      await expect(page.locator('.project-proof-code code')).toContainText('status: planned')
+      await expect(page.locator('.project-proof-code-head')).toContainText(localePath ? 'Planned' : '规划中')
+      if (slug === 'weapp-sqlite') {
+        await expect(page.locator('.project-proof-list li')).toHaveText(localePath
+          ? ['Runtime boundaries are still being confirmed', 'Migration and sync strategy are still being confirmed']
+          : ['运行时边界待确认', '迁移与同步策略待确认'])
+      }
+      else {
+        await expect(page.locator('.project-proof-code code')).toContainText('status: planned')
+      }
       await expect(page.locator('main a[data-analytics-target="package"]')).toHaveCount(0)
       await expect(page.locator('meta[property="article:modified_time"]')).toHaveCount(0)
       await expect(page.locator('script[type="application/ld+json"]').nth(1)).not.toContainText('"version"')
@@ -483,6 +491,11 @@ test('keeps command copying accessible when the clipboard API is unavailable', a
   await expect(copyButton).toHaveAttribute('aria-label', 'Copy manually')
   await expect(copyButton.locator('[data-copy-text]')).toHaveText('Copy manually')
   await expect(copyButton.locator('[data-copy-text]')).toHaveAttribute('aria-live', 'polite')
+  const source = copyButton.locator('..').locator('pre')
+  await expect(source).toBeFocused()
+  await expect.poll(() => page.evaluate(() => window.getSelection()?.toString())).toBe('pnpm add -D weapp-vite')
+  await page.keyboard.press('Tab')
+  await expect(copyButton).toBeFocused()
 })
 
 test('copies the first command from the homepage adoption path', async ({ page, context }) => {
@@ -510,6 +523,10 @@ test('keeps homepage command copying readable when the clipboard API is unavaila
   await expect(copyButton.locator('[data-selector-copy-text]')).toHaveText('Copy manually')
   await expect(copyButton.locator('[data-selector-copy-text]')).toHaveAttribute('role', 'status')
   await expect(copyButton.locator('[data-selector-copy-text]')).toHaveAttribute('aria-live', 'polite')
+  await expect(copyButton.locator('..').locator('code')).toBeFocused()
+  await expect.poll(() => page.evaluate(() => window.getSelection()?.toString())).toBe('pnpm add -D weapp-vite')
+  await page.keyboard.press('Tab')
+  await expect(copyButton).toBeFocused()
 })
 
 test('provides a working mobile navigation menu', async ({ page }) => {
@@ -579,6 +596,12 @@ test('keeps core content and links available without JavaScript', async ({ brows
     await expect(page.getByRole('heading', { level: 1, name: 'weapp.dev' })).toBeVisible()
     await expect(page.getByRole('link', { name: siteCopy[locale].projects.documentation }).first()).toBeVisible()
     await expectHomeVisuals(page, locale)
+    for (const button of await page.locator('[data-selector-copy]').all()) {
+      await expect(button).toBeDisabled()
+    }
+    await page.goto(`${locale === 'en' ? '/en' : ''}/projects/weapp-vite/`)
+    await expect(page.locator('[data-copy-command]')).toBeDisabled()
+    await expect(page.locator('[data-copy-command]').locator('..').locator('pre code')).toHaveText('pnpm add -D weapp-vite')
   }
   await context.close()
 })

@@ -14,6 +14,7 @@ const copy = demoCopy[locale]
   <span class="demo-copy-status" role="status"></span>
 </demo-code>
 <script>
+  import { copyCode } from '../../../scripts/copy-code'
   import { demoCopy } from './copy'
   import type { Locale } from '../../../types/project'
 
@@ -24,13 +25,7 @@ const copy = demoCopy[locale]
       const status = this.querySelector<HTMLElement>('[role="status"]')!
       const copy = demoCopy[this.dataset.locale as Locale]
       button.addEventListener('click', async () => {
-        try {
-          await navigator.clipboard.writeText(this.querySelector('code')!.textContent ?? '')
-          status.textContent = copy.copied
-        }
-        catch {
-          status.textContent = copy.copyFailed
-        }
+        status.textContent = await copyCode(this.querySelector('code')!) ? copy.copied : copy.copyFailed
       })
       button.hidden = false
       this.dataset.ready = 'true'

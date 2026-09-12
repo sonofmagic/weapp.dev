@@ -93,8 +93,9 @@ const installCommand = project.data.installCommand ?? project.data.quickStart?.c
       {project.data.status === 'planned' || !installCommand ? <div data-reveal class="rounded-panel border border-line bg-panel-soft px-5 py-4 text-sm leading-[1.7] text-copy-muted">{quickStartNote || copy.project.readinessNote}</div> : <div data-reveal class="grid grid-cols-[1fr_auto] overflow-hidden rounded-panel border border-line bg-canvas">
         <pre class="m-0 min-w-0 overflow-x-auto px-5 py-4 text-sm"><code>{installCommand}</code></pre>
         <button
-          class="inline-flex min-w-[116px] items-center justify-center gap-2 border-l border-line bg-panel-soft px-4 text-sm font-[650] transition-colors hover:bg-panel-strong max-[480px]:min-w-11 max-[480px]:px-3"
+          class="inline-flex min-w-[116px] items-center justify-center gap-2 border-l border-line bg-panel-soft px-4 text-sm font-[650] transition-colors enabled:hover:bg-panel-strong disabled:cursor-not-allowed disabled:opacity-60 max-[480px]:min-w-11 max-[480px]:px-3"
           type="button"
+          disabled
           data-copy-command={installCommand}
           data-copy-label={copy.project.copyInstall}
           data-copied-label={copy.project.copied}
@@ -215,25 +216,17 @@ const installCommand = project.data.installCommand ?? project.data.quickStart?.c
   </section>
 </main>
 
-<script is:inline>
-  document.querySelectorAll('[data-copy-command]').forEach((button) => {
+<script>
+  import { copyCode } from '../scripts/copy-code'
+
+  document.querySelectorAll<HTMLButtonElement>('[data-copy-command]').forEach((button) => {
+    const code = button.parentElement?.querySelector('code')
+    if (!code) return
     button.addEventListener('click', async () => {
-      const command = button.getAttribute('data-copy-command')
-      if (!command) return
-      try {
-        await navigator.clipboard.writeText(command)
-      } catch {
-        const fallback = document.createElement('textarea')
-        fallback.value = command
-        fallback.setAttribute('readonly', '')
-        fallback.style.position = 'fixed'
-        fallback.style.opacity = '0'
-        document.body.append(fallback)
-        fallback.select()
+      if (!await copyCode(code)) {
         const text = button.querySelector('[data-copy-text]')
         if (text) text.textContent = button.getAttribute('data-copy-failed-label') || ''
         button.setAttribute('aria-label', button.getAttribute('data-copy-failed-label') || '')
-        window.setTimeout(() => fallback.remove(), 1200)
         return
       }
       const text = button.querySelector('[data-copy-text]')
@@ -248,5 +241,6 @@ const installCommand = project.data.installCommand ?? project.data.quickStart?.c
         button.setAttribute('aria-label', button.getAttribute('data-copy-label') || '')
       }, 1800)
     })
+    button.disabled = false
   })
 </script>

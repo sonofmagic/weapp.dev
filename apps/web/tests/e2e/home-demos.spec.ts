@@ -113,6 +113,8 @@ test('copy reports success and clipboard failures accessibly', async ({ page }) 
   })
   await code.getByRole('button', { name: '复制代码' }).click()
   await expect(code.getByRole('status')).toContainText('复制失败')
+  await expect(code.locator('pre')).toBeFocused()
+  await expect.poll(() => page.evaluate(() => window.getSelection()?.toString())).toBe(await code.locator('code').textContent())
 })
 
 test('default examples remain readable without JavaScript', async ({ browser, viewport }) => {
