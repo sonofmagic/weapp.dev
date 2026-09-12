@@ -62,6 +62,13 @@ for (const prefix of ['', '/en']) {
     await expect(visible).toHaveCount(5)
   })
 
+  test(`shows roadmap evidence for the planned data project on ${prefix || 'zh-CN'}`, async ({ page }) => {
+    await page.goto(`${prefix}/projects/weapp-sqlite/`)
+    await expect(page.locator('.roadmap-strip')).toBeVisible()
+    await expect(page.locator('.roadmap-strip li')).toHaveCount(2)
+    await expect(page.locator('.roadmap-status')).toHaveCount(2)
+  })
+
   test(`marks the current project navigation entry on ${prefix}/projects/`, async ({ page }) => {
     await page.goto(`${prefix}/projects/`)
     const current = page.locator('[data-site-header] a[aria-current="page"]')
