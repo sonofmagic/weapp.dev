@@ -491,6 +491,9 @@ test('asynchronously decodes the visible homepage project rail', async ({ page }
   const images = page.locator('.home-project-rail img')
   await expect(images).toHaveCount(5)
   await expect(images.evaluateAll(items => items.every(item => item.getAttribute('decoding') === 'async'))).resolves.toBe(true)
+  await expect(images.first()).toHaveAttribute('loading', 'eager')
+  await expect(images.first()).toHaveAttribute('fetchpriority', 'high')
+  await expect(images.nth(1)).toHaveAttribute('loading', 'lazy')
 })
 
 test('has no horizontal overflow or clipped interactive labels', async ({ page }) => {
