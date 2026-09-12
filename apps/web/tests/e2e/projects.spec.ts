@@ -59,6 +59,8 @@ for (const prefix of ['', '/en']) {
       await page.emulateMedia({ colorScheme: theme, reducedMotion: 'reduce' })
       for (const slug of ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro']) {
         await page.goto(`${prefix}/projects/${slug}/`)
+        await expect(page.getByRole('link', { name: prefix ? 'Back to projects' : '返回项目列表', exact: true })).toHaveAttribute('href', `${prefix}/projects/`)
+        await expect(page.locator('html')).toHaveAttribute('data-theme', theme)
         await page.waitForFunction(() => [...document.querySelectorAll('[data-reveal]')].every(element => element.hasAttribute('data-visible')))
         const accessibility = await new AxeBuilder({ page }).include('main').analyze()
         expect(accessibility.violations, `${prefix || 'zh-CN'} ${theme} ${slug}`).toEqual([])
@@ -81,6 +83,11 @@ test.describe('project catalog without JavaScript', () => {
       await page.locator('[data-project-card][data-role="data"] .projects-index-actions a').last().click()
       await expect(page).toHaveURL(`${prefix}/projects/weapp-sqlite/`)
       await expect(page.getByRole('heading', { level: 1 })).toHaveText('weapp-sqlite')
+      const back = page.getByRole('link', { name: prefix ? 'Back to projects' : '返回项目列表', exact: true })
+      await back.focus()
+      await page.keyboard.press('Enter')
+      await expect(page).toHaveURL(`${prefix}/projects/`)
+      await expect(page.locator('[data-project-card]:visible')).toHaveCount(5)
     })
   }
 })

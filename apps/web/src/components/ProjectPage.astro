@@ -30,7 +30,7 @@ const publicMetrics = showsPublicMetrics(project.data.status)
 <main id="main-content" style={`--project-accent: ${project.data.accent}`}>
   <section class:list={[shell, 'grid min-h-[min(690px,calc(100dvh-100px))] grid-cols-[.92fr_1.08fr] items-center gap-12 py-10 max-[820px]:min-h-0 max-[820px]:grid-cols-1 max-[820px]:gap-8 max-[720px]:py-8']}>
     <div data-reveal>
-      <a class="mb-10 inline-flex items-center gap-2 text-sm font-[620] text-copy-muted transition-colors hover:text-ink max-[720px]:mb-8" href={`${localizePath(locale)}#projects`} data-analytics-event="navigate_section" data-analytics-section="projects">
+      <a class="mb-10 inline-flex items-center gap-2 text-sm font-[620] text-copy-muted transition-colors hover:text-ink max-[720px]:mb-8" href={localizePath(locale, '/projects/')} data-analytics-event="navigate_section" data-analytics-section="projects">
         <ArrowLeft size={17} stroke-width={1.9} aria-hidden="true" />
         {copy.project.back}
       </a>

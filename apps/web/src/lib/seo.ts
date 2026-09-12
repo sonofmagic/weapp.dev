@@ -157,7 +157,7 @@ export function breadcrumbSchema(locale: Locale, project: { id: string, data: Pr
     '@type': 'BreadcrumbList',
     'itemListElement': [
       { '@type': 'ListItem', 'position': 1, 'name': 'weapp.dev', 'item': absoluteUrl(homePath) },
-      { '@type': 'ListItem', 'position': 2, 'name': projectsLabel, 'item': absoluteUrl(`${homePath}#projects`) },
+      { '@type': 'ListItem', 'position': 2, 'name': projectsLabel, 'item': absoluteUrl(`${homePath}projects/`) },
       { '@type': 'ListItem', 'position': 3, 'name': content.name, 'item': absoluteUrl(projectPath) },
     ],
   }

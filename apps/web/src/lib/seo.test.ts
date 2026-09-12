@@ -20,6 +20,8 @@ describe('SEO helpers', () => {
     expect(entity.codeRepository).toBe('https://github.com/sonofmagic/weapp-tailwindcss')
     expect(entity.sameAs).toContain('https://www.npmjs.com/package/weapp-tailwindcss')
     expect(breadcrumb.itemListElement).toHaveLength(3)
+    expect(breadcrumb.itemListElement[1].item).toBe('https://weapp.dev/projects/')
+    expect(breadcrumbSchema('en', project).itemListElement[1].item).toBe('https://weapp.dev/en/projects/')
     expect(JSON.parse(serializeJsonLd(entity))).toEqual(entity)
   })
 
