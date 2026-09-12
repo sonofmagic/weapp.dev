@@ -161,7 +161,7 @@ for (const prefix of ['', '/en']) {
     for (const [index, slug] of ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro'].entries()) {
       const path = paths.nth(index)
       await expect(path).toHaveAttribute('aria-labelledby', `path-title-${index}`)
-      await expect(path).toHaveAttribute('aria-describedby', `path-description-${index}`)
+      await expect(path).toHaveAttribute('aria-describedby', ['varo', 'weapp-sqlite'].includes(slug) ? `path-description-${index} selector-status-${index}` : `path-description-${index}`)
       await expect(path.locator('.project-selector-actions a').first()).toHaveAttribute('href', `${prefix}/projects/${slug}/`)
       await expect(path.locator('.project-selector-actions a').last()).toHaveAttribute('href', /^https:\/\//)
       if (['varo', 'weapp-sqlite'].includes(slug)) {
