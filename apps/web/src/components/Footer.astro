@@ -8,9 +8,10 @@ import { shell, wordmark, wordmarkMark } from '../styles/classes'
 interface Props {
   locale: Locale
   projects: ProjectEntry[]
+  currentPath?: string
 }
 
-const { locale, projects } = Astro.props
+const { locale, projects, currentPath } = Astro.props
 const copy = siteCopy[locale]
 ---
 
@@ -45,7 +46,7 @@ const copy = siteCopy[locale]
       <a class="mb-3 flex w-fit items-center gap-2 text-sm hover:text-brand" href={localizePath(locale, '/privacy/')}>{copy.footer.privacy}</a>
       <a class="mb-3 flex w-fit items-center gap-2 text-sm hover:text-brand" href={localizePath(locale, '/pricing/')} data-analytics-event="navigate_page" data-analytics-page="pricing">{copy.nav.pricing}</a>
       <a class="mb-3 flex w-fit items-center gap-2 text-sm hover:text-brand" href={localizePath(locale, '/contributors/')} data-analytics-event="navigate_page" data-analytics-page="contributors">{copy.footer.contributors}</a>
-      <a class="mb-3 flex w-fit items-center gap-2 text-sm hover:text-brand" href={localizePath(locale, '/sponsors/')} data-analytics-event="navigate_page" data-analytics-page="sponsors">{locale === 'zh-CN' ? '赞助图谱' : 'Sponsor graph'}</a>
+      <a class="mb-3 flex w-fit items-center gap-2 text-sm hover:text-brand" href={localizePath(locale, '/sponsors/')} aria-current={currentPath === localizePath(locale, '/sponsors/') ? 'page' : undefined} data-analytics-event="navigate_page" data-analytics-page="sponsors">{locale === 'zh-CN' ? '赞助图谱' : 'Sponsor graph'}</a>
       <a class="mb-3 flex w-fit items-center gap-2 text-sm hover:text-brand" href="/releases.xml" data-analytics-event="navigate_section" data-analytics-section="release_feed">
         <Rss size={15} stroke-width={1.8} aria-hidden="true" />
         {copy.footer.releases}
