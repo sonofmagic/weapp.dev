@@ -38,7 +38,7 @@ const copy = siteCopy[locale]
     </div>
   </div>
 
-  <div class:list={[shell, 'home-project-rail']} aria-label={copy.nav.projects}>
+  <nav class:list={[shell, 'home-project-rail']} aria-label={copy.nav.projects}>
     {projects.map((project, index) => {
       const content = project.data.locales[locale]
       return (
@@ -50,5 +50,5 @@ const copy = siteCopy[locale]
         </a>
       )
     })}
-  </div>
+  </nav>
 </section>
