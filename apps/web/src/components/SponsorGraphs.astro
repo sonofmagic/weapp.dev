@@ -210,6 +210,7 @@ const labels = locale === 'zh-CN'
           button.disabled = false
           button.onclick = () => { button.disabled = true; window.location.reload() }
         })
+        this.querySelector<HTMLButtonElement>('[data-graph-retry]')?.focus({ preventScroll: true })
       } finally {
         if (this.connection === connection) this.setAttribute('aria-busy', 'false')
       }
