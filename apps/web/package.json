@@ -32,7 +32,8 @@
     "@fontsource-variable/geist-mono": "5.3.0",
     "@fontsource-variable/sora": "5.3.0",
     "@lucide/astro": "1.42.0",
-    "astro": "7.3.2"
+    "astro": "7.3.2",
+    "echarts": "^6.1.0"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",

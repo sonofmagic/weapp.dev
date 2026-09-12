@@ -21,6 +21,11 @@ export interface SponsorSnapshot {
   items: PublicSponsor[]
 }
 
+export type SponsorGraphNodeKind = 'sponsor' | 'project' | 'fund' | 'site'
+export interface SponsorGraphNode { id: string, name: string, kind: SponsorGraphNodeKind, value?: number, url?: string }
+export interface SponsorGraphEdge { source: string, target: string, value: number, label?: string }
+export interface SponsorGraphData { nodes: SponsorGraphNode[], edges: SponsorGraphEdge[], buckets: Array<{ id: string, name: string, share: number, body: string }> }
+
 const repositoryUrl = 'https://github.com/sonofmagic/sponsors'
 const fallback: SponsorSnapshot = {
   version: 1,
@@ -87,4 +92,32 @@ export async function loadPublicSponsors(): Promise<SponsorSnapshot> {
   catch {
     return fallback
   }
+}
+
+const projects = [
+  ['project:weapp-vite', 'weapp-vite', 'https://github.com/weapp-vite/weapp-vite'],
+  ['project:weapp-tailwindcss', 'weapp-tailwindcss', 'https://github.com/sonofmagic/weapp-tailwindcss'],
+  ['project:weapp-dev', 'weapp.dev', 'https://github.com/sonofmagic/weapp.dev'],
+] as const
+
+export function sponsorGraphData(snapshot: SponsorSnapshot): SponsorGraphData {
+  const nodes: SponsorGraphNode[] = projects.map(([id, name, url]) => ({ id, name, kind: 'project', url }))
+  const edges: SponsorGraphEdge[] = []
+  for (const sponsor of snapshot.items) {
+    const name = sponsor.brandName || sponsor.login || sponsor.id
+    nodes.push({ id: `sponsor:${sponsor.id}`, name, kind: 'sponsor', url: sponsor.brandUrl || sponsor.profileUrl })
+    const project = projects[snapshot.items.indexOf(sponsor) % projects.length]
+    edges.push({ source: `sponsor:${sponsor.id}`, target: project[0], value: 1, label: sponsor.tier })
+  }
+  const buckets = [
+    { id: 'fund:core', name: 'Core maintenance', share: 60, body: 'Maintainer time, tests, CI, domain and docs.' },
+    { id: 'fund:contributors', name: 'Contributors fund', share: 25, body: 'Quarterly pool and targeted bounties.' },
+    { id: 'fund:ecosystem', name: 'Nearby open source', share: 15, body: 'Related mini-program ecosystem projects.' },
+  ]
+  for (const bucket of buckets) {
+    nodes.push({ id: bucket.id, name: bucket.name, kind: 'fund', value: bucket.share })
+    edges.push({ source: 'ledger:net', target: bucket.id, value: bucket.share, label: `${bucket.share}%` })
+  }
+  nodes.push({ id: 'ledger:net', name: 'Confirmed net receipts', kind: 'fund', value: 100 })
+  return { nodes, edges, buckets }
 }

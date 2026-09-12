@@ -1,0 +1,73 @@
+---
+import type { Locale } from '../types/project'
+import type { SponsorGraphData } from '../lib/sponsors'
+interface Props { locale: Locale; graph: SponsorGraphData }
+const { locale, graph } = Astro.props
+const labels = locale === 'zh-CN'
+  ? { flow: '资金流', relation: '关系图谱', flowHelp: '公开账本金额可用后会显示实际金额；当前展示分配比例。', relationHelp: '可筛选赞助者、项目和资金桶。', all: '全部', reset: '重置视图', table: '可读数据' }
+  : { flow: 'Funding flow', relation: 'Relationship graph', flowHelp: 'Actual amounts appear when the public ledger includes them; the current view shows allocation shares.', relationHelp: 'Filter sponsors, projects and fund buckets.', all: 'All', reset: 'Reset view', table: 'Accessible data' }
+---
+<section class="sponsor-graphs" data-sponsor-graphs data-locale={locale} data-graph={JSON.stringify(graph)}>
+  <div class="sponsor-graph-card" data-graph-card="flow">
+    <header><div><p class="sponsor-graph-kicker">01</p><h2>{labels.flow}</h2><p>{labels.flowHelp}</p></div></header>
+    <div class="sponsor-chart" data-chart="flow" role="img" aria-label={labels.flow}></div>
+    <details><summary>{labels.table}</summary><table><thead><tr><th>{locale === 'zh-CN' ? '资金桶' : 'Bucket'}</th><th>{locale === 'zh-CN' ? '比例' : 'Share'}</th></tr></thead><tbody>{graph.buckets.map(bucket => <tr><th>{bucket.name}</th><td>{bucket.share}%</td></tr>)}</tbody></table></details>
+  </div>
+  <div class="sponsor-graph-card" data-graph-card="relation">
+    <header><div><p class="sponsor-graph-kicker">02</p><h2>{labels.relation}</h2><p>{labels.relationHelp}</p></div><button type="button" data-reset>{labels.reset}</button></header>
+    <div class="sponsor-graph-tools" role="toolbar" aria-label={labels.relation}><input type="search" data-search placeholder={locale === 'zh-CN' ? '搜索节点' : 'Search nodes'} /><select data-kind aria-label={labels.all}><option value="">{labels.all}</option><option value="sponsor">{locale === 'zh-CN' ? '赞助者' : 'Sponsors'}</option><option value="project">{locale === 'zh-CN' ? '项目' : 'Projects'}</option><option value="fund">{locale === 'zh-CN' ? '资金桶' : 'Funds'}</option></select></div>
+    <div class="sponsor-chart" data-chart="relation" role="img" aria-label={labels.relation}></div>
+    <p class="sponsor-graph-status" data-status aria-live="polite"></p>
+  </div>
+</section>
+<script>
+  class SponsorGraphs extends HTMLElement {
+    async connectedCallback() {
+      if (this.dataset.ready) return
+      const [{ init, use }, { GraphChart, SankeyChart }, { GridComponent, TooltipComponent, LegendComponent }, { CanvasRenderer }] = await Promise.all([
+        import('echarts/core'), import('echarts/charts'), import('echarts/components'), import('echarts/renderers'),
+      ])
+      use([GraphChart, SankeyChart, GridComponent, TooltipComponent, LegendComponent, CanvasRenderer])
+      const graph: import('../lib/sponsors').SponsorGraphData = JSON.parse(this.dataset.graph || '{}')
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
+      const flow = init(this.querySelector('[data-chart="flow"]'))
+      const relation = init(this.querySelector('[data-chart="relation"]'))
+      flow.setOption({ animation: !reduce, tooltip: { trigger: 'item' }, series: [{ type: 'sankey', data: graph.nodes.filter((n) => n.id.startsWith('fund:') || n.id === 'ledger:net').map((n) => ({ name: n.name })), links: graph.edges.filter((e) => e.source === 'ledger:net').map((e) => ({ source: 'Confirmed net receipts', target: graph.nodes.find((n) => n.id === e.target)?.name, value: e.value })), emphasis: { focus: 'adjacency' }, lineStyle: { color: 'gradient', curveness: 0.5 } }] })
+      const renderRelation = () => {
+        const search = this.querySelector<HTMLInputElement>('[data-search]')!
+        const kindSelect = this.querySelector<HTMLSelectElement>('[data-kind]')!
+        const query = search.value.toLowerCase()
+        const kind = kindSelect.value
+        const nodes = graph.nodes.filter((n) => (!kind || n.kind === kind) && (!query || n.name.toLowerCase().includes(query)))
+        const ids = new Set(nodes.map((n) => n.id))
+        relation.setOption({ animation: !reduce, tooltip: {}, series: [{ type: 'graph', layout: 'force', roam: true, data: nodes.map((n) => ({ id: n.id, name: n.name, value: n.value, symbolSize: n.kind === 'sponsor' ? 24 : 32 })), links: graph.edges.filter((e) => ids.has(e.source) && ids.has(e.target)).map((e) => ({ source: e.source, target: e.target, value: e.value })), force: { repulsion: 120, edgeLength: 90 }, label: { show: true, position: 'right' }, emphasis: { focus: 'adjacency' } }] })
+        this.querySelector<HTMLElement>('[data-status]')!.textContent = `${nodes.length} nodes`
+      }
+      renderRelation()
+      this.querySelector<HTMLInputElement>('[data-search]')!.addEventListener('input', renderRelation)
+      this.querySelector<HTMLSelectElement>('[data-kind]')!.addEventListener('change', renderRelation)
+      this.querySelector<HTMLButtonElement>('[data-reset]')!.addEventListener('click', () => { this.querySelector<HTMLInputElement>('[data-search]')!.value = ''; this.querySelector<HTMLSelectElement>('[data-kind]')!.value = ''; renderRelation() })
+      const resize = () => { flow.resize(); relation.resize() }
+      new ResizeObserver(resize).observe(this)
+      this.dataset.ready = 'true'
+    }
+  }
+  customElements.define('sponsor-graphs', SponsorGraphs)
+</script>
+<style>
+  .sponsor-graphs { display:grid; gap:1.25rem; }
+  .sponsor-graph-card { padding:1.5rem; border:1px solid var(--border); background:var(--surface); }
+  .sponsor-graph-card header { display:flex; justify-content:space-between; gap:1rem; align-items:start; }
+  .sponsor-graph-card h2 { margin:0 0 .5rem; font-size:1.5rem; }
+  .sponsor-graph-card header p:last-child { margin:0; color:var(--muted); font-size:.9rem; }
+  .sponsor-graph-kicker { margin:0 0 .5rem; color:var(--accent); font:650 .75rem/1 var(--font-mono); }
+  .sponsor-chart { min-height:360px; margin-top:1rem; }
+  .sponsor-graph-tools { display:flex; gap:.75rem; margin-top:1rem; }
+  .sponsor-graph-tools input,.sponsor-graph-tools select,.sponsor-graph-card button { min-height:2.5rem; border:1px solid var(--border); padding:.5rem .7rem; background:var(--surface); color:var(--text); }
+  .sponsor-graph-tools input { flex:1; }
+  .sponsor-graph-card details { margin-top:1rem; border-top:1px solid var(--border); padding-top:.75rem; }
+  .sponsor-graph-card table { width:100%; margin-top:.75rem; border-collapse:collapse; text-align:left; font-size:.9rem; }
+  .sponsor-graph-card th,.sponsor-graph-card td { padding:.6rem 0; border-bottom:1px solid var(--border); }
+  .sponsor-graph-status { color:var(--muted); font-size:.8rem; }
+  @media (max-width:720px) { .sponsor-graph-card { padding:1rem; } .sponsor-chart { min-height:300px; } .sponsor-graph-tools { flex-direction:column; } }
+</style>
