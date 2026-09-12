@@ -53,18 +53,18 @@ try {
             ]).png().toFile(fileURLToPath(new URL(`${name}-comparison.png`, output)))
           }
           const lab = page.locator('hero-demos')
-          for (const [index, kind] of ['style', 'build', 'registry'].entries()) {
-            await lab.getByRole('tab').nth(index).click()
+          for (const kind of ['style', 'build', 'registry']) {
+            await lab.locator(`[role="tab"][aria-controls="hero-panel-${kind}"]`).click()
             if (kind === 'style') {
-              await lab.locator('style-demo input[value="1"]').check()
+              await lab.locator('style-demo .demo-swatch').nth(1).click()
               await lab.locator('style-demo select').selectOption('2')
               await lab.locator('[data-compact]').check()
             }
             if (kind === 'build') {
-              await lab.locator('build-demo input[value="2"]').check()
+              await lab.locator('build-demo .demo-segments label').nth(1).click()
             }
             if (kind === 'registry') {
-              await lab.locator('registry-demo input[value="card"]').uncheck()
+              await lab.locator('registry-demo .demo-check').nth(2).click()
               await lab.locator('[data-registry-button]').click()
             }
             await page.screenshot({ path: fileURLToPath(new URL(`${name}-${kind}.png`, output)) })
