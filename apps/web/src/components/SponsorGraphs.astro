@@ -72,11 +72,11 @@ const labels = locale === 'zh-CN'
       this.cleanup = () => charts.forEach(chart => chart.dispose())
 
       try {
-        const [{ init, use }, { GraphChart, SankeyChart }, { TooltipComponent }, { CanvasRenderer }] = await Promise.all([
+        const [{ init, use }, { GraphChart, SankeyChart }, { DataZoomComponent, LegendComponent, TooltipComponent }, { CanvasRenderer }] = await Promise.all([
           import('echarts/core'), import('echarts/charts'), import('echarts/components'), import('echarts/renderers'),
         ])
         if (signal.aborted) return
-        use([GraphChart, SankeyChart, TooltipComponent, CanvasRenderer])
+        use([GraphChart, SankeyChart, DataZoomComponent, LegendComponent, TooltipComponent, CanvasRenderer])
         const graph: SponsorGraphData = JSON.parse(this.dataset.graph || '{}')
         const reduce = matchMedia('(prefers-reduced-motion: reduce)')
         const zh = this.dataset.locale === 'zh-CN'
