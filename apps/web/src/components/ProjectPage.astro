@@ -5,6 +5,7 @@ import type { ProjectEntry } from '../lib/projects'
 import { formatCompactNumber, formatReleaseDate, showsPublicMetrics } from '../lib/metrics'
 import { localizePath, projectPath, siteCopy } from '../i18n/ui'
 import { buttonPrimary, buttonSecondary, featuredTitle, iconControl, platformPill, projectTone, section, sectionTitle, shell } from '../styles/classes'
+import ProjectProofPanel from './ProjectProofPanel.astro'
 
 interface Props {
   locale: Locale
@@ -129,6 +130,8 @@ const publicMetrics = showsPublicMetrics(project.data.status)
       </figure>
     </div> : <div class="border border-line bg-panel-soft p-7 text-sm text-copy-muted">{copy.project.readinessNote}</div>}
   </section>
+
+  <section class:list={[section, shell]}><ProjectProofPanel locale={locale} project={project} /></section>
 
   <section class="border-y border-line bg-panel-soft">
     <div class:list={[section, shell, 'grid grid-cols-[1.15fr_.85fr] gap-20 max-[820px]:grid-cols-1 max-[820px]:gap-12']}>
