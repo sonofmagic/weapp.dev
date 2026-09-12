@@ -121,6 +121,9 @@ test('default examples remain readable without JavaScript', async ({ browser, vi
   for (const route of ['/', '/en/']) {
     await page.goto(route)
     await expect(page.locator('hero-demos build-demo .demo-code pre code')).toContainText('defineConfig')
+    await expect(page.locator('hero-demos [data-demo="sqlite"]')).toContainText('CREATE TABLE notes')
+    await expect(page.locator('hero-demos [data-demo="sqlite"]')).toContainText(route === '/' ? '未运行数据库' : 'no database is running')
+    await expect(page.locator('hero-demos [data-demo="sqlite"]')).toContainText(route === '/' ? '不提供生产 API' : 'no production API')
     await expect(page.locator('hero-demos [role="tablist"]')).toBeHidden()
     await expect(page.locator('.demo-controls:visible, [data-copy]:visible')).toHaveCount(0)
     await expect(page.locator('#projects .home-project-proof')).toHaveCount(5)
