@@ -62,7 +62,7 @@ export default {
       },
       {
         title: '组件 · Varo',
-        owns: '可编辑的双端组件、Blocks，以及 Registry 的安装约定。',
+        owns: '可编辑组件、Blocks 与 Registry 交付边界（规划中）。',
         notOwns: '整个工程脚手架，也不强迫你改掉现有页面写法。',
       },
       {

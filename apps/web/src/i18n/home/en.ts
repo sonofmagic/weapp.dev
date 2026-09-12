@@ -62,7 +62,7 @@ export default {
       },
       {
         title: 'Components · Varo',
-        owns: 'Editable dual-runtime components, Blocks, and registry install conventions.',
+        owns: 'Editable components, Blocks, and registry delivery boundaries (planned).',
         notOwns: 'Your project scaffold, or forcing a rewrite of existing pages.',
       },
       {

@@ -53,11 +53,11 @@
       "locales": {
         "zh-CN": {
           "alt": "Varo Agent UI 完整对话与工具界面",
-          "caption": "36 个双端 Agent UI 组件与 Agent Chat Block 共享同一事件协议。"
+          "caption": "Agent UI 与 Agent Chat Block 的交互协议仍在规划中。"
         },
         "en": {
           "alt": "Varo Agent UI conversation and tool interface",
-          "caption": "Thirty-six dual-target Agent UI components and the Agent Chat Block share one event protocol."
+          "caption": "The Agent UI and Agent Chat Block interaction contract is still planned."
         }
       }
     }
