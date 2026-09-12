@@ -32,6 +32,8 @@ for (const prefix of ['', '/en']) {
   const zh = prefix === ''
   test(`filters project rows and recovers from an empty intersection on ${prefix}/projects/`, async ({ page }) => {
     await page.goto(`${prefix}/projects/`)
+    await expect(page.locator('section[aria-labelledby="projects-index-title"]')).toHaveCount(1)
+    await expect(page.locator('section[aria-label]')).toHaveCount(1)
     const role = page.locator('[data-filter-role]')
     const maturity = page.locator('[data-filter-maturity]')
     const platform = page.locator('[data-filter-platform]')

@@ -13,6 +13,8 @@ for (const route of ['/sponsors/', '/en/sponsors/']) {
     page.on('pageerror', error => errors.push(error.message))
     await page.goto(route)
     const graphs = page.locator('[data-sponsor-graphs]')
+    await expect(page.locator('section[aria-labelledby="sponsors-title"]')).toHaveCount(1)
+    await expect(page.locator('section[aria-label]').filter({ has: graphs })).toHaveCount(1)
     await expect(page.locator('footer a[aria-current="page"]')).toHaveAttribute('href', route)
     await expect(page.locator('[data-sponsor-snapshot]')).toHaveText(route.startsWith('/en') ? 'Public snapshot v1' : '公开快照 v1')
     await expect(page.locator('section[aria-labelledby="public-sponsors-title"]')).toHaveAttribute('aria-labelledby', 'public-sponsors-title')
