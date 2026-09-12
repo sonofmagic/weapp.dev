@@ -15,7 +15,7 @@ const fallbackNote = copy.project.readinessNote
       <p class="mb-0 text-sm text-copy-muted">{audience}</p>
     </div>
     {status === 'planned' || !command ? <div data-reveal role="status" class="rounded-panel border border-line bg-panel-soft px-5 py-4 text-sm leading-[1.7] text-copy-muted">{note || fallbackNote}</div> : <div data-reveal class="grid grid-cols-[1fr_auto] overflow-hidden rounded-panel border border-line bg-canvas">
-      <pre id="quick-start-command" class="m-0 min-w-0 overflow-x-auto px-5 py-4 text-sm"><code>{command}</code></pre>
+      <pre id="quick-start-command" tabindex="0" aria-label={locale === 'zh-CN' ? '安装命令' : 'Install command'} class="m-0 min-w-0 overflow-x-auto px-5 py-4 text-sm"><code>{command}</code></pre>
       <button class="inline-flex min-w-[116px] items-center justify-center gap-2 border-l border-line bg-panel-soft px-4 text-sm font-[650] transition-colors enabled:hover:bg-panel-strong disabled:cursor-not-allowed disabled:opacity-60 max-[480px]:min-w-11 max-[480px]:px-3" type="button" disabled data-copy-command={command} data-copy-label={copy.project.copyInstall} data-copied-label={copy.project.copied} data-copy-failed-label={locale === 'zh-CN' ? '请手动复制' : 'Copy manually'} aria-label={copy.project.copyInstall} aria-describedby="quick-start-command">
         <Copy data-copy-icon size={17} stroke-width={1.9} aria-hidden="true" />
         <Check data-copied-icon class="hidden" size={17} stroke-width={2} aria-hidden="true" />
