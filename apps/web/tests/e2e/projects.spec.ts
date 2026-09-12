@@ -155,6 +155,7 @@ for (const prefix of ['', '/en']) {
     const metadata = page.locator(`[role="list"][aria-label="${prefix ? 'Platforms and runtimes' : '平台与运行时'}"]`)
     await expect(metadata).toHaveCount(1)
     await expect(metadata.locator('[role="listitem"]')).not.toHaveCount(0)
+    await expect(metadata.locator('[role="listitem"]').first()).toHaveAttribute('aria-label', /^(Platform|平台): /)
   })
 
   test(`decodes the project detail hero visual asynchronously on ${prefix || 'zh-CN'}`, async ({ page }) => {
