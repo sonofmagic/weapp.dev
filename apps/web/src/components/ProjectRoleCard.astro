@@ -13,7 +13,7 @@ const copy = locale === 'zh-CN' ? { docs: '阅读文档', details: '项目详情
 ---
 <article data-project-card data-project-id={project.id} aria-labelledby={`project-card-${project.id}`} aria-describedby={`project-card-description-${project.id}`} data-role={role} data-maturity={project.data.status} data-platforms={project.data.platforms.join('|')} data-roadmap-count={project.data.roadmap?.length ?? 0} data-reveal style={`--reveal-delay:${index * 50}ms`}>
   <div class="projects-index-number">{String(index + 1).padStart(2, '0')}</div>
-  <img src={project.data.logo} width="52" height="52" alt="" loading="lazy" decoding="async" />
+  <img src={project.data.logo} width="52" height="52" alt="" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" fetchpriority={index === 0 ? 'high' : undefined} />
   <div class="projects-index-copy">
     <div class="flex flex-wrap items-center gap-2"><span class="font-mono text-xs font-[650] text-brand">{roleLabels[role as keyof typeof roleLabels] || role}</span><ProjectStatusBadge locale={locale} status={project.data.status} /></div>
     <h2 id={`project-card-${project.id}`}>{content.name}</h2>

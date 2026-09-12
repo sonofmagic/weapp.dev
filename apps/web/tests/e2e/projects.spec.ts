@@ -44,6 +44,9 @@ for (const prefix of ['', '/en']) {
     }
     await expect(role).toBeEnabled()
     await expect(visible).toHaveCount(5)
+    await expect(page.locator('[data-project-card]').first().locator('img')).toHaveAttribute('loading', 'eager')
+    await expect(page.locator('[data-project-card]').first().locator('img')).toHaveAttribute('fetchpriority', 'high')
+    await expect(page.locator('[data-project-card]').nth(1).locator('img')).toHaveAttribute('loading', 'lazy')
     await expect(page.locator('[data-project-card][data-project-id="weapp-sqlite"]')).toHaveAttribute('data-roadmap-count', '2')
     await expect(page.locator('[data-project-card] [role="status"]')).toHaveCount(5)
     for (const id of ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro']) {
