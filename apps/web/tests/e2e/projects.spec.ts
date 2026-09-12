@@ -34,6 +34,7 @@ for (const prefix of ['', '/en']) {
   test(`filters project rows and recovers from an empty intersection on ${prefix}/projects/`, async ({ page }) => {
     await page.goto(`${prefix}/projects/`)
     await expect(page.locator('section[aria-labelledby="projects-index-title"]')).toHaveCount(1)
+    await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute('content', prefix ? 'weapp.dev five core toolchain projects map' : 'weapp.dev 五个核心工具链项目地图')
     await expect(page.locator('section[aria-label]')).toHaveCount(1)
     const role = page.locator('[data-filter-role]')
     const maturity = page.locator('[data-filter-maturity]')
