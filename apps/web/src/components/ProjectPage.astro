@@ -95,6 +95,7 @@ const publicMetrics = showsPublicMetrics(project.data.status)
           data-copy-command={project.data.installCommand}
           data-copy-label={copy.project.copyInstall}
           data-copied-label={copy.project.copied}
+          data-copy-failed-label={locale === 'zh-CN' ? '请手动复制' : 'Copy manually'}
           aria-label={copy.project.copyInstall}
         >
           <Copy data-copy-icon size={17} stroke-width={1.9} aria-hidden="true" />
@@ -225,8 +226,11 @@ const publicMetrics = showsPublicMetrics(project.data.status)
         fallback.style.opacity = '0'
         document.body.append(fallback)
         fallback.select()
-        document.execCommand('copy')
-        fallback.remove()
+        const text = button.querySelector('[data-copy-text]')
+        if (text) text.textContent = button.getAttribute('data-copy-failed-label') || ''
+        button.setAttribute('aria-label', button.getAttribute('data-copy-failed-label') || '')
+        window.setTimeout(() => fallback.remove(), 1200)
+        return
       }
       const text = button.querySelector('[data-copy-text]')
       text && (text.textContent = button.getAttribute('data-copied-label'))
