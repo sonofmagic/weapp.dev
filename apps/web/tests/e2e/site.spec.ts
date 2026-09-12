@@ -449,6 +449,7 @@ test('passes automated accessibility checks in light and dark themes', async ({ 
 test('exposes labeled footer navigation landmarks in both locales', async ({ page }) => {
   for (const path of ['/', '/en/']) {
     await page.goto(path)
+    await expect(page.getByRole('contentinfo', { name: path === '/' ? '站点页脚' : 'Site footer' })).toBeVisible()
     await expect(page.getByRole('navigation', { name: path === '/' ? '项目' : 'Projects', exact: true })).toBeVisible()
     await expect(page.getByRole('navigation', { name: path === '/' ? '资源' : 'Resources', exact: true })).toBeVisible()
   }
