@@ -15,6 +15,8 @@ for (const route of ['/sponsors/', '/en/sponsors/']) {
     const graphs = page.locator('[data-sponsor-graphs]')
     await expect(page.locator('footer a[aria-current="page"]')).toHaveAttribute('href', route)
     await expect(page.locator('[data-sponsor-snapshot]')).toHaveText(route.startsWith('/en') ? 'Public snapshot v1' : '公开快照 v1')
+    await expect(page.locator('section[aria-labelledby="public-sponsors-title"]')).toHaveAttribute('aria-labelledby', 'public-sponsors-title')
+    await expect(page.locator('#public-sponsors-title')).toHaveText(route.startsWith('/en') ? 'Public sponsors' : '公开赞助记录')
     await graphs.scrollIntoViewIfNeeded()
     await expect(graphs).toHaveAttribute('data-ready', 'true')
     await expect(graphs).toHaveAttribute('aria-label', route.startsWith('/en') ? 'Sponsor graphs' : '赞助图谱')
