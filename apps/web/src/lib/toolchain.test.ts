@@ -93,6 +93,15 @@ describe('toolchain project ordering', () => {
     expect(() => validateToolchainCatalog(projects)).toThrow('Active project is missing package actions')
   })
 
+  it('rejects an npm URL that points to a different package', () => {
+    const projects = [vite, tailwind, varo, sqlite, taro].map((data, index) => ({
+      id: ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro'][index],
+      data: projectDefinitionSchema.parse(data),
+    })) as unknown as ProjectEntry[]
+    projects[0].data.npmUrl = 'https://www.npmjs.com/package/weapp-tailwindcss'
+    expect(() => validateToolchainCatalog(projects)).toThrow('Project npm URL does not match package name')
+  })
+
   it('rejects status and maturity drift', () => {
     const projects = [vite, tailwind, varo, sqlite, taro].map((data, index) => ({
       id: ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro'][index],
