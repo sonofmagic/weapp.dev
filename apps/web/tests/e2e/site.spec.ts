@@ -181,6 +181,7 @@ test('renders the bilingual pricing and delivery page', async ({ page }) => {
   await expect(page.locator('.pricing-allocation-stack article[aria-labelledby]')).toHaveCount(3)
   await expect(page.locator('.pricing-sponsor-tier').first()).toHaveAttribute('aria-describedby', 'pricing-sponsor-tier-cadence-1 pricing-sponsor-tier-body-1')
   await expect(page.locator('.pricing-allocation-stack article').first()).toHaveAttribute('aria-describedby', 'pricing-allocation-body-1')
+  await expect(page.locator('.pricing-public-sponsor-group[aria-labelledby]').first()).toHaveAttribute('aria-labelledby', /^pricing-public-sponsor-tier-/)
   for (const id of ['sponsor', 'services', 'support', 'boundary', 'faq']) {
     await expect(page.locator(`#${id}`)).toHaveAttribute('aria-labelledby', `pricing-${id}-title`)
   }
