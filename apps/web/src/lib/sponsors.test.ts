@@ -85,6 +85,17 @@ describe('sponsor graph data', () => {
     expect(snapshot.items[1]?.brandUrl).toBeUndefined()
   })
 
+  it('trims public labels and drops blank display names', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({
+      items: [{ id: 'labelled', kind: 'individual', tier: 'supporter', login: '  maintainer  ', brandName: '   ', displaySites: ['weapp'] }],
+    }), { status: 200 })))
+
+    const snapshot = await loadPublicSponsors()
+    expect(snapshot.items[0]).toMatchObject({ id: 'labelled', login: 'maintainer' })
+    expect(snapshot.items[0]?.brandName).toBeUndefined()
+    expect(sponsorGraphData(snapshot).nodes.find(node => node.id === 'sponsor:labelled')?.name).toBe('maintainer')
+  })
+
   it('trims and deduplicates sponsor IDs before building graph nodes', async () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({
       items: [
