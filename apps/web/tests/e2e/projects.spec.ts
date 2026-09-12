@@ -23,6 +23,7 @@ for (const prefix of ['', '/en']) {
       await expect(node).toHaveAttribute('aria-labelledby', `toolchain-project-${id}`)
       await expect(node.locator(`#toolchain-project-${id}`)).toBeVisible()
       await expect(node).toHaveAttribute('aria-describedby', `toolchain-description-${id}`)
+      await expect(node.locator('a')).toHaveAttribute('data-analytics-event', 'select_project')
     }
   })
 
