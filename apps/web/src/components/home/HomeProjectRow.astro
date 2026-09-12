@@ -50,7 +50,7 @@ const publicMetrics = showsPublicMetrics(project.data.status)
       </div>
     )}
     <div class="flex flex-wrap items-center gap-3">
-      <a class={buttonPrimary} href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="docs" data-analytics-project={project.id}>
+      <a class={buttonPrimary} href={project.data.docsUrl} target="_blank" rel="noopener noreferrer" data-analytics-event="click_outbound" data-analytics-target="docs" data-analytics-project={project.id}>
         <BookOpen size={18} stroke-width={1.9} aria-hidden="true" />
         {copy.projects.documentation}
       </a>

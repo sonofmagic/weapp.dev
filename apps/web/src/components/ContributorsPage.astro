@@ -78,7 +78,7 @@ const copy = siteCopy[locale].contributors
           <ul class="m-0 mb-4 grid list-none gap-2 p-0">
             {copy.repos.map(repo => (
               <li>
-                <a class="inline-flex items-center gap-2 text-sm font-[620] hover:text-brand" href={repo.url} target="_blank" rel="noreferrer">{repo.name}</a>
+                <a class="inline-flex items-center gap-2 text-sm font-[620] hover:text-brand" href={repo.url} target="_blank" rel="noopener noreferrer">{repo.name}</a>
               </li>
             ))}
           </ul>

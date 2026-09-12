@@ -19,7 +19,7 @@ const copy = siteCopy[locale]
       <h2 class:list={[featuredTitle, 'mb-3']}>{copy.collaboration.title}</h2>
       <p class="mb-0 max-w-[650px] text-copy-muted">{copy.collaboration.description}</p>
     </div>
-    <a class:list={[buttonSecondary, 'max-[820px]:col-start-2 max-[820px]:w-fit max-[620px]:col-auto']} href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="collaboration">
+    <a class:list={[buttonSecondary, 'max-[820px]:col-start-2 max-[820px]:w-fit max-[620px]:col-auto']} href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noopener noreferrer" data-analytics-event="click_outbound" data-analytics-target="collaboration">
       <GitFork size={18} stroke-width={1.9} aria-hidden="true" />
       {copy.collaboration.action}
     </a>

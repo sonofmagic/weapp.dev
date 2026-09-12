@@ -20,7 +20,7 @@ const visuals = [project.visuals.primary, project.visuals.secondary]
     <CodePanel parts={migrationCode(locale)} locale={locale} filename="terminal" />
     <div class="demo-preview">
       {visuals.map((visual, index) => <figure class="demo-hmr-frame" hidden={index !== 0}>
-        <a href={visual.src} target="_blank" rel="noreferrer" aria-label={zh ? '打开完整 HMR 截图' : 'Open full HMR screenshot'}><img src={visual.src} width={visual.width} height={visual.height} alt={visual.locales[locale].alt} loading="lazy" decoding="async" /></a>
+        <a href={visual.src} target="_blank" rel="noopener noreferrer" aria-label={zh ? '打开完整 HMR 截图' : 'Open full HMR screenshot'}><img src={visual.src} width={visual.width} height={visual.height} alt={visual.locales[locale].alt} loading="lazy" decoding="async" /></a>
         <figcaption>{visual.locales[locale].caption}</figcaption>
       </figure>)}
     </div>

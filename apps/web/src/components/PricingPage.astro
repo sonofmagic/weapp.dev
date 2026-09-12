@@ -60,7 +60,7 @@ const githubUrl = 'https://github.com/sonofmagic/weapp.dev'
               <strong class="mb-1 block font-mono text-2xl font-[720] leading-none">{tier.price}</strong>
               <span class="mb-4 block text-xs text-copy-muted">{tier.cadence}</span>
               <p class="mb-5 text-sm leading-[1.7] text-copy-muted">{tier.body}</p>
-              <a class:list={['pricing-sponsor-button', buttonSecondary]} href={githubUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target={`sponsor_${index + 1}`}>
+              <a class:list={['pricing-sponsor-button', buttonSecondary]} href={githubUrl} target="_blank" rel="noopener noreferrer" data-analytics-event="click_outbound" data-analytics-target={`sponsor_${index + 1}`}>
                 {pricing.sponsorAction}
                 <ExternalLink size={16} stroke-width={1.8} aria-hidden="true" />
               </a>
@@ -97,7 +97,7 @@ const githubUrl = 'https://github.com/sonofmagic/weapp.dev'
             return <div class="pricing-public-sponsor-group">
               <p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.sponsorTierLabels[tier]}</p>
               <ul class="m-0 flex flex-wrap gap-3 p-0 list-none">
-                {sponsors.map(sponsor => <li><a class="pricing-public-sponsor" href={sponsor.kind === 'business' ? sponsor.brandUrl : sponsor.profileUrl} target="_blank" rel="noreferrer">
+                {sponsors.map(sponsor => <li><a class="pricing-public-sponsor" href={sponsor.kind === 'business' ? sponsor.brandUrl : sponsor.profileUrl} target="_blank" rel="noopener noreferrer">
                   {sponsor.avatarUrl || sponsor.logoUrl ? <><img src={sponsor.avatarUrl || sponsor.logoUrl} alt="" width="32" height="32" loading="lazy" decoding="async" onerror="this.style.display='none'; this.nextElementSibling?.style.removeProperty('display')" /><span class="pricing-public-sponsor-fallback" aria-hidden="true" style="display:none">{(sponsor.brandName || sponsor.login || '?').slice(0, 1).toUpperCase()}</span></> : <span class="pricing-public-sponsor-fallback" aria-hidden="true">{(sponsor.brandName || sponsor.login || '?').slice(0, 1).toUpperCase()}</span>}
                   <span>{sponsor.brandName || sponsor.login}</span><ExternalLink size={14} stroke-width={1.8} aria-hidden="true" />
                 </a></li>)}
@@ -172,7 +172,7 @@ const githubUrl = 'https://github.com/sonofmagic/weapp.dev'
   <section class="pricing-cta border-t border-line bg-panel-soft">
     <div data-reveal class:list={[shell, 'grid min-h-[260px] grid-cols-[1fr_auto] items-center gap-10 py-14 max-[720px]:grid-cols-1 max-[720px]:py-12']}>
       <div><h2 class:list={[featuredTitle, 'mb-3 max-w-[700px]']}>{pricing.ctaTitle}</h2><p class="mb-0 max-w-[650px] text-copy-muted">{pricing.ctaBody}</p></div>
-      <a class={buttonPrimary} href={githubUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="pricing_cta"><GitFork size={18} stroke-width={1.9} aria-hidden="true" />{pricing.ctaAction}</a>
+      <a class={buttonPrimary} href={githubUrl} target="_blank" rel="noopener noreferrer" data-analytics-event="click_outbound" data-analytics-target="pricing_cta"><GitFork size={18} stroke-width={1.9} aria-hidden="true" />{pricing.ctaAction}</a>
     </div>
   </section>
 </main>

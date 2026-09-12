@@ -54,7 +54,7 @@ const isPricing = currentPath === pricingPath
       <a class={navLink} href={`${home}#vision`} data-analytics-event="navigate_section" data-analytics-section="vision">{copy.nav.vision}</a>
       <a class={navLink} href={`${home}#releases`} data-analytics-event="navigate_section" data-analytics-section="releases">{copy.nav.releases}</a>
       <a class={navLink} href={pricingPath} aria-current={isPricing ? 'page' : undefined} data-analytics-event="navigate_page" data-analytics-page="pricing">{copy.nav.pricing}</a>
-      <a class={navLink} href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="site_source">
+      <a class={navLink} href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noopener noreferrer" data-analytics-event="click_outbound" data-analytics-target="site_source">
         <GitFork size={16} stroke-width={1.8} aria-hidden="true" />
         {copy.nav.github}
       </a>
@@ -87,7 +87,7 @@ const isPricing = currentPath === pricingPath
           <a class="rounded-[6px] p-3 text-sm font-semibold hover:bg-panel-soft" href={`${home}#vision`} data-analytics-event="navigate_section" data-analytics-section="vision">{copy.nav.vision}</a>
           <a class="rounded-[6px] p-3 text-sm font-semibold hover:bg-panel-soft" href={`${home}#releases`} data-analytics-event="navigate_section" data-analytics-section="releases">{copy.nav.releases}</a>
           <a class="rounded-[6px] p-3 text-sm font-semibold hover:bg-panel-soft" href={pricingPath} aria-current={isPricing ? 'page' : undefined} data-analytics-event="navigate_page" data-analytics-page="pricing">{copy.nav.pricing}</a>
-          <a class="rounded-[6px] p-3 text-sm font-semibold hover:bg-panel-soft" href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="site_source">{copy.nav.github}</a>
+          <a class="rounded-[6px] p-3 text-sm font-semibold hover:bg-panel-soft" href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noopener noreferrer" data-analytics-event="click_outbound" data-analytics-target="site_source">{copy.nav.github}</a>
         </nav>
       </details>
     </div>

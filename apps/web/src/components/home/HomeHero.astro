@@ -26,7 +26,7 @@ const copy = siteCopy[locale]
           {copy.hero.primary}
           <ArrowRight size={18} stroke-width={1.9} aria-hidden="true" />
         </a>
-        <a class={buttonSecondary} href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="site_source">
+        <a class={buttonSecondary} href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noopener noreferrer" data-analytics-event="click_outbound" data-analytics-target="site_source">
           <GitFork size={18} stroke-width={1.9} aria-hidden="true" />
           {copy.hero.secondary}
         </a>
@@ -42,7 +42,7 @@ const copy = siteCopy[locale]
     {projects.map((project, index) => {
       const content = project.data.locales[locale]
       return (
-        <a class="home-project-link" href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home" data-analytics-project={project.id}>
+        <a class="home-project-link" href={project.data.docsUrl} target="_blank" rel="noopener noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home" data-analytics-project={project.id}>
           <span class="home-project-index">{String(index + 1).padStart(2, '0')}</span>
           <img src={project.data.logo} width="34" height="34" alt="" decoding="async" />
           <span class="min-w-0"><strong>{content.name}</strong><small>{project.stage[locale]} / {content.tagline}</small></span>

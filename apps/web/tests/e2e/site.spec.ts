@@ -68,11 +68,11 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   ])
   const projectHomeLinks = page.locator('.home-project-rail a')
   await expect(projectHomeLinks.evaluateAll(links => links.map(link => ({ href: link.getAttribute('href'), target: link.getAttribute('target'), rel: link.getAttribute('rel') })))).resolves.toEqual([
-    { href: 'https://vite.weapp.dev/', target: '_blank', rel: 'noreferrer' },
-    { href: 'https://tw.weapp.dev/', target: '_blank', rel: 'noreferrer' },
-    { href: 'https://github.com/daguanren21/Varo#readme', target: '_blank', rel: 'noreferrer' },
-    { href: 'https://github.com/weapp-sqlite/weapp-sqlite#readme', target: '_blank', rel: 'noreferrer' },
-    { href: 'https://vpt.js.org/', target: '_blank', rel: 'noreferrer' },
+    { href: 'https://vite.weapp.dev/', target: '_blank', rel: 'noopener noreferrer' },
+    { href: 'https://tw.weapp.dev/', target: '_blank', rel: 'noopener noreferrer' },
+    { href: 'https://github.com/daguanren21/Varo#readme', target: '_blank', rel: 'noopener noreferrer' },
+    { href: 'https://github.com/weapp-sqlite/weapp-sqlite#readme', target: '_blank', rel: 'noopener noreferrer' },
+    { href: 'https://vpt.js.org/', target: '_blank', rel: 'noopener noreferrer' },
   ])
   await expect(page.locator('.home-project-proof')).toHaveCount(5)
   await expect(page.locator('.home-project-row[data-project-id]')).toHaveCount(5)
