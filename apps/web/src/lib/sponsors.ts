@@ -113,9 +113,16 @@ const projects = [
   ['project:weapp-tailwindcss', 'weapp-tailwindcss', 'https://github.com/sonofmagic/weapp-tailwindcss'],
   ['project:weapp-dev', 'weapp.dev', 'https://github.com/sonofmagic/weapp.dev'],
 ] as const
+const sites = [
+  ['site:weapp', 'weapp.dev', 'https://weapp.dev/'],
+  ['site:tw', 'tw.weapp.dev', 'https://tw.weapp.dev/'],
+  ['site:vite', 'vite.weapp.dev', 'https://vite.weapp.dev/'],
+  ['site:icebreaker', 'icebreaker.top', 'https://icebreaker.top/'],
+] as const
 
 export function sponsorGraphData(snapshot: SponsorSnapshot): SponsorGraphData {
   const nodes: SponsorGraphNode[] = projects.map(([id, name, url]) => ({ id, name, kind: 'project', url }))
+  nodes.push(...sites.map(([id, name, url]) => ({ id, name, kind: 'site' as const, url })))
   const edges: SponsorGraphEdge[] = []
   for (const sponsor of snapshot.items) {
     const name = sponsor.brandName || sponsor.login || sponsor.id

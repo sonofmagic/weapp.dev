@@ -33,6 +33,7 @@ describe('sponsor graph data', () => {
     })
 
     expect(graph.nodes.find(node => node.id === 'sponsor:acme')?.name).toBe('Acme')
+    expect(graph.nodes.filter(node => node.kind === 'site')).toHaveLength(4)
     expect(graph.buckets.reduce((total, bucket) => total + bucket.share, 0)).toBe(100)
     const nodeIds = new Set(graph.nodes.map(node => node.id))
     expect(graph.edges.every(edge => nodeIds.has(edge.source) && nodeIds.has(edge.target))).toBe(true)
