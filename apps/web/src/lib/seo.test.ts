@@ -6,7 +6,7 @@ import sqlite from '../content/projects/weapp-sqlite.json'
 import tailwind from '../content/projects/weapp-tailwindcss.json'
 import vite from '../content/projects/weapp-vite.json'
 import fallbackMetrics from '../data/project-metrics.fallback.json'
-import { breadcrumbSchema, canonicalUrl, organizationSchema, pricingSchema, projectListSchema, projectSchema, projectsIndexSchema, serializeJsonLd, sponsorsSchema } from './seo'
+import { breadcrumbSchema, canonicalUrl, contributorsSchema, organizationSchema, pricingSchema, projectListSchema, projectSchema, projectsIndexSchema, serializeJsonLd, sponsorsSchema } from './seo'
 
 describe('SEO helpers', () => {
   it('normalizes canonical URLs without query strings or hashes', () => {
@@ -56,6 +56,11 @@ describe('SEO helpers', () => {
     expect(sponsorsSchema('zh-CN')).toMatchObject({ '@type': 'CollectionPage', 'url': 'https://weapp.dev/sponsors/', 'inLanguage': 'zh-CN' })
     expect(sponsorsSchema('en')).toMatchObject({ '@type': 'CollectionPage', 'url': 'https://weapp.dev/en/sponsors/', 'inLanguage': 'en-US' })
     expect(JSON.stringify(sponsorsSchema('en'))).toContain('Contributors fund')
+  })
+
+  it('describes the contributor program with localized collection metadata', () => {
+    expect(contributorsSchema('zh-CN', '贡献者计划', '贡献者说明')).toMatchObject({ '@type': 'CollectionPage', 'url': 'https://weapp.dev/contributors/', 'inLanguage': 'zh-CN', 'about': 'weapp.dev 贡献者基金与积分规则' })
+    expect(contributorsSchema('en', 'Contributor program', 'Contributor details')).toMatchObject({ '@type': 'CollectionPage', 'url': 'https://weapp.dev/en/contributors/', 'inLanguage': 'en-US', 'about': 'weapp.dev contributors fund and point rules' })
   })
 
   it('keeps project list schema aligned with the toolchain flow in both locales', () => {

@@ -109,6 +109,21 @@ export function sponsorsSchema(locale: Locale) {
   }
 }
 
+export function contributorsSchema(locale: Locale, title: string, description: string) {
+  const path = locale === 'zh-CN' ? '/contributors/' : '/en/contributors/'
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': absoluteUrl(path),
+    'name': title,
+    'description': description,
+    'url': absoluteUrl(path),
+    'inLanguage': locale === 'zh-CN' ? 'zh-CN' : 'en-US',
+    'isPartOf': { '@id': `${siteUrl}/#website` },
+    'about': locale === 'zh-CN' ? 'weapp.dev 贡献者基金与积分规则' : 'weapp.dev contributors fund and point rules',
+  }
+}
+
 export function pricingSchema(locale: Locale) {
   const path = locale === 'zh-CN' ? '/pricing/' : '/en/pricing/'
   const name = locale === 'zh-CN' ? 'weapp.dev 交付与开源赞助' : 'weapp.dev delivery and open-source support'

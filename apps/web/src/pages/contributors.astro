@@ -5,13 +5,14 @@ import Header from '../components/Header.astro'
 import ContributorsPage from '../components/ContributorsPage.astro'
 import { getProjects } from '../lib/projects'
 import { siteCopy } from '../i18n/ui'
+import { contributorsSchema } from '../lib/seo'
 
 const locale = 'zh-CN' as const
 const copy = siteCopy[locale].contributors
 const projects = await getProjects()
 ---
 
-<BaseLayout locale={locale} title={`${copy.title} | weapp.dev`} description={copy.description}>
+<BaseLayout locale={locale} title={`${copy.title} | weapp.dev`} description={copy.description} schemas={[contributorsSchema(locale, copy.title, copy.description)]}>
   <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />
   <ContributorsPage locale={locale} />
   <Footer locale={locale} projects={projects} currentPath={Astro.url.pathname} />
