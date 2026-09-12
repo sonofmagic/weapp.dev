@@ -48,14 +48,16 @@ export const projectDefinitionSchema = z.object({
   futureDocsPath: z.string().startsWith('/docs/').endsWith('/'),
   logo: z.string().startsWith('/'),
   accent: z.string().regex(/^#[0-9a-f]{6}$/i),
-  platforms: z.array(z.string().min(1)).min(1),
+  // Planned projects may omit platform claims until their public contract is confirmed.
+  platforms: z.array(z.string().min(1)).min(1).optional(),
   visuals: z.object({
     primary: projectVisualSchema,
     secondary: projectVisualSchema,
   }).strict().optional(),
   role: z.enum(['Engineering', 'Styling', 'Components', 'Local data', 'Migration']),
   maturity: z.enum(['stable', 'beta', 'planned']),
-  runtime: z.array(z.string().min(1)).min(1),
+  // Keep runtime data absent rather than presenting a provisional target as shipped scope.
+  runtime: z.array(z.string().min(1)).min(1).optional(),
   relatedProjects: z.array(z.string().min(1)).min(1),
   dataCompleteness: z.enum(['complete', 'partial', 'planned']),
   quickStart: z.object({

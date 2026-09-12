@@ -14,16 +14,8 @@
   "futureDocsPath": "/docs/weapp-sqlite/",
   "logo": "/logo.svg",
   "accent": "#0e7958",
-  "platforms": [
-    "WeChat",
-    "Web"
-  ],
   "role": "Local data",
   "maturity": "planned",
-  "runtime": [
-    "Mini Program",
-    "Web"
-  ],
   "relatedProjects": [
     "weapp-vite",
     "weapp-tailwindcss"
@@ -36,12 +28,30 @@
     }
   },
   "proof": [
-    { "zh-CN": "运行时边界待确认", "en": "Runtime boundaries are still being confirmed" },
-    { "zh-CN": "迁移与同步策略待确认", "en": "Migration and sync strategy are still being confirmed" }
+    {
+      "zh-CN": "运行时边界待确认",
+      "en": "Runtime boundaries are still being confirmed"
+    },
+    {
+      "zh-CN": "迁移与同步策略待确认",
+      "en": "Migration and sync strategy are still being confirmed"
+    }
   ],
   "roadmap": [
-    { "label": { "zh-CN": "确认运行时与平台边界", "en": "Confirm runtime and platform boundaries" }, "status": "planned" },
-    { "label": { "zh-CN": "发布可验证的 API 契约", "en": "Publish a verifiable API contract" }, "status": "planned" }
+    {
+      "label": {
+        "zh-CN": "确认运行时与平台边界",
+        "en": "Confirm runtime and platform boundaries"
+      },
+      "status": "planned"
+    },
+    {
+      "label": {
+        "zh-CN": "发布可验证的 API 契约",
+        "en": "Publish a verifiable API contract"
+      },
+      "status": "planned"
+    }
   ],
   "locales": {
     "zh-CN": {

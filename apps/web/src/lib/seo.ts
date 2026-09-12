@@ -150,7 +150,7 @@ export function projectSchema(
     ...(isPlanned ? {} : { downloadUrl: project.data.npmUrl }),
     'programmingLanguage': ['TypeScript', 'JavaScript'],
     'keywords': project.data.keywords.join(', '),
-    'runtimePlatform': project.data.platforms,
+    ...(project.data.platforms?.length ? { runtimePlatform: project.data.platforms } : {}),
     'license': project.data.license,
     ...(isPlanned ? {} : { version: metrics.version, dateModified: metrics.releasedAt }),
     'maintainer': {

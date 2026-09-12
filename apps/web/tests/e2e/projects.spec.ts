@@ -48,6 +48,7 @@ for (const prefix of ['', '/en']) {
     await expect(page.locator('[data-project-card]').first().locator('img')).toHaveAttribute('fetchpriority', 'high')
     await expect(page.locator('[data-project-card]').nth(1).locator('img')).toHaveAttribute('loading', 'lazy')
     await expect(page.locator('[data-project-card][data-project-id="weapp-sqlite"]')).toHaveAttribute('data-roadmap-count', '2')
+    await expect(page.locator('[data-project-card][data-project-id="weapp-sqlite"]')).toContainText(zh ? '平台待确认' : 'Platforms pending')
     await expect(page.locator('[data-project-card] [data-project-status]')).toHaveCount(5)
     for (const id of ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro']) {
       await expect(page.locator(`[data-project-card][data-project-id="${id}"]`)).toHaveAttribute('aria-labelledby', `project-card-${id}`)
@@ -77,12 +78,12 @@ for (const prefix of ['', '/en']) {
   })
 
   test(`persists project filters in the URL on ${prefix || 'zh-CN'}`, async ({ page }) => {
-    await page.goto(`${prefix}/projects/?role=data&platform=WeChat`)
-    await expect(page.locator('[data-filter-role]')).toHaveValue('data')
+    await page.goto(`${prefix}/projects/?role=engineering&platform=WeChat`)
+    await expect(page.locator('[data-filter-role]')).toHaveValue('engineering')
     await expect(page.locator('[data-filter-platform]')).toHaveValue('WeChat')
     await expect(page.locator('[data-project-card]:visible')).toHaveCount(1)
     await page.locator('[data-filter-maturity]').selectOption('planned')
-    await expect(page).toHaveURL(/role=data&platform=WeChat&maturity=planned|role=data&maturity=planned&platform=WeChat/)
+    await expect(page).toHaveURL(/role=engineering&platform=WeChat&maturity=planned|role=engineering&maturity=planned&platform=WeChat/)
     await page.reload()
     await expect(page.locator('[data-filter-maturity]')).toHaveValue('planned')
     await page.goBack()

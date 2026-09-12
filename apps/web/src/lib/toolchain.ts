@@ -65,6 +65,9 @@ export function validateToolchainCatalog(projects: ProjectEntry[]): void {
     if (project.data.status === 'planned' && (project.data.npmUrl || project.data.installCommand || project.data.quickStart?.command)) {
       throw new Error(`Planned project cannot publish package actions: ${project.id}`)
     }
+    if (project.data.status !== 'planned' && (!project.data.platforms?.length || !project.data.runtime?.length)) {
+      throw new Error(`Active project is missing platform or runtime scope: ${project.id}`)
+    }
     if (project.data.status !== 'planned' && (!project.data.npmUrl || !project.data.installCommand)) {
       throw new Error(`Active project is missing package actions: ${project.id}`)
     }

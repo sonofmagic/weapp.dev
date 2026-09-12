@@ -136,7 +136,8 @@ const installCommand = project.data.installCommand ?? project.data.quickStart?.c
         </ol>
         <h3 class="mt-10 mb-4 text-lg font-[650]">{copy.project.platforms}</h3>
         <div class="flex flex-wrap gap-2">
-          {project.data.platforms.map(platform => <span class:list={[platformPill, 'px-3 py-2 text-xs']}>{platform}</span>)}
+          {project.data.platforms?.map(platform => <span class:list={[platformPill, 'px-3 py-2 text-xs']}>{platform}</span>)}
+          {!project.data.platforms?.length ? <span class:list={[platformPill, 'px-3 py-2 text-xs']}>{locale === 'zh-CN' ? '平台待确认' : 'Platforms pending'}</span> : null}
         </div>
         {project.data.relatedProjects?.length ? <>
           <h3 class="mt-8 mb-4 text-lg font-[650]">{locale === 'zh-CN' ? '相关项目' : 'Related projects'}</h3>

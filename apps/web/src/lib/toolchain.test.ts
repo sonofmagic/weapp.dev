@@ -60,6 +60,27 @@ describe('toolchain project ordering', () => {
     expect(() => validateToolchainCatalog(projects)).toThrow('Planned project cannot claim complete data')
   })
 
+  it('keeps unconfirmed scope absent for planned data projects', () => {
+    const parsed = projectDefinitionSchema.parse(sqlite)
+    expect(parsed.status).toBe('planned')
+    expect(parsed.platforms).toBeUndefined()
+    expect(parsed.runtime).toBeUndefined()
+    const projects = [vite, tailwind, varo, sqlite, taro].map((data, index) => ({
+      id: ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro'][index],
+      data: projectDefinitionSchema.parse(data),
+    })) as unknown as ProjectEntry[]
+    expect(() => validateToolchainCatalog(projects)).not.toThrow()
+  })
+
+  it('requires confirmed scope for released projects', () => {
+    const projects = [vite, tailwind, varo, sqlite, taro].map((data, index) => ({
+      id: ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro'][index],
+      data: projectDefinitionSchema.parse(data),
+    })) as unknown as ProjectEntry[]
+    projects[0].data.platforms = undefined
+    expect(() => validateToolchainCatalog(projects)).toThrow('Active project is missing platform or runtime scope')
+  })
+
   it('rejects package actions that contradict project status', () => {
     const projects = [vite, tailwind, varo, sqlite, taro].map((data, index) => ({
       id: ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro'][index],
