@@ -359,6 +359,21 @@ test('copies the install command and expands project FAQ content', async ({ page
   await expect(faq.getByText('Vite 驱动的开发和构建流程')).toBeVisible()
 })
 
+test('keeps command copying accessible when the clipboard API is unavailable', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      configurable: true,
+      value: { writeText: async () => { throw new Error('clipboard unavailable') } },
+    })
+  })
+  await page.goto('/en/projects/weapp-vite/')
+  const copyButton = page.locator('button[data-copy-command]')
+  await copyButton.click()
+  await expect(copyButton).toHaveAttribute('aria-label', 'Copy manually')
+  await expect(copyButton.locator('[data-copy-text]')).toHaveText('Copy manually')
+  await expect(copyButton.locator('[data-copy-text]')).toHaveAttribute('aria-live', 'polite')
+})
+
 test('provides a working mobile navigation menu', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 })
   await page.goto('/')

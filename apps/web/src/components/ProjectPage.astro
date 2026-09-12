@@ -100,7 +100,7 @@ const publicMetrics = showsPublicMetrics(project.data.status)
         >
           <Copy data-copy-icon size={17} stroke-width={1.9} aria-hidden="true" />
           <Check data-copied-icon class="hidden" size={17} stroke-width={2} aria-hidden="true" />
-          <span data-copy-text class="max-[480px]:sr-only">{copy.project.copyInstall}</span>
+          <span data-copy-text role="status" aria-live="polite" class="max-[480px]:sr-only">{copy.project.copyInstall}</span>
         </button>
       </div>}
     </div>
