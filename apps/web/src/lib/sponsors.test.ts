@@ -87,6 +87,13 @@ describe('sponsor graph data', () => {
     expect(graph.buckets.reduce((total, bucket) => total + bucket.share, 0)).toBe(100)
   })
 
+  it('returns the base graph for a null snapshot', () => {
+    const graph = sponsorGraphData(null as never)
+
+    expect(graph.nodes.filter(node => node.kind === 'sponsor')).toEqual([])
+    expect(graph.relationEdges).toEqual([])
+  })
+
   it('falls back to the sponsor ID when public labels are not strings', () => {
     const graph = sponsorGraphData({
       version: 1,

@@ -146,7 +146,7 @@ export function sponsorGraphData(snapshot: SponsorSnapshot): SponsorGraphData {
   const edges: SponsorGraphEdge[] = []
   const relationEdges: SponsorGraphEdge[] = []
   const seenSponsorIds = new Set<string>()
-  const sponsorItems = Array.isArray(snapshot.items) ? snapshot.items : []
+  const sponsorItems = snapshot && typeof snapshot === 'object' && Array.isArray(snapshot.items) ? snapshot.items : []
   for (const sponsor of sponsorItems) {
     const sponsorId = typeof sponsor.id === 'string' ? sponsor.id.trim() : ''
     if (!sponsorId || seenSponsorIds.has(sponsorId)) {
