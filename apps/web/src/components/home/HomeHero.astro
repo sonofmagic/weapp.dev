@@ -44,7 +44,7 @@ const copy = siteCopy[locale]
       return (
         <a class="home-project-link" href={project.data.docsUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="project_home" data-analytics-project={project.id}>
           <span class="home-project-index">{String(index + 1).padStart(2, '0')}</span>
-          <img src={project.data.logo} width="34" height="34" alt="" />
+          <img src={project.data.logo} width="34" height="34" alt="" decoding="async" />
           <span class="min-w-0"><strong>{content.name}</strong><small>{project.stage[locale]} / {content.tagline}</small></span>
           <ArrowUpRight class="home-project-arrow" size={17} stroke-width={1.8} aria-hidden="true" />
         </a>

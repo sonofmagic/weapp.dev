@@ -401,6 +401,13 @@ test('keeps secondary project logos lazy and asynchronously decoded', async ({ p
   }
 })
 
+test('asynchronously decodes the visible homepage project rail', async ({ page }) => {
+  await page.goto('/')
+  const images = page.locator('.home-project-rail img')
+  await expect(images).toHaveCount(5)
+  await expect(images.evaluateAll(items => items.every(item => item.getAttribute('decoding') === 'async'))).resolves.toBe(true)
+})
+
 test('has no horizontal overflow or clipped interactive labels', async ({ page }) => {
   await page.goto('/')
   const overflow = await page.evaluate(() => ({
