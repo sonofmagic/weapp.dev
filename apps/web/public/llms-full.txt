@@ -29,11 +29,8 @@ weapp.dev hosts tools for real mini-app repos. weapp-tailwindcss handles styles,
 - Canonical Chinese page: https://weapp.dev/projects/varo/
 - Canonical English page: https://weapp.dev/en/projects/varo/
 - Documentation and source: https://github.com/daguanren21/Varo#readme
-- npm: https://www.npmjs.com/package/@varo/cli
-- Install: `pnpm dlx @varo/cli add --target weapp-vite button input card`
 - Purpose: Registry-first primitives, editable UI source, theme tokens, business blocks, and Agent UI for H5 and weapp-vite mini-programs.
-- Current scope: 56 runtime component families on both targets, 45 exposed mini-program registry families, and 36 dual-target Agent UI components.
-- Release status: planned; the CLI package metadata currently reports version 0.0.1.
+- Release status: planned; package metadata, install instructions, runtime capabilities, and performance data are not published yet.
 
 ## VPT (vite-plugin-taro)
 

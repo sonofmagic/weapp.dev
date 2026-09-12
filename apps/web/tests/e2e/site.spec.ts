@@ -263,6 +263,10 @@ test('planned project exposes an honest readiness state', async ({ page }) => {
   await expect(releaseRow.locator('a')).toHaveCount(0)
   const rss = await page.request.get('/releases.xml')
   expect(await rss.text()).not.toContain('@varo/cli 0.0.1')
+  const llms = await page.request.get('/llms-full.txt')
+  const llmsText = await llms.text()
+  expect(llmsText).not.toContain('npmjs.com/package/@varo/cli')
+  expect(llmsText).not.toContain('pnpm dlx @varo/cli')
 })
 
 for (const prefix of ['', '/en']) {
