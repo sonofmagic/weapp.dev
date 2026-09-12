@@ -33,7 +33,7 @@ const labels = locale === 'zh-CN'
     <div id="sponsor-relation-chart" class="sponsor-chart" data-chart="relation" hidden role="img" aria-label={labels.relation} aria-describedby="sponsor-relation-help"></div>
     <p class="sponsor-graph-status" data-status role="status" aria-live="polite" aria-atomic="true"></p>
     <p class="sponsor-graph-summary" data-summary>{labels.summary.replace('{nodes}', String(localizedGraph.nodes.length)).replace('{edges}', String(localizedGraph.edges.length + localizedGraph.relationEdges.length))}</p>
-    <aside aria-label={labels.details} class="sponsor-node-details" data-node-details hidden aria-live="polite"><strong data-node-name></strong><span data-node-kind></span><a data-node-link target="_blank" rel="noopener noreferrer" hidden>{labels.open}</a></aside>
+    <aside aria-label={labels.details} class="sponsor-node-details" data-node-details hidden role="status" aria-live="polite"><strong data-node-name></strong><span data-node-kind></span><a data-node-link target="_blank" rel="noopener noreferrer" hidden>{labels.open}</a></aside>
     <p class="sponsor-graph-error" data-graph-error hidden role="status" aria-live="polite">{labels.error}</p>
     <details open>
       <summary>{labels.table}</summary>

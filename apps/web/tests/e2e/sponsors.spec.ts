@@ -58,6 +58,7 @@ for (const route of ['/sponsors/', '/en/sponsors/']) {
     await node.focus()
     await page.keyboard.press('Enter')
     await expect(graphs.locator('[data-node-details]')).toBeVisible()
+    await expect(graphs.locator('[data-node-details]')).toHaveAttribute('role', 'status')
     await expect(graphs.locator('[data-node-name]')).toHaveText('weapp-vite')
     await expect(graphs.locator('[data-node-link]')).toHaveAttribute('href', 'https://github.com/weapp-vite/weapp-vite')
     await graphs.locator('[data-reset]').click()
