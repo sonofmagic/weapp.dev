@@ -118,14 +118,14 @@ const installCommand = project.data.installCommand ?? project.data.quickStart?.c
 
   <section class="border-y border-line bg-panel-soft" aria-label={locale === 'zh-CN' ? '项目能力与使用场景' : 'Project capabilities and use cases'}>
     <div class:list={[section, shell, 'grid grid-cols-[1.15fr_.85fr] gap-20 max-[820px]:grid-cols-1 max-[820px]:gap-12']}>
-      <div data-reveal>
-        <h2 class:list={[featuredTitle, 'mb-7']}>{copy.project.capabilities}</h2>
+      <div data-reveal aria-labelledby="project-capabilities-title">
+        <h2 id="project-capabilities-title" class:list={[featuredTitle, 'mb-7']}>{copy.project.capabilities}</h2>
         <ul class="m-0 grid list-none grid-cols-2 gap-px overflow-hidden rounded-panel border border-line bg-line p-0 max-[560px]:grid-cols-1">
           {content.capabilities.map(capability => <li class="min-h-[112px] bg-panel p-5 font-display text-lg font-[620]">{capability}</li>)}
         </ul>
       </div>
-      <div data-reveal>
-        <h2 class:list={[featuredTitle, 'mb-7']}>{copy.project.useCases}</h2>
+      <div data-reveal aria-labelledby="project-use-cases-title">
+        <h2 id="project-use-cases-title" class:list={[featuredTitle, 'mb-7']}>{copy.project.useCases}</h2>
         <ol class="m-0 grid list-none gap-5 p-0">
           {content.useCases.map((useCase, index) => (
             <li class="grid grid-cols-[32px_1fr] gap-3">

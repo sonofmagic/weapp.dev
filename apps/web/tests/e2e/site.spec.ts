@@ -330,6 +330,8 @@ test('project detail exposes docs, source, metrics, and future path', async ({ p
   await expect(page.locator('[aria-labelledby="project-future-docs-title"] a')).toHaveAttribute('aria-label', '文档: weapp-vite')
   await expect(page.getByText('GitHub Stars')).toBeVisible()
   await expect(page.getByRole('heading', { name: 'FAQ' })).toBeVisible()
+  await expect(page.locator('[aria-labelledby="project-capabilities-title"]')).toHaveCount(1)
+  await expect(page.locator('[aria-labelledby="project-use-cases-title"]')).toHaveCount(1)
   await expect(page.locator('#project-faq-title').locator('../..').locator('details').first()).toHaveAttribute('aria-describedby', 'project-faq-answer-weapp-vite-1')
   await expect(page.locator('pre code').filter({ hasText: 'pnpm add -D weapp-vite' })).toHaveCount(1)
   await expect(page.getByRole('link', { name: 'npm' }).first()).toHaveAttribute('href', 'https://www.npmjs.com/package/weapp-vite')
