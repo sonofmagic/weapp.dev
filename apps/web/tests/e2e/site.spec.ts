@@ -73,6 +73,7 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   ])
   await expect(page.locator('.home-project-proof')).toHaveCount(5)
   await expect(page.locator('.home-project-row[data-project-id]')).toHaveCount(5)
+  await expect(page.locator('.home-project-row[data-project-id="weapp-sqlite"]')).toHaveAttribute('data-roadmap-count', '2')
   for (const id of ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro']) {
     await expect(page.locator(`.home-project-row[data-project-id="${id}"]`)).toHaveAttribute('aria-labelledby', `home-project-title-${id}`)
   }
