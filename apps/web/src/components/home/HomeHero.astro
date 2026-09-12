@@ -22,7 +22,7 @@ const copy = siteCopy[locale]
       <h1 class="home-hero-title">{copy.hero.title}<span class="home-hero-dot" aria-hidden="true">.</span></h1>
       <p class="home-hero-description">{copy.hero.description}</p>
       <div class="flex flex-wrap items-center gap-3">
-        <a class={buttonPrimary} href={`${localizePath(locale)}#projects`} data-analytics-event="navigate_section" data-analytics-section="projects">
+        <a class={buttonPrimary} href={localizePath(locale, '/projects/')} data-analytics-event="navigate_page" data-analytics-page="projects_index">
           {copy.hero.primary}
           <ArrowRight size={18} stroke-width={1.9} aria-hidden="true" />
         </a>

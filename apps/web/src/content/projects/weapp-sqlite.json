@@ -1,0 +1,40 @@
+{
+  "order": 4,
+  "status": "planned",
+  "packageName": "weapp-sqlite",
+  "github": "weapp-sqlite/weapp-sqlite",
+  "docsUrl": "https://github.com/weapp-sqlite/weapp-sqlite#readme",
+  "npmUrl": "https://www.npmjs.com/",
+  "maintainer": "weapp-sqlite contributors",
+  "keywords": ["SQLite", "mini-program", "local data", "planned"],
+  "installCommand": "# weapp-sqlite integration is being planned",
+  "futureDocsPath": "/docs/weapp-sqlite/",
+  "logo": "/logo.svg",
+  "accent": "#0e7958",
+  "platforms": ["WeChat", "Web"],
+  "role": "Local data",
+  "maturity": "planned",
+  "runtime": ["Mini Program", "Web"],
+  "relatedProjects": ["weapp-vite", "weapp-tailwindcss"],
+  "dataCompleteness": "planned",
+  "locales": {
+    "zh-CN": {
+      "name": "weapp-sqlite",
+      "tagline": "面向小程序工程的本地数据层",
+      "description": "为小程序工程提供可规划、可迁移的 SQLite 本地数据能力。项目正在整理运行时边界、同步策略和跨平台接口，当前不承诺稳定 API。",
+      "audience": "需要本地结构化数据、离线能力或可控迁移路径的小程序团队。",
+      "useCases": ["规划本地结构化数据存储", "评估离线和迁移能力", "与 weapp-vite 工程边界协同"],
+      "capabilities": ["本地 SQLite 能力（规划中）", "运行时边界设计", "迁移路径设计"],
+      "faqs": [{ "question": "现在可以直接用于生产吗？", "answer": "还不可以。项目目前处于规划阶段，稳定 API、性能指标和完整文档会在确认后公开。" }]
+    },
+    "en": {
+      "name": "weapp-sqlite",
+      "tagline": "A local data layer for mini-app projects",
+      "description": "A planned SQLite capability for structured local data in mini-app projects. Runtime boundaries, sync strategy, and cross-platform APIs are still being defined.",
+      "audience": "Mini-app teams that need structured local data, offline behavior, or a controlled migration path.",
+      "useCases": ["Plan structured local storage", "Evaluate offline and migration needs", "Coordinate with weapp-vite project boundaries"],
+      "capabilities": ["Local SQLite capability (planned)", "Runtime boundary design", "Migration path design"],
+      "faqs": [{ "question": "Can I use it in production today?", "answer": "Not yet. The project is planned; stable APIs, performance numbers, and complete documentation will be published after they are confirmed." }]
+    }
+  }
+}

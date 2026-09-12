@@ -128,7 +128,7 @@ export function projectSchema(
     'name': content.name,
     'description': content.description,
     'url': absoluteUrl(path),
-    'image': absoluteUrl(project.data.visuals.primary.src),
+    'image': absoluteUrl(project.data.visuals?.primary.src ?? '/logo.svg'),
     'codeRepository': `https://github.com/${project.data.github}`,
     'downloadUrl': project.data.npmUrl,
     'programmingLanguage': ['TypeScript', 'JavaScript'],

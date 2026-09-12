@@ -47,7 +47,12 @@ export const projectDefinitionSchema = z.object({
   visuals: z.object({
     primary: projectVisualSchema,
     secondary: projectVisualSchema,
-  }).strict(),
+  }).strict().optional(),
+  role: z.string().min(1).optional(),
+  maturity: z.enum(['stable', 'beta', 'planned']).optional(),
+  runtime: z.array(z.string().min(1)).optional(),
+  relatedProjects: z.array(z.string().min(1)).optional(),
+  dataCompleteness: z.enum(['complete', 'partial', 'planned']).optional(),
   locales: z.object({
     'zh-CN': localizedContent,
     'en': localizedContent,

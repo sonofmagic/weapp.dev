@@ -16,9 +16,10 @@ const { locale, project, metrics } = Astro.props
 const copy = siteCopy[locale]
 const content = project.data.locales[locale]
 const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
-const primaryVisual = project.data.visuals.primary
+const hasVisuals = Boolean(project.data.visuals)
+const primaryVisual = project.data.visuals?.primary ?? { src: '/logo.svg', avif: '/logo.svg', width: 64, height: 64, locales: { 'zh-CN': { alt: content.name, caption: copy.project.readinessNote }, en: { alt: content.name, caption: copy.project.readinessNote } } }
 const primaryVisualCopy = primaryVisual.locales[locale]
-const secondaryVisual = project.data.visuals.secondary
+const secondaryVisual = project.data.visuals?.secondary ?? primaryVisual
 const secondaryVisualCopy = secondaryVisual.locales[locale]
 const publicMetrics = showsPublicMetrics(project.data.status)
 ---
@@ -61,7 +62,7 @@ const publicMetrics = showsPublicMetrics(project.data.status)
       </div>
     </div>
 
-    <figure data-reveal style="--reveal-delay: 100ms" class="m-0 overflow-hidden rounded-panel border border-line bg-panel-soft">
+    {hasVisuals ? <figure data-reveal style="--reveal-delay: 100ms" class="m-0 overflow-hidden rounded-panel border border-line bg-panel-soft">
       <div class="aspect-[16/11] overflow-hidden">
         <picture>
           <source srcset={primaryVisual.avif} type="image/avif" />
@@ -69,7 +70,7 @@ const publicMetrics = showsPublicMetrics(project.data.status)
         </picture>
       </div>
       <figcaption class="border-t border-line px-4 py-3 text-sm text-copy-muted">{primaryVisualCopy.caption}</figcaption>
-    </figure>
+    </figure> : <div data-reveal class="grid min-h-80 place-items-center rounded-panel border border-line bg-panel-soft p-8 text-center text-sm text-copy-muted">{copy.project.readinessNote}</div>}
   </section>
 
   <section class="border-y border-line bg-panel">
@@ -101,7 +102,7 @@ const publicMetrics = showsPublicMetrics(project.data.status)
       <h2 class={sectionTitle}>{copy.project.visualProof}</h2>
       <p class="mb-0 text-copy-muted">{copy.project.visualProofDescription}</p>
     </header>
-    <div class="grid grid-cols-[1.12fr_.88fr] items-start gap-5 max-[720px]:grid-cols-1">
+    {hasVisuals ? <div class="grid grid-cols-[1.12fr_.88fr] items-start gap-5 max-[720px]:grid-cols-1">
       <figure data-reveal class="m-0 overflow-hidden rounded-panel border border-line bg-panel">
         <div class="aspect-[16/11] overflow-hidden">
           <picture>
@@ -120,7 +121,7 @@ const publicMetrics = showsPublicMetrics(project.data.status)
         </div>
         <figcaption class="border-t border-line px-4 py-3 text-sm text-copy-muted">{secondaryVisualCopy.caption}</figcaption>
       </figure>
-    </div>
+    </div> : <div class="border border-line bg-panel-soft p-7 text-sm text-copy-muted">{copy.project.readinessNote}</div>}
   </section>
 
   <section class="border-y border-line bg-panel-soft">

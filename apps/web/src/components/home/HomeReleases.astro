@@ -25,7 +25,7 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
     </header>
     <div data-reveal class="border-t border-line">
       {projects.map(project => {
-        const projectMetrics = metrics[project.id]
+        const projectMetrics = metrics[project.id] ?? { version: 'planned', releasedAt: '2026-01-01T00:00:00.000Z', stars: 0, weeklyDownloads: 0, fetchedAt: '2026-01-01T00:00:00.000Z' }
         return (
           <article class="grid min-h-[96px] grid-cols-[48px_1fr_auto_42px] items-center gap-4 border-b border-line max-[520px]:grid-cols-[42px_1fr_auto]">
             <img class="size-11 object-contain max-[520px]:size-9" src={project.data.logo} width="44" height="44" alt="" />

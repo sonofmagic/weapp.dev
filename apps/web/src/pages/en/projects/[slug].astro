@@ -24,7 +24,7 @@ const projects = await getProjects()
 const metrics = await loadProjectMetrics()
 const content = project.data.locales[locale]
 const title = `${content.name} | weapp.dev`
-const projectMetrics = metrics[project.id]
+const projectMetrics = metrics[project.id] ?? { version: 'planned', releasedAt: '2026-01-01T00:00:00.000Z', stars: 0, weeklyDownloads: 0, fetchedAt: '2026-01-01T00:00:00.000Z' }
 ---
 
 <BaseLayout

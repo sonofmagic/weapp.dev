@@ -1,0 +1,24 @@
+---
+import type { Locale } from '../types/project'
+import type { ProjectEntry } from '../lib/projects'
+import { projectPath } from '../i18n/ui'
+import { getToolchainProjects } from '../lib/toolchain'
+import { pageTitle, section, shell } from '../styles/classes'
+interface Props { locale: Locale; projects: ProjectEntry[] }
+const { locale, projects } = Astro.props
+const copy = locale === 'zh-CN' ? { eyebrow: '工具链项目', title: '选择你现在需要的那一层', description: '五个项目按开发流程排列。先接最痛的一层，之后再按需要叠加。', docs: '阅读文档', details: '项目详情', stable: '稳定', beta: '测试', planned: '规划中', map: '工具链角色' } : { eyebrow: 'Toolchain projects', title: 'Choose the layer you need now', description: 'Five projects, ordered by the development flow. Start with the sharpest pain and add another layer when you need it.', docs: 'Read docs', details: 'Project details', stable: 'Stable', beta: 'Beta', planned: 'Planned', map: 'Toolchain role' }
+const roleLabels = locale === 'zh-CN' ? { engineering: '工程与构建', styling: '样式系统', components: '组件与交付', data: '本地数据', migration: 'Taro / React 迁移' } : { engineering: 'Engineering', styling: 'Styling', components: 'Components', data: 'Local data', migration: 'Taro / React migration' }
+---
+<main id="main-content"><section class:list={[section, shell, 'projects-index-hero']}><p class="mb-4 font-mono text-xs font-[650] uppercase tracking-[.12em] text-brand">{copy.eyebrow}</p><h1 class={pageTitle}>{copy.title}</h1><p class="mt-6 max-w-[680px] text-lg text-copy-muted">{copy.description}</p></section><section class:list={[section, shell, 'border-t border-line']}><div class="projects-index-list">{getToolchainProjects(projects).map(({ project, role }, index) => { const content = project.data.locales[locale]; return <article data-reveal style={`--reveal-delay:${index * 50}ms`}><div class="projects-index-number">{String(index + 1).padStart(2, '0')}</div><img src={project.data.logo} width="52" height="52" alt="" /><div class="projects-index-copy"><div class="flex flex-wrap items-center gap-2"><span class="font-mono text-xs font-[650] text-brand">{roleLabels[role]}</span><span class="projects-status">{copy[project.data.status]}</span></div><h2>{content.name}</h2><p>{content.description}</p><div class="flex flex-wrap gap-2">{project.data.platforms.map(platform => <span class="projects-platform">{platform}</span>)}</div></div><div class="projects-index-actions"><a class="inline-flex min-h-11 items-center justify-center rounded-[6px] bg-brand px-4 py-2.5 text-sm font-[680] text-white" href={project.data.docsUrl} target="_blank" rel="noreferrer">{copy.docs}</a><a class="inline-flex min-h-11 items-center justify-center px-2 text-sm font-[650] text-copy-muted hover:text-ink" href={projectPath(locale, project.id)}>{copy.details}</a></div></article> })}</div></section></main>
+<style>
+  .projects-index-hero { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+  .projects-index-list { border-top: 1px solid var(--border); }
+  .projects-index-list article { display: grid; grid-template-columns: 2rem 3.25rem minmax(0, 1fr) auto; gap: 1.25rem; align-items: start; padding: 1.5rem 0; border-bottom: 1px solid var(--border); }
+  .projects-index-number { color: var(--accent); font: 650 .75rem/1 var(--font-mono); padding-top: .35rem; }
+  .projects-index-list img { width: 3.25rem; height: 3.25rem; object-fit: contain; }
+  .projects-index-copy h2 { margin: .55rem 0 .4rem; font: 680 1.5rem/1.15 var(--font-display); overflow-wrap: anywhere; }
+  .projects-index-copy p { max-width: 680px; margin: 0 0 .9rem; color: var(--muted); font-size: .92rem; line-height: 1.65; }
+  .projects-status,.projects-platform { display: inline-flex; width: fit-content; border: 1px solid var(--border); padding: .28rem .5rem; color: var(--muted); font: 650 .7rem/1 var(--font-mono); }
+  .projects-index-actions { display: flex; flex-direction: column; align-items: stretch; gap: .4rem; min-width: 112px; }
+  @media (max-width:720px) { .projects-index-list article { grid-template-columns: 1.75rem 2.75rem minmax(0,1fr); gap: .8rem; } .projects-index-list img { width: 2.75rem; height: 2.75rem; } .projects-index-actions { grid-column: 3; flex-direction: row; align-items: center; } }
+</style>
