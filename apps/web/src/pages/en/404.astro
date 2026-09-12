@@ -11,7 +11,7 @@ const copy = siteCopy[locale]
 const projects = await getProjects()
 ---
 
-<BaseLayout locale={locale} title={`${copy.notFound.title} | weapp.dev`} description={copy.notFound.description} noindex>
+<BaseLayout locale={locale} title={`${copy.notFound.title} | weapp.dev`} description={copy.notFound.description} imageAlt="weapp.dev page not found" noindex>
   <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />
   <NotFoundPage locale={locale} />
   <Footer locale={locale} projects={projects} currentPath={Astro.url.pathname} />
