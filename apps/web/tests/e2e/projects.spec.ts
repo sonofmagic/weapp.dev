@@ -44,6 +44,8 @@ for (const prefix of ['', '/en']) {
     await expect(page.locator('[data-project-filters]')).toHaveAttribute('aria-describedby', 'project-filter-count')
     await expect(page.locator('#project-filter-count')).toHaveAttribute('aria-live', 'polite')
     await expect(page.locator('#toolchain-project-list')).toBeVisible()
+    await expect(page.locator('[data-project-card]').first().locator('[role="list"]').first()).toHaveAttribute('aria-label', zh ? '平台与路线信息' : 'Platform and roadmap metadata')
+    await expect(page.locator('[data-project-card]').first().locator('[role="list"] [role="listitem"]').first()).toBeVisible()
     for (const control of await page.locator('[data-project-filters] [aria-controls]').all()) {
       await expect(control).toHaveAttribute('aria-controls', 'toolchain-project-list')
     }
