@@ -12,6 +12,9 @@ for (const prefix of ['', '/en']) {
     await expect(page.locator('[data-project-filters]')).toHaveAttribute('aria-label', zh ? '筛选工具链项目' : 'Filter toolchain projects')
     await expect(page.locator('[data-project-filters]')).toHaveAttribute('aria-controls', 'toolchain-project-list')
     await expect(page.locator('#toolchain-project-list')).toBeVisible()
+    for (const control of await page.locator('[data-project-filters] [aria-controls]').all()) {
+      await expect(control).toHaveAttribute('aria-controls', 'toolchain-project-list')
+    }
     await expect(role).toBeEnabled()
     await expect(visible).toHaveCount(5)
     await role.selectOption('data')
