@@ -266,6 +266,19 @@ test('planned project exposes an honest readiness state', async ({ page }) => {
   expect(await rss.text()).not.toContain('@varo/cli 0.0.1')
 })
 
+for (const localePath of ['', '/en']) {
+  for (const slug of ['varo', 'weapp-sqlite']) {
+    test(`keeps ${localePath || 'zh-CN'} ${slug} page in planning state`, async ({ page }) => {
+      await page.goto(`${localePath}/projects/${slug}/`)
+      await expect(page.locator('[data-project-readiness]')).toBeVisible()
+      await expect(page.locator('.project-proof-code code')).toContainText('status: planned')
+      await expect(page.locator('main a[data-analytics-target="package"]')).toHaveCount(0)
+      await expect(page.locator('meta[property="article:modified_time"]')).toHaveCount(0)
+      await expect(page.locator('script[type="application/ld+json"]').nth(1)).not.toContainText('"version"')
+    })
+  }
+}
+
 test('passes automated accessibility checks in light and dark themes', async ({ page }) => {
   await page.emulateMedia({ reducedMotion: 'reduce' })
   for (const theme of ['light', 'dark']) {
