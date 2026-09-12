@@ -17,7 +17,7 @@ const statusLabels = { planned: labels.planned, 'in-progress': labels.inProgress
     <h2 id="roadmap-title">{labels.title}</h2>
   </header>
   <ol>
-    {roadmap.map((item, index) => <li>
+    {roadmap.map((item, index) => <li data-roadmap-status={item.status ?? 'planned'}>
       <span class="roadmap-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
       <div><strong>{typeof item.label === 'string' ? item.label : item.label[locale]}</strong><span class:list={['roadmap-status', `roadmap-status-${item.status ?? 'planned'}`]}>{statusLabels[item.status ?? 'planned']}</span></div>
     </li>)}
