@@ -1,6 +1,13 @@
 import { expect, test } from '@playwright/test'
 
 for (const route of ['/sponsors/', '/en/sponsors/']) {
+  test(`protects external links on ${route}`, async ({ page }) => {
+    await page.goto(route)
+    const links = await page.locator('a[target="_blank"]').evaluateAll(elements => elements.map(element => element.getAttribute('rel')))
+    expect(links.length).toBeGreaterThanOrEqual(2)
+    expect(links.every(rel => rel?.split(/\s+/).includes('noopener') && rel.split(/\s+/).includes('noreferrer'))).toBe(true)
+  })
+
   test(`initializes both sponsor charts on ${route}`, async ({ page }) => {
     const errors: string[] = []
     page.on('pageerror', error => errors.push(error.message))
