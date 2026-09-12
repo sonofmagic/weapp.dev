@@ -32,6 +32,7 @@ for (const route of ['/sponsors/', '/en/sponsors/']) {
     await expect(graphs.locator('[data-graph-loading]')).toBeHidden()
     await expect(graphs.locator('[data-graph-card="flow"] caption')).toHaveText(route.startsWith('/en') ? 'Funding bucket allocation shares' : '资金桶分配比例')
     await expect(graphs.locator('[data-graph-card="relation"] table').nth(0).locator('caption')).toHaveText(route.startsWith('/en') ? 'Sponsor graph node list' : '赞助图谱节点列表')
+    await expect(graphs.locator('[data-node-id]').first()).toHaveAttribute('aria-label', route.startsWith('/en') ? / · (Sponsor|Project|Fund|Site)$/ : / · (赞助者|项目|资金桶|站点)$/)
     await expect(graphs.locator('[data-graph-card="relation"] table').nth(1).locator('caption')).toHaveText(route.startsWith('/en') ? 'Sponsor graph connection list' : '赞助图谱连接列表')
     await expect(graphs).toHaveAttribute('aria-busy', 'false')
     await expect(graphs.locator('[data-summary]')).toContainText(route.startsWith('/en') ? 'Current filter:' : '当前筛选：')
