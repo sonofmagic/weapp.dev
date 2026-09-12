@@ -37,8 +37,8 @@
     "迁移与同步策略待确认"
   ],
   "roadmap": [
-    { "label": "确认运行时与平台边界", "status": "planned" },
-    { "label": "发布可验证的 API 契约", "status": "planned" }
+    { "label": { "zh-CN": "确认运行时与平台边界", "en": "Confirm runtime and platform boundaries" }, "status": "planned" },
+    { "label": { "zh-CN": "发布可验证的 API 契约", "en": "Publish a verifiable API contract" }, "status": "planned" }
   ],
   "locales": {
     "zh-CN": {

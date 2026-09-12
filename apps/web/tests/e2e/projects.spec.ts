@@ -67,6 +67,7 @@ for (const prefix of ['', '/en']) {
     await expect(page.locator('.roadmap-strip')).toBeVisible()
     await expect(page.locator('.roadmap-strip li')).toHaveCount(2)
     await expect(page.locator('.roadmap-status')).toHaveCount(2)
+    await expect(page.locator('.roadmap-strip li').first()).toContainText(prefix ? 'Confirm runtime and platform boundaries' : '确认运行时与平台边界')
   })
 
   test(`marks the current project navigation entry on ${prefix}/projects/`, async ({ page }) => {
