@@ -142,7 +142,7 @@ const githubUrl = 'https://github.com/sonofmagic/weapp.dev'
     <div class="grid grid-cols-[.72fr_1.28fr] gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10">
       <header data-reveal class="max-w-[470px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.slaKicker}</p><h2 id="pricing-support-title" class={sectionTitle}>{pricing.slaTitle}</h2></header>
       <div data-reveal class="overflow-x-auto border-t border-line">
-        <table class="pricing-sla-table w-full border-collapse text-left text-sm"><thead><tr><th>{pricing.slaTier}</th><th>{pricing.slaChannel}</th><th>{pricing.slaResponse}</th></tr></thead><tbody>{pricing.slaRows.map(row => <tr><th scope="row">{row.name}</th><td>{row.channel}</td><td>{row.response}</td></tr>)}</tbody></table>
+        <table class="pricing-sla-table w-full border-collapse text-left text-sm"><caption class="sr-only">{locale === 'zh-CN' ? '支持响应级别' : 'Support response levels'}</caption><thead><tr><th scope="col">{pricing.slaTier}</th><th scope="col">{pricing.slaChannel}</th><th scope="col">{pricing.slaResponse}</th></tr></thead><tbody>{pricing.slaRows.map(row => <tr><th scope="row">{row.name}</th><td>{row.channel}</td><td>{row.response}</td></tr>)}</tbody></table>
       </div>
     </div>
   </section>

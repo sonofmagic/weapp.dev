@@ -156,6 +156,8 @@ test('renders the bilingual pricing and delivery page', async ({ page }) => {
   await expect(page.locator('#sponsor')).toContainText('赞助不含技术支持')
   await expect(page.locator('#sponsor')).toContainText('weapp.dev、tw.weapp.dev、vite.weapp.dev')
   await expect(page.locator('#sponsor')).toContainText('Easysearch')
+  await expect(page.locator('.pricing-sla-table caption')).toHaveText('支持响应级别')
+  await expect(page.locator('.pricing-sla-table thead th[scope="col"]')).toHaveCount(3)
   await expect(page.locator('#services')).toContainText('¥8,000-15,000')
   await expect(page.locator('#plans')).toContainText('开源工具免费可用')
   await expect(page.locator('#plans')).toContainText('去看开源项目')
@@ -172,6 +174,8 @@ test('renders the bilingual pricing and delivery page', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1, name: 'Maintenance takes time; we put the money split up front' })).toBeVisible()
   await expect(page.locator('#sponsor')).toContainText('¥1,000')
   await expect(page.locator('#sponsor')).toContainText('Contributors fund')
+  await expect(page.locator('.pricing-sla-table caption')).toHaveText('Support response levels')
+  await expect(page.locator('.pricing-sla-table thead th[scope="col"]')).toHaveCount(3)
 })
 
 test('renders the bilingual contributor program', async ({ page }) => {
