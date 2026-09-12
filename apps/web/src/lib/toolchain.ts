@@ -37,6 +37,10 @@ export function validateToolchainCatalog(projects: ProjectEntry[]): void {
     }
   }
   for (const project of projects) {
+    const expectedOrder = toolchainProjectIds.indexOf(project.id as typeof toolchainProjectIds[number]) + 1
+    if (expectedOrder > 0 && project.data.order !== expectedOrder) {
+      throw new Error(`Project order differs from toolchain flow: ${project.id}`)
+    }
     for (const relatedId of project.data.relatedProjects ?? []) {
       if (!byId.has(relatedId)) {
         throw new Error(`Unknown related project ${relatedId} on ${project.id}`)

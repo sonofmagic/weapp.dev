@@ -26,6 +26,9 @@ describe('toolchain project ordering', () => {
       data: projectDefinitionSchema.parse(data),
     })) as unknown as ProjectEntry[]
     expect(() => validateToolchainCatalog(projects)).not.toThrow()
+    const invalidOrder = structuredClone(projects) as ProjectEntry[]
+    invalidOrder[0].data.order = 2
+    expect(() => validateToolchainCatalog(invalidOrder)).toThrow('Project order differs from toolchain flow')
     expect(() => validateToolchainCatalog(projects.slice(0, 4))).toThrow('Missing toolchain project')
     const invalid = structuredClone(projects) as ProjectEntry[]
     invalid[0].data.relatedProjects = ['missing-project']
