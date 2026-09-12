@@ -11,7 +11,7 @@ const copy = demoCopy[locale]
 <style-demo class="home-demo" data-demo="style" data-locale={locale}>
   <div class="demo-controls-space">
     <fieldset class="demo-controls" hidden disabled>
-      <legend class="sr-only">{copy.tabs[0]}</legend>
+      <legend class="sr-only">{copy.tabs.style}</legend>
       <div class="demo-colors" role="group" aria-label={copy.color}>
         {styleColors.map((color, index) => <label class="demo-swatch" style={`--swatch: ${color.swatch}`} title={copy.colors[index]}><input type="radio" name={`${instance}-color`} value={index} checked={index === 0} aria-label={copy.colors[index]} /></label>)}
       </div>

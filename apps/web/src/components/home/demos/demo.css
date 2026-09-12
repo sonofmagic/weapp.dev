@@ -439,3 +439,32 @@
   font: 600 0.72rem/1.5 var(--font-mono);
   color: var(--muted);
 }
+
+.demo-hmr-frame {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  height: 100%;
+  padding: 0.75rem;
+  margin: 0;
+}
+
+.demo-hmr-frame a {
+  flex: 1;
+  min-height: 0;
+}
+
+.demo-hmr-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.demo-hmr-frame figcaption {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.home-lab-tabs {
+  flex-wrap: wrap;
+}
