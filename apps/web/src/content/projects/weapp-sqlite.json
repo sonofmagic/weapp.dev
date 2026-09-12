@@ -6,7 +6,6 @@
   "docsUrl": "https://github.com/weapp-sqlite/weapp-sqlite#readme",
   "maintainer": "weapp-sqlite contributors",
   "keywords": ["SQLite", "mini-program", "local data", "planned"],
-  "installCommand": "# weapp-sqlite integration is being planned",
   "futureDocsPath": "/docs/weapp-sqlite/",
   "logo": "/logo.svg",
   "accent": "#0e7958",

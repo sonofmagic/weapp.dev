@@ -35,7 +35,12 @@ describe('project definitions', () => {
       const license = 'license' in project ? project.license : undefined
       expect(project.status === 'planned' || license).toBeTruthy()
       license && expect(license).toMatch(/^https:\/\//)
-      expect(project.installCommand).toContain(project.packageName)
+      if (project.status === 'planned') {
+        expect(project.installCommand).toBeUndefined()
+      }
+      else {
+        expect(project.installCommand).toContain(project.packageName)
+      }
       expect(project.keywords.length).toBeGreaterThan(0)
       expect(project.role).toBeTruthy()
       expect(project.dataCompleteness).toBeTruthy()

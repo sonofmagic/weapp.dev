@@ -44,7 +44,7 @@ export const projectDefinitionSchema = z.object({
   license: httpsUrl.optional(),
   maintainer: z.string().min(1),
   keywords: z.array(z.string().min(1)).min(1),
-  installCommand: z.string().min(1),
+  installCommand: z.string().min(1).optional(),
   futureDocsPath: z.string().startsWith('/docs/').endsWith('/'),
   logo: z.string().startsWith('/'),
   accent: z.string().regex(/^#[0-9a-f]{6}$/i),
