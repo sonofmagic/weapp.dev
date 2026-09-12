@@ -106,6 +106,9 @@ for (const prefix of ['', '/en']) {
     const current = page.locator('[data-site-header] a[aria-current="page"]')
     await expect(current).toHaveCount(2)
     await expect(current.first()).toHaveAttribute('href', `${prefix}/projects/`)
+    const collectionSchema = await page.locator('script[type="application/ld+json"]').evaluateAll(elements => elements.map(element => JSON.parse(element.textContent || '{}')).find(schema => schema['@type'] === 'CollectionPage'))
+    expect(collectionSchema).toMatchObject({ '@type': 'CollectionPage', 'url': `https://weapp.dev${prefix}/projects/` })
+    expect(collectionSchema.mainEntity.numberOfItems).toBe(5)
   })
 
   test(`decodes the project detail logo asynchronously on ${prefix || 'zh-CN'}`, async ({ page }) => {
