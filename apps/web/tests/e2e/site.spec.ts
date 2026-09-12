@@ -817,6 +817,7 @@ test('labels the homepage demo stage as a landmark', async ({ page }) => {
 
 test('opens analytics preferences directly from the privacy page', async ({ page }) => {
   await page.goto('/privacy/')
+  await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute('content', 'weapp.dev 隐私与数据说明')
   await expect(page.locator('section[aria-labelledby="privacy-title"]')).toHaveCount(1)
   await expect(page.locator('#data-flow-title').locator('..').locator('li').first()).toHaveAttribute('aria-labelledby', 'data-flow-item-1')
   await expect(page.locator('[id^="privacy-section-"][aria-labelledby]')).toHaveCount(4)
