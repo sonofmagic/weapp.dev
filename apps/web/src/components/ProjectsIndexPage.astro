@@ -24,11 +24,14 @@ const allPlatforms = [...new Set(getToolchainProjects(projects).flatMap(({ proje
     const empty = document.querySelector<HTMLElement>('[data-filter-empty]')!
     const clear = document.querySelector<HTMLButtonElement>('[data-filter-clear]')!
     const filterKeys = { role: 'role', maturity: 'maturity', platform: 'platform' } as const
+    const readFilterValue = (control: HTMLSelectElement, key: keyof typeof filterKeys) => {
+      const value = new URLSearchParams(window.location.search).get(filterKeys[key]) || ''
+      return [...control.options].some(option => option.value === value) ? value : ''
+    }
     const readUrlState = () => {
-      const params = new URLSearchParams(window.location.search)
-      role.value = params.get(filterKeys.role) || ''
-      maturity.value = params.get(filterKeys.maturity) || ''
-      platform.value = params.get(filterKeys.platform) || ''
+      role.value = readFilterValue(role, 'role')
+      maturity.value = readFilterValue(maturity, 'maturity')
+      platform.value = readFilterValue(platform, 'platform')
     }
     const writeUrlState = () => {
       const url = new URL(window.location.href)

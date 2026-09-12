@@ -132,6 +132,15 @@ for (const prefix of ['', '/en']) {
       }
     }
   })
+
+  test(`ignores unknown project filters on ${prefix}/projects/`, async ({ page }) => {
+    await page.goto(`${prefix}/projects/?role=unknown&maturity=invalid&platform=not-real`)
+    await expect(page.locator('[data-filter-role]')).toHaveValue('')
+    await expect(page.locator('[data-filter-maturity]')).toHaveValue('')
+    await expect(page.locator('[data-filter-platform]')).toHaveValue('')
+    await expect(page.locator('[data-filter-count]')).toContainText(prefix ? '5 projects' : '5 个项目')
+    await expect(page.locator('[data-project-card]:visible')).toHaveCount(5)
+  })
 }
 
 for (const prefix of ['', '/en']) {
