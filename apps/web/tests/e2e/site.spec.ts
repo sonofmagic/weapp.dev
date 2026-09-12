@@ -69,8 +69,9 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   for (const [section, title] of [['about', 'about-title'], ['projects', 'projects-title'], ['vision', 'vision-title'], ['releases', 'releases-title'], ['commercial', 'commercial-title']] as const) {
     await expect(page.locator(`#${section}`)).toHaveAttribute('aria-labelledby', title)
   }
-  await expect(page.locator('.home-toolchain-shell').first()).toHaveAttribute('aria-labelledby', 'toolchain-title')
-  await expect(page.locator('.home-toolchain-shell').nth(1)).toHaveAttribute('aria-labelledby', 'start-here-title')
+  await expect(page.locator('.home-toolchain-shell')).toHaveCount(2)
+  await expect(page.locator('.home-toolchain-shell').first()).not.toHaveAttribute('aria-labelledby')
+  await expect(page.locator('.home-toolchain-shell').nth(1)).not.toHaveAttribute('aria-labelledby')
   await expect(page.locator('section[aria-labelledby="collaboration-title"]')).toHaveCount(1)
   const docsLinks = page.locator('#projects').getByRole('link', { name: '文档' })
   await expect(docsLinks).toHaveCount(7)
@@ -823,7 +824,7 @@ test('retries a failed GA4 script without duplicating its configuration', async 
   expect(dataLayer.filter(command => command[0] === 'event' && command[1] === 'page_view')).toEqual([])
 })
 
-for (const route of ['/projects/', '/pricing/', '/contributors/', '/privacy/', '/sponsors/', '/en/projects/', '/en/pricing/', '/en/contributors/', '/en/privacy/', '/en/sponsors/']) {
+for (const route of ['/', '/en/', '/projects/', '/pricing/', '/contributors/', '/privacy/', '/sponsors/', '/en/projects/', '/en/pricing/', '/en/contributors/', '/en/privacy/', '/en/sponsors/']) {
   test(`passes axe on ${route} in both themes`, async ({ page }) => {
     await page.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' })
     await page.goto(route)
