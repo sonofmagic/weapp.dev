@@ -1,5 +1,5 @@
 ---
-import { ArrowLeft, ArrowUpRight, BookOpen, Check, ChevronDown, Copy, GitFork, Package, Star } from '@lucide/astro'
+import { ArrowLeft, ArrowUpRight, BookOpen, Check, ChevronDown, Clock3, Copy, GitFork, Package, Star } from '@lucide/astro'
 import type { Locale, ProjectMetrics } from '../types/project'
 import type { ProjectEntry } from '../lib/projects'
 import { formatCompactNumber, formatReleaseDate, showsPublicMetrics } from '../lib/metrics'
@@ -37,7 +37,7 @@ const publicMetrics = showsPublicMetrics(project.data.status)
       <div class="mb-5 flex items-center gap-3">
         <img class="size-12 object-contain" src={project.data.logo} width="48" height="48" alt="" />
         <span class:list={['inline-flex items-center gap-1.5 font-mono text-xs font-[650]', projectTone]}>
-          <Check size={15} stroke-width={2} aria-hidden="true" />
+          {project.data.status === 'planned' ? <Clock3 size={15} stroke-width={2} aria-hidden="true" /> : <Check size={15} stroke-width={2} aria-hidden="true" />}
           {copy.projects.status[project.data.status]}
         </span>
       </div>
