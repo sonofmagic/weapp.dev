@@ -52,6 +52,17 @@ describe('sponsor graph data', () => {
     expect(graph.relationEdges.every(edge => nodeIds.has(edge.source) && nodeIds.has(edge.target))).toBe(true)
   })
 
+  it('does not expose unsafe sponsor URLs from an unsanitized snapshot', () => {
+    const graph = sponsorGraphData({
+      version: 1,
+      repositoryUrl: 'https://github.com/sonofmagic/sponsors',
+      total: 1,
+      items: [{ id: 'unsafe', kind: 'business', tier: 'gold', brandUrl: 'javascript:alert(1)', displaySites: ['weapp'] }],
+    })
+
+    expect(graph.nodes.find(node => node.id === 'sponsor:unsafe')).not.toHaveProperty('url')
+  })
+
   it('creates valid project, sponsor, ledger and fund references', () => {
     const graph = sponsorGraphData({
       version: 1,
