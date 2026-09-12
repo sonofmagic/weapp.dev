@@ -128,7 +128,8 @@ for (const prefix of ['', '/en']) {
     const support = page.locator('[aria-labelledby="projects-support-title"]')
     await expect(support).toBeVisible()
     await expect(support).toContainText(prefix ? 'Support the toolchain maintenance' : '支持这套工具链继续维护')
-    await expect(support.getByRole('link')).toHaveAttribute('href', `${prefix}/sponsors/`)
+    await expect(support.getByRole('link').nth(0)).toHaveAttribute('href', `${prefix}/sponsors/`)
+    await expect(support.getByRole('link').nth(1)).toHaveAttribute('href', `${prefix}/contributors/`)
   })
 
   test(`decodes the project detail logo asynchronously on ${prefix || 'zh-CN'}`, async ({ page }) => {
