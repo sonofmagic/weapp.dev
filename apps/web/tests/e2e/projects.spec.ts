@@ -170,6 +170,8 @@ test.describe('project catalog without JavaScript', () => {
     test(`keeps all projects readable on ${prefix}/projects/`, async ({ page }) => {
       await page.goto(`${prefix}/projects/`)
       await expect(page.locator('[data-project-card]:visible')).toHaveCount(5)
+      await expect(page.locator('[data-project-card]:visible').first().locator('[data-analytics-event="select_project"]')).toHaveCount(1)
+      await expect(page.locator('[data-project-card]:visible').first().locator('[data-analytics-event="click_outbound"]')).toHaveCount(1)
       for (const control of await page.locator('[data-project-filters] select, [data-filter-reset]').all()) {
         await expect(control).toBeDisabled()
       }
