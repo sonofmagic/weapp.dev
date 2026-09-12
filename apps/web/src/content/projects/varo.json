@@ -4,7 +4,6 @@
   "packageName": "@varo/cli",
   "github": "daguanren21/Varo",
   "docsUrl": "https://github.com/daguanren21/Varo#readme",
-  "npmUrl": "https://www.npmjs.com/package/@varo/cli",
   "maintainer": "daguanren21 and contributors",
   "keywords": [
     "Vue 3",

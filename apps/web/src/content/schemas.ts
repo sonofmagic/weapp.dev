@@ -40,7 +40,7 @@ export const projectDefinitionSchema = z.object({
   packageName: z.string().min(1),
   github: z.string().regex(/^[\w.-]+\/[\w.-]+$/),
   docsUrl: httpsUrl,
-  npmUrl: httpsUrl,
+  npmUrl: httpsUrl.optional(),
   license: httpsUrl.optional(),
   maintainer: z.string().min(1),
   keywords: z.array(z.string().min(1)).min(1),

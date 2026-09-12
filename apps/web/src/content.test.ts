@@ -26,7 +26,12 @@ describe('project definitions', () => {
         expect(project.locales[locale].capabilities.length).toBeGreaterThan(0)
         expect(project.locales[locale].faqs.length).toBeGreaterThan(0)
       }
-      expect(project.npmUrl).toMatch(/^https:\/\//)
+      if (project.status === 'planned') {
+        expect(project.npmUrl).toBeUndefined()
+      }
+      else {
+        expect(project.npmUrl).toMatch(/^https:\/\//)
+      }
       const license = 'license' in project ? project.license : undefined
       expect(project.status === 'planned' || license).toBeTruthy()
       license && expect(license).toMatch(/^https:\/\//)
@@ -66,6 +71,7 @@ describe('project definitions', () => {
   it('keeps weapp-sqlite honest while it is planned', () => {
     const definition = projectDefinitionSchema.parse(sqlite)
     expect(definition).toMatchObject({ status: 'planned', role: 'Local data', dataCompleteness: 'planned' })
+    expect(definition.npmUrl).toBeUndefined()
     expect(definition.visuals).toBeUndefined()
     expect(definition.locales['zh-CN'].description).toContain('规划')
     expect(definition.locales.en.description).toContain('planned')

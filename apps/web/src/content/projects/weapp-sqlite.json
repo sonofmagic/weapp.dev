@@ -4,7 +4,6 @@
   "packageName": "weapp-sqlite",
   "github": "weapp-sqlite/weapp-sqlite",
   "docsUrl": "https://github.com/weapp-sqlite/weapp-sqlite#readme",
-  "npmUrl": "https://www.npmjs.com/",
   "maintainer": "weapp-sqlite contributors",
   "keywords": ["SQLite", "mini-program", "local data", "planned"],
   "installCommand": "# weapp-sqlite integration is being planned",
