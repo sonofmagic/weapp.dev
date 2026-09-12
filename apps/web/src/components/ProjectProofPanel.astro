@@ -12,10 +12,14 @@ const proof = {
   'weapp-sqlite': { zh: '本地数据能力（规划中）', en: 'Local data capability (planned)', file: 'planning.md', code: `status: planned\napi: to be confirmed\nplatforms: to be confirmed\n\n# no production API is promised yet` },
   'vite-plugin-taro': { zh: 'Taro + Vite 迁移', en: 'Taro + Vite migration', file: 'package.json', code: `npm create vite-taro@latest my-app\n\n# keep React + Taro APIs\n# move the build pipeline to Vite` },
 }[project.id]
+const plannedProof = locale === 'zh-CN'
+  ? `status: planned\napi: 待确认\nplatforms: 待确认\n\n# 当前不承诺生产 API`
+  : `status: planned\napi: to be confirmed\nplatforms: to be confirmed\n\n# no production API is promised yet`
+const displayProof = project.data.status === 'planned' ? { zh: '规划边界', en: 'Planning boundary', file: 'planning.md', code: plannedProof } : proof
 ---
 <section class="project-proof-panel" aria-labelledby="project-proof-title">
-  <div><p class="mb-2 font-mono text-xs font-[650] text-brand">{locale === 'zh-CN' ? '工程证据' : 'ENGINEERING PROOF'}</p><h2 id="project-proof-title">{proof ? (locale === 'zh-CN' ? proof.zh : proof.en) : content.tagline}</h2><p>{locale === 'zh-CN' ? '从一段真实的配置、命令或边界说明开始判断项目是否适合你的工程。' : 'Start with a real config, command, or boundary note when deciding if this project fits your codebase.'}</p></div>
-  <div class="project-proof-code"><div class="project-proof-code-head"><span>{proof?.file ?? 'project.md'}</span><span>{statusLabel[project.data.status]}</span></div><pre><code>{proof?.code ?? content.description}</code></pre></div>
+  <div><p class="mb-2 font-mono text-xs font-[650] text-brand">{locale === 'zh-CN' ? '工程证据' : 'ENGINEERING PROOF'}</p><h2 id="project-proof-title">{displayProof ? (locale === 'zh-CN' ? displayProof.zh : displayProof.en) : content.tagline}</h2><p>{locale === 'zh-CN' ? '从一段真实的配置、命令或边界说明开始判断项目是否适合你的工程。' : 'Start with a real config, command, or boundary note when deciding if this project fits your codebase.'}</p></div>
+  <div class="project-proof-code"><div class="project-proof-code-head"><span>{displayProof?.file ?? 'project.md'}</span><span>{statusLabel[project.data.status]}</span></div><pre><code>{displayProof?.code ?? content.description}</code></pre></div>
 </section>
 <style>
   .project-proof-panel { display:grid; grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr); gap:2rem; align-items:stretch; padding:1.5rem; border:1px solid var(--border); background:var(--surface-soft); }
