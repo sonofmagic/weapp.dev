@@ -820,3 +820,16 @@ test('retries a failed GA4 script without duplicating its configuration', async 
   expect(dataLayer.filter(command => command[0] === 'config')).toHaveLength(1)
   expect(dataLayer.filter(command => command[0] === 'event' && command[1] === 'page_view')).toEqual([])
 })
+
+for (const route of ['/projects/', '/pricing/', '/contributors/', '/privacy/', '/sponsors/', '/en/projects/', '/en/pricing/', '/en/contributors/', '/en/privacy/', '/en/sponsors/']) {
+  test(`passes axe on ${route} in both themes`, async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'light', reducedMotion: 'reduce' })
+    await page.goto(route)
+    for (const theme of ['light', 'dark'] as const) {
+      await page.emulateMedia({ colorScheme: theme, reducedMotion: 'reduce' })
+      await page.reload()
+      const results = await new AxeBuilder({ page }).include('main').analyze()
+      expect(results.violations, `${route} ${theme}`).toEqual([])
+    }
+  })
+}
