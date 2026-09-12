@@ -1,3 +1,4 @@
+import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 import vpt from '../../src/content/projects/vite-plugin-taro.json' with { type: 'json' }
 
@@ -7,6 +8,7 @@ for (const locale of ['zh-CN', 'en'] as const) {
   const alternate = locale === 'zh-CN' ? '/en/projects/vite-plugin-taro/' : '/projects/vite-plugin-taro/'
 
   test(`discovers and renders the ${locale} VPT project`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto(home)
     await expect(page.locator('header a[data-analytics-project="vite-plugin-taro"]')).toHaveCount(2)
     const footerLink = page.locator('footer').getByRole('link', { name: 'VPT', exact: true })
@@ -15,6 +17,10 @@ for (const locale of ['zh-CN', 'en'] as const) {
 
     await expect(page).toHaveURL(path)
     await expect(page.getByRole('heading', { level: 1, name: 'VPT' })).toBeVisible()
+    await page.mouse.move(0, 0)
+    await page.waitForFunction(() => [...document.querySelectorAll('[data-reveal]')].every(element => element.hasAttribute('data-visible')))
+    const accessibility = await new AxeBuilder({ page }).include('main').analyze()
+    expect(accessibility.violations).toEqual([])
     await expect(page.locator('main')).toContainText(vpt.locales[locale].description)
     await expect(page.locator('main a[data-analytics-target="docs"]').first()).toHaveAttribute('href', vpt.docsUrl)
     await expect(page.locator('main a[data-analytics-target="source"]')).toHaveAttribute('href', `https://github.com/${vpt.github}`)
