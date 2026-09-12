@@ -36,8 +36,15 @@ export function validateToolchainCatalog(projects: ProjectEntry[]): void {
       throw new Error(`Missing toolchain project: ${id}`)
     }
   }
+  const seenOrders = new Set<number>()
   for (const project of projects) {
     const expectedOrder = toolchainProjectIds.indexOf(project.id as typeof toolchainProjectIds[number]) + 1
+    if (expectedOrder > 0 && seenOrders.has(project.data.order)) {
+      throw new Error(`Duplicate toolchain project order: ${project.data.order}`)
+    }
+    if (expectedOrder > 0) {
+      seenOrders.add(project.data.order)
+    }
     if (expectedOrder > 0 && project.data.order !== expectedOrder) {
       throw new Error(`Project order differs from toolchain flow: ${project.id}`)
     }
