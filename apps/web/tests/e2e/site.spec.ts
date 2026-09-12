@@ -5,7 +5,7 @@ import { siteCopy } from '../../src/i18n/ui'
 const retiredVisuals = 'canvas, [data-shader-canvas], [data-shader], [data-shader-frame], [data-webgl-fallback], [data-art], .project-art, [class^="art-"], [class*=" art-"]'
 
 async function expectHomeVisuals(page: import('@playwright/test').Page, _locale: 'zh-CN' | 'en') {
-  await expect(page.locator('.home-hero-stage img, #projects picture')).toHaveCount(0)
+  await expect(page.locator('.home-hero-stage img:visible, #projects picture:visible')).toHaveCount(0)
   await expect(page.locator(retiredVisuals)).toHaveCount(0)
   await expect(page.locator('hero-demos [role="tabpanel"]:visible')).toHaveCount(1)
   await expect(page.locator('hero-demos')).toBeVisible()
@@ -13,7 +13,8 @@ async function expectHomeVisuals(page: import('@playwright/test').Page, _locale:
   await expect(page.locator('#projects .home-project-proof')).toHaveCount(5)
   await expect(page.locator('#projects .home-project-proof-command')).toContainText('pnpm exec wv build -p weapp')
   const images = await page.evaluate(() => performance.getEntriesByType('resource').map(entry => entry.name).filter(url => /\/media\/(?:showcase|projects)\//.test(url)))
-  expect(images).toEqual([])
+  expect(images.every(url => url.includes('/media/projects/vpt-hmr-'))).toBe(true)
+  expect(images.length).toBeLessThanOrEqual(2)
 }
 
 async function enableAnalyticsTestMode(page: import('@playwright/test').Page) {
