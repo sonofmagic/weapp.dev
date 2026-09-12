@@ -23,7 +23,7 @@ const publicMetrics = showsPublicMetrics(project.data.status)
 
 <article data-project-row class:list={['home-project-row', { 'home-project-row-reversed': project.reversed }]} style={`--project-accent: ${project.data.accent}`}>
   <div class="home-project-proof-slot">
-    <HomeProjectProof kind={project.demo} locale={locale} projectName={content.name} />
+    <HomeProjectProof kind={project.demo} locale={locale} projectName={content.name} status={project.data.status} />
   </div>
 
   <div data-reveal data-project-copy style={`--reveal-delay: ${80 + index * 60}ms`}>

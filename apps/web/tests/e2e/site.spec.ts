@@ -12,7 +12,6 @@ async function expectHomeVisuals(page: import('@playwright/test').Page, _locale:
   await expect(page.locator('#projects .home-lab')).toHaveCount(0)
   await expect(page.locator('#projects .home-project-proof')).toHaveCount(3)
   await expect(page.locator('#projects .home-project-proof-command')).toContainText('pnpm exec wv build -p weapp')
-  await expect(page.locator('#projects').getByText('@varo-ui/cli')).toBeVisible()
   const images = await page.evaluate(() => performance.getEntriesByType('resource').map(entry => entry.name).filter(url => /\/media\/(?:showcase|projects)\//.test(url)))
   expect(images).toEqual([])
 }
