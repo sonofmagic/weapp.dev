@@ -323,6 +323,7 @@ test('project detail exposes docs, source, metrics, and future path', async ({ p
   await expect(page.getByRole('heading', { level: 1, name: 'weapp-vite' })).toBeVisible()
   await expect(page.getByRole('link', { name: '文档' }).first()).toHaveAttribute('href', 'https://vite.weapp.dev/')
   await expect(page.getByText('/docs/weapp-vite/')).toBeVisible()
+  await expect(page.locator('[aria-labelledby="project-future-docs-title"] a')).toHaveAttribute('aria-label', '文档: weapp-vite')
   await expect(page.getByText('GitHub Stars')).toBeVisible()
   await expect(page.getByRole('heading', { name: 'FAQ' })).toBeVisible()
   await expect(page.locator('pre code').filter({ hasText: 'pnpm add -D weapp-vite' })).toHaveCount(1)
