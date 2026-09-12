@@ -1,17 +1,20 @@
 ---
 import type { Locale, ProjectMetricsMap } from '../../types/project'
 import type { HomeProject } from '../../lib/home-projects'
+import type { ProjectEntry } from '../../lib/projects'
 import { homeSection, sectionTitle, shell } from '../../styles/classes'
 import HomeProjectRow from './HomeProjectRow.astro'
 import { siteCopy } from '../../i18n/ui'
+import HomeAdjacentProjects from './HomeAdjacentProjects.astro'
 
 interface Props {
   locale: Locale
   projects: HomeProject[]
+  catalogProjects: ProjectEntry[]
   metrics: ProjectMetricsMap
 }
 
-const { locale, projects, metrics } = Astro.props
+const { locale, projects, catalogProjects, metrics } = Astro.props
 const copy = siteCopy[locale]
 ---
 
@@ -27,4 +30,5 @@ const copy = siteCopy[locale]
       <HomeProjectRow locale={locale} project={project} index={index} metrics={metrics[project.id]} />
     ))}
   </div>
+  <HomeAdjacentProjects locale={locale} projects={catalogProjects} featuredIds={projects.map(project => project.id)} />
 </section>

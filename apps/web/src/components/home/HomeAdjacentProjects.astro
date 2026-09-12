@@ -1,0 +1,26 @@
+---
+import { ArrowRight, ArrowUpRight } from '@lucide/astro'
+import type { Locale } from '../../types/project'
+import type { ProjectEntry } from '../../lib/projects'
+import { projectPath } from '../../i18n/ui'
+import { siteCopy } from '../../i18n/ui'
+interface Props { locale: Locale; projects: ProjectEntry[]; featuredIds: string[] }
+const { locale, projects, featuredIds } = Astro.props
+const copy = siteCopy[locale]
+const adjacent = projects.filter(project => !featuredIds.includes(project.id))
+---
+{adjacent.length ? <section class="home-adjacent-projects" aria-labelledby="adjacent-projects-title"><header data-reveal><p class="mb-3 font-mono text-xs font-[650] text-brand">{locale === 'zh-CN' ? '同一工具链的另外两条路径' : 'TWO MORE PATHS IN THE SAME STACK'}</p><h3 id="adjacent-projects-title">{locale === 'zh-CN' ? '需要本地数据或迁移现有 React 工程时' : 'When you need local data or a React migration path'}</h3></header><div class="home-adjacent-grid">{adjacent.map((project, index) => { const content = project.data.locales[locale]; return <article data-reveal style={`--reveal-delay:${index * 70}ms`}><div class="home-adjacent-heading"><img src={project.data.logo} width="40" height="40" alt="" /><span>{project.data.role}</span></div><h4>{content.name}</h4><p>{content.description}</p><div class="home-adjacent-actions"><a href={projectPath(locale, project.id)}>{copy.projects.details}<ArrowRight size={15} stroke-width={1.8} aria-hidden="true" /></a><a href={project.data.docsUrl} target="_blank" rel="noreferrer">{copy.projects.documentation}<ArrowUpRight size={15} stroke-width={1.8} aria-hidden="true" /></a></div></article>})}</div></section> : null}
+<style>
+  .home-adjacent-projects { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+  .home-adjacent-projects h3 { max-width: 680px; margin:0; font:680 clamp(1.5rem,2.8vw,2.25rem)/1.15 var(--font-display); text-wrap:balance; }
+  .home-adjacent-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1px; margin-top:1.75rem; border:1px solid var(--border); background:var(--border); }
+  .home-adjacent-grid article { min-width:0; padding:1.5rem; background:var(--surface); }
+  .home-adjacent-heading { display:flex; align-items:center; gap:.75rem; color:var(--accent); font:650 .72rem/1 var(--font-mono); }
+  .home-adjacent-heading img { width:2.5rem; height:2.5rem; object-fit:contain; }
+  .home-adjacent-grid h4 { margin:1.25rem 0 .45rem; font:680 1.35rem/1.15 var(--font-display); overflow-wrap:anywhere; }
+  .home-adjacent-grid p { min-height:4.8rem; margin:0; color:var(--muted); font-size:.9rem; line-height:1.65; }
+  .home-adjacent-actions { display:flex; flex-wrap:wrap; gap:1rem; margin-top:1.25rem; }
+  .home-adjacent-actions a { display:inline-flex; align-items:center; gap:.35rem; color:var(--text); font-size:.82rem; font-weight:650; }
+  .home-adjacent-actions a:first-child { color:var(--accent); }
+  @media (max-width:720px) { .home-adjacent-grid { grid-template-columns:1fr; } .home-adjacent-grid p { min-height:0; } }
+</style>
