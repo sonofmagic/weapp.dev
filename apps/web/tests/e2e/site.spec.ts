@@ -445,6 +445,15 @@ for (const prefix of ['', '/en']) {
     await expect(page.locator('[data-project-card]:visible')).toHaveCount(5)
   })
 
+  test(`names project card status and first step on ${prefix || 'zh-CN'}`, async ({ page }) => {
+    await page.goto(`${prefix}/projects/`)
+    for (const id of ['weapp-vite', 'varo', 'weapp-sqlite']) {
+      const card = page.locator(`[data-project-card][data-project-id="${id}"]`)
+      const runtime = ['weapp-vite', 'varo'].includes(id) ? ` project-card-runtime-${id}` : ''
+      await expect(card).toHaveAttribute('aria-describedby', `project-card-description-${id} project-card-audience-${id} project-card-status-${id}${runtime} project-card-quick-start-${id}`)
+    }
+  })
+
   test(`planned projects expose no package or install actions on ${prefix || '/'}`, async ({ page }) => {
     for (const slug of ['varo', 'weapp-sqlite']) {
       await page.goto(`${prefix}/projects/${slug}/`)
