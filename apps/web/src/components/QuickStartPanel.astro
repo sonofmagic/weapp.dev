@@ -13,7 +13,7 @@ const fallbackNote = status === 'planned' ? copy.project.plannedSetupNote : copy
   <div class="mx-auto grid w-[calc(100%-3rem)] max-w-[1240px] grid-cols-[.9fr_1.1fr] items-center gap-12 py-10 max-[800px]:grid-cols-1 max-[800px]:gap-7">
     <div data-reveal>
       <h2 id="quick-start-title" class="mb-3 text-2xl font-[660]">{canInstall ? copy.project.install : copy.project.setupStatus}</h2>
-      <p class="mb-0 text-sm text-copy-muted">{audience}</p>
+      <p class="quick-start-audience mb-0 text-sm text-copy-muted"><span>{locale === 'zh-CN' ? '适合' : 'For'}</span>{audience}</p>
     </div>
     {!canInstall ? <div data-reveal class="rounded-panel border border-line bg-panel-soft px-5 py-4 text-sm leading-[1.7] text-copy-muted">{note || fallbackNote}</div> : <div data-reveal class="grid grid-cols-[1fr_auto] overflow-hidden rounded-panel border border-line bg-canvas">
       <pre id="quick-start-command" tabindex="0" aria-label={locale === 'zh-CN' ? '安装命令' : 'Install command'} class="m-0 min-w-0 overflow-x-auto px-5 py-4 text-sm"><code>{command}</code></pre>
@@ -25,3 +25,7 @@ const fallbackNote = status === 'planned' ? copy.project.plannedSetupNote : copy
     </div>}
   </div>
 </section>
+<style>
+  .quick-start-audience { display:flex; gap:.5rem; align-items:baseline; }
+  .quick-start-audience span { flex:none; color:var(--accent); font:650 .7rem/1.5 var(--font-mono); text-transform:uppercase; }
+</style>

@@ -142,6 +142,11 @@ for (const prefix of ['', '/en']) {
     await expect(page.locator('main#main-content > section').first().locator('img').first()).toHaveAttribute('decoding', 'async')
   })
 
+  test(`labels the project detail audience in ${prefix || 'zh-CN'}`, async ({ page }) => {
+    await page.goto(`${prefix}/projects/weapp-vite/`)
+    await expect(page.locator('.quick-start-audience')).toContainText(prefix ? 'For' : '适合')
+  })
+
   test(`decodes the project detail hero visual asynchronously on ${prefix || 'zh-CN'}`, async ({ page }) => {
     await page.goto(`${prefix}/projects/weapp-vite/`)
     const heroVisual = page.locator('main#main-content > section').first().locator('figure img')
