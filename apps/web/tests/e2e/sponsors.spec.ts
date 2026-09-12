@@ -89,6 +89,28 @@ for (const route of ['/sponsors/', '/en/sponsors/']) {
     await expect(graphs.locator('table').first()).toBeVisible()
     await expect(graphs.locator('table').last()).toBeVisible()
   })
+
+  test(`can retry chart loading after a chunk failure on ${route}`, async ({ page }) => {
+    let failures = 1
+    await page.route('**/_astro/core.*.js', async (intercepted) => {
+      if (failures > 0) {
+        failures -= 1
+        await intercepted.abort()
+      }
+      else {
+        await intercepted.continue()
+      }
+    })
+    await page.goto(route)
+    const graphs = page.locator('[data-sponsor-graphs]')
+    const retry = graphs.locator('[data-graph-retry]').first()
+    await expect(retry).toBeVisible()
+    await expect(retry).toBeEnabled()
+    await retry.click()
+    await expect(graphs).toHaveAttribute('data-ready', 'true')
+    await expect(graphs.locator('[data-chart="flow"] canvas')).toHaveCount(1)
+    await expect(retry).toBeHidden()
+  })
 }
 
 test.describe('without JavaScript', () => {
