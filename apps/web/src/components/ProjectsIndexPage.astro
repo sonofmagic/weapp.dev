@@ -24,14 +24,21 @@ const allPlatforms = [...new Set(getToolchainProjects(projects).flatMap(({ proje
     const empty = document.querySelector<HTMLElement>('[data-filter-empty]')!
     const clear = document.querySelector<HTMLButtonElement>('[data-filter-clear]')!
     const filterKeys = { role: 'role', maturity: 'maturity', platform: 'platform' } as const
-    const readFilterValue = (control: HTMLSelectElement, key: keyof typeof filterKeys) => {
-      const value = new URLSearchParams(window.location.search).get(filterKeys[key]) || ''
-      return [...control.options].some(option => option.value === value) ? value : ''
-    }
     const readUrlState = () => {
-      role.value = readFilterValue(role, 'role')
-      maturity.value = readFilterValue(maturity, 'maturity')
-      platform.value = readFilterValue(platform, 'platform')
+      const url = new URL(window.location.href)
+      let changed = false
+      for (const [key, control] of Object.entries({ role, maturity, platform }) as [keyof typeof filterKeys, HTMLSelectElement][]) {
+        const param = filterKeys[key]
+        const value = url.searchParams.get(param) || ''
+        if (value && ![...control.options].some(option => option.value === value)) {
+          url.searchParams.delete(param)
+          changed = true
+          control.value = ''
+        } else {
+          control.value = value
+        }
+      }
+      if (changed) window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`)
     }
     const writeUrlState = () => {
       const url = new URL(window.location.href)

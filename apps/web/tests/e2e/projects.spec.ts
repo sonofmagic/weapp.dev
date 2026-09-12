@@ -140,6 +140,7 @@ for (const prefix of ['', '/en']) {
     await expect(page.locator('[data-filter-platform]')).toHaveValue('')
     await expect(page.locator('[data-filter-count]')).toContainText(prefix ? '5 projects' : '5 个项目')
     await expect(page.locator('[data-project-card]:visible')).toHaveCount(5)
+    await expect(page).toHaveURL(`${prefix}/projects/`)
   })
 }
 
