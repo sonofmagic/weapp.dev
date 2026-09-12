@@ -61,6 +61,8 @@ for (const prefix of ['', '/en']) {
     await expect(page.locator('[data-project-card][data-project-id="weapp-vite"] .projects-index-quickstart code')).toHaveText('pnpm add -D weapp-vite')
     await expect(page.locator('[data-project-card][data-project-id="weapp-sqlite"] .projects-index-quickstart')).toContainText(zh ? '资料待确认' : 'Details pending')
     await expect(page.locator('[data-project-card][data-project-id="weapp-vite"] .projects-index-audience')).toContainText(zh ? '适合' : 'For')
+    await expect(page.locator('[data-project-card][data-project-id="weapp-vite"] .projects-index-runtime')).toContainText(zh ? '运行时' : 'Runtime')
+    await expect(page.locator('[data-project-card][data-project-id="weapp-sqlite"] .projects-index-runtime')).toHaveCount(0)
     await role.selectOption('data')
     await expect(visible).toHaveCount(1)
     await expect(visible.getByRole('heading')).toHaveText('weapp-sqlite')
