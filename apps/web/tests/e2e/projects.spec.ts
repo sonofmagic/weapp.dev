@@ -100,6 +100,7 @@ for (const prefix of ['', '/en']) {
     await expect(readiness).toBeVisible()
     await expect(readiness).toHaveAttribute('role', 'status')
     await expect(page.locator('.project-proof-list')).toContainText(prefix ? 'Runtime boundaries are still being confirmed' : '运行时边界待确认')
+    await expect(page.locator('.project-proof-code-head span[aria-label]')).toHaveAttribute('aria-label', prefix ? 'Project status: Planned' : '项目状态: 规划中')
     await expect(page.locator('.project-proof-panel')).toHaveAttribute('aria-describedby', 'project-proof-description')
     await expect(page.locator('.project-proof-panel')).toHaveAttribute('data-proof-count', '2')
   })
