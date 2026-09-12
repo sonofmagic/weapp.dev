@@ -1,6 +1,6 @@
 export const demoCopy = {
   'zh-CN': {
-    tabs: ['样式', '构建', '组件'],
+    tabs: ['样式', '构建', '组件', '数据', '迁移'],
     playground: '工具示例',
     source: '代码',
     result: '浏览器预览',
@@ -30,7 +30,7 @@ export const demoCopy = {
     registryDone: '已确认',
   },
   'en': {
-    tabs: ['Style', 'Build', 'Compose'],
+    tabs: ['Style', 'Build', 'Compose', 'Data', 'Migrate'],
     playground: 'Tool examples',
     source: 'Code',
     result: 'Browser preview',

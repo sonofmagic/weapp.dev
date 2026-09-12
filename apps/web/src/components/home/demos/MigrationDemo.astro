@@ -1,0 +1,15 @@
+---
+import type { Locale } from '../../../types/project'
+import CodePanel from './CodePanel.astro'
+import { migrationCode } from './migration'
+interface Props { locale: Locale; instance: string }
+const { locale } = Astro.props
+const zh = locale === 'zh-CN'
+---
+<div class="home-demo demo-concept" data-demo="migration">
+  <CodePanel parts={migrationCode(locale)} locale={locale} filename="vite.config.ts" />
+  <div class="demo-preview demo-concept-preview">
+    <div class="demo-pane-heading">{zh ? '迁移结果' : 'Migration result'}</div>
+    <div class="demo-concept-card"><strong>Taro / React → Vite</strong><span>{zh ? '保留组件与 API 写法' : 'Keep component and API code'}</span></div>
+  </div>
+</div>

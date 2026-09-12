@@ -411,3 +411,31 @@
       background-color 180ms ease;
   }
 }
+
+.demo-concept {
+  display: grid;
+  gap: 0;
+}
+
+.demo-concept-preview {
+  min-height: 9.5rem;
+}
+
+.demo-concept-card {
+  display: grid;
+  gap: 0.65rem;
+  align-content: center;
+  min-height: 7rem;
+  padding: 1rem;
+  background: var(--surface-soft);
+  border: 1px solid var(--border);
+}
+
+.demo-concept-card strong {
+  font: 650 0.95rem/1.35 var(--font-display);
+}
+
+.demo-concept-card span {
+  font: 600 0.72rem/1.5 var(--font-mono);
+  color: var(--muted);
+}
