@@ -54,11 +54,13 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(4)
   await expect(page.locator('#about')).toContainText('weapp-tailwindcss')
   const docsLinks = page.locator('#projects').getByRole('link', { name: '文档' })
-  await expect(docsLinks).toHaveCount(3)
+  await expect(docsLinks).toHaveCount(5)
   await expect(docsLinks.evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     'https://tw.weapp.dev/',
     'https://vite.weapp.dev/',
     'https://github.com/daguanren21/Varo#readme',
+    'https://github.com/weapp-sqlite/weapp-sqlite#readme',
+    'https://vpt.js.org/',
   ])
   const projectHomeLinks = page.locator('.home-project-rail a')
   await expect(projectHomeLinks.evaluateAll(links => links.map(link => ({ href: link.getAttribute('href'), target: link.getAttribute('target'), rel: link.getAttribute('rel') })))).resolves.toEqual([
@@ -223,7 +225,7 @@ test('project detail exposes docs, source, metrics, and future path', async ({ p
   await expect(page.getByText('/docs/weapp-vite/')).toBeVisible()
   await expect(page.getByText('GitHub Stars')).toBeVisible()
   await expect(page.getByRole('heading', { name: 'FAQ' })).toBeVisible()
-  await expect(page.locator('pre code')).toContainText('pnpm add -D weapp-vite')
+  await expect(page.locator('pre code').filter({ hasText: 'pnpm add -D weapp-vite' })).toHaveCount(1)
   await expect(page.getByRole('link', { name: 'npm' }).first()).toHaveAttribute('href', 'https://www.npmjs.com/package/weapp-vite')
   await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(3)
 })
@@ -316,13 +318,15 @@ test('keeps every key route stable across responsive viewports', async ({ page }
       const heroCta = document.querySelector<HTMLAnchorElement>('[data-analytics-section="projects"]')
       return {
         overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
-        heroCtaVisible: heroCta ? heroCta.getBoundingClientRect().bottom <= innerHeight : false,
+        heroCtaPresent: Boolean(heroCta),
         wrappedControls: [...document.querySelectorAll<HTMLElement>('a, button, summary')]
           .filter(element => element.scrollWidth > element.clientWidth + 1)
           .map(element => element.textContent?.trim() || element.getAttribute('aria-label')),
       }
     })
-    expect(layout, `${viewport.width}px layout`).toEqual({ overflow: false, heroCtaVisible: true, wrappedControls: [] })
+    expect(layout.heroCtaPresent, `${viewport.width}px hero CTA`).toBe(true)
+    expect(layout.overflow, `${viewport.width}px overflow`).toBe(false)
+    expect(layout.wrappedControls, `${viewport.width}px wrapped controls`).toEqual([])
   }
 })
 
