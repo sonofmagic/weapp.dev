@@ -57,6 +57,7 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute('content', 'zh_CN')
   await expect(page.locator('meta[property="og:locale:alternate"]')).toHaveAttribute('content', 'en_US')
   await expect(page.locator('meta[property="og:image"]')).toHaveAttribute('content', 'https://weapp.dev/og.png')
+  await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute('content', 'weapp.dev 小程序工程工具链地图')
   await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(4)
   await expect(page.locator('#about')).toContainText('weapp-tailwindcss')
   const docsLinks = page.locator('#projects').getByRole('link', { name: '文档' })
@@ -101,6 +102,7 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://weapp.dev/en/')
   await expect(page.locator('meta[property="og:locale"]')).toHaveAttribute('content', 'en_US')
   await expect(page.locator('meta[property="og:locale:alternate"]')).toHaveAttribute('content', 'zh_CN')
+  await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute('content', 'weapp.dev toolchain map for mini-app engineering')
   await expect(page.locator('link[hreflang="zh-CN"]')).toHaveAttribute('href', 'https://weapp.dev/')
   await expect(page.locator('#projects a[data-analytics-event="select_project"]').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
     '/en/projects/weapp-vite/',
