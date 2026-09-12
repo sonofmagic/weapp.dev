@@ -5,11 +5,11 @@ import { getToolchainProjects } from '../lib/toolchain'
 import { projectPath } from '../i18n/ui'
 interface Props { locale: Locale; projects: ProjectEntry[] }
 const { locale, projects } = Astro.props
-const labels = locale === 'zh-CN' ? { engineering: '工程', styling: '样式', components: '组件', data: '数据', migration: '迁移', title: '从工程到交付，每一层各司其职', view: '查看项目' } : { engineering: 'Engineering', styling: 'Styling', components: 'Components', data: 'Data', migration: 'Migration', title: 'From engineering to delivery, each layer has a job', view: 'View project' }
+const labels = locale === 'zh-CN' ? { engineering: '工程', styling: '样式', components: '组件', data: '数据', migration: '迁移', title: '从工程到交付，每一层各司其职', kicker: '工具链地图', view: '查看项目' } : { engineering: 'Engineering', styling: 'Styling', components: 'Components', data: 'Data', migration: 'Migration', title: 'From engineering to delivery, each layer has a job', kicker: 'TOOLCHAIN MAP', view: 'View project' }
 const items = getToolchainProjects(projects)
 ---
 <section class="toolchain-map" aria-labelledby="toolchain-title">
-  <header data-reveal><p class="mb-3 font-mono text-xs font-[650] text-brand">TOOLCHAIN MAP</p><h2 id="toolchain-title">{labels.title}</h2></header>
+  <header data-reveal><p class="mb-3 font-mono text-xs font-[650] text-brand">{labels.kicker}</p><h2 id="toolchain-title">{labels.title}</h2></header>
 <ol class="toolchain-map-list">{items.map(({ project, role }, index) => { const content = project.data.locales[locale]; return <li data-reveal style={`--reveal-delay:${index * 60}ms`}><span class="toolchain-step">{String(index + 1).padStart(2, '0')}</span><div class="toolchain-connector" aria-hidden="true"></div><img src={project.data.logo} width="40" height="40" alt="" loading="lazy" decoding="async" /><div class="toolchain-copy"><strong>{labels[role]}</strong><h3>{content.name}</h3><p>{content.tagline}</p></div><a href={projectPath(locale, project.id)} aria-label={`${labels.view}: ${content.name}`}>{labels.view}</a></li> })}</ol>
 </section>
 <style>
