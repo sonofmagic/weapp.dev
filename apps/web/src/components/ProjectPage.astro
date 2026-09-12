@@ -148,20 +148,20 @@ const installCommand = project.data.installCommand ?? project.data.quickStart?.c
   </section>
 
   <section class="border-b border-line bg-panel" aria-label={locale === 'zh-CN' ? '项目数据' : 'Project data'}>
-    <div class:list={[shell, publicMetrics ? 'grid grid-cols-3 max-[640px]:grid-cols-1' : 'grid grid-cols-1']}>
-      {publicMetrics ? <div data-reveal class="grid min-h-[164px] border-x border-line p-7 max-[640px]:min-h-[126px] max-[640px]:border-b"><span class="text-xs text-copy-muted">{copy.project.version}</span><strong class="self-center font-mono text-2xl font-[700]">v{metrics.version}</strong><small class="text-xs text-copy-muted">{formatReleaseDate(metrics.releasedAt, numberLocale)}</small></div> : null}
+    <dl class:list={[shell, publicMetrics ? 'grid grid-cols-3 max-[640px]:grid-cols-1' : 'grid grid-cols-1']}>
+      {publicMetrics ? <div data-reveal class="grid min-h-[164px] border-x border-line p-7 max-[640px]:min-h-[126px] max-[640px]:border-b"><dt class="text-xs text-copy-muted">{copy.project.version}</dt><dd class="m-0 self-center font-mono text-2xl font-[700]">v{metrics.version}</dd><dd class="m-0 text-xs text-copy-muted">{formatReleaseDate(metrics.releasedAt, numberLocale)}</dd></div> : null}
       {publicMetrics ? (
         <>
-          <div data-reveal class="relative grid min-h-[164px] border-r border-line p-7 max-[640px]:min-h-[126px] max-[640px]:border-l max-[640px]:border-b"><span class="text-xs text-copy-muted">{copy.project.downloads}</span><strong class="self-center font-mono text-2xl font-[700]">{formatCompactNumber(metrics.weeklyDownloads, numberLocale)}</strong><Package class="absolute right-6 bottom-6 text-brand" size={20} stroke-width={1.7} aria-hidden="true" /></div>
-          <div data-reveal class="relative grid min-h-[164px] border-r border-line p-7 max-[640px]:min-h-[126px] max-[640px]:border-l"><span class="text-xs text-copy-muted">{copy.project.stars}</span><strong class="self-center font-mono text-2xl font-[700]">{formatCompactNumber(metrics.stars, numberLocale)}</strong><Star class="absolute right-6 bottom-6 text-brand" size={20} stroke-width={1.7} aria-hidden="true" /></div>
+          <div data-reveal class="relative grid min-h-[164px] border-r border-line p-7 max-[640px]:min-h-[126px] max-[640px]:border-l max-[640px]:border-b"><dt class="text-xs text-copy-muted">{copy.project.downloads}</dt><dd class="m-0 self-center font-mono text-2xl font-[700]">{formatCompactNumber(metrics.weeklyDownloads, numberLocale)}</dd><Package class="absolute right-6 bottom-6 text-brand" size={20} stroke-width={1.7} aria-hidden="true" /></div>
+          <div data-reveal class="relative grid min-h-[164px] border-r border-line p-7 max-[640px]:min-h-[126px] max-[640px]:border-l"><dt class="text-xs text-copy-muted">{copy.project.stars}</dt><dd class="m-0 self-center font-mono text-2xl font-[700]">{formatCompactNumber(metrics.stars, numberLocale)}</dd><Star class="absolute right-6 bottom-6 text-brand" size={20} stroke-width={1.7} aria-hidden="true" /></div>
         </>
       ) : (
         <div data-reveal class="grid min-h-[164px] border-x border-line p-7 max-[640px]:min-h-[126px]" data-project-readiness>
-          <span class="text-xs text-copy-muted">{copy.project.readiness}</span>
-          <p class="self-center mb-0 max-w-[36rem] text-sm leading-[1.7] text-copy-muted">{copy.project.readinessNote}</p>
+          <dt class="text-xs text-copy-muted">{copy.project.readiness}</dt>
+          <dd class="m-0 self-center max-w-[36rem] text-sm leading-[1.7] text-copy-muted">{copy.project.readinessNote}</dd>
         </div>
       )}
-    </div>
+    </dl>
   </section>
 
   <section class:list={[section, shell]} aria-labelledby="project-faq-title">
