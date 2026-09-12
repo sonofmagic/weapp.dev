@@ -3,8 +3,8 @@ export default {
     eyebrow: 'Tools for real mini-app repos',
     title: 'weapp.dev',
     description: 'weapp-vite for engineering, weapp-tailwindcss for styles, Varo for component delivery, weapp-sqlite for local data, and VPT for Taro teams. Start with one layer and add another when you need it.',
-    primary: 'Browse projects',
-    secondary: 'GitHub',
+    primary: 'Choose a project',
+    secondary: 'View toolchain map',
     visualLabel: 'Try the five-layer toolchain proofs below; the full stack lives in the project map.',
   },
   about: {

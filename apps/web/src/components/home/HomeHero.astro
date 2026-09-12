@@ -1,5 +1,5 @@
 ---
-import { ArrowRight, ArrowUpRight, GitFork } from '@lucide/astro'
+import { ArrowRight, ArrowUpRight } from '@lucide/astro'
 import type { Locale } from '../../types/project'
 import type { HomeProject } from '../../lib/home-projects'
 import { localizePath, siteCopy } from '../../i18n/ui'
@@ -26,8 +26,8 @@ const copy = siteCopy[locale]
           {copy.hero.primary}
           <ArrowRight size={18} stroke-width={1.9} aria-hidden="true" />
         </a>
-        <a class={buttonSecondary} href="https://github.com/sonofmagic/weapp.dev" target="_blank" rel="noopener noreferrer" data-analytics-event="click_outbound" data-analytics-target="site_source">
-          <GitFork size={18} stroke-width={1.9} aria-hidden="true" />
+        <a class={buttonSecondary} href={`${localizePath(locale)}#projects`} data-analytics-event="navigate_section" data-analytics-section="projects">
+          <ArrowRight size={18} stroke-width={1.9} aria-hidden="true" />
           {copy.hero.secondary}
         </a>
       </div>

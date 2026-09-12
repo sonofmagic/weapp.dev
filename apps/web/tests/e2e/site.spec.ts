@@ -145,6 +145,19 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   ])
 })
 
+for (const [path, primary, secondary, mapHref] of [
+  ['/', '选择项目开始', '查看工具链地图', '/#projects'],
+  ['/en/', 'Choose a project', 'View toolchain map', '/en/#projects'],
+] as const) {
+  test(`keeps homepage CTAs aligned with the toolchain flow on ${path}`, async ({ page }) => {
+    await page.goto(path)
+    const hero = page.locator('.home-hero')
+    await expect(hero.locator('a').filter({ hasText: primary })).toHaveAttribute('href', path === '/' ? '/projects/' : '/en/projects/')
+    await expect(hero.locator('a').filter({ hasText: secondary })).toHaveAttribute('href', mapHref)
+    await expect(hero.locator('a').filter({ hasText: secondary })).toHaveAttribute('data-analytics-section', 'projects')
+  })
+}
+
 test('renders the bilingual pricing and delivery page', async ({ page }) => {
   await page.goto('/pricing/')
   await expect(page.locator('section[aria-labelledby="pricing-title"]')).toHaveCount(1)
