@@ -396,6 +396,11 @@ for (const prefix of ['', '/en']) {
 }
 
 for (const localePath of ['', '/en']) {
+  test(`marks the localized homepage brand link as current on ${localePath || 'zh-CN'}`, async ({ page }) => {
+    await page.goto(`${localePath}/`)
+    await expect(page.locator('[data-site-header] a[aria-label="weapp.dev"]')).toHaveAttribute('aria-current', 'page')
+  })
+
   for (const slug of ['varo', 'weapp-sqlite']) {
     test(`keeps ${localePath || 'zh-CN'} ${slug} page in planning state`, async ({ page }) => {
       await page.goto(`${localePath}/projects/${slug}/`)
