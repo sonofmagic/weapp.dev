@@ -11,6 +11,7 @@ import HomeVision from './home/HomeVision.astro'
 import HomeReleases from './home/HomeReleases.astro'
 import HomeCollaboration from './home/HomeCollaboration.astro'
 import ToolchainMap from './ToolchainMap.astro'
+import ProjectSelector from './ProjectSelector.astro'
 
 interface Props {
   locale: Locale
@@ -25,6 +26,7 @@ const homeProjects = await getHomeProjects(projects)
 <main id="main-content">
   <HomeHero locale={locale} projects={homeProjects} />
   <section class="home-toolchain-shell"><div class="mx-auto max-w-[1240px] px-6 max-[720px]:px-4"><ToolchainMap locale={locale} projects={projects} /></div></section>
+  <section class="home-toolchain-shell"><div class="mx-auto max-w-[1240px] px-6 max-[720px]:px-4"><ProjectSelector locale={locale} projects={projects} /></div></section>
   <HomeAbout locale={locale} />
   <HomeProjects locale={locale} projects={homeProjects} metrics={metrics} />
   <HomeVision locale={locale} />

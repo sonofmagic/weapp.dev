@@ -1,0 +1,46 @@
+---
+import type { Locale } from '../types/project'
+import { ArrowRight, ArrowUpRight } from '@lucide/astro'
+import { localizePath, projectPath } from '../i18n/ui'
+import type { ProjectEntry } from '../lib/projects'
+interface Props { locale: Locale; projects: ProjectEntry[] }
+const { locale, projects } = Astro.props
+const byId = new Map(projects.map(project => [project.id, project]))
+const copy = locale === 'zh-CN' ? {
+  eyebrow: 'START HERE', title: '按你现在的工程状态开始', action: '打开项目', docs: '文档',
+  paths: [
+    { title: '新建小程序工程', body: '从现代 Vite 工程开始，再按需要叠加样式和组件。', ids: ['weapp-vite', 'weapp-tailwindcss', 'varo'] },
+    { title: '已有小程序项目', body: '先把样式工作流接进现有项目，不要求重写页面。', ids: ['weapp-tailwindcss'] },
+    { title: '需要本地数据', body: '评估结构化本地存储和离线能力，关注 weapp-sqlite 的规划进展。', ids: ['weapp-sqlite'] },
+    { title: '已有 Taro / React 项目', body: '保留 Taro 组件和 API，把开发构建链路切换到 Vite。', ids: ['vite-plugin-taro'] },
+  ],
+} : {
+  eyebrow: 'START HERE', title: 'Start from your current project state', action: 'Open project', docs: 'Docs',
+  paths: [
+    { title: 'Starting a new mini-app', body: 'Begin with a modern Vite project, then add styling and components as needed.', ids: ['weapp-vite', 'weapp-tailwindcss', 'varo'] },
+    { title: 'Working in an existing mini-app', body: 'Bring the styling workflow into the current project without rewriting pages.', ids: ['weapp-tailwindcss'] },
+    { title: 'Planning local data', body: 'Evaluate structured storage and offline needs while weapp-sqlite is being planned.', ids: ['weapp-sqlite'] },
+    { title: 'Already on Taro / React', body: 'Keep Taro components and APIs while moving the development pipeline to Vite.', ids: ['vite-plugin-taro'] },
+  ],
+}
+---
+<section class="project-selector" id="start-here" aria-labelledby="start-here-title">
+  <header data-reveal><p class="mb-3 font-mono text-xs font-[650] text-brand">{copy.eyebrow}</p><h2 id="start-here-title">{copy.title}</h2></header>
+  <div class="project-selector-list">{copy.paths.map((path, index) => <article data-reveal style={`--reveal-delay:${index * 60}ms`}><span class="project-selector-index">{String(index + 1).padStart(2, '0')}</span><div><h3>{path.title}</h3><p>{path.body}</p><div class="project-selector-projects">{path.ids.map(id => { const project = byId.get(id); if (!project) return null; return <a href={projectPath(locale, id)}><img src={project.data.logo} width="24" height="24" alt="" />{project.data.locales[locale].name}</a> })}</div></div><a class="project-selector-action" href={projectPath(locale, path.ids[0])}>{copy.action}<ArrowUpRight size={15} stroke-width={1.8} aria-hidden="true" /></a></article>)}</div>
+  <a class="project-selector-all" href={localizePath(locale, '/projects/')}>{locale === 'zh-CN' ? '浏览全部五个项目' : 'Browse all five projects'} <ArrowRight size={16} stroke-width={1.8} aria-hidden="true" /></a>
+</section>
+<style>
+  .project-selector { padding: 2rem; border: 1px solid var(--border); background: var(--surface-soft); }
+  .project-selector h2 { max-width: 640px; margin: 0; font: 680 clamp(1.6rem, 3vw, 2.6rem)/1.1 var(--font-display); text-wrap: balance; }
+  .project-selector-list { margin-top: 2rem; border-top: 1px solid var(--border); }
+  .project-selector-list article { display: grid; grid-template-columns: 2rem minmax(0, 1fr) auto; gap: 1rem; align-items: start; padding: 1.2rem 0; border-bottom: 1px solid var(--border); }
+  .project-selector-index { color: var(--accent); font: 650 .75rem/1 var(--font-mono); }
+  .project-selector h3 { margin: 0 0 .35rem; font-size: 1.05rem; }
+  .project-selector p { margin: 0 0 .75rem; color: var(--muted); font-size: .9rem; line-height: 1.6; }
+  .project-selector-projects { display:flex; flex-wrap:wrap; gap:.5rem; }
+  .project-selector-projects a { display:inline-flex; align-items:center; gap:.4rem; padding:.3rem .5rem; border:1px solid var(--border); color:var(--text); font:650 .75rem/1 var(--font-mono); }
+  .project-selector-projects img { width:1.5rem; height:1.5rem; object-fit:contain; }
+  .project-selector-action { display:inline-flex; gap:.35rem; align-items:center; color:var(--accent); font-size:.82rem; font-weight:650; white-space:nowrap; }
+  .project-selector-all { display:inline-flex; gap:.5rem; margin-top:1rem; color:var(--text); font-size:.88rem; font-weight:650; }
+  @media (max-width:620px) { .project-selector { padding:1rem; } .project-selector-list article { grid-template-columns:1.75rem minmax(0,1fr); } .project-selector-action { grid-column:2; } }
+</style>
