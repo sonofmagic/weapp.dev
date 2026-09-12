@@ -5,7 +5,7 @@ export default {
     description: 'weapp-vite for engineering, weapp-tailwindcss for styles, Varo for component delivery, weapp-sqlite for local data, and VPT for Taro teams. Start with one layer and add another when you need it.',
     primary: 'Browse projects',
     secondary: 'GitHub',
-    visualLabel: 'Try the style, build, and component demos below; the full stack lives in the project map.',
+    visualLabel: 'Try the five-layer toolchain proofs below; the full stack lives in the project map.',
   },
   about: {
     eyebrow: 'Adoption',
@@ -41,6 +41,10 @@ export default {
       buildFile: 'vite.config.ts',
       registryLabel: 'Install command',
       registryFile: 'terminal',
+      sqliteLabel: 'Local data migration sketch',
+      sqliteFile: 'migration.sql',
+      migrationLabel: 'Taro / React migration boundary',
+      migrationFile: 'vite.config.ts',
     },
   },
   vision: {

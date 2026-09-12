@@ -1,6 +1,6 @@
 import type { Locale, ProjectDefinition } from '../types/project'
 
-export type HomeDemoKind = 'style' | 'build' | 'registry'
+export type HomeDemoKind = 'style' | 'build' | 'registry' | 'sqlite' | 'migration'
 
 export interface HomeProjectPlacement {
   id: string

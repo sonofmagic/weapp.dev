@@ -10,7 +10,7 @@ async function expectHomeVisuals(page: import('@playwright/test').Page, _locale:
   await expect(page.locator('hero-demos [role="tabpanel"]:visible')).toHaveCount(1)
   await expect(page.locator('hero-demos')).toBeVisible()
   await expect(page.locator('#projects .home-lab')).toHaveCount(0)
-  await expect(page.locator('#projects .home-project-proof')).toHaveCount(3)
+  await expect(page.locator('#projects .home-project-proof')).toHaveCount(5)
   await expect(page.locator('#projects .home-project-proof-command')).toContainText('pnpm exec wv build -p weapp')
   const images = await page.evaluate(() => performance.getEntriesByType('resource').map(entry => entry.name).filter(url => /\/media\/(?:showcase|projects)\//.test(url)))
   expect(images).toEqual([])
@@ -46,9 +46,7 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   await expect(page.locator('#projects').getByRole('heading', { name: 'weapp-tailwindcss' })).toBeVisible()
   await expect(page.locator('#projects').getByRole('heading', { name: 'weapp-vite' })).toBeVisible()
   await expect(page.locator('#projects').getByRole('heading', { name: 'Varo' })).toBeVisible()
-  await expect(page.locator('.home-adjacent-proof')).toHaveCount(2)
-  await expect(page.locator('.home-adjacent-proof').first()).toContainText('规划中')
-  await expect(page.locator('.home-adjacent-actions a').first()).toHaveAttribute('aria-label', '详情: weapp-sqlite')
+  await expect(page.locator('.home-adjacent-projects')).toHaveCount(0)
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://weapp.dev/')
   await expect(page.locator('link[hreflang="en-US"]')).toHaveAttribute('href', 'https://weapp.dev/en/')
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content', 'index, follow')
@@ -58,45 +56,52 @@ test('renders the bilingual ecosystem home with valid metadata', async ({ page }
   const docsLinks = page.locator('#projects').getByRole('link', { name: '文档' })
   await expect(docsLinks).toHaveCount(5)
   await expect(docsLinks.evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
-    'https://tw.weapp.dev/',
     'https://vite.weapp.dev/',
+    'https://tw.weapp.dev/',
     'https://github.com/daguanren21/Varo#readme',
     'https://github.com/weapp-sqlite/weapp-sqlite#readme',
     'https://vpt.js.org/',
   ])
   const projectHomeLinks = page.locator('.home-project-rail a')
   await expect(projectHomeLinks.evaluateAll(links => links.map(link => ({ href: link.getAttribute('href'), target: link.getAttribute('target'), rel: link.getAttribute('rel') })))).resolves.toEqual([
-    { href: 'https://tw.weapp.dev/', target: '_blank', rel: 'noreferrer' },
     { href: 'https://vite.weapp.dev/', target: '_blank', rel: 'noreferrer' },
+    { href: 'https://tw.weapp.dev/', target: '_blank', rel: 'noreferrer' },
     { href: 'https://github.com/daguanren21/Varo#readme', target: '_blank', rel: 'noreferrer' },
+    { href: 'https://github.com/weapp-sqlite/weapp-sqlite#readme', target: '_blank', rel: 'noreferrer' },
+    { href: 'https://vpt.js.org/', target: '_blank', rel: 'noreferrer' },
   ])
-  await expect(page.locator('.home-project-proof')).toHaveCount(3)
+  await expect(page.locator('.home-project-proof')).toHaveCount(5)
   await expect(page.locator('#projects .home-lab')).toHaveCount(0)
   await expect(page.locator('.home-hero .home-lab')).toHaveCount(1)
   await expect(page.locator('#projects a[data-analytics-event="select_project"]').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
-    '/projects/weapp-tailwindcss/',
     '/projects/weapp-vite/',
+    '/projects/weapp-tailwindcss/',
     '/projects/varo/',
+    '/projects/weapp-sqlite/',
+    '/projects/vite-plugin-taro/',
   ])
-  await expect(page.locator('#projects a[data-analytics-event="click_outbound"][data-analytics-target="docs"]')).toHaveCount(3)
+  await expect(page.locator('#projects a[data-analytics-event="click_outbound"][data-analytics-target="docs"]')).toHaveCount(5)
 
   await page.getByRole('link', { name: 'English' }).click()
   await expect(page).toHaveURL(/\/en\/$/)
   await expect(page.getByText('Tools for real mini-app repos')).toBeVisible()
   await expectHomeVisuals(page, 'en')
-  await expect(page.locator('.home-adjacent-proof').first()).toContainText('Planned')
-  await expect(page.locator('.home-adjacent-actions a').first()).toHaveAttribute('aria-label', 'Details: weapp-sqlite')
+  await expect(page.locator('.home-adjacent-projects')).toHaveCount(0)
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://weapp.dev/en/')
   await expect(page.locator('link[hreflang="zh-CN"]')).toHaveAttribute('href', 'https://weapp.dev/')
   await expect(page.locator('#projects a[data-analytics-event="select_project"]').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
-    '/en/projects/weapp-tailwindcss/',
     '/en/projects/weapp-vite/',
+    '/en/projects/weapp-tailwindcss/',
     '/en/projects/varo/',
+    '/en/projects/weapp-sqlite/',
+    '/en/projects/vite-plugin-taro/',
   ])
   await expect(page.locator('.home-project-rail a').evaluateAll(links => links.map(link => link.getAttribute('href')))).resolves.toEqual([
-    'https://tw.weapp.dev/',
     'https://vite.weapp.dev/',
+    'https://tw.weapp.dev/',
     'https://github.com/daguanren21/Varo#readme',
+    'https://github.com/weapp-sqlite/weapp-sqlite#readme',
+    'https://vpt.js.org/',
   ])
 })
 
@@ -231,7 +236,7 @@ test('project detail exposes docs, source, metrics, and future path', async ({ p
   await expect(page.getByRole('heading', { name: 'FAQ' })).toBeVisible()
   await expect(page.locator('pre code').filter({ hasText: 'pnpm add -D weapp-vite' })).toHaveCount(1)
   await expect(page.getByRole('link', { name: 'npm' }).first()).toHaveAttribute('href', 'https://www.npmjs.com/package/weapp-vite')
-  await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(3)
+  await expect(page.locator('script[type="application/ld+json"]')).toHaveCount(5)
 })
 
 test('publishes indexable SEO resources and keeps 404 out of the index', async ({ page, request }) => {

@@ -5,7 +5,7 @@ export default {
     description: '工程用 weapp-vite，样式用 weapp-tailwindcss，组件交付有 Varo，本地数据看 weapp-sqlite，Taro 团队还有 VPT。你可以先接一层，之后再叠加。',
     primary: '看看项目',
     secondary: 'GitHub',
-    visualLabel: '下面可以点着玩：样式、构建、组件三个交互例子；完整工具链见项目地图。',
+    visualLabel: '下面可以点着玩：五层工具链的交互证明；完整工具链见项目地图。',
   },
   about: {
     eyebrow: '怎么接',
@@ -41,6 +41,10 @@ export default {
       buildFile: 'vite.config.ts',
       registryLabel: '安装命令',
       registryFile: 'terminal',
+      sqliteLabel: '本地数据迁移草图',
+      sqliteFile: 'migration.sql',
+      migrationLabel: 'Taro / React 迁移边界',
+      migrationFile: 'vite.config.ts',
     },
   },
   vision: {

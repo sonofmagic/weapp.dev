@@ -8,7 +8,7 @@ import './demo.css'
 
 interface Props { kind: HomeDemoKind, locale: Locale, instance: string }
 const { kind, locale, instance } = Astro.props
-const components = { style: StyleDemo, build: BuildDemo, registry: RegistryDemo }
+const components = { style: StyleDemo, build: BuildDemo, registry: RegistryDemo, sqlite: BuildDemo, migration: BuildDemo }
 const Demo = components[kind]
 ---
 <Demo locale={locale} instance={instance} />

@@ -6,6 +6,8 @@ import { siteCopy } from '../../i18n/ui'
 import { defaultStyle, styleCode } from './demos/style'
 import { buildExample } from './demos/build'
 import { registryCode } from './demos/registry'
+import { sqliteCode } from './demos/sqlite'
+import { migrationCode } from './demos/migration'
 import type { CodePart } from './demos/code'
 import CodePanel from './demos/CodePanel.astro'
 import './demos/demo.css'
@@ -37,6 +39,16 @@ const artifacts: Record<HomeDemoKind, { label: string, file: string, parts: Code
     label: proof.registryLabel,
     file: proof.registryFile,
     parts: registryCode(['button', 'input', 'card']),
+  },
+  sqlite: {
+    label: proof.sqliteLabel,
+    file: proof.sqliteFile,
+    parts: sqliteCode(locale),
+  },
+  migration: {
+    label: proof.migrationLabel,
+    file: proof.migrationFile,
+    parts: migrationCode(locale),
   },
 }
 
