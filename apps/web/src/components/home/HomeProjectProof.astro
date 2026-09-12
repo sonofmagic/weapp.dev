@@ -57,7 +57,7 @@ const artifact = artifacts[kind]
 const planned = status === 'planned'
 ---
 
-<aside class="home-project-proof" aria-label={`${projectName} · ${artifact.label}`}>
+<aside class="home-project-proof" data-proof-count={projectProof?.length ?? 0} aria-label={`${projectName} · ${artifact.label}`}>
   <div class="home-project-proof-heading">
     <span class="home-project-proof-label">{artifact.label}</span>
   </div>
