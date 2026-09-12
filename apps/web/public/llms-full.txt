@@ -1,6 +1,6 @@
 # weapp.dev reference
 
-weapp.dev hosts tools for real mini-app repos. weapp-tailwindcss handles styles, weapp-vite handles builds, and Varo handles editable components. Adopt them separately or together. The Chinese homepage is https://weapp.dev/ and the English homepage is https://weapp.dev/en/. The site is maintained by sonofmagic and contributors. The source repository is https://github.com/sonofmagic/weapp.dev.
+weapp.dev hosts tools for real mini-app repos. weapp-tailwindcss handles styles, weapp-vite handles builds, and Varo documents planned editable component delivery boundaries. Adopt the released tools separately or together. The Chinese homepage is https://weapp.dev/ and the English homepage is https://weapp.dev/en/. The site is maintained by sonofmagic and contributors. The source repository is https://github.com/sonofmagic/weapp.dev.
 
 ## weapp-tailwindcss
 
