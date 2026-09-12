@@ -70,6 +70,19 @@ for (const prefix of ['', '/en']) {
     await expect(visible).toHaveCount(5)
   })
 
+  test(`persists project filters in the URL on ${prefix || 'zh-CN'}`, async ({ page }) => {
+    await page.goto(`${prefix}/projects/?role=data&platform=WeChat`)
+    await expect(page.locator('[data-filter-role]')).toHaveValue('data')
+    await expect(page.locator('[data-filter-platform]')).toHaveValue('WeChat')
+    await expect(page.locator('[data-project-card]:visible')).toHaveCount(1)
+    await page.locator('[data-filter-maturity]').selectOption('planned')
+    await expect(page).toHaveURL(/role=data&platform=WeChat&maturity=planned|role=data&maturity=planned&platform=WeChat/)
+    await page.reload()
+    await expect(page.locator('[data-filter-maturity]')).toHaveValue('planned')
+    await page.goBack()
+    await expect(page.locator('[data-filter-maturity]')).toHaveValue('')
+  })
+
   test(`shows roadmap evidence for the planned data project on ${prefix || 'zh-CN'}`, async ({ page }) => {
     await page.goto(`${prefix}/projects/weapp-sqlite/`)
     await expect(page.getByRole('status', { name: prefix ? 'Project status: Planned' : '项目状态: 规划中' })).toBeVisible()
