@@ -20,14 +20,14 @@ const labels = locale === 'zh-CN'
   : { flow: 'Funding flow', relation: 'Relationship graph', flowHelp: 'Actual amounts appear when the public ledger includes them; the current view shows allocation shares.', relationHelp: 'Filter sponsors, projects and fund buckets. The public snapshot has no project attribution, so sponsors are not linked to projects.', all: 'All', reset: 'Reset view', table: 'Accessible data', nodes: 'Nodes', edges: 'Connections', kind: 'Type', node: 'Node', source: 'From', target: 'To', details: 'Node details', open: 'Open link', error: 'The chart runtime is unavailable. Use the accessible data below.' }
 ---
 <sponsor-graphs role="region" aria-label={labels.relation} class="sponsor-graphs" data-sponsor-graphs data-locale={locale} data-graph={JSON.stringify(localizedGraph)} aria-busy="false">
-  <div class="sponsor-graph-card" data-graph-card="flow">
-    <header><div><p class="sponsor-graph-kicker">01</p><h2>{labels.flow}</h2><p>{labels.flowHelp}</p></div></header>
+  <div class="sponsor-graph-card" data-graph-card="flow" aria-labelledby="sponsor-flow-title">
+    <header><div><p class="sponsor-graph-kicker">01</p><h2 id="sponsor-flow-title">{labels.flow}</h2><p>{labels.flowHelp}</p></div></header>
     <div class="sponsor-chart" data-chart="flow" hidden role="img" aria-label={labels.flow}></div>
     <p class="sponsor-graph-error" data-graph-error hidden>{labels.error}</p>
     <details open><summary>{labels.table}</summary><table><thead><tr><th>{locale === 'zh-CN' ? '资金桶' : 'Bucket'}</th><th>{locale === 'zh-CN' ? '比例' : 'Share'}</th></tr></thead><tbody>{localizedGraph.buckets.map(bucket => <tr><th>{bucket.name}</th><td>{bucket.share}%</td></tr>)}</tbody></table></details>
   </div>
-  <div class="sponsor-graph-card" data-graph-card="relation">
-    <header><div><p class="sponsor-graph-kicker">02</p><h2>{labels.relation}</h2><p>{labels.relationHelp}</p></div><button type="button" data-reset disabled>{labels.reset}</button></header>
+  <div class="sponsor-graph-card" data-graph-card="relation" aria-labelledby="sponsor-relation-title">
+    <header><div><p class="sponsor-graph-kicker">02</p><h2 id="sponsor-relation-title">{labels.relation}</h2><p>{labels.relationHelp}</p></div><button type="button" data-reset disabled>{labels.reset}</button></header>
     <div class="sponsor-graph-tools" role="toolbar" aria-label={labels.relation}><input type="search" disabled aria-label={locale === 'zh-CN' ? '搜索节点' : 'Search nodes'} data-search placeholder={locale === 'zh-CN' ? '搜索节点' : 'Search nodes'} /><select data-kind disabled aria-label={locale === 'zh-CN' ? '按节点类型筛选' : 'Filter by node type'}><option value="">{labels.all}</option><option value="sponsor">{locale === 'zh-CN' ? '赞助者' : 'Sponsors'}</option><option value="project">{locale === 'zh-CN' ? '项目' : 'Projects'}</option><option value="fund">{locale === 'zh-CN' ? '资金桶' : 'Funds'}</option><option value="site">{locale === 'zh-CN' ? '站点' : 'Sites'}</option></select></div>
     <div class="sponsor-chart" data-chart="relation" hidden role="img" aria-label={labels.relation}></div>
     <p class="sponsor-graph-status" data-status aria-live="polite"></p>
