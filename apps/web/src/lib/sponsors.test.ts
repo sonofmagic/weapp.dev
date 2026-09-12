@@ -65,4 +65,12 @@ describe('sponsor graph data', () => {
     expect(snapshot.items[0]?.profileUrl).toBe('https://github.com/valid')
     expect(snapshot.items[1]?.brandUrl).toBeUndefined()
   })
+
+  it.each([0, -2, 1.5, Number.NaN])('normalizes invalid snapshot version %s', async (version) => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({ version, items: [] }), { status: 200 })))
+
+    const snapshot = await loadPublicSponsors()
+
+    expect(snapshot.version).toBe(1)
+  })
 })

@@ -100,7 +100,8 @@ export async function loadPublicSponsors(): Promise<SponsorSnapshot> {
     }
     const payload = await response.json() as Record<string, unknown>
     const items = Array.isArray(payload.items) ? payload.items.map(sanitize).filter((item): item is PublicSponsor => Boolean(item)) : []
-    return { version: typeof payload.version === 'number' ? payload.version : 1, repositoryUrl, total: items.length, items }
+    const version = typeof payload.version === 'number' && Number.isInteger(payload.version) && payload.version > 0 ? payload.version : 1
+    return { version, repositoryUrl, total: items.length, items }
   }
   catch {
     return fallback
