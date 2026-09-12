@@ -246,6 +246,7 @@ test('planned project exposes an honest readiness state', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1, name: 'Varo' })).toBeVisible()
   await expect(page.getByRole('link', { name: '源码' }).first()).toHaveAttribute('href', 'https://github.com/daguanren21/Varo')
   await expect(page.getByRole('link', { name: '文档' }).first()).toHaveAttribute('href', 'https://github.com/daguanren21/Varo#readme')
+  await expect(page.getByRole('link', { name: 'npm' })).toHaveCount(0)
   await expect(page.getByText('@varo/cli')).toBeVisible()
   await expect(page.getByText('v0.0.1')).toHaveCount(0)
   await expect(page.getByText('/docs/varo/')).toBeVisible()

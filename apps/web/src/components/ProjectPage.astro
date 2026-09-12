@@ -63,10 +63,10 @@ const publicMetrics = showsPublicMetrics(project.data.status)
           <GitFork size={18} stroke-width={1.9} aria-hidden="true" />
           {copy.project.source}
         </a>
-        <a class="inline-flex min-h-11 items-center gap-2 px-2 text-sm font-[650] text-copy-muted transition-colors hover:text-ink" href={project.data.npmUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="package" data-analytics-project={project.id}>
+        {project.data.status !== 'planned' ? <a class="inline-flex min-h-11 items-center gap-2 px-2 text-sm font-[650] text-copy-muted transition-colors hover:text-ink" href={project.data.npmUrl} target="_blank" rel="noreferrer" data-analytics-event="click_outbound" data-analytics-target="package" data-analytics-project={project.id}>
           <Package size={17} stroke-width={1.8} aria-hidden="true" />
           {copy.project.npm}
-        </a>
+        </a> : null}
       </div>
     </div>
 
