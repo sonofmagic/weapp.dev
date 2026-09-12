@@ -19,6 +19,10 @@
   "futureDocsPath": "/docs/varo/",
   "logo": "/brands/varo.svg",
   "accent": "#07c160",
+  "role": "Components",
+  "maturity": "planned",
+  "runtime": ["Vue 3", "H5", "weapp-vite"],
+  "dataCompleteness": "partial",
   "platforms": [
     "H5",
     "WeChat",

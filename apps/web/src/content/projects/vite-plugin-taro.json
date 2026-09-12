@@ -21,6 +21,10 @@
   "futureDocsPath": "/docs/vite-plugin-taro/",
   "logo": "/brands/vpt.svg",
   "accent": "#17673d",
+  "role": "Migration",
+  "maturity": "stable",
+  "runtime": ["React", "Taro", "Vite"],
+  "dataCompleteness": "complete",
   "platforms": [
     "WeChat",
     "Alipay",

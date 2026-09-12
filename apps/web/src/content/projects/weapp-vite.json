@@ -19,6 +19,10 @@
   "futureDocsPath": "/docs/weapp-vite/",
   "logo": "/brands/weapp-vite.svg",
   "accent": "#2ba245",
+  "role": "Engineering",
+  "maturity": "stable",
+  "runtime": ["Vite", "Vue SFC", "Wevu"],
+  "dataCompleteness": "complete",
   "platforms": [
     "WeChat",
     "Alipay",

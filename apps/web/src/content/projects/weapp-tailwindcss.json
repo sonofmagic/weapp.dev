@@ -19,6 +19,10 @@
   "futureDocsPath": "/docs/weapp-tailwindcss/",
   "logo": "/brands/weapp-tailwindcss.svg",
   "accent": "#0ea5e9",
+  "role": "Styling",
+  "maturity": "stable",
+  "runtime": ["Tailwind CSS", "Mini Program"],
+  "dataCompleteness": "complete",
   "platforms": [
     "WeChat",
     "Alipay",
