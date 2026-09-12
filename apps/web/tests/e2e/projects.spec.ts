@@ -2,6 +2,18 @@ import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 
 for (const prefix of ['', '/en']) {
+  test(`does not fetch sponsor chart runtime on ${prefix || 'zh-CN'} project routes`, async ({ page }) => {
+    const chartRequests: string[] = []
+    page.on('request', (request) => {
+      if (/\/_astro\/(?:core|charts|components|renderers|SponsorGraphs)\./.test(request.url())) {
+        chartRequests.push(request.url())
+      }
+    })
+    await page.goto(`${prefix}/projects/`)
+    await page.goto(`${prefix}/projects/weapp-vite/`)
+    expect(chartRequests).toEqual([])
+  })
+
   test(`keeps the homepage toolchain map in flow order on ${prefix || 'zh-CN'}`, async ({ page }) => {
     await page.goto(`${prefix}/`)
     await expect(page.locator('.toolchain-map header p')).toHaveText(prefix ? 'TOOLCHAIN MAP' : '工具链地图')
