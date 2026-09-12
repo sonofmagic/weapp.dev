@@ -147,7 +147,7 @@ export function sponsorGraphData(snapshot: SponsorSnapshot): SponsorGraphData {
   const relationEdges: SponsorGraphEdge[] = []
   const seenSponsorIds = new Set<string>()
   for (const sponsor of snapshot.items) {
-    const sponsorId = sponsor.id.trim()
+    const sponsorId = typeof sponsor.id === 'string' ? sponsor.id.trim() : ''
     if (!sponsorId || seenSponsorIds.has(sponsorId)) {
       continue
     }
@@ -155,7 +155,8 @@ export function sponsorGraphData(snapshot: SponsorSnapshot): SponsorGraphData {
     const name = sponsor.brandName || sponsor.login || sponsorId
     const sponsorUrl = sanitizeUrl(sponsor.brandUrl) ?? sanitizeUrl(sponsor.profileUrl)
     nodes.push({ id: `sponsor:${sponsorId}`, name, kind: 'sponsor', ...(sponsorUrl ? { url: sponsorUrl } : {}) })
-    for (const site of [...new Set(sponsor.displaySites)].filter(site => allSites.includes(site))) {
+    const displaySites = Array.isArray(sponsor.displaySites) ? sponsor.displaySites : []
+    for (const site of [...new Set(displaySites)].filter(site => allSites.includes(site))) {
       relationEdges.push({ source: `sponsor:${sponsorId}`, target: `site:${site}`, value: 1, label: 'display' })
     }
   }

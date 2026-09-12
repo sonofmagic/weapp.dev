@@ -63,6 +63,22 @@ describe('sponsor graph data', () => {
     expect(graph.nodes.find(node => node.id === 'sponsor:unsafe')).not.toHaveProperty('url')
   })
 
+  it('skips malformed sponsor records without aborting graph conversion', () => {
+    expect(() => sponsorGraphData({
+      version: 1,
+      repositoryUrl: 'https://github.com/sonofmagic/sponsors',
+      total: 2,
+      items: [{ id: undefined, kind: 'business', tier: 'gold', displaySites: undefined }, { id: 'valid', kind: 'business', tier: 'gold', displaySites: ['weapp'] } as never],
+    } as never)).not.toThrow()
+    const graph = sponsorGraphData({
+      version: 1,
+      repositoryUrl: 'https://github.com/sonofmagic/sponsors',
+      total: 2,
+      items: [{ id: undefined, kind: 'business', tier: 'gold', displaySites: undefined }, { id: 'valid', kind: 'business', tier: 'gold', displaySites: ['weapp'] } as never],
+    } as never)
+    expect(graph.nodes.filter(node => node.kind === 'sponsor').map(node => node.id)).toEqual(['sponsor:valid'])
+  })
+
   it('creates valid project, sponsor, ledger and fund references', () => {
     const graph = sponsorGraphData({
       version: 1,
