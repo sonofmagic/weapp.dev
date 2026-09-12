@@ -40,6 +40,9 @@ for (const prefix of ['', '/en']) {
     }
     await expect(role).toBeEnabled()
     await expect(visible).toHaveCount(5)
+    for (const id of ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro']) {
+      await expect(page.locator(`[data-project-card][data-project-id="${id}"]`)).toHaveAttribute('aria-labelledby', `project-card-${id}`)
+    }
     await expect(page.locator('[data-project-card]').filter({ hasText: 'weapp-sqlite' })).toContainText(zh ? '2 项路线' : '2 roadmap items')
     await role.selectOption('data')
     await expect(visible).toHaveCount(1)
