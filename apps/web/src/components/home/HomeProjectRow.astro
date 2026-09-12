@@ -21,7 +21,7 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
 const publicMetrics = showsPublicMetrics(project.data.status)
 ---
 
-<article data-project-row class:list={['home-project-row', { 'home-project-row-reversed': project.reversed }]} style={`--project-accent: ${project.data.accent}`}>
+<article data-project-row data-project-id={project.id} class:list={['home-project-row', { 'home-project-row-reversed': project.reversed }]} style={`--project-accent: ${project.data.accent}`}>
   <div class="home-project-proof-slot">
     <HomeProjectProof kind={project.demo} locale={locale} projectName={content.name} status={project.data.status} />
   </div>
