@@ -17,6 +17,7 @@ interface Props {
 const { locale, project, projects, metrics } = Astro.props
 const copy = siteCopy[locale]
 const content = project.data.locales[locale]
+const roleLabel = locale === 'zh-CN' ? ({ Engineering: '工程与构建', Styling: '样式系统', Components: '组件与交付', 'Local data': '本地数据', Migration: 'Taro / React 迁移' } as Record<string, string>) : ({ Engineering: 'Engineering', Styling: 'Styling', Components: 'Components', 'Local data': 'Local data', Migration: 'Taro / React migration' } as Record<string, string>)
 const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
 const hasVisuals = Boolean(project.data.visuals)
 const primaryVisual = project.data.visuals?.primary ?? { src: '/logo.svg', avif: '/logo.svg', width: 64, height: 64, locales: { 'zh-CN': { alt: content.name, caption: copy.project.readinessNote }, en: { alt: content.name, caption: copy.project.readinessNote } } }
@@ -41,7 +42,7 @@ const publicMetrics = showsPublicMetrics(project.data.status)
         </span>
       </div>
       <div class="mb-5 flex flex-wrap gap-2">
-        {project.data.role ? <span class="inline-flex items-center border border-line bg-panel-soft px-2.5 py-1.5 font-mono text-xs font-[650] text-brand">{project.data.role}</span> : null}
+        {project.data.role ? <span class="inline-flex items-center border border-line bg-panel-soft px-2.5 py-1.5 font-mono text-xs font-[650] text-brand">{roleLabel[project.data.role] || project.data.role}</span> : null}
         {project.data.runtime?.map(runtime => <span class="inline-flex items-center border border-line px-2.5 py-1.5 font-mono text-xs text-copy-muted">{runtime}</span>)}
         {project.data.dataCompleteness === 'planned' ? <span class="inline-flex items-center border border-line px-2.5 py-1.5 font-mono text-xs text-copy-muted">{locale === 'zh-CN' ? '资料整理中' : 'Data in progress'}</span> : null}
       </div>
