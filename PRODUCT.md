@@ -14,9 +14,9 @@ Secondary audiences exist (active users checking releases, maintainers, contribu
 
 ## Product Purpose
 
-weapp.dev is the bilingual ecosystem portal for an open mini-program engineering toolchain. It helps visitors understand how style (weapp-tailwindcss), build (weapp-vite), and components (Varo), plus adjacent projects such as VPT, fit together, then reach the corresponding documentation or source without requiring a rewrite of their existing writing style.
+weapp.dev is the bilingual ecosystem portal for an open mini-program engineering toolchain. It helps visitors understand how engineering (weapp-vite), styling (weapp-tailwindcss), components (Varo), local data (weapp-sqlite), and migration (VPT) fit together, then reach the corresponding documentation or source without requiring a rewrite of their existing writing style.
 
-Success for this site means a visitor can quickly grasp the three-layer boundaries and leave into the correct docs or repositories.
+Success for this site means a visitor can quickly grasp the five-layer boundaries and leave into the correct docs or repositories.
 
 ## Positioning
 
@@ -26,13 +26,13 @@ The portal markets a progressive, composable toolchain: keep familiar native min
 
 - Developers compare tools before changing a production mini-program or H5 codebase.
 - Discovery happens on weapp.dev; deep docs remain on project sites such as `tw.weapp.dev` and `vite.weapp.dev`, with GitHub and npm as proof surfaces.
-- Homepage interactive demos illustrate style, build, and registry flows without pretending to run the full production toolchain in-browser.
+- Homepage interactive demos illustrate style, build, registry, local-data, and migration flows without pretending to run the full production toolchain in-browser.
 - Commercial and contributor paths (migration/training, sponsorship, contributors fund) are published beside the open-source core.
 
 ## Capabilities and Constraints
 
 - This repository is the Astro monorepo for the weapp.dev website (`apps/web`), not the individual tool runtimes.
-- Published project catalog currently centers on weapp-tailwindcss, weapp-vite, Varo, and VPT (vite-plugin-taro), with homepage featured placements for the first three.
+- Published project catalog covers weapp-vite, weapp-tailwindcss, Varo, weapp-sqlite, and VPT (vite-plugin-taro), with all five represented in the homepage toolchain flow.
 - Site must stay bilingual: Chinese at `/`, English under `/en/`, with parity for key pages.
 - Site must remain static-first: core content and default demos readable without client JavaScript; theme and navigation may enhance progressively.
 - Metrics, sponsorship claims, customer stories, and case evidence must come from real sources already in the repo or confirmed program rules; future work must not fabricate them.
@@ -60,7 +60,7 @@ The portal markets a progressive, composable toolchain: keep familiar native min
 ## Product Principles
 
 1. **Boundary clarity first** — visitors should leave knowing which layer solves which job.
-2. **Preserve the writing, upgrade the delivery** — migration cost stays low; tools take over style, build, or components without demanding a rewrite.
+2. **Preserve the writing, upgrade the delivery** — migration cost stays low; tools take over engineering, styling, components, data, or migration without demanding a rewrite.
 3. **Prove with real artifacts** — demos, metrics, releases, and source links beat category slogans.
 4. **Bilingual and static-readable** — Chinese/English parity and no-JS readability are product requirements, not polish.
 5. **Open core, honest commercial edges** — sponsorship and services may exist, but must stay distinguishable from unverifiable marketing claims.
