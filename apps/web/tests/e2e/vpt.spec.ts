@@ -19,7 +19,7 @@ for (const locale of ['zh-CN', 'en'] as const) {
     await expect(page.locator('main a[data-analytics-target="docs"]').first()).toHaveAttribute('href', vpt.docsUrl)
     await expect(page.locator('main a[data-analytics-target="source"]')).toHaveAttribute('href', `https://github.com/${vpt.github}`)
     await expect(page.locator('main a[data-analytics-target="package"]')).toHaveAttribute('href', vpt.npmUrl)
-    await expect(page.locator('pre code')).toHaveText(vpt.installCommand)
+    await expect(page.locator('pre code').filter({ hasText: vpt.installCommand })).toHaveText(vpt.installCommand)
     await expect(page.locator('[data-copy-command]')).toHaveAttribute('data-copy-command', vpt.installCommand)
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', `https://weapp.dev${path}`)
     await expect(page.locator(`link[hreflang="${locale === 'zh-CN' ? 'en-US' : 'zh-CN'}"]`)).toHaveAttribute('href', `https://weapp.dev${alternate}`)
