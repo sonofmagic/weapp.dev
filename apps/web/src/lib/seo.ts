@@ -91,6 +91,24 @@ export function projectsIndexSchema(locale: Locale, projects: Array<{ id: string
   }
 }
 
+export function sponsorsSchema(locale: Locale) {
+  const path = locale === 'zh-CN' ? '/sponsors/' : '/en/sponsors/'
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': absoluteUrl(path),
+    'name': locale === 'zh-CN' ? '赞助图谱' : 'Sponsor graph',
+    'url': absoluteUrl(path),
+    'inLanguage': locale === 'zh-CN' ? 'zh-CN' : 'en-US',
+    'isPartOf': { '@id': `${siteUrl}/#website` },
+    'about': [
+      locale === 'zh-CN' ? '公开赞助记录' : 'Public sponsorship records',
+      locale === 'zh-CN' ? '项目维护资金流' : 'Project maintenance funding flow',
+      locale === 'zh-CN' ? '贡献者基金' : 'Contributors fund',
+    ],
+  }
+}
+
 export function pricingSchema(locale: Locale) {
   const path = locale === 'zh-CN' ? '/pricing/' : '/en/pricing/'
   const name = locale === 'zh-CN' ? 'weapp.dev 交付与开源赞助' : 'weapp.dev delivery and open-source support'

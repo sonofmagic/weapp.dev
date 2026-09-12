@@ -6,7 +6,7 @@ import sqlite from '../content/projects/weapp-sqlite.json'
 import tailwind from '../content/projects/weapp-tailwindcss.json'
 import vite from '../content/projects/weapp-vite.json'
 import fallbackMetrics from '../data/project-metrics.fallback.json'
-import { breadcrumbSchema, canonicalUrl, organizationSchema, pricingSchema, projectListSchema, projectSchema, projectsIndexSchema, serializeJsonLd } from './seo'
+import { breadcrumbSchema, canonicalUrl, organizationSchema, pricingSchema, projectListSchema, projectSchema, projectsIndexSchema, serializeJsonLd, sponsorsSchema } from './seo'
 
 describe('SEO helpers', () => {
   it('normalizes canonical URLs without query strings or hashes', () => {
@@ -50,6 +50,12 @@ describe('SEO helpers', () => {
     expect(schema['@type']).toBe('CollectionPage')
     expect(JSON.stringify(schema)).toContain('DonateAction')
     expect(JSON.stringify(schema)).not.toContain('Offer')
+  })
+
+  it('describes the sponsor graph as a bilingual collection page', () => {
+    expect(sponsorsSchema('zh-CN')).toMatchObject({ '@type': 'CollectionPage', 'url': 'https://weapp.dev/sponsors/', 'inLanguage': 'zh-CN' })
+    expect(sponsorsSchema('en')).toMatchObject({ '@type': 'CollectionPage', 'url': 'https://weapp.dev/en/sponsors/', 'inLanguage': 'en-US' })
+    expect(JSON.stringify(sponsorsSchema('en'))).toContain('Contributors fund')
   })
 
   it('keeps project list schema aligned with the toolchain flow in both locales', () => {
