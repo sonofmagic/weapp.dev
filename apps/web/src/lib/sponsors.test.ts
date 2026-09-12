@@ -70,6 +70,20 @@ describe('sponsor graph data', () => {
     expect(snapshot.items[1]?.brandUrl).toBeUndefined()
   })
 
+  it('trims and deduplicates sponsor IDs before building graph nodes', async () => {
+    vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({
+      items: [
+        { id: '  duplicate  ', kind: 'business', tier: 'gold', brandName: 'First', displaySites: ['weapp'] },
+        { id: 'duplicate', kind: 'business', tier: 'silver', brandName: 'Second', displaySites: ['weapp'] },
+      ],
+    }), { status: 200 })))
+
+    const snapshot = await loadPublicSponsors()
+    expect(snapshot.items).toHaveLength(1)
+    expect(snapshot.items[0]).toMatchObject({ id: 'duplicate', brandName: 'First' })
+    expect(sponsorGraphData(snapshot).nodes.filter(node => node.id === 'sponsor:duplicate')).toHaveLength(1)
+  })
+
   it.each([0, -2, 1.5, Number.NaN])('normalizes invalid snapshot version %s', async (version) => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({ version, items: [] }), { status: 200 })))
 

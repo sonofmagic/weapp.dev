@@ -73,8 +73,9 @@ function sanitize(value: unknown): PublicSponsor | undefined {
   if (!displaySites.includes('weapp')) {
     return undefined
   }
+  const id = item.id.trim()
   return {
-    id: item.id,
+    id,
     kind: item.kind,
     tier: item.tier as SponsorTier,
     ...(typeof item.login === 'string' ? { login: item.login } : {}),
@@ -99,7 +100,14 @@ export async function loadPublicSponsors(): Promise<SponsorSnapshot> {
       throw new Error(`Sponsor snapshot returned ${response.status}`)
     }
     const payload = await response.json() as Record<string, unknown>
-    const items = Array.isArray(payload.items) ? payload.items.map(sanitize).filter((item): item is PublicSponsor => Boolean(item)) : []
+    const items = Array.isArray(payload.items)
+      ? payload.items.map(sanitize).filter((item): item is PublicSponsor => Boolean(item)).reduce<PublicSponsor[]>((unique, item) => {
+          if (!unique.some(existing => existing.id === item.id)) {
+            unique.push(item)
+          }
+          return unique
+        }, [])
+      : []
     const version = typeof payload.version === 'number' && Number.isInteger(payload.version) && payload.version > 0 ? payload.version : 1
     return { version, repositoryUrl, total: items.length, items }
   }
