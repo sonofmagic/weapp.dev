@@ -836,6 +836,11 @@ test('opens analytics preferences directly from the privacy page', async ({ page
   await expect(page.getByRole('button', { name: '打开统计偏好' })).toBeFocused()
   await page.goto('/en/privacy/')
   await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute('content', 'weapp.dev privacy and data practices')
+  await page.getByRole('button', { name: 'Open analytics preferences' }).click()
+  await expect(page.getByRole('dialog', { name: 'Analytics preferences' })).toBeVisible()
+  await page.keyboard.press('Escape')
+  await expect(page.getByRole('dialog', { name: 'Analytics preferences' })).toBeHidden()
+  await expect(page.getByRole('button', { name: 'Open analytics preferences' })).toBeFocused()
 })
 
 for (const path of ['/privacy/', '/en/privacy/']) {
