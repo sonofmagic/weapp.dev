@@ -836,6 +836,15 @@ for (const path of ['/privacy/', '/en/privacy/']) {
   })
 }
 
+for (const path of ['/404/', '/en/404/']) {
+  test(`passes automated accessibility checks on ${path}`, async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' })
+    await page.goto(path)
+    const results = await new AxeBuilder({ page }).include('main').analyze()
+    expect(results.violations, `${path} accessibility violations`).toEqual([])
+  })
+}
+
 test('loads all local product visuals on key pages', async ({ page }) => {
   for (const path of ['/', '/en/', '/projects/weapp-tailwindcss/', '/projects/weapp-vite/', '/projects/varo/', '/en/projects/weapp-tailwindcss/', '/en/projects/weapp-vite/', '/en/projects/varo/', '/pricing/', '/en/pricing/', '/privacy/', '/en/privacy/', '/contributors/', '/en/contributors/', '/404/']) {
     await page.goto(path)
