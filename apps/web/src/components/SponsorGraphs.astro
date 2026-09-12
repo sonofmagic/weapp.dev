@@ -9,123 +9,221 @@ const graphNameOverrides: Record<string, string> = locale === 'zh-CN' ? {
   'fund:ecosystem': '周边开源',
   'ledger:net': '已确认净收入',
 } : {}
+const nodeKindLabels = locale === 'zh-CN' ? { sponsor: '赞助者', project: '项目', fund: '资金桶', site: '站点' } : { sponsor: 'Sponsor', project: 'Project', fund: 'Fund', site: 'Site' }
 const localizedGraph = {
   ...graph,
   nodes: graph.nodes.map(node => ({ ...node, name: graphNameOverrides[node.id] ?? node.name })),
   buckets: graph.buckets.map(bucket => ({ ...bucket, name: graphNameOverrides[bucket.id] ?? bucket.name })),
 }
 const labels = locale === 'zh-CN'
-  ? { flow: '资金流', relation: '关系图谱', flowHelp: '公开账本金额可用后会显示实际金额；当前展示分配比例。', relationHelp: '可筛选赞助者、项目和资金桶。', all: '全部', reset: '重置视图', table: '可读数据', nodes: '节点列表', edges: '连接列表', kind: '类型', node: '节点', source: '起点', target: '终点', details: '节点详情', open: '打开链接', error: '图表运行时暂时不可用，请使用下方可读数据。' }
-  : { flow: 'Funding flow', relation: 'Relationship graph', flowHelp: 'Actual amounts appear when the public ledger includes them; the current view shows allocation shares.', relationHelp: 'Filter sponsors, projects and fund buckets.', all: 'All', reset: 'Reset view', table: 'Accessible data', nodes: 'Nodes', edges: 'Connections', kind: 'Type', node: 'Node', source: 'From', target: 'To', details: 'Node details', open: 'Open link', error: 'The chart runtime is unavailable. Use the accessible data below.' }
+  ? { flow: '资金流', relation: '关系图谱', flowHelp: '公开账本金额可用后会显示实际金额；当前展示分配比例。', relationHelp: '可筛选赞助者、项目和资金桶。公开快照未提供赞助的项目归属，因此不展示赞助者到项目的连线。', all: '全部', reset: '重置视图', table: '可读数据', nodes: '节点列表', edges: '连接列表', kind: '类型', node: '节点', source: '起点', target: '终点', details: '节点详情', open: '打开链接', error: '图表运行时暂时不可用，请使用下方可读数据。' }
+  : { flow: 'Funding flow', relation: 'Relationship graph', flowHelp: 'Actual amounts appear when the public ledger includes them; the current view shows allocation shares.', relationHelp: 'Filter sponsors, projects and fund buckets. The public snapshot has no project attribution, so sponsors are not linked to projects.', all: 'All', reset: 'Reset view', table: 'Accessible data', nodes: 'Nodes', edges: 'Connections', kind: 'Type', node: 'Node', source: 'From', target: 'To', details: 'Node details', open: 'Open link', error: 'The chart runtime is unavailable. Use the accessible data below.' }
 ---
-<section class="sponsor-graphs" data-sponsor-graphs data-locale={locale} data-graph={JSON.stringify(localizedGraph)} aria-busy="true">
+<sponsor-graphs role="region" aria-label={labels.relation} class="sponsor-graphs" data-sponsor-graphs data-locale={locale} data-graph={JSON.stringify(localizedGraph)} aria-busy="false">
   <div class="sponsor-graph-card" data-graph-card="flow">
     <header><div><p class="sponsor-graph-kicker">01</p><h2>{labels.flow}</h2><p>{labels.flowHelp}</p></div></header>
-    <div class="sponsor-chart" data-chart="flow" role="img" aria-label={labels.flow}></div>
+    <div class="sponsor-chart" data-chart="flow" hidden role="img" aria-label={labels.flow}></div>
     <p class="sponsor-graph-error" data-graph-error hidden>{labels.error}</p>
-    <details><summary>{labels.table}</summary><table><thead><tr><th>{locale === 'zh-CN' ? '资金桶' : 'Bucket'}</th><th>{locale === 'zh-CN' ? '比例' : 'Share'}</th></tr></thead><tbody>{localizedGraph.buckets.map(bucket => <tr><th>{bucket.name}</th><td>{bucket.share}%</td></tr>)}</tbody></table></details>
+    <details open><summary>{labels.table}</summary><table><thead><tr><th>{locale === 'zh-CN' ? '资金桶' : 'Bucket'}</th><th>{locale === 'zh-CN' ? '比例' : 'Share'}</th></tr></thead><tbody>{localizedGraph.buckets.map(bucket => <tr><th>{bucket.name}</th><td>{bucket.share}%</td></tr>)}</tbody></table></details>
   </div>
   <div class="sponsor-graph-card" data-graph-card="relation">
-    <header><div><p class="sponsor-graph-kicker">02</p><h2>{labels.relation}</h2><p>{labels.relationHelp}</p></div><button type="button" data-reset>{labels.reset}</button></header>
-    <div class="sponsor-graph-tools" role="toolbar" aria-label={labels.relation}><input type="search" data-search placeholder={locale === 'zh-CN' ? '搜索节点' : 'Search nodes'} /><select data-kind aria-label={labels.all}><option value="">{labels.all}</option><option value="sponsor">{locale === 'zh-CN' ? '赞助者' : 'Sponsors'}</option><option value="project">{locale === 'zh-CN' ? '项目' : 'Projects'}</option><option value="fund">{locale === 'zh-CN' ? '资金桶' : 'Funds'}</option></select></div>
-    <div class="sponsor-chart" data-chart="relation" role="img" aria-label={labels.relation}></div>
+    <header><div><p class="sponsor-graph-kicker">02</p><h2>{labels.relation}</h2><p>{labels.relationHelp}</p></div><button type="button" data-reset disabled>{labels.reset}</button></header>
+    <div class="sponsor-graph-tools" role="toolbar" aria-label={labels.relation}><input type="search" disabled aria-label={locale === 'zh-CN' ? '搜索节点' : 'Search nodes'} data-search placeholder={locale === 'zh-CN' ? '搜索节点' : 'Search nodes'} /><select data-kind disabled aria-label={locale === 'zh-CN' ? '按节点类型筛选' : 'Filter by node type'}><option value="">{labels.all}</option><option value="sponsor">{locale === 'zh-CN' ? '赞助者' : 'Sponsors'}</option><option value="project">{locale === 'zh-CN' ? '项目' : 'Projects'}</option><option value="fund">{locale === 'zh-CN' ? '资金桶' : 'Funds'}</option></select></div>
+    <div class="sponsor-chart" data-chart="relation" hidden role="img" aria-label={labels.relation}></div>
     <p class="sponsor-graph-status" data-status aria-live="polite"></p>
-    <aside class="sponsor-node-details" data-node-details hidden aria-live="polite"><strong data-node-name></strong><span data-node-kind></span><a data-node-link target="_blank" rel="noreferrer" hidden>{labels.open}</a></aside>
+    <aside aria-label={labels.details} class="sponsor-node-details" data-node-details hidden aria-live="polite"><strong data-node-name></strong><span data-node-kind></span><a data-node-link target="_blank" rel="noreferrer" hidden>{labels.open}</a></aside>
     <p class="sponsor-graph-error" data-graph-error hidden>{labels.error}</p>
-    <details>
+    <details open>
       <summary>{labels.table}</summary>
       <h3>{labels.nodes}</h3>
-      <table><thead><tr><th>{labels.node}</th><th>{labels.kind}</th></tr></thead><tbody>{localizedGraph.nodes.map(node => <tr><th>{node.name}</th><td>{node.kind}</td></tr>)}</tbody></table>
+      <table><thead><tr><th>{labels.node}</th><th>{labels.kind}</th></tr></thead><tbody>{localizedGraph.nodes.map(node => <tr><th scope="row"><button type="button" data-node-id={node.id} disabled>{node.name}</button></th><td>{nodeKindLabels[node.kind]}</td></tr>)}</tbody></table>
       <h3>{labels.edges}</h3>
       <table><thead><tr><th>{labels.source}</th><th>{labels.target}</th></tr></thead><tbody>{localizedGraph.edges.map(edge => <tr><th>{localizedGraph.nodes.find(node => node.id === edge.source)?.name ?? edge.source}</th><td>{localizedGraph.nodes.find(node => node.id === edge.target)?.name ?? edge.target}</td></tr>)}</tbody></table>
     </details>
   </div>
-</section>
+</sponsor-graphs>
 <script>
+  import type { EChartsType } from 'echarts/core'
+  import type { SponsorGraphData } from '../lib/sponsors'
+
   class SponsorGraphs extends HTMLElement {
-    cleanup?: () => void
+    private connection?: AbortController
+    private cleanup?: () => void
+
     async connectedCallback() {
-      if (this.dataset.ready) return
+      if (this.connection) return
+      const connection = new AbortController()
+      this.connection = connection
+      const { signal } = connection
+      const charts: EChartsType[] = []
+      const chartElements = [...this.querySelectorAll<HTMLElement>('[data-chart]')]
+      const controls = [...this.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLButtonElement>('input, select, button')]
+      const search = this.querySelector<HTMLInputElement>('[data-search]')!
+      const kindSelect = this.querySelector<HTMLSelectElement>('[data-kind]')!
+      const details = this.querySelector<HTMLElement>('[data-node-details]')!
+      this.setAttribute('aria-busy', 'true')
+      this.querySelectorAll<HTMLElement>('[data-graph-error]').forEach(error => { error.hidden = true })
+      this.cleanup = () => charts.forEach(chart => chart.dispose())
+
       try {
-        const [{ init, use }, { GraphChart, SankeyChart }, { GridComponent, TooltipComponent, LegendComponent }, { CanvasRenderer }] = await Promise.all([
+        const [{ init, use }, { GraphChart, SankeyChart }, { TooltipComponent }, { CanvasRenderer }] = await Promise.all([
           import('echarts/core'), import('echarts/charts'), import('echarts/components'), import('echarts/renderers'),
         ])
-        use([GraphChart, SankeyChart, GridComponent, TooltipComponent, LegendComponent, CanvasRenderer])
-        const graph: import('../lib/sponsors').SponsorGraphData = JSON.parse(this.dataset.graph || '{}')
-        const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
-        const kindLabels = this.dataset.locale === 'zh-CN' ? { sponsor: '赞助者', project: '项目', fund: '资金桶', site: '站点' } : { sponsor: 'Sponsor', project: 'Project', fund: 'Fund', site: 'Site' }
-        const flow = init(this.querySelector('[data-chart="flow"]'))
-        const relation = init(this.querySelector('[data-chart="relation"]'))
-        const ledgerName = graph.nodes.find((node) => node.id === 'ledger:net')?.name ?? 'Confirmed net receipts'
-        flow.setOption({ animation: !reduce, tooltip: { trigger: 'item' }, series: [{ type: 'sankey', data: graph.nodes.filter((n) => n.id.startsWith('fund:') || n.id === 'ledger:net').map((n) => ({ name: n.name })), links: graph.edges.filter((e) => e.source === 'ledger:net').map((e) => ({ source: ledgerName, target: graph.nodes.find((n) => n.id === e.target)?.name, value: e.value })), emphasis: { focus: 'adjacency' }, lineStyle: { color: 'gradient', curveness: 0.5 } }] })
-      const renderRelation = () => {
-        const search = this.querySelector<HTMLInputElement>('[data-search]')!
-        const kindSelect = this.querySelector<HTMLSelectElement>('[data-kind]')!
-        const query = search.value.toLowerCase()
-        const kind = kindSelect.value
-        const nodes = graph.nodes.filter((n) => (!kind || n.kind === kind) && (!query || n.name.toLowerCase().includes(query)))
-        const ids = new Set(nodes.map((n) => n.id))
-        relation.setOption({ animation: !reduce, tooltip: {}, series: [{ type: 'graph', layout: 'force', roam: true, data: nodes.map((n) => ({ id: n.id, name: n.name, value: n.value, symbolSize: n.kind === 'sponsor' ? 24 : 32 })), links: graph.edges.filter((e) => ids.has(e.source) && ids.has(e.target)).map((e) => ({ source: e.source, target: e.target, value: e.value })), force: { repulsion: 120, edgeLength: 90 }, label: { show: true, position: 'right' }, emphasis: { focus: 'adjacency' } }] })
-        this.querySelector<HTMLElement>('[data-status]')!.textContent = this.dataset.locale === 'zh-CN' ? `${nodes.length} 个节点` : `${nodes.length} nodes`
-        this.querySelector<HTMLElement>('[data-node-details]')!.hidden = true
-      }
-      relation.on('click', (params) => {
-        const data = params.data as { id?: string } | null | undefined
-        const selected = graph.nodes.find((node) => node.id === data?.id)
-        if (!selected) return
-        const details = this.querySelector<HTMLElement>('[data-node-details]')!
-        const name = this.querySelector<HTMLElement>('[data-node-name]')!
-        const kind = this.querySelector<HTMLElement>('[data-node-kind]')!
-        const link = this.querySelector<HTMLAnchorElement>('[data-node-link]')!
-        name.textContent = selected.name
-        kind.textContent = kindLabels[selected.kind as keyof typeof kindLabels] ?? selected.kind
-        link.hidden = !selected.url
-        if (selected.url) link.href = selected.url
-        details.hidden = false
-      })
+        if (signal.aborted) return
+        use([GraphChart, SankeyChart, TooltipComponent, CanvasRenderer])
+        const graph: SponsorGraphData = JSON.parse(this.dataset.graph || '{}')
+        const reduce = matchMedia('(prefers-reduced-motion: reduce)')
+        const zh = this.dataset.locale === 'zh-CN'
+        const kindLabels = zh ? { sponsor: '赞助者', project: '项目', fund: '资金桶', site: '站点' } : { sponsor: 'Sponsor', project: 'Project', fund: 'Fund', site: 'Site' }
+        chartElements.forEach(element => { element.hidden = false })
+        const flow = init(this.querySelector<HTMLElement>('[data-chart="flow"]')!)
+        charts.push(flow)
+        const relation = init(this.querySelector<HTMLElement>('[data-chart="relation"]')!)
+        charts.push(relation)
+        const chartStyle = () => {
+          const style = getComputedStyle(this)
+          return {
+            color: [style.getPropertyValue('--accent').trim(), '#5b9c82', '#88b5a2', '#b1cbbb'],
+            textStyle: { color: style.getPropertyValue('--text').trim(), fontFamily: style.getPropertyValue('--font-sans').trim() },
+          }
+        }
+        const labelStyle = () => ({ color: chartStyle().textStyle.color, textBorderWidth: 0 })
+        const names = new Map(graph.nodes.map(node => [node.id, node.name]))
+        flow.setOption({ ...chartStyle(), animation: !reduce.matches, tooltip: { renderMode: 'richText', valueFormatter: (value: unknown) => `${value}%` }, series: [{
+          type: 'sankey', label: labelStyle(),
+          data: graph.nodes.filter(node => node.id.startsWith('fund:') || node.id === 'ledger:net').map(node => ({ name: node.name })),
+          links: graph.edges.filter(edge => edge.source === 'ledger:net').map(edge => ({ source: names.get(edge.source), target: names.get(edge.target), value: edge.value })),
+          emphasis: { focus: 'adjacency' }, lineStyle: { color: 'gradient', curveness: 0.5 },
+        }] })
+
+        let compact = relation.getWidth() < 480
+        const renderRelation = () => {
+          const query = search.value.trim().toLowerCase()
+          const nodes = graph.nodes.filter(node => (!kindSelect.value || node.kind === kindSelect.value) && (!query || node.name.toLowerCase().includes(query)))
+          const ids = new Set(nodes.map(node => node.id))
+          relation.setOption({ ...chartStyle(), animation: !reduce.matches, tooltip: { renderMode: 'richText' }, series: [{
+            type: 'graph', layout: compact ? 'none' : 'force', roam: true,
+            ...(compact ? { left: '23%', right: '23%', top: '12%', bottom: '22%' } : {}),
+            data: nodes.map((node, index) => ({ id: node.id, name: node.name, value: node.value, ...(compact ? { x: index % 2, y: Math.floor(index / 2) } : {}), symbolSize: node.kind === 'sponsor' ? 24 : 32 })),
+            links: graph.edges.filter(edge => ids.has(edge.source) && ids.has(edge.target)).map(edge => ({ source: edge.source, target: edge.target, value: edge.value })),
+            force: { repulsion: 120, edgeLength: 90, layoutAnimation: !reduce.matches },
+            label: { ...labelStyle(), show: true, position: compact ? 'bottom' : 'right', ...(compact ? { width: 120, overflow: 'truncate' } : {}) }, labelLayout: { hideOverlap: true }, emphasis: { focus: 'adjacency' },
+          }] }, { notMerge: true })
+          this.querySelector<HTMLElement>('[data-status]')!.textContent = zh ? `${nodes.length} 个节点` : `${nodes.length} nodes`
+          details.hidden = true
+        }
+        const selectNode = (id: string | undefined) => {
+          const selected = graph.nodes.find(node => node.id === id)
+          if (!selected) return
+          this.querySelector<HTMLElement>('[data-node-name]')!.textContent = selected.name
+          this.querySelector<HTMLElement>('[data-node-kind]')!.textContent = kindLabels[selected.kind]
+          const link = this.querySelector<HTMLAnchorElement>('[data-node-link]')!
+          link.removeAttribute('href')
+          link.hidden = !selected.url
+          if (selected.url) link.href = selected.url
+          details.hidden = false
+          relation.dispatchAction({ type: 'downplay', seriesIndex: 0 })
+          relation.dispatchAction({ type: 'highlight', seriesIndex: 0, name: selected.name })
+        }
+        relation.on('click', params => {
+          if (params.dataType === 'node') selectNode((params.data as { id?: string })?.id)
+        })
+        this.querySelectorAll<HTMLButtonElement>('[data-node-id]').forEach(button => {
+          button.addEventListener('click', () => {
+            search.value = ''
+            kindSelect.value = ''
+            renderRelation()
+            selectNode(button.dataset.nodeId)
+          }, { signal })
+        })
         renderRelation()
-        this.querySelector<HTMLInputElement>('[data-search]')!.addEventListener('input', renderRelation)
-        this.querySelector<HTMLSelectElement>('[data-kind]')!.addEventListener('change', renderRelation)
-        this.querySelector<HTMLButtonElement>('[data-reset]')!.addEventListener('click', () => { this.querySelector<HTMLInputElement>('[data-search]')!.value = ''; this.querySelector<HTMLSelectElement>('[data-kind]')!.value = ''; renderRelation() })
-        const resize = () => { if (!document.hidden) { flow.resize(); relation.resize() } }
+        search.addEventListener('input', renderRelation, { signal })
+        kindSelect.addEventListener('change', renderRelation, { signal })
+        this.querySelector<HTMLButtonElement>('[data-reset]')!.addEventListener('click', () => {
+          search.value = ''
+          kindSelect.value = ''
+          renderRelation()
+          search.focus()
+        }, { signal })
+        reduce.addEventListener('change', () => {
+          flow.setOption({ animation: !reduce.matches })
+          renderRelation()
+        }, { signal })
+        const resize = () => {
+          if (document.hidden) return
+          charts.forEach(chart => chart.resize())
+          const nextCompact = relation.getWidth() < 480
+          if (compact !== nextCompact) {
+            compact = nextCompact
+            renderRelation()
+          }
+        }
         const observer = new ResizeObserver(resize)
-        observer.observe(this)
-        document.addEventListener('visibilitychange', resize)
-        this.cleanup = () => { observer.disconnect(); document.removeEventListener('visibilitychange', resize); flow.dispose(); relation.dispose() }
+        chartElements.forEach(element => observer.observe(element))
+        const visibility = () => {
+          charts.forEach(chart => {
+            if (document.hidden) chart.getZr().animation.pause()
+            else chart.getZr().animation.resume()
+          })
+          resize()
+        }
+        document.addEventListener('visibilitychange', visibility, { signal })
+        const themeObserver = new MutationObserver(() => {
+          charts.forEach(chart => chart.setOption({ ...chartStyle(), series: [{ label: labelStyle() }] }))
+        })
+        themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+        this.cleanup = () => { observer.disconnect(); themeObserver.disconnect(); charts.forEach(chart => chart.dispose()) }
+        visibility()
+        controls.forEach(control => { control.disabled = false })
         this.dataset.ready = 'true'
-        this.setAttribute('aria-busy', 'false')
       } catch {
-        this.querySelectorAll<HTMLElement>('[data-graph-error]').forEach((error) => { error.hidden = false })
-        this.setAttribute('aria-busy', 'false')
+        if (signal.aborted) return
+        this.cleanup?.()
+        this.cleanup = undefined
+        connection.abort()
+        chartElements.forEach(element => { element.hidden = true })
+        this.querySelectorAll<HTMLDetailsElement>('details').forEach(table => { table.open = true })
+        this.querySelectorAll<HTMLElement>('[data-graph-error]').forEach(error => { error.hidden = false })
+      } finally {
+        if (this.connection === connection) this.setAttribute('aria-busy', 'false')
       }
     }
+
     disconnectedCallback() {
+      this.connection?.abort()
+      this.connection = undefined
       this.cleanup?.()
       this.cleanup = undefined
       delete this.dataset.ready
+      this.setAttribute('aria-busy', 'false')
+      this.querySelectorAll<HTMLElement>('[data-chart], [data-node-details]').forEach(element => { element.hidden = true })
+      this.querySelectorAll<HTMLInputElement | HTMLSelectElement | HTMLButtonElement>('input, select, button').forEach(control => { control.disabled = true })
     }
   }
-  customElements.define('sponsor-graphs', SponsorGraphs)
+  if (!customElements.get('sponsor-graphs')) customElements.define('sponsor-graphs', SponsorGraphs)
 </script>
 <style>
+  .sponsor-graphs [hidden] { display:none; }
   .sponsor-graphs { display:grid; gap:1.25rem; }
   .sponsor-graph-card { padding:1.5rem; border:1px solid var(--border); background:var(--surface); }
   .sponsor-graph-card header { display:flex; justify-content:space-between; gap:1rem; align-items:start; }
   .sponsor-graph-card h2 { margin:0 0 .5rem; font-size:1.5rem; }
   .sponsor-graph-card header p:last-child { margin:0; color:var(--muted); font-size:.9rem; }
   .sponsor-graph-kicker { margin:0 0 .5rem; color:var(--accent); font:650 .75rem/1 var(--font-mono); }
-  .sponsor-chart { min-height:360px; margin-top:1rem; }
+  .sponsor-chart { width:100%; height:360px; min-height:360px; margin-top:1rem; }
   .sponsor-graph-tools { display:flex; gap:.75rem; margin-top:1rem; }
   .sponsor-graph-tools input,.sponsor-graph-tools select,.sponsor-graph-card button { min-height:2.5rem; border:1px solid var(--border); padding:.5rem .7rem; background:var(--surface); color:var(--text); }
-  .sponsor-graph-tools input { flex:1; }
+  .sponsor-graph-tools input { flex:1; min-width:0; }
+  .sponsor-graph-card { min-width:0; }
+  .sponsor-graph-card button[data-node-id] { text-align:left; overflow-wrap:anywhere; max-width:100%; }
   .sponsor-graph-card details { margin-top:1rem; border-top:1px solid var(--border); padding-top:.75rem; }
   .sponsor-graph-card details h3 { margin:1rem 0 .5rem; font-size:.9rem; }
   .sponsor-graph-card table { width:100%; margin-top:.75rem; border-collapse:collapse; text-align:left; font-size:.9rem; }
-  .sponsor-graph-card th,.sponsor-graph-card td { padding:.6rem 0; border-bottom:1px solid var(--border); }
+  .sponsor-graph-card th,.sponsor-graph-card td { overflow-wrap:anywhere; padding:.6rem .4rem; border-bottom:1px solid var(--border); }
   .sponsor-graph-status { color:var(--muted); font-size:.8rem; }
   .sponsor-node-details { display:flex; flex-wrap:wrap; align-items:center; gap:.6rem; margin-top:.75rem; padding:.75rem; border:1px solid var(--border); background:var(--surface-soft); font-size:.85rem; }
   .sponsor-node-details span { color:var(--muted); font:650 .72rem/1 var(--font-mono); text-transform:uppercase; }
   .sponsor-node-details a { color:var(--accent); font-weight:650; }
   .sponsor-graph-error { margin:1rem 0 0; color:var(--muted); font-size:.85rem; }
-  @media (max-width:720px) { .sponsor-graph-card { padding:1rem; } .sponsor-chart { min-height:300px; } .sponsor-graph-tools { flex-direction:column; } }
+  @media (max-width:720px) { .sponsor-graph-card { padding:1rem; } .sponsor-chart { height:300px; min-height:300px; } .sponsor-graph-tools { flex-direction:column; } }
 </style>

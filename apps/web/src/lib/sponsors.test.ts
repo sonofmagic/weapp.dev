@@ -3,9 +3,27 @@ import { loadPublicSponsors, sponsorGraphData } from './sponsors'
 
 afterEach(() => {
   vi.restoreAllMocks()
+  vi.unstubAllGlobals()
 })
 
 describe('sponsor graph data', () => {
+  it('does not infer project funding from sponsor order or display consent', () => {
+    const snapshot = {
+      version: 1,
+      repositoryUrl: 'https://github.com/sonofmagic/sponsors',
+      total: 2,
+      items: [
+        { id: 'first', kind: 'individual' as const, tier: 'supporter' as const, displaySites: ['weapp' as const, 'vite' as const] },
+        { id: 'second', kind: 'individual' as const, tier: 'gold' as const, displaySites: ['weapp' as const] },
+      ],
+    }
+    for (const items of [snapshot.items, [...snapshot.items].reverse()]) {
+      const graph = sponsorGraphData({ ...snapshot, items })
+      expect(graph.nodes.filter(node => node.kind === 'sponsor')).toHaveLength(2)
+      expect(graph.edges.filter(edge => edge.source.startsWith('sponsor:'))).toEqual([])
+    }
+  })
+
   it('creates valid project, sponsor, ledger and fund references', () => {
     const graph = sponsorGraphData({
       version: 1,

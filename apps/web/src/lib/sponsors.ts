@@ -119,8 +119,8 @@ export function sponsorGraphData(snapshot: SponsorSnapshot): SponsorGraphData {
   for (const sponsor of snapshot.items) {
     const name = sponsor.brandName || sponsor.login || sponsor.id
     nodes.push({ id: `sponsor:${sponsor.id}`, name, kind: 'sponsor', url: sponsor.brandUrl || sponsor.profileUrl })
-    const project = projects[snapshot.items.indexOf(sponsor) % projects.length]
-    edges.push({ source: `sponsor:${sponsor.id}`, target: project[0], value: 1, label: sponsor.tier })
+    // Display consent does not identify which project received a sponsorship.
+    // Keep sponsors unlinked until the snapshot provides explicit attribution.
   }
   const buckets = [
     { id: 'fund:core', name: 'Core maintenance', share: 60, body: 'Maintainer time, tests, CI, domain and docs.' },
