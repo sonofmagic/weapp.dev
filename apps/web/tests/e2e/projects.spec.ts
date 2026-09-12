@@ -9,6 +9,7 @@ for (const prefix of ['', '/en']) {
     const maturity = page.locator('[data-filter-maturity]')
     const platform = page.locator('[data-filter-platform]')
     const visible = page.locator('[data-project-card]:visible')
+    await expect(page.locator('[data-project-filters]')).toHaveAttribute('aria-label', zh ? '筛选工具链项目' : 'Filter toolchain projects')
     await expect(role).toBeEnabled()
     await expect(visible).toHaveCount(5)
     await role.selectOption('data')
