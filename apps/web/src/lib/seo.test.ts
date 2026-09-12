@@ -1,9 +1,12 @@
 import type { ProjectDefinition } from '../types/project'
 import { describe, expect, it } from 'vitest'
 import varo from '../content/projects/varo.json'
+import taro from '../content/projects/vite-plugin-taro.json'
+import sqlite from '../content/projects/weapp-sqlite.json'
 import tailwind from '../content/projects/weapp-tailwindcss.json'
+import vite from '../content/projects/weapp-vite.json'
 import fallbackMetrics from '../data/project-metrics.fallback.json'
-import { breadcrumbSchema, canonicalUrl, organizationSchema, pricingSchema, projectSchema, serializeJsonLd } from './seo'
+import { breadcrumbSchema, canonicalUrl, organizationSchema, pricingSchema, projectListSchema, projectSchema, serializeJsonLd } from './seo'
 
 describe('SEO helpers', () => {
   it('normalizes canonical URLs without query strings or hashes', () => {
@@ -47,5 +50,22 @@ describe('SEO helpers', () => {
     expect(schema['@type']).toBe('CollectionPage')
     expect(JSON.stringify(schema)).toContain('DonateAction')
     expect(JSON.stringify(schema)).not.toContain('Offer')
+  })
+
+  it('keeps project list schema aligned with the toolchain flow in both locales', () => {
+    const projects = [vite, tailwind, varo, sqlite, taro].map((data, index) => ({
+      id: ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro'][index],
+      data: data as unknown as ProjectDefinition,
+    }))
+    const zh = projectListSchema('zh-CN', projects)
+    const en = projectListSchema('en', projects)
+    expect(zh.itemListElement.map(item => item.name)).toEqual(['weapp-vite', 'weapp-tailwindcss', 'Varo', 'weapp-sqlite', 'VPT'])
+    expect(en.itemListElement.map(item => item.url)).toEqual([
+      'https://weapp.dev/en/projects/weapp-vite/',
+      'https://weapp.dev/en/projects/weapp-tailwindcss/',
+      'https://weapp.dev/en/projects/varo/',
+      'https://weapp.dev/en/projects/weapp-sqlite/',
+      'https://weapp.dev/en/projects/vite-plugin-taro/',
+    ])
   })
 })
