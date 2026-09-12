@@ -33,6 +33,13 @@ for (const prefix of ['', '/en']) {
     await expect(visible).toHaveCount(5)
   })
 
+  test(`marks the current project navigation entry on ${prefix}/projects/`, async ({ page }) => {
+    await page.goto(`${prefix}/projects/`)
+    const current = page.locator('[data-site-header] a[aria-current="page"]')
+    await expect(current).toHaveCount(2)
+    await expect(current.first()).toHaveAttribute('href', `${prefix}/projects/`)
+  })
+
   test(`offers five adoption paths and their documentation on ${prefix}/`, async ({ page }) => {
     await page.goto(`${prefix}/`)
     const paths = page.locator('.project-selector-list article')
