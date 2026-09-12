@@ -831,7 +831,6 @@ for (const path of ['/privacy/', '/en/privacy/']) {
   test(`passes automated accessibility checks on ${path}`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto(path)
-    await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute('content', path.startsWith('/en') ? 'weapp.dev page not found' : 'weapp.dev 页面未找到')
     const results = await new AxeBuilder({ page }).include('main').analyze()
     expect(results.violations, `${path} accessibility violations`).toEqual([])
   })
@@ -841,6 +840,7 @@ for (const path of ['/404/', '/en/404/']) {
   test(`passes automated accessibility checks on ${path}`, async ({ page }) => {
     await page.emulateMedia({ reducedMotion: 'reduce' })
     await page.goto(path)
+    await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute('content', path.startsWith('/en') ? 'weapp.dev page not found' : 'weapp.dev 页面未找到')
     const results = await new AxeBuilder({ page }).include('main').analyze()
     expect(results.violations, `${path} accessibility violations`).toEqual([])
   })
