@@ -182,3 +182,15 @@ test('keeps filters and canvases when the user switches theme', async ({ page })
   await expect(graphs.locator('[data-status]')).toHaveText('1 个节点')
   await expect(graphs.locator('canvas')).toHaveCount(2)
 })
+
+test('shows a sponsor initial when an external avatar fails', async ({ page }) => {
+  await page.goto('/pricing/')
+  const image = page.locator('.pricing-public-sponsor img').first()
+  if (await image.count() === 0) {
+    test.skip()
+  }
+  const fallback = image.locator('xpath=following-sibling::span[1]')
+  await image.evaluate(element => element.dispatchEvent(new Event('error')))
+  await expect(image).toBeHidden()
+  await expect(fallback).toBeVisible()
+})
