@@ -24,6 +24,8 @@ for (const route of ['/sponsors/', '/en/sponsors/']) {
     await expect(graphs).toHaveAttribute('aria-label', route.startsWith('/en') ? 'Sponsor graphs' : '赞助图谱')
     await expect(graphs.locator('[data-chart="flow"]')).toHaveAttribute('aria-describedby', 'sponsor-flow-help sponsor-flow-summary')
     await expect(graphs.locator('[data-chart="relation"]')).toHaveAttribute('aria-describedby', 'sponsor-relation-help sponsor-relation-summary')
+    await expect(graphs.locator('[data-graph-card="flow"]')).toHaveAttribute('aria-describedby', 'sponsor-flow-help sponsor-flow-summary')
+    await expect(graphs.locator('[data-graph-card="relation"]')).toHaveAttribute('aria-describedby', 'sponsor-relation-help sponsor-relation-summary')
     await expect(graphs.locator('[data-graph-card="relation"] header')).toContainText(route.startsWith('/en') ? 'sites' : '站点')
     await expect(graphs.locator('[data-graph-card="flow"]')).toHaveAttribute('aria-labelledby', 'sponsor-flow-title')
     await expect(graphs.locator('[data-graph-card="relation"]')).toHaveAttribute('aria-labelledby', 'sponsor-relation-title')
