@@ -84,7 +84,7 @@ const installCommand = project.data.installCommand ?? project.data.quickStart?.c
     </figure> : <div data-reveal class="grid min-h-80 place-items-center rounded-panel border border-line bg-panel-soft p-8 text-center text-sm text-copy-muted">{copy.project.readinessNote}</div>}
   </section>
 
-  <QuickStartPanel locale={locale} status={project.data.status} audience={content.audience} note={quickStartNote} command={installCommand} />
+  <QuickStartPanel locale={locale} status={project.data.status} audience={content.audience} note={quickStartNote} command={installCommand} projectId={project.id} />
 
   <section class:list={[section, shell]}>
     <header data-reveal class="mb-10 max-w-[700px]">

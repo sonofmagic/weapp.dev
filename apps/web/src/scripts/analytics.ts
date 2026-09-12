@@ -10,6 +10,7 @@ type AnalyticsProvider = keyof typeof ANALYTICS_SITE_IDS
 export type AnalyticsEventName
   = | 'change_theme'
     | 'click_outbound'
+    | 'copy_command'
     | 'navigate_section'
     | 'select_project'
     | 'select_related_project'
@@ -44,6 +45,7 @@ declare global {
 const EVENT_PARAM_KEYS: Record<AnalyticsEventName, readonly string[]> = {
   change_theme: ['theme'],
   click_outbound: ['target', 'project'],
+  copy_command: ['project'],
   navigate_section: ['section'],
   select_project: ['project'],
   select_related_project: ['from', 'project'],

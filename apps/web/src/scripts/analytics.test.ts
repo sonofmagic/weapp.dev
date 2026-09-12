@@ -46,5 +46,7 @@ describe('analytics client policy', () => {
       .toEqual(['site', 'switch_language', 'zh-CN:en'])
     expect(normalizeAnalyticsEvent('select_related_project', { from: 'varo', project: 'weapp-sqlite' }))
       .toEqual({ from: 'varo', project: 'weapp-sqlite' })
+    expect(normalizeAnalyticsEvent('copy_command', { project: 'weapp-vite', secret: 'drop' }))
+      .toEqual({ project: 'weapp-vite' })
   })
 })
