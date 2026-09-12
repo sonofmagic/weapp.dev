@@ -77,6 +77,20 @@ export function projectListSchema(locale: Locale, projects: Array<{ id: string, 
   }
 }
 
+export function projectsIndexSchema(locale: Locale, projects: Array<{ id: string, data: ProjectDefinition }>) {
+  const path = locale === 'zh-CN' ? '/projects/' : '/en/projects/'
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    '@id': absoluteUrl(path),
+    'name': locale === 'zh-CN' ? '工具链项目' : 'Toolchain projects',
+    'url': absoluteUrl(path),
+    'inLanguage': locale === 'zh-CN' ? 'zh-CN' : 'en-US',
+    'isPartOf': { '@id': `${siteUrl}/#website` },
+    'mainEntity': projectListSchema(locale, projects),
+  }
+}
+
 export function pricingSchema(locale: Locale) {
   const path = locale === 'zh-CN' ? '/pricing/' : '/en/pricing/'
   const name = locale === 'zh-CN' ? 'weapp.dev 交付与开源赞助' : 'weapp.dev delivery and open-source support'

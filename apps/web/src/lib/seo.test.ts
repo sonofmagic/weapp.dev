@@ -6,7 +6,7 @@ import sqlite from '../content/projects/weapp-sqlite.json'
 import tailwind from '../content/projects/weapp-tailwindcss.json'
 import vite from '../content/projects/weapp-vite.json'
 import fallbackMetrics from '../data/project-metrics.fallback.json'
-import { breadcrumbSchema, canonicalUrl, organizationSchema, pricingSchema, projectListSchema, projectSchema, serializeJsonLd } from './seo'
+import { breadcrumbSchema, canonicalUrl, organizationSchema, pricingSchema, projectListSchema, projectSchema, projectsIndexSchema, serializeJsonLd } from './seo'
 
 describe('SEO helpers', () => {
   it('normalizes canonical URLs without query strings or hashes', () => {
@@ -70,5 +70,7 @@ describe('SEO helpers', () => {
       'https://weapp.dev/en/projects/weapp-sqlite/',
       'https://weapp.dev/en/projects/vite-plugin-taro/',
     ])
+    expect(projectsIndexSchema('zh-CN', projects)).toMatchObject({ '@type': 'CollectionPage', 'url': 'https://weapp.dev/projects/' })
+    expect(projectsIndexSchema('en', projects).mainEntity.numberOfItems).toBe(5)
   })
 })
