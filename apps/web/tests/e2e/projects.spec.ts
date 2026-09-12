@@ -128,6 +128,13 @@ for (const prefix of ['', '/en']) {
     await expect(page.locator('main#main-content > section').first().locator('img').first()).toHaveAttribute('decoding', 'async')
   })
 
+  test(`decodes the project detail hero visual asynchronously on ${prefix || 'zh-CN'}`, async ({ page }) => {
+    await page.goto(`${prefix}/projects/weapp-vite/`)
+    const heroVisual = page.locator('main#main-content > section').first().locator('figure img')
+    await expect(heroVisual).toHaveAttribute('fetchpriority', 'high')
+    await expect(heroVisual).toHaveAttribute('decoding', 'async')
+  })
+
   test(`offers five adoption paths and their documentation on ${prefix}/`, async ({ page }) => {
     await page.goto(`${prefix}/`)
     const paths = page.locator('.project-selector-list article')
