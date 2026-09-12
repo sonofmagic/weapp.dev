@@ -214,6 +214,11 @@ export function initAnalytics(): void {
     lastPreferenceTrigger?.focus()
   }
 
+  preferenceElements.dialog?.addEventListener('cancel', (event) => {
+    event.preventDefault()
+    closePreferences()
+  })
+
   window.weappAnalytics = { openPreferences, track }
 
   const getPageViewParams = () => {
