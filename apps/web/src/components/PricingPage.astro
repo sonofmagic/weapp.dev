@@ -43,11 +43,11 @@ const githubUrl = 'https://github.com/sonofmagic/weapp.dev'
     </div>
   </section>
 
-  <section class="border-y border-line bg-panel" id="sponsor">
+  <section class="border-y border-line bg-panel" id="sponsor" aria-labelledby="pricing-sponsor-title">
     <div class:list={[section, shell]}>
       <header data-reveal class="mb-10 max-w-[760px]">
         <p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.sponsorKicker}</p>
-        <h2 class={sectionTitle}>{pricing.sponsorTitle}</h2>
+        <h2 id="pricing-sponsor-title" class={sectionTitle}>{pricing.sponsorTitle}</h2>
         <p class="mb-0 max-w-[650px] text-lg text-copy-muted max-[720px]:text-base">{pricing.sponsorDescription}</p>
       </header>
 
@@ -119,11 +119,11 @@ const githubUrl = 'https://github.com/sonofmagic/weapp.dev'
     </div>
   </section>
 
-  <section class="border-y border-line bg-panel-soft" id="services">
+  <section class="border-y border-line bg-panel-soft" id="services" aria-labelledby="pricing-services-title">
     <div class:list={[section, shell]}>
       <header data-reveal class="mb-12 max-w-[700px]">
         <p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.servicesKicker}</p>
-        <h2 class={sectionTitle}>{pricing.servicesTitle}</h2>
+        <h2 id="pricing-services-title" class={sectionTitle}>{pricing.servicesTitle}</h2>
       </header>
       <div class="pricing-service-list">
         {pricing.services.map((service, index) => (
@@ -138,25 +138,25 @@ const githubUrl = 'https://github.com/sonofmagic/weapp.dev'
     </div>
   </section>
 
-  <section class:list={[section, shell]} id="support">
+  <section class:list={[section, shell]} id="support" aria-labelledby="pricing-support-title">
     <div class="grid grid-cols-[.72fr_1.28fr] gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10">
-      <header data-reveal class="max-w-[470px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.slaKicker}</p><h2 class={sectionTitle}>{pricing.slaTitle}</h2></header>
+      <header data-reveal class="max-w-[470px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.slaKicker}</p><h2 id="pricing-support-title" class={sectionTitle}>{pricing.slaTitle}</h2></header>
       <div data-reveal class="overflow-x-auto border-t border-line">
         <table class="pricing-sla-table w-full border-collapse text-left text-sm"><thead><tr><th>{pricing.slaTier}</th><th>{pricing.slaChannel}</th><th>{pricing.slaResponse}</th></tr></thead><tbody>{pricing.slaRows.map(row => <tr><th scope="row">{row.name}</th><td>{row.channel}</td><td>{row.response}</td></tr>)}</tbody></table>
       </div>
     </div>
   </section>
 
-  <section class="border-y border-line bg-panel" id="boundary">
+  <section class="border-y border-line bg-panel" id="boundary" aria-labelledby="pricing-boundary-title">
     <div class:list={[section, shell]}>
-      <header data-reveal class="mb-12 max-w-[700px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.boundaryKicker}</p><h2 class={sectionTitle}>{pricing.boundaryTitle}</h2></header>
+      <header data-reveal class="mb-12 max-w-[700px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.boundaryKicker}</p><h2 id="pricing-boundary-title" class={sectionTitle}>{pricing.boundaryTitle}</h2></header>
       <div class="pricing-boundary-grid">{pricing.boundary.map((item, index) => <article data-reveal style={`--reveal-delay: ${index * 70}ms`}><span class="pricing-boundary-mark" aria-hidden="true">{index === 0 ? '+' : index === 1 ? '$' : 'x'}</span><h3 class="mb-2 text-xl font-[660]">{item.label}</h3><p class="mb-0 text-sm leading-[1.7] text-copy-muted">{item.body}</p></article>)}</div>
     </div>
   </section>
 
-  <section class:list={[section, shell]} id="faq">
+  <section class:list={[section, shell]} id="faq" aria-labelledby="pricing-faq-title">
     <div class="grid grid-cols-[.72fr_1.28fr] gap-16 max-[900px]:grid-cols-1 max-[900px]:gap-10">
-      <header data-reveal class="max-w-[470px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.faqKicker}</p><h2 class={sectionTitle}>{pricing.faqTitle}</h2></header>
+      <header data-reveal class="max-w-[470px]"><p class="mb-3 font-mono text-xs font-[650] text-brand">{pricing.faqKicker}</p><h2 id="pricing-faq-title" class={sectionTitle}>{pricing.faqTitle}</h2></header>
       <div data-reveal class="border-t border-line">{pricing.faq.map(item => (
         <details class="group border-b border-line py-5">
           <summary class="flex cursor-pointer list-none items-center justify-between gap-6 pr-1 text-lg font-[650] [&::-webkit-details-marker]:hidden">
@@ -169,9 +169,9 @@ const githubUrl = 'https://github.com/sonofmagic/weapp.dev'
     </div>
   </section>
 
-  <section class="pricing-cta border-t border-line bg-panel-soft">
+  <section class="pricing-cta border-t border-line bg-panel-soft" aria-labelledby="pricing-cta-title">
     <div data-reveal class:list={[shell, 'grid min-h-[260px] grid-cols-[1fr_auto] items-center gap-10 py-14 max-[720px]:grid-cols-1 max-[720px]:py-12']}>
-      <div><h2 class:list={[featuredTitle, 'mb-3 max-w-[700px]']}>{pricing.ctaTitle}</h2><p class="mb-0 max-w-[650px] text-copy-muted">{pricing.ctaBody}</p></div>
+      <div><h2 id="pricing-cta-title" class:list={[featuredTitle, 'mb-3 max-w-[700px]']}>{pricing.ctaTitle}</h2><p class="mb-0 max-w-[650px] text-copy-muted">{pricing.ctaBody}</p></div>
       <a class={buttonPrimary} href={githubUrl} target="_blank" rel="noopener noreferrer" data-analytics-event="click_outbound" data-analytics-target="pricing_cta"><GitFork size={18} stroke-width={1.9} aria-hidden="true" />{pricing.ctaAction}</a>
     </div>
   </section>
