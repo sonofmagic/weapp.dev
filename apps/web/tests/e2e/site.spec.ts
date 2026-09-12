@@ -513,6 +513,13 @@ test('provides a working mobile navigation menu', async ({ page }) => {
   await expect(mobileNav).not.toBeVisible()
 })
 
+test('defers project logos inside the header menus', async ({ page }) => {
+  await page.goto('/')
+  const logos = page.locator('[data-site-header] nav img')
+  await expect(logos).toHaveCount(10)
+  await expect(logos.evaluateAll(images => images.every(image => image.getAttribute('loading') === 'lazy' && image.getAttribute('decoding') === 'async'))).resolves.toBe(true)
+})
+
 test('opens analytics preferences directly from the privacy page', async ({ page }) => {
   await page.goto('/privacy/')
   await page.getByRole('button', { name: '打开统计偏好' }).click()
