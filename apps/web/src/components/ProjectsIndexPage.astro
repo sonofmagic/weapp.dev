@@ -6,7 +6,7 @@ import { pageTitle, section, shell } from '../styles/classes'
 import ProjectRoleCard from './ProjectRoleCard.astro'
 interface Props { locale: Locale; projects: ProjectEntry[] }
 const { locale, projects } = Astro.props
-const copy = locale === 'zh-CN' ? { eyebrow: '工具链项目', title: '选择你现在需要的那一层', description: '五个项目按开发流程排列。先接最痛的一层，之后再按需要叠加。', docs: '阅读文档', details: '项目详情', stable: '稳定', beta: '测试', planned: '规划中', map: '工具链角色' } : { eyebrow: 'Toolchain projects', title: 'Choose the layer you need now', description: 'Five projects, ordered by the development flow. Start with the sharpest pain and add another layer when you need it.', docs: 'Read docs', details: 'Project details', stable: 'Stable', beta: 'Beta', planned: 'Planned', map: 'Toolchain role' }
+const copy = locale === 'zh-CN' ? { eyebrow: '工具链项目', title: '选择你现在需要的那一层', description: '五个项目按开发流程排列。先接最痛的一层，之后再按需要叠加。' } : { eyebrow: 'Toolchain projects', title: 'Choose the layer you need now', description: 'Five projects, ordered by the development flow. Start with the sharpest pain and add another layer when you need it.' }
 const roleLabels = locale === 'zh-CN' ? { engineering: '工程与构建', styling: '样式系统', components: '组件与交付', data: '本地数据', migration: 'Taro / React 迁移' } : { engineering: 'Engineering', styling: 'Styling', components: 'Components', data: 'Local data', migration: 'Taro / React migration' }
 const maturityLabels = locale === 'zh-CN' ? { all: '全部成熟度', stable: '稳定', beta: '测试', planned: '规划中' } : { all: 'All maturity', stable: 'Stable', beta: 'Beta', planned: 'Planned' }
 const allPlatforms = [...new Set(getToolchainProjects(projects).flatMap(({ project }) => project.data.platforms))].sort()
