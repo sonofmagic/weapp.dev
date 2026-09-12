@@ -37,7 +37,7 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
               <p id={statusId} class="mb-0 text-xs text-copy-muted">{planned ? (locale === 'zh-CN' ? '规划中，尚无公开版本' : 'Planned, no public release yet') : `${copy.releases.released} ${formatReleaseDate(projectMetrics!.releasedAt, numberLocale)}`}</p>
             </div>
             <strong class="font-mono text-sm">{planned ? (locale === 'zh-CN' ? '规划中' : 'Planned') : `v${projectMetrics!.version}`}</strong>
-            {!planned ? <a class:list={[iconControl, 'max-[520px]:hidden']} href={`https://www.npmjs.com/package/${project.data.packageName}`} aria-label={`${copy.releases.viewPackage}: ${project.data.packageName}`} target="_blank" rel="noopener noreferrer" data-analytics-event="click_outbound" data-analytics-target="package" data-analytics-project={project.id}>
+            {!planned ? <a class:list={[iconControl, 'max-[520px]:hidden']} href={project.data.npmUrl} aria-label={`${copy.releases.viewPackage}: ${project.data.packageName}`} target="_blank" rel="noopener noreferrer" data-analytics-event="click_outbound" data-analytics-target="package" data-analytics-project={project.id}>
               <ArrowUpRight size={19} stroke-width={1.8} aria-hidden="true" />
             </a> : <span aria-hidden="true" />}
           </article>
