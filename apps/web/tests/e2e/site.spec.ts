@@ -676,10 +676,12 @@ test('defers project logos inside the header menus', async ({ page }) => {
 })
 
 test('defers the footer brand mark below the first viewport', async ({ page }) => {
-  await page.goto('/')
-  const mark = page.locator('footer img[src="/logo.svg"]')
-  await expect(mark).toHaveAttribute('loading', 'lazy')
-  await expect(mark).toHaveAttribute('decoding', 'async')
+  for (const route of ['/', '/en/']) {
+    await page.goto(route)
+    const mark = page.locator('footer img[src="/logo.svg"]')
+    await expect(mark).toHaveAttribute('loading', 'lazy')
+    await expect(mark).toHaveAttribute('decoding', 'async')
+  }
 })
 
 test('labels the homepage demo stage as a landmark', async ({ page }) => {
