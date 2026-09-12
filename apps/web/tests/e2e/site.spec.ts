@@ -716,6 +716,10 @@ test('keeps core content and links available without JavaScript', async ({ brows
     await expect(page.getByRole('heading', { level: 1, name: 'weapp.dev' })).toBeVisible()
     await expect(page.getByRole('link', { name: siteCopy[locale].projects.documentation }).first()).toBeVisible()
     await expectHomeVisuals(page, locale)
+    await expect(page.locator('.toolchain-map-list li')).toHaveCount(5)
+    await expect(page.locator('.project-selector-list article')).toHaveCount(5)
+    await expect(page.locator('.home-project-rail a')).toHaveCount(5)
+    await expect(page.locator('.home-toolchain-shell a').first()).toBeVisible()
     for (const button of await page.locator('[data-selector-copy]').all()) {
       await expect(button).toBeDisabled()
     }
