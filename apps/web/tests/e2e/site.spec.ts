@@ -483,6 +483,15 @@ test('copies the install command and expands project FAQ content', async ({ page
   await expect(faq.getByText('Vite 驱动的开发和构建流程')).toBeVisible()
 })
 
+test('labels the English install command for keyboard users', async ({ page }) => {
+  await page.goto('/en/projects/weapp-vite/')
+  const command = page.locator('#quick-start-command')
+  await expect(command).toHaveAttribute('tabindex', '0')
+  await expect(command).toHaveAttribute('aria-label', 'Install command')
+  await command.focus()
+  await expect(command).toBeFocused()
+})
+
 test('keeps command copying accessible when the clipboard API is unavailable', async ({ page }) => {
   await page.addInitScript(() => {
     Object.defineProperty(navigator, 'clipboard', {
