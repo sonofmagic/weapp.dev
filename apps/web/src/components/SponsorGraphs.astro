@@ -200,6 +200,8 @@ const labels = locale === 'zh-CN'
         this.cleanup?.()
         this.cleanup = undefined
         connection.abort()
+        if (this.connection === connection) this.connection = undefined
+        this.setAttribute('aria-busy', 'false')
         chartElements.forEach(element => { element.hidden = true })
         this.querySelectorAll<HTMLElement>('[data-graph-loading]').forEach(loading => { loading.hidden = true })
         this.querySelectorAll<HTMLDetailsElement>('details').forEach(table => { table.open = true })
