@@ -66,6 +66,8 @@ export function projectListSchema(locale: Locale, projects: Array<{ id: string, 
     '@context': 'https://schema.org',
     '@type': 'ItemList',
     'name': locale === 'zh-CN' ? 'weapp.dev 项目' : 'weapp.dev projects',
+    'itemListOrder': 'https://schema.org/ItemListOrderAscending',
+    'numberOfItems': projects.length,
     'itemListElement': projects.map((project, index) => ({
       '@type': 'ListItem',
       'position': index + 1,

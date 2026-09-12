@@ -59,6 +59,9 @@ describe('SEO helpers', () => {
     }))
     const zh = projectListSchema('zh-CN', projects)
     const en = projectListSchema('en', projects)
+    expect(zh.itemListOrder).toBe('https://schema.org/ItemListOrderAscending')
+    expect(zh.numberOfItems).toBe(5)
+    expect(en.numberOfItems).toBe(5)
     expect(zh.itemListElement.map(item => item.name)).toEqual(['weapp-vite', 'weapp-tailwindcss', 'Varo', 'weapp-sqlite', 'VPT'])
     expect(en.itemListElement.map(item => item.url)).toEqual([
       'https://weapp.dev/en/projects/weapp-vite/',
