@@ -23,7 +23,7 @@ const labels = locale === 'zh-CN'
   <div class="sponsor-graph-card" data-graph-card="flow" aria-labelledby="sponsor-flow-title">
     <header><div><p class="sponsor-graph-kicker">01</p><h2 id="sponsor-flow-title">{labels.flow}</h2><p>{labels.flowHelp}</p></div></header>
     <div class="sponsor-chart" data-chart="flow" hidden role="img" aria-label={labels.flow}></div>
-    <p class="sponsor-graph-error" data-graph-error hidden>{labels.error}</p>
+    <p class="sponsor-graph-error" data-graph-error hidden role="status" aria-live="polite">{labels.error}</p>
     <details open><summary>{labels.table}</summary><table><thead><tr><th>{locale === 'zh-CN' ? '资金桶' : 'Bucket'}</th><th>{locale === 'zh-CN' ? '比例' : 'Share'}</th></tr></thead><tbody>{localizedGraph.buckets.map(bucket => <tr><th>{bucket.name}</th><td>{bucket.share}%</td></tr>)}</tbody></table></details>
   </div>
   <div class="sponsor-graph-card" data-graph-card="relation" aria-labelledby="sponsor-relation-title">
@@ -32,7 +32,7 @@ const labels = locale === 'zh-CN'
     <div class="sponsor-chart" data-chart="relation" hidden role="img" aria-label={labels.relation}></div>
     <p class="sponsor-graph-status" data-status aria-live="polite"></p>
     <aside aria-label={labels.details} class="sponsor-node-details" data-node-details hidden aria-live="polite"><strong data-node-name></strong><span data-node-kind></span><a data-node-link target="_blank" rel="noreferrer" hidden>{labels.open}</a></aside>
-    <p class="sponsor-graph-error" data-graph-error hidden>{labels.error}</p>
+    <p class="sponsor-graph-error" data-graph-error hidden role="status" aria-live="polite">{labels.error}</p>
     <details open>
       <summary>{labels.table}</summary>
       <h3>{labels.nodes}</h3>

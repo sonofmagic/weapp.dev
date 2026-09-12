@@ -47,6 +47,7 @@ for (const route of ['/sponsors/', '/en/sponsors/']) {
     await page.goto(route)
     const graphs = page.locator('[data-sponsor-graphs]')
     await expect(graphs.locator('[data-graph-error]').first()).toBeVisible()
+    await expect(graphs.locator('[data-graph-error]').first()).toHaveAttribute('role', 'status')
     await expect(graphs.locator('[data-chart="flow"]')).toBeHidden()
     await expect(graphs.locator('canvas')).toHaveCount(0)
     await expect(graphs).toHaveAttribute('aria-busy', 'false')
