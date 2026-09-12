@@ -133,11 +133,17 @@ export function sponsorGraphData(snapshot: SponsorSnapshot): SponsorGraphData {
   nodes.push(...sites.map(([id, name, url]) => ({ id, name, kind: 'site' as const, url })))
   const edges: SponsorGraphEdge[] = []
   const relationEdges: SponsorGraphEdge[] = []
+  const seenSponsorIds = new Set<string>()
   for (const sponsor of snapshot.items) {
-    const name = sponsor.brandName || sponsor.login || sponsor.id
-    nodes.push({ id: `sponsor:${sponsor.id}`, name, kind: 'sponsor', url: sponsor.brandUrl || sponsor.profileUrl })
+    const sponsorId = sponsor.id.trim()
+    if (!sponsorId || seenSponsorIds.has(sponsorId)) {
+      continue
+    }
+    seenSponsorIds.add(sponsorId)
+    const name = sponsor.brandName || sponsor.login || sponsorId
+    nodes.push({ id: `sponsor:${sponsorId}`, name, kind: 'sponsor', url: sponsor.brandUrl || sponsor.profileUrl })
     for (const site of sponsor.displaySites) {
-      relationEdges.push({ source: `sponsor:${sponsor.id}`, target: `site:${site}`, value: 1, label: 'display' })
+      relationEdges.push({ source: `sponsor:${sponsorId}`, target: `site:${site}`, value: 1, label: 'display' })
     }
   }
   const buckets = [

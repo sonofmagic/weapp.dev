@@ -24,6 +24,21 @@ describe('sponsor graph data', () => {
     }
   })
 
+  it('keeps graph sponsor IDs unique when called with an unsanitized snapshot', () => {
+    const graph = sponsorGraphData({
+      version: 1,
+      repositoryUrl: 'https://github.com/sonofmagic/sponsors',
+      total: 2,
+      items: [
+        { id: '  direct  ', kind: 'business', tier: 'gold', displaySites: ['weapp'] },
+        { id: 'direct', kind: 'business', tier: 'silver', displaySites: ['vite'] },
+      ],
+    })
+
+    expect(graph.nodes.filter(node => node.kind === 'sponsor')).toHaveLength(1)
+    expect(graph.relationEdges.filter(edge => edge.source === 'sponsor:direct')).toEqual([{ source: 'sponsor:direct', target: 'site:weapp', value: 1, label: 'display' }])
+  })
+
   it('creates valid project, sponsor, ledger and fund references', () => {
     const graph = sponsorGraphData({
       version: 1,
