@@ -21,6 +21,10 @@ const expectedFiles = [
   'en/privacy/index.html',
   'contributors/index.html',
   'en/contributors/index.html',
+  'projects/index.html',
+  'en/projects/index.html',
+  'sponsors/index.html',
+  'en/sponsors/index.html',
   'en/projects/varo/index.html',
   'en/projects/vite-plugin-taro/index.html',
   'releases.xml',
@@ -64,6 +68,21 @@ for (const file of expectedFiles) {
   }
   catch {
     errors.push(`Missing expected build output: ${file}`)
+  }
+}
+
+for (const homeFile of ['index.html', 'en/index.html']) {
+  const html = await readFile(resolve(dist, homeFile), 'utf8')
+  if (html.includes('echarts') || html.includes('SponsorGraphs')) {
+    errors.push(`${homeFile}: homepage must not load sponsor graph runtime`)
+  }
+}
+
+for (const sponsorFile of ['sponsors/index.html', 'en/sponsors/index.html']) {
+  const html = await readFile(resolve(dist, sponsorFile), 'utf8')
+  const runtimeScripts = html.match(/<script[^>]+src="[^"]*SponsorGraphs[^" ]*"/g) ?? []
+  if (runtimeScripts.length !== 1) {
+    errors.push(`${sponsorFile}: expected exactly one sponsor graph runtime script`)
   }
 }
 
