@@ -5,12 +5,12 @@ import { getToolchainProjects } from '../lib/toolchain'
 import { projectPath } from '../i18n/ui'
 interface Props { locale: Locale; projects: ProjectEntry[] }
 const { locale, projects } = Astro.props
-const labels = locale === 'zh-CN' ? { engineering: '工程', styling: '样式', components: '组件', data: '数据', migration: '迁移', title: '从工程到交付，每一层各司其职', kicker: '工具链地图', view: '查看项目' } : { engineering: 'Engineering', styling: 'Styling', components: 'Components', data: 'Data', migration: 'Migration', title: 'From engineering to delivery, each layer has a job', kicker: 'TOOLCHAIN MAP', view: 'View project' }
+const labels = locale === 'zh-CN' ? { engineering: '工程', styling: '样式', components: '组件', data: '数据', migration: '迁移', title: '从工程到交付，每一层各司其职', kicker: '工具链地图', view: '查看项目', status: { stable: '稳定', beta: '测试', planned: '规划中' } } : { engineering: 'Engineering', styling: 'Styling', components: 'Components', data: 'Data', migration: 'Migration', title: 'From engineering to delivery, each layer has a job', kicker: 'TOOLCHAIN MAP', view: 'View project', status: { stable: 'Stable', beta: 'Beta', planned: 'Planned' } }
 const items = getToolchainProjects(projects)
 ---
 <section class="toolchain-map" aria-labelledby="toolchain-title">
   <header data-reveal><p class="mb-3 font-mono text-xs font-[650] text-brand">{labels.kicker}</p><h2 id="toolchain-title">{labels.title}</h2></header>
-<ol class="toolchain-map-list">{items.map(({ project, role }, index) => { const content = project.data.locales[locale]; return <li data-reveal style={`--reveal-delay:${index * 60}ms`}><span class="toolchain-step">{String(index + 1).padStart(2, '0')}</span><div class="toolchain-connector" aria-hidden="true"></div><img src={project.data.logo} width="40" height="40" alt="" loading="lazy" decoding="async" /><div class="toolchain-copy"><strong>{labels[role]}</strong><h3>{content.name}</h3><p>{content.tagline}</p></div><a href={projectPath(locale, project.id)} aria-label={`${labels.view}: ${content.name}`}>{labels.view}</a></li> })}</ol>
+<ol class="toolchain-map-list">{items.map(({ project, role }, index) => { const content = project.data.locales[locale]; return <li data-reveal style={`--reveal-delay:${index * 60}ms`}><span class="toolchain-step">{String(index + 1).padStart(2, '0')}</span><div class="toolchain-connector" aria-hidden="true"></div><img src={project.data.logo} width="40" height="40" alt="" loading="lazy" decoding="async" /><div class="toolchain-copy"><div class="toolchain-meta"><strong>{labels[role]}</strong><span class="toolchain-status">{labels.status[project.data.status]}</span></div><h3>{content.name}</h3><p>{content.tagline}</p></div><a href={projectPath(locale, project.id)} aria-label={`${labels.view}: ${content.name}`}>{labels.view}</a></li> })}</ol>
 </section>
 <style>
   .toolchain-map { padding: 2rem; border: 1px solid var(--border); background: var(--surface); }
@@ -21,6 +21,8 @@ const items = getToolchainProjects(projects)
   .toolchain-connector { position: absolute; top: 1.58rem; right: -1px; width: 1rem; height: 1px; background: var(--accent); }
   .toolchain-map-list li:last-child .toolchain-connector { display: none; }
   .toolchain-map-list img { display: block; width: 2.5rem; height: 2.5rem; margin: 1.25rem 0 1rem; object-fit: contain; }
+  .toolchain-meta { display: flex; flex-wrap: wrap; gap: 0.45rem; align-items: center; }
+  .toolchain-status { color: var(--muted); font: 650 0.68rem/1 var(--font-mono); }
   .toolchain-copy strong { color: var(--accent); font: 650 .72rem/1 var(--font-mono); text-transform: uppercase; }
   .toolchain-copy h3 { margin: .45rem 0 .3rem; font-size: 1rem; overflow-wrap: anywhere; }
   .toolchain-copy p { margin: 0; color: var(--muted); font-size: .82rem; line-height: 1.5; }

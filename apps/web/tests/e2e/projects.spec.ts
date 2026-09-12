@@ -8,6 +8,8 @@ for (const prefix of ['', '/en']) {
     const ids = ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro']
     const links = page.locator('.toolchain-map-list li a')
     await expect(links).toHaveCount(5)
+    const sqliteNode = page.locator('.toolchain-map-list li').filter({ hasText: 'weapp-sqlite' })
+    await expect(sqliteNode.locator('.toolchain-status')).toHaveText(prefix ? 'Planned' : '规划中')
     await expect(links.evaluateAll(items => items.map(item => item.getAttribute('href')))).resolves.toEqual(ids.map(id => `${prefix}/projects/${id}/`))
   })
 
