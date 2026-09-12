@@ -9,5 +9,7 @@ describe('release links', () => {
   it('does not invent links for planned or undocumented projects', () => {
     expect(getReleaseLink('planned', 'https://www.npmjs.com/package/example')).toBeNull()
     expect(getReleaseLink('stable')).toBeNull()
+    expect(getReleaseLink('stable', 'http://www.npmjs.com/package/example')).toBeNull()
+    expect(getReleaseLink('stable', 'not-a-url')).toBeNull()
   })
 })
