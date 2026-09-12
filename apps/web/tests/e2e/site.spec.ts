@@ -180,6 +180,9 @@ test('renders the bilingual contributor program', async ({ page }) => {
   await expect(page.locator('.contributors-table thead th')).toHaveCount(3)
   await expect(page.locator('#contributors-section-1')).toHaveAttribute('aria-labelledby', 'contributors-heading-1')
   await expect(page.locator('#contributors-weights-title').locator('xpath=..')).toHaveAttribute('aria-labelledby', 'contributors-weights-title')
+  await expect(page.locator('nav[aria-label="本页目录"] a[href="#contributors-weights-title"]')).toHaveCount(1)
+  await expect(page.locator('nav[aria-label="本页目录"] a[href="#contributors-repos-title"]')).toHaveCount(1)
+  await expect(page.locator('nav[aria-label="本页目录"] a[href="#contributors-payout-title"]')).toHaveCount(1)
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://weapp.dev/contributors/')
   await expect(page.locator('link[hreflang="en-US"]')).toHaveAttribute('href', 'https://weapp.dev/en/contributors/')
 
@@ -191,6 +194,9 @@ test('renders the bilingual contributor program', async ({ page }) => {
   await expect(page.locator('.contributors-table thead th')).toHaveCount(3)
   await expect(page.locator('#contributors-section-1')).toHaveAttribute('aria-labelledby', 'contributors-heading-1')
   await expect(page.locator('#contributors-weights-title').locator('xpath=..')).toHaveAttribute('aria-labelledby', 'contributors-weights-title')
+  await expect(page.locator('nav[aria-label="On this page"] a[href="#contributors-weights-title"]')).toHaveCount(1)
+  await expect(page.locator('nav[aria-label="On this page"] a[href="#contributors-repos-title"]')).toHaveCount(1)
+  await expect(page.locator('nav[aria-label="On this page"] a[href="#contributors-payout-title"]')).toHaveCount(1)
 })
 
 test('home commercial entry points reach pricing and services', async ({ page }) => {

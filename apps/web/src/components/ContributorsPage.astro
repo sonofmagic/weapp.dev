@@ -49,6 +49,9 @@ const copy = siteCopy[locale].contributors
         {copy.sections.map((sectionCopy, index) => (
           <a class="block border-t border-line py-3 text-sm font-[590] transition-colors hover:text-brand" href={`#contributors-section-${index + 1}`}>{sectionCopy.title}</a>
         ))}
+        <a class="block border-t border-line py-3 text-sm font-[590] transition-colors hover:text-brand" href="#contributors-weights-title">{copy.weightsTitle}</a>
+        <a class="block border-t border-line py-3 text-sm font-[590] transition-colors hover:text-brand" href="#contributors-repos-title">{copy.reposTitle}</a>
+        <a class="block border-t border-line py-3 text-sm font-[590] transition-colors hover:text-brand" href="#contributors-payout-title">{copy.payoutTitle}</a>
       </nav>
       <div class="border-t border-line">
         {copy.sections.map((sectionCopy, index) => (
