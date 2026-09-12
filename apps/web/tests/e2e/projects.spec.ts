@@ -92,7 +92,9 @@ for (const prefix of ['', '/en']) {
     await expect(page.locator('.roadmap-status[role="status"]')).toHaveCount(2)
     await expect(page.locator('[data-roadmap-status="planned"]')).toHaveCount(2)
     await expect(page.locator('.roadmap-strip li').first()).toContainText(prefix ? 'Confirm runtime and platform boundaries' : '确认运行时与平台边界')
-    await expect(page.getByText(prefix ? 'The first release is being specified; no install command or production API is available yet.' : '首版资料整理中，暂不提供安装命令或生产 API。')).toBeVisible()
+    const readiness = page.getByText(prefix ? 'The first release is being specified; no install command or production API is available yet.' : '首版资料整理中，暂不提供安装命令或生产 API。', { exact: true })
+    await expect(readiness).toBeVisible()
+    await expect(readiness).toHaveAttribute('role', 'status')
     await expect(page.locator('.project-proof-list')).toContainText(prefix ? 'Runtime boundaries are still being confirmed' : '运行时边界待确认')
     await expect(page.locator('.project-proof-panel')).toHaveAttribute('aria-describedby', 'project-proof-description')
     await expect(page.locator('.project-proof-panel')).toHaveAttribute('data-proof-count', '2')
@@ -123,6 +125,7 @@ for (const prefix of ['', '/en']) {
       if (['varo', 'weapp-sqlite'].includes(slug)) {
         await expect(path.locator('code')).toHaveCount(0)
         await expect(path.locator('.project-selector-planned')).toContainText(zh ? '规划中' : 'planned')
+        await expect(path.locator('.project-selector-planned')).toHaveAttribute('role', 'status')
       }
       else {
         await expect(path.locator('code')).not.toBeEmpty()
