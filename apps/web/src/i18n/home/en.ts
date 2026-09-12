@@ -65,6 +65,16 @@ export default {
         owns: 'Editable dual-runtime components, Blocks, and registry install conventions.',
         notOwns: 'Your project scaffold, or forcing a rewrite of existing pages.',
       },
+      {
+        title: 'Data · weapp-sqlite',
+        owns: 'The planned boundary, migration path, and public material contract for local mini-app data.',
+        notOwns: 'A released runtime API, performance guarantees, or production-ready version today.',
+      },
+      {
+        title: 'Migration · VPT',
+        owns: 'The Vite migration path and engineering handoff for Taro / React teams.',
+        notOwns: 'Mini-app style conversion, the component registry, or a local database implementation.',
+      },
     ],
   },
   releases: {

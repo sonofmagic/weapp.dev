@@ -68,7 +68,7 @@
     "zh-CN": {
       "name": "VPT",
       "tagline": "给 Taro 接上 Vite",
-      "description": "在 Taro 项目里用 Vite 做开发与构建，而不是老的 webpack 链路。它是邻接项目，不是首页那三层之一。",
+      "description": "在 Taro 项目里用 Vite 做开发与构建，而不是老的 webpack 链路。它负责把现有 React 工程接入工具链。",
       "audience": "希望复用 React 与 Taro 组件和 API，并使用现代 Vite 工具链开发微信、支付宝小程序与 Web 应用的前端团队。",
       "useCases": [
         "使用 npm create vite-taro@latest my-app 创建跨端 React 项目",
@@ -100,7 +100,7 @@
     "en": {
       "name": "VPT",
       "tagline": "Vite for Taro projects",
-      "description": "Use Vite for Taro development and builds instead of the older webpack pipeline. Adjacent to the homepage three-layer stack, not one of its pillars.",
+      "description": "Use Vite for Taro development and builds instead of the older webpack pipeline. It connects existing React projects to the toolchain.",
       "audience": "Frontend teams that want to reuse React and Taro components and APIs while developing WeChat, Alipay, and Web apps with a modern Vite toolchain.",
       "useCases": [
         "Create a cross-platform React project with npm create vite-taro@latest my-app",

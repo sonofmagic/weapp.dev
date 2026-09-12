@@ -65,6 +65,16 @@ export default {
         owns: '可编辑的双端组件、Blocks，以及 Registry 的安装约定。',
         notOwns: '整个工程脚手架，也不强迫你改掉现有页面写法。',
       },
+      {
+        title: '数据 · weapp-sqlite',
+        owns: '规划小程序本地数据能力的接入边界、迁移路径和公开资料契约。',
+        notOwns: '当前不承诺已发布的运行时 API、性能指标或生产可用版本。',
+      },
+      {
+        title: '迁移 · VPT',
+        owns: 'Taro / React 团队接入 Vite 的迁移路径与工程衔接。',
+        notOwns: '小程序样式转换、组件 Registry 或本地数据库实现。',
+      },
     ],
   },
   releases: {
