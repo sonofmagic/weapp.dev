@@ -26,7 +26,7 @@ const copy = locale === 'zh-CN' ? {
 ---
 <section class="project-selector" id="start-here" aria-labelledby="start-here-title">
   <header data-reveal><p class="mb-3 font-mono text-xs font-[650] text-brand">{copy.eyebrow}</p><h2 id="start-here-title">{copy.title}</h2></header>
-  <div class="project-selector-list">{copy.paths.map((path, index) => <article data-reveal style={`--reveal-delay:${index * 60}ms`}><span class="project-selector-index">{String(index + 1).padStart(2, '0')}</span><div><h3>{path.title}</h3><p>{path.body}</p><div class="project-selector-projects">{path.ids.map(id => { const project = byId.get(id); if (!project) return null; return <a href={projectPath(locale, id)}><img src={project.data.logo} width="24" height="24" alt="" />{project.data.locales[locale].name}</a> })}</div></div><a class="project-selector-action" href={projectPath(locale, path.ids[0])}>{copy.action}<ArrowUpRight size={15} stroke-width={1.8} aria-hidden="true" /></a></article>)}</div>
+  <div class="project-selector-list">{copy.paths.map((path, index) => { const firstProject = byId.get(path.ids[0]); return <article data-reveal style={`--reveal-delay:${index * 60}ms`}><span class="project-selector-index">{String(index + 1).padStart(2, '0')}</span><div><h3>{path.title}</h3><p>{path.body}</p><div class="project-selector-projects">{path.ids.map(id => { const project = byId.get(id); if (!project) return null; return <a href={projectPath(locale, id)}><img src={project.data.logo} width="24" height="24" alt="" />{project.data.locales[locale].name}</a> })}</div>{firstProject && <div class="project-selector-command"><span>{locale === 'zh-CN' ? '第一步' : 'First step'}</span><code>{firstProject.data.installCommand}</code></div>}</div><a class="project-selector-action" href={projectPath(locale, path.ids[0])}>{copy.action}<ArrowUpRight size={15} stroke-width={1.8} aria-hidden="true" /></a></article> })}</div>
   <a class="project-selector-all" href={localizePath(locale, '/projects/')}>{locale === 'zh-CN' ? '浏览全部五个项目' : 'Browse all five projects'} <ArrowRight size={16} stroke-width={1.8} aria-hidden="true" /></a>
 </section>
 <style>
@@ -40,6 +40,8 @@ const copy = locale === 'zh-CN' ? {
   .project-selector-projects { display:flex; flex-wrap:wrap; gap:.5rem; }
   .project-selector-projects a { display:inline-flex; align-items:center; gap:.4rem; padding:.3rem .5rem; border:1px solid var(--border); color:var(--text); font:650 .75rem/1 var(--font-mono); }
   .project-selector-projects img { width:1.5rem; height:1.5rem; object-fit:contain; }
+  .project-selector-command { display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; margin-top:.75rem; color:var(--muted); font:650 .7rem/1.4 var(--font-mono); }
+  .project-selector-command code { overflow:auto; max-width:100%; border:1px solid var(--border); padding:.35rem .5rem; color:var(--text); background:var(--surface); font:inherit; }
   .project-selector-action { display:inline-flex; gap:.35rem; align-items:center; color:var(--accent); font-size:.82rem; font-weight:650; white-space:nowrap; }
   .project-selector-all { display:inline-flex; gap:.5rem; margin-top:1rem; color:var(--text); font-size:.88rem; font-weight:650; }
   @media (max-width:620px) { .project-selector { padding:1rem; } .project-selector-list article { grid-template-columns:1.75rem minmax(0,1fr); } .project-selector-action { grid-column:2; } }
