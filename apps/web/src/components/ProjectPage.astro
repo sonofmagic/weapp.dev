@@ -169,15 +169,16 @@ const installCommand = project.data.installCommand ?? project.data.quickStart?.c
       <h2 id="project-faq-title" class:list={[sectionTitle, 'mb-0']}>{copy.project.faq}</h2>
     </header>
     <div data-reveal class="border-t border-line">
-      {content.faqs.map(faq => (
-        <details class="group border-b border-line">
+      {content.faqs.map((faq, index) => {
+        const answerId = `project-faq-answer-${project.id}-${index + 1}`
+        return <details class="group border-b border-line" aria-describedby={answerId}>
           <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-lg font-[650] [&::-webkit-details-marker]:hidden">
             {faq.question}
             <ChevronDown class="shrink-0 transition-transform duration-200 group-open:rotate-180" size={20} stroke-width={1.8} aria-hidden="true" />
           </summary>
-          <p class="mb-0 max-w-[830px] pb-7 leading-[1.75] text-copy-muted">{faq.answer}</p>
+          <p id={answerId} class="mb-0 max-w-[830px] pb-7 leading-[1.75] text-copy-muted">{faq.answer}</p>
         </details>
-      ))}
+      })}
     </div>
   </section>
 
