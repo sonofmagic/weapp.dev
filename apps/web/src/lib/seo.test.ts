@@ -37,6 +37,15 @@ describe('SEO helpers', () => {
     expect(entity.sameAs).not.toContain('https://www.npmjs.com/package/@varo/cli')
   })
 
+  it('keeps the planned weapp-sqlite schema free of unconfirmed runtime claims', () => {
+    const project = { id: 'weapp-sqlite', data: sqlite as unknown as ProjectDefinition }
+    const entity = projectSchema('en', project, fallbackMetrics.varo)
+    expect(entity).not.toHaveProperty('runtimePlatform')
+    expect(entity).not.toHaveProperty('version')
+    expect(entity).not.toHaveProperty('dateModified')
+    expect(entity).not.toHaveProperty('downloadUrl')
+  })
+
   it('derives organization links from project definitions', () => {
     const project = { id: 'weapp-tailwindcss', data: tailwind as unknown as ProjectDefinition }
     const organization = organizationSchema([project])
