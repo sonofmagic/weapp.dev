@@ -54,6 +54,7 @@ describe('sponsor graph data', () => {
         { id: 'valid', kind: 'individual', tier: 'supporter', login: 'valid', profileUrl: 'https://github.com/valid', displaySites: ['weapp'] },
         { id: 'hidden', kind: 'business', tier: 'gold', displaySites: ['vite'] },
         { id: 'bad-tier', kind: 'business', tier: 'platinum', displaySites: ['weapp'] },
+        { id: '   ', kind: 'individual', tier: 'supporter', displaySites: ['weapp'] },
         { id: 'unsafe-url', kind: 'business', tier: 'gold', brandUrl: 'javascript:alert(1)', displaySites: ['weapp'] },
       ],
     }), { status: 200, headers: { 'content-type': 'application/json' } })))

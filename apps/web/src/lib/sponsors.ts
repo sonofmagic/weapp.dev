@@ -61,7 +61,7 @@ function sanitize(value: unknown): PublicSponsor | undefined {
     return undefined
   }
   const item = value as Record<string, unknown>
-  if (typeof item.id !== 'string' || (item.kind !== 'individual' && item.kind !== 'business')) {
+  if (typeof item.id !== 'string' || item.id.trim().length === 0 || (item.kind !== 'individual' && item.kind !== 'business')) {
     return undefined
   }
   if (!['supporter', 'bronze', 'silver', 'gold'].includes(String(item.tier))) {
