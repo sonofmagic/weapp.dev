@@ -8,6 +8,8 @@ export function getReleaseLink(status: string, npmUrl?: string): string | null {
       && (url.hostname === 'www.npmjs.com' || url.hostname === 'npmjs.com')
       && url.pathname.startsWith('/package/')
       && url.pathname.length > '/package/'.length
+      && url.search === ''
+      && url.hash === ''
       ? npmUrl
       : null
   }

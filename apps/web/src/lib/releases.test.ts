@@ -13,5 +13,7 @@ describe('release links', () => {
     expect(getReleaseLink('stable', 'not-a-url')).toBeNull()
     expect(getReleaseLink('stable', 'https://registry.npmjs.org/example')).toBeNull()
     expect(getReleaseLink('stable', 'https://www.npmjs.com/search?q=example')).toBeNull()
+    expect(getReleaseLink('stable', 'https://www.npmjs.com/package/example?tab=readme')).toBeNull()
+    expect(getReleaseLink('stable', 'https://www.npmjs.com/package/example#readme')).toBeNull()
   })
 })
