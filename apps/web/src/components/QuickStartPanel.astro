@@ -8,10 +8,10 @@ const { locale, status, audience, note, command, projectId } = Astro.props
 const copy = siteCopy[locale]
 const fallbackNote = copy.project.readinessNote
 ---
-<section class="border-y border-line bg-panel">
+<section class="border-y border-line bg-panel" aria-labelledby="quick-start-title">
   <div class="mx-auto grid w-[calc(100%-3rem)] max-w-[1240px] grid-cols-[.9fr_1.1fr] items-center gap-12 py-10 max-[800px]:grid-cols-1 max-[800px]:gap-7">
     <div data-reveal>
-      <h2 class="mb-3 text-2xl font-[660]">{copy.project.install}</h2>
+      <h2 id="quick-start-title" class="mb-3 text-2xl font-[660]">{copy.project.install}</h2>
       <p class="mb-0 text-sm text-copy-muted">{audience}</p>
     </div>
     {status === 'planned' || !command ? <div data-reveal class="rounded-panel border border-line bg-panel-soft px-5 py-4 text-sm leading-[1.7] text-copy-muted">{note || fallbackNote}</div> : <div data-reveal class="grid grid-cols-[1fr_auto] overflow-hidden rounded-panel border border-line bg-canvas">

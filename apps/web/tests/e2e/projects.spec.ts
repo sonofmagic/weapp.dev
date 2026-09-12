@@ -102,6 +102,7 @@ for (const prefix of ['', '/en']) {
     const readiness = page.getByText(prefix ? 'The first release is being specified; no install command or production API is available yet.' : '首版资料整理中，暂不提供安装命令或生产 API。', { exact: true })
     await expect(readiness).toBeVisible()
     await expect(readiness).not.toHaveAttribute('role', 'status')
+    await expect(page.locator('section[aria-labelledby="quick-start-title"]')).toHaveCount(1)
     await expect(page.locator('.project-proof-list')).toContainText(prefix ? 'Runtime boundaries are still being confirmed' : '运行时边界待确认')
     await expect(page.locator('.project-proof-code-head span[aria-label]')).toHaveAttribute('aria-label', prefix ? 'Project status: Planned' : '项目状态: 规划中')
     await expect(page.locator('.project-proof-panel')).toHaveAttribute('aria-describedby', 'project-proof-description')
