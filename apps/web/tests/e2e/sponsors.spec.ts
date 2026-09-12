@@ -18,6 +18,7 @@ for (const route of ['/sponsors/', '/en/sponsors/']) {
     await expect(graphs.locator('[data-graph-card="relation"]')).toHaveAttribute('aria-labelledby', 'sponsor-relation-title')
     await expect(graphs.locator('[data-chart="flow"] canvas')).toHaveCount(1)
     await expect(graphs.locator('[data-chart="relation"] canvas')).toHaveCount(1)
+    await expect(graphs.locator('[data-graph-loading]')).toBeHidden()
     await expect(graphs.locator('[data-graph-card="flow"] caption')).toHaveText(route.startsWith('/en') ? 'Funding bucket allocation shares' : '资金桶分配比例')
     await expect(graphs.locator('[data-graph-card="relation"] table').nth(0).locator('caption')).toHaveText(route.startsWith('/en') ? 'Sponsor graph node list' : '赞助图谱节点列表')
     await expect(graphs.locator('[data-graph-card="relation"] table').nth(1).locator('caption')).toHaveText(route.startsWith('/en') ? 'Sponsor graph connection list' : '赞助图谱连接列表')
