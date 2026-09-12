@@ -236,6 +236,7 @@ test('renders the bilingual contributor program', async ({ page }) => {
   await expect(page.locator('nav[aria-label="本页目录"] a[href="#contributors-payout-title"]')).toHaveCount(1)
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://weapp.dev/contributors/')
   await expect(page.locator('link[hreflang="en-US"]')).toHaveAttribute('href', 'https://weapp.dev/en/contributors/')
+  await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute('content', 'weapp.dev 贡献者基金与积分规则')
   await expect(page.locator('script[type="application/ld+json"]').nth(1).evaluate(script => JSON.parse(script.textContent || '{}'))).resolves.toMatchObject({ '@type': 'CollectionPage', 'about': 'weapp.dev 贡献者基金与积分规则' })
 
   await page.getByRole('link', { name: 'English' }).click()
@@ -253,6 +254,7 @@ test('renders the bilingual contributor program', async ({ page }) => {
   await expect(page.locator('nav[aria-label="On this page"] a[href="#contributors-weights-title"]')).toHaveCount(1)
   await expect(page.locator('nav[aria-label="On this page"] a[href="#contributors-repos-title"]')).toHaveCount(1)
   await expect(page.locator('nav[aria-label="On this page"] a[href="#contributors-payout-title"]')).toHaveCount(1)
+  await expect(page.locator('meta[property="og:image:alt"]')).toHaveAttribute('content', 'weapp.dev contributors fund and point rules')
   await expect(page.locator('script[type="application/ld+json"]').nth(1).evaluate(script => JSON.parse(script.textContent || '{}'))).resolves.toMatchObject({ '@type': 'CollectionPage', 'about': 'weapp.dev contributors fund and point rules' })
 })
 

@@ -12,7 +12,7 @@ const copy = siteCopy[locale].contributors
 const projects = await getProjects()
 ---
 
-<BaseLayout locale={locale} title={`${copy.title} | weapp.dev`} description={copy.description} schemas={[contributorsSchema(locale, copy.title, copy.description)]}>
+<BaseLayout locale={locale} title={`${copy.title} | weapp.dev`} description={copy.description} imageAlt="weapp.dev 贡献者基金与积分规则" schemas={[contributorsSchema(locale, copy.title, copy.description)]}>
   <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />
   <ContributorsPage locale={locale} />
   <Footer locale={locale} projects={projects} currentPath={Astro.url.pathname} />
