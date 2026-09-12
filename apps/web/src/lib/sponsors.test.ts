@@ -33,15 +33,18 @@ describe('sponsor graph data', () => {
     vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({
       version: 4,
       items: [
-        { id: 'valid', kind: 'individual', tier: 'supporter', login: 'valid', displaySites: ['weapp'] },
+        { id: 'valid', kind: 'individual', tier: 'supporter', login: 'valid', profileUrl: 'https://github.com/valid', displaySites: ['weapp'] },
         { id: 'hidden', kind: 'business', tier: 'gold', displaySites: ['vite'] },
         { id: 'bad-tier', kind: 'business', tier: 'platinum', displaySites: ['weapp'] },
+        { id: 'unsafe-url', kind: 'business', tier: 'gold', brandUrl: 'javascript:alert(1)', displaySites: ['weapp'] },
       ],
     }), { status: 200, headers: { 'content-type': 'application/json' } })))
 
     const snapshot = await loadPublicSponsors()
 
     expect(snapshot.version).toBe(4)
-    expect(snapshot.items.map(item => item.id)).toEqual(['valid'])
+    expect(snapshot.items.map(item => item.id)).toEqual(['valid', 'unsafe-url'])
+    expect(snapshot.items[0]?.profileUrl).toBe('https://github.com/valid')
+    expect(snapshot.items[1]?.brandUrl).toBeUndefined()
   })
 })

@@ -43,6 +43,19 @@ const fallback: SponsorSnapshot = {
 }
 const allSites: SponsorSite[] = ['icebreaker', 'weapp', 'tw', 'vite']
 
+function sanitizeUrl(value: unknown): string | undefined {
+  if (typeof value !== 'string') {
+    return undefined
+  }
+  try {
+    const url = new URL(value)
+    return url.protocol === 'https:' ? url.toString() : undefined
+  }
+  catch {
+    return undefined
+  }
+}
+
 function sanitize(value: unknown): PublicSponsor | undefined {
   if (!value || typeof value !== 'object') {
     return undefined
@@ -65,11 +78,11 @@ function sanitize(value: unknown): PublicSponsor | undefined {
     kind: item.kind,
     tier: item.tier as SponsorTier,
     ...(typeof item.login === 'string' ? { login: item.login } : {}),
-    ...(typeof item.profileUrl === 'string' ? { profileUrl: item.profileUrl } : {}),
-    ...(typeof item.avatarUrl === 'string' ? { avatarUrl: item.avatarUrl } : {}),
+    ...(sanitizeUrl(item.profileUrl) ? { profileUrl: sanitizeUrl(item.profileUrl) } : {}),
+    ...(sanitizeUrl(item.avatarUrl) ? { avatarUrl: sanitizeUrl(item.avatarUrl) } : {}),
     ...(typeof item.brandName === 'string' ? { brandName: item.brandName } : {}),
-    ...(typeof item.brandUrl === 'string' ? { brandUrl: item.brandUrl } : {}),
-    ...(typeof item.logoUrl === 'string' ? { logoUrl: item.logoUrl } : {}),
+    ...(sanitizeUrl(item.brandUrl) ? { brandUrl: sanitizeUrl(item.brandUrl) } : {}),
+    ...(sanitizeUrl(item.logoUrl) ? { logoUrl: sanitizeUrl(item.logoUrl) } : {}),
     displaySites,
   }
 }
