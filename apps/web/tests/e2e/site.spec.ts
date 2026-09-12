@@ -12,6 +12,7 @@ async function expectHomeVisuals(page: import('@playwright/test').Page, _locale:
   await expect(page.locator('#projects .home-lab')).toHaveCount(0)
   await expect(page.locator('#projects .home-project-proof')).toHaveCount(5)
   await expect(page.locator('#projects .home-project-proof-command')).toContainText('pnpm exec wv build -p weapp')
+  await expect(page.locator('[data-project-id="weapp-sqlite"] .home-project-proof-list')).toContainText(_locale === 'zh-CN' ? '运行时边界待确认' : 'Runtime boundaries are still being confirmed')
   const images = await page.evaluate(() => performance.getEntriesByType('resource').map(entry => entry.name).filter(url => /\/media\/(?:showcase|projects)\//.test(url)))
   expect(images.every(url => url.includes('/media/projects/vpt-hmr-'))).toBe(true)
   expect(images.length).toBeLessThanOrEqual(2)
