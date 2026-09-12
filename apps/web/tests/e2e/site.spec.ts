@@ -665,6 +665,8 @@ test('labels the homepage demo stage as a landmark', async ({ page }) => {
 
 test('opens analytics preferences directly from the privacy page', async ({ page }) => {
   await page.goto('/privacy/')
+  await expect(page.locator('section[aria-labelledby="privacy-title"]')).toHaveCount(1)
+  await expect(page.locator('[id^="privacy-section-"][aria-labelledby]')).toHaveCount(4)
   await page.getByRole('button', { name: '打开统计偏好' }).click()
   await expect(page.getByRole('dialog', { name: '统计偏好' })).toBeVisible()
 })
