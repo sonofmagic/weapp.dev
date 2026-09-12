@@ -56,7 +56,7 @@ export const projectDefinitionSchema = z.object({
   role: z.string().min(1),
   maturity: z.enum(['stable', 'beta', 'planned']),
   runtime: z.array(z.string().min(1)).min(1),
-  relatedProjects: z.array(z.string().min(1)).optional(),
+  relatedProjects: z.array(z.string().min(1)).min(1),
   dataCompleteness: z.enum(['complete', 'partial', 'planned']),
   quickStart: z.object({
     command: z.string().min(1).optional(),

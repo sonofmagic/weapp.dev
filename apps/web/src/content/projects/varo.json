@@ -24,6 +24,10 @@
     "H5",
     "weapp-vite"
   ],
+  "relatedProjects": [
+    "weapp-tailwindcss",
+    "weapp-sqlite"
+  ],
   "dataCompleteness": "partial",
   "platforms": [
     "H5",

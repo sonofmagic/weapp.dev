@@ -28,6 +28,10 @@
     "Taro",
     "Vite"
   ],
+  "relatedProjects": [
+    "weapp-vite",
+    "weapp-tailwindcss"
+  ],
   "dataCompleteness": "complete",
   "platforms": [
     "WeChat",

@@ -25,6 +25,10 @@
     "Tailwind CSS",
     "Mini Program"
   ],
+  "relatedProjects": [
+    "weapp-vite",
+    "varo"
+  ],
   "dataCompleteness": "complete",
   "platforms": [
     "WeChat",
