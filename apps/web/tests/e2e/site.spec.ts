@@ -270,6 +270,15 @@ test('planned project exposes an honest readiness state', async ({ page }) => {
 })
 
 for (const prefix of ['', '/en']) {
+  test(`marks the active project detail in navigation on ${prefix || '/'}`, async ({ page }) => {
+    await page.goto(`${prefix}/projects/weapp-vite/`)
+    const current = page.locator('[data-site-header] a[aria-current="page"]')
+    await expect(current).toHaveCount(2)
+    await expect(current.first()).toHaveAttribute('href', `${prefix}/projects/weapp-vite/`)
+  })
+}
+
+for (const prefix of ['', '/en']) {
   test(`planned projects expose no package or install actions on ${prefix || '/'}`, async ({ page }) => {
     for (const slug of ['varo', 'weapp-sqlite']) {
       await page.goto(`${prefix}/projects/${slug}/`)
