@@ -501,6 +501,7 @@ for (const localePath of ['', '/en']) {
       const copy = siteCopy[localePath ? 'en' : 'zh-CN'].project
       await expect(page.getByText(copy.readinessNote, { exact: true })).toHaveCount(1)
       await expect(page.getByRole('region', { name: copy.setupStatus, exact: true })).toBeVisible()
+      await expect(page.locator('[aria-labelledby="quick-start-title"] [role="status"]')).toHaveAttribute('aria-live', 'polite')
       await expect(page.getByRole('heading', { name: copy.install, exact: true })).toHaveCount(0)
       await expect(page.getByRole('region', { name: copy.visualProof, exact: true })).toHaveCount(slug === 'weapp-sqlite' ? 0 : 1)
       await expect(page.locator('.project-proof-code-head')).toContainText(localePath ? 'Planned' : '规划中')
