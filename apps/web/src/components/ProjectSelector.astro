@@ -12,6 +12,7 @@ const copy = locale === 'zh-CN' ? {
   paths: [
     { title: '新建小程序工程', body: '从现代 Vite 工程开始，再按需要叠加样式和组件。', ids: ['weapp-vite', 'weapp-tailwindcss', 'varo'] },
     { title: '已有小程序项目', body: '先把样式工作流接进现有项目，不要求重写页面。', ids: ['weapp-tailwindcss'] },
+    { title: '需要组件源码和业务 Blocks', body: '从 Varo 的组件与交付规划开始，评估可编辑源码和业务组合方式。', ids: ['varo'] },
     { title: '需要本地数据', body: '评估结构化本地存储和离线能力，关注 weapp-sqlite 的规划进展。', ids: ['weapp-sqlite'] },
     { title: '已有 Taro / React 项目', body: '保留 Taro 组件和 API，把开发构建链路切换到 Vite。', ids: ['vite-plugin-taro'] },
   ],
@@ -21,6 +22,7 @@ const copy = locale === 'zh-CN' ? {
   paths: [
     { title: 'Starting a new mini-app', body: 'Begin with a modern Vite project, then add styling and components as needed.', ids: ['weapp-vite', 'weapp-tailwindcss', 'varo'] },
     { title: 'Working in an existing mini-app', body: 'Bring the styling workflow into the current project without rewriting pages.', ids: ['weapp-tailwindcss'] },
+    { title: 'Choosing component source and Blocks', body: 'Explore Varo’s component and delivery plans for editable source and business compositions.', ids: ['varo'] },
     { title: 'Planning local data', body: 'Evaluate structured storage and offline needs while weapp-sqlite is being planned.', ids: ['weapp-sqlite'] },
     { title: 'Already on Taro / React', body: 'Keep Taro components and APIs while moving the development pipeline to Vite.', ids: ['vite-plugin-taro'] },
   ],
@@ -28,7 +30,7 @@ const copy = locale === 'zh-CN' ? {
 ---
 <section class="project-selector" id="start-here" aria-labelledby="start-here-title">
   <header data-reveal><p class="mb-3 font-mono text-xs font-[650] text-brand">{copy.eyebrow}</p><h2 id="start-here-title">{copy.title}</h2></header>
-  <div class="project-selector-list">{copy.paths.map((path, index) => { const firstProject = byId.get(path.ids[0]); return <article data-reveal style={`--reveal-delay:${index * 60}ms`}><span class="project-selector-index">{String(index + 1).padStart(2, '0')}</span><div><h3>{path.title}</h3><p>{path.body}</p><div class="project-selector-projects">{path.ids.map(id => { const project = byId.get(id); if (!project) return null; return <a href={projectPath(locale, id)} aria-label={`${project.data.locales[locale].name} · ${path.title}`}><img src={project.data.logo} width="24" height="24" alt="" />{project.data.locales[locale].name}</a> })}</div>{firstProject && (firstProject.data.status === 'planned' ? <p class="project-selector-planned">{copy.planned}</p> : <div class="project-selector-command"><span>{locale === 'zh-CN' ? '第一步' : 'First step'}</span><code>{firstProject.data.installCommand}</code></div>)}</div><a class="project-selector-action" href={projectPath(locale, path.ids[0])} aria-label={`${copy.action}: ${path.title}`}>{copy.action}<ArrowUpRight size={15} stroke-width={1.8} aria-hidden="true" /></a></article> })}</div>
+  <div class="project-selector-list">{copy.paths.map((path, index) => { const firstProject = byId.get(path.ids[0]); return <article data-reveal style={`--reveal-delay:${index * 60}ms`}><span class="project-selector-index">{String(index + 1).padStart(2, '0')}</span><div><h3>{path.title}</h3><p>{path.body}</p><div class="project-selector-projects">{path.ids.map(id => { const project = byId.get(id); if (!project) return null; return <a href={projectPath(locale, id)} aria-label={`${project.data.locales[locale].name} · ${path.title}`}><img src={project.data.logo} width="24" height="24" alt="" />{project.data.locales[locale].name}</a> })}</div>{firstProject && (firstProject.data.status === 'planned' ? <p class="project-selector-planned">{copy.planned}</p> : <div class="project-selector-command"><span>{locale === 'zh-CN' ? '第一步' : 'First step'}</span><code>{firstProject.data.installCommand}</code></div>)}</div><div class="project-selector-actions"><a class="project-selector-action" href={projectPath(locale, path.ids[0])} aria-label={`${copy.action}: ${path.title}`}>{copy.action}<ArrowUpRight size={15} stroke-width={1.8} aria-hidden="true" /></a>{firstProject && <a class="project-selector-action" href={firstProject.data.docsUrl} target="_blank" rel="noreferrer" aria-label={`${copy.docs}: ${path.title}`}>{copy.docs}<ArrowUpRight size={15} stroke-width={1.8} aria-hidden="true" /></a>}</div></article> })}</div>
   <a class="project-selector-all" href={localizePath(locale, '/projects/')}>{locale === 'zh-CN' ? '浏览全部五个项目' : 'Browse all five projects'} <ArrowRight size={16} stroke-width={1.8} aria-hidden="true" /></a>
 </section>
 <style>
@@ -45,7 +47,8 @@ const copy = locale === 'zh-CN' ? {
   .project-selector-command { display:flex; flex-wrap:wrap; align-items:center; gap:.5rem; margin-top:.75rem; color:var(--muted); font:650 .7rem/1.4 var(--font-mono); }
   .project-selector-command code { overflow:auto; max-width:100%; border:1px solid var(--border); padding:.35rem .5rem; color:var(--text); background:var(--surface); font:inherit; }
   .project-selector-planned { margin-top:.75rem !important; color:var(--muted); font:650 .72rem/1.5 var(--font-mono); }
-  .project-selector-action { display:inline-flex; gap:.35rem; align-items:center; color:var(--accent); font-size:.82rem; font-weight:650; white-space:nowrap; }
+  .project-selector-actions { display: flex; flex-direction: column; align-items: start; }
+  .project-selector-action { min-height: 2.75rem; display:inline-flex; gap:.35rem; align-items:center; color:var(--accent); font-size:.82rem; font-weight:650; white-space:nowrap; }
   .project-selector-all { display:inline-flex; gap:.5rem; margin-top:1rem; color:var(--text); font-size:.88rem; font-weight:650; }
-  @media (max-width:620px) { .project-selector { padding:1rem; } .project-selector-list article { grid-template-columns:1.75rem minmax(0,1fr); } .project-selector-action { grid-column:2; } }
+  @media (max-width:620px) { .project-selector { padding:1rem; } .project-selector-list article { grid-template-columns:1.75rem minmax(0,1fr); } .project-selector-actions { grid-column:2; flex-direction:row; flex-wrap:wrap; gap:1rem; } }
 </style>
