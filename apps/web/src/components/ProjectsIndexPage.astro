@@ -106,6 +106,8 @@ const allPlatforms = [...new Set(getToolchainProjects(projects).flatMap(({ proje
   .projects-index-list img { width: 3.25rem; height: 3.25rem; object-fit: contain; }
   .projects-index-copy h2 { margin: .55rem 0 .4rem; font: 680 1.5rem/1.15 var(--font-display); overflow-wrap: anywhere; }
   .projects-index-copy p { max-width: 680px; margin: 0 0 .9rem; color: var(--muted); font-size: .92rem; line-height: 1.65; }
+  .projects-index-audience { display:flex; gap:.5rem; align-items:baseline; margin-top:-.35rem !important; font-size:.8rem !important; }
+  .projects-index-audience span { flex:none; color:var(--accent); font:650 .7rem/1.5 var(--font-mono); text-transform:uppercase; }
   .projects-index-quickstart { display:flex; flex-wrap:wrap; align-items:baseline; gap:.55rem; margin-top:1rem; color:var(--muted); font:650 .72rem/1.5 var(--font-mono); }
   .projects-index-quickstart code { overflow-wrap:anywhere; color:var(--text); font:500 .78rem/1.5 var(--font-mono); }
   .projects-index-quickstart em { font-style:normal; }

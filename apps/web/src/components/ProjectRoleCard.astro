@@ -18,6 +18,7 @@ const copy = locale === 'zh-CN' ? { docs: '阅读文档', details: '项目详情
     <div class="flex flex-wrap items-center gap-2"><span class="font-mono text-xs font-[650] text-brand">{roleLabels[role as keyof typeof roleLabels] || role}</span><ProjectStatusBadge locale={locale} status={project.data.status} /></div>
     <h2 id={`project-card-${project.id}`}>{content.name}</h2>
     <p id={`project-card-description-${project.id}`}>{content.description}</p>
+    <p class="projects-index-audience"><span>{locale === 'zh-CN' ? '适合' : 'For'}</span>{content.audience}</p>
     <div class="flex flex-wrap gap-2">{project.data.platforms?.map(platform => <span class="projects-platform">{platform}</span>)}{project.data.status === 'planned' && !project.data.platforms?.length ? <span class="projects-platform">{locale === 'zh-CN' ? '平台待确认' : 'Platforms pending'}</span> : null}{project.data.roadmap?.length ? <span class="projects-platform">{project.data.roadmap.length} {copy.roadmap}</span> : null}</div>
     <div class="projects-index-quickstart" aria-label={project.data.installCommand ? `${copy.quickStart}: ${project.data.installCommand}` : (locale === 'zh-CN' ? '第一步：资料待确认' : 'First step: details pending')}><span>{copy.quickStart}</span>{project.data.installCommand ? <code>{project.data.installCommand}</code> : <em>{locale === 'zh-CN' ? '资料待确认' : 'Details pending'}</em>}</div>
   </div>

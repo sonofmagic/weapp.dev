@@ -60,6 +60,7 @@ for (const prefix of ['', '/en']) {
     await expect(page.locator('[data-project-card]').filter({ hasText: 'weapp-sqlite' })).toContainText(zh ? '2 项路线' : '2 roadmap items')
     await expect(page.locator('[data-project-card][data-project-id="weapp-vite"] .projects-index-quickstart code')).toHaveText('pnpm add -D weapp-vite')
     await expect(page.locator('[data-project-card][data-project-id="weapp-sqlite"] .projects-index-quickstart')).toContainText(zh ? '资料待确认' : 'Details pending')
+    await expect(page.locator('[data-project-card][data-project-id="weapp-vite"] .projects-index-audience')).toContainText(zh ? '适合' : 'For')
     await role.selectOption('data')
     await expect(visible).toHaveCount(1)
     await expect(visible.getByRole('heading')).toHaveText('weapp-sqlite')
