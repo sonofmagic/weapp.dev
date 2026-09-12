@@ -70,7 +70,7 @@ const isPricing = currentPath === pricingPath
         <Moon class="hidden dark:block" size={18} stroke-width={1.8} aria-hidden="true" />
       </button>
       <details data-mobile-menu class="group relative hidden max-[960px]:block">
-        <summary class:list={[iconControl, 'list-none [&::-webkit-details-marker]:hidden']} aria-label={copy.nav.openMenu} aria-controls="mobile-navigation" aria-expanded="false">
+      <summary class:list={[iconControl, 'list-none [&::-webkit-details-marker]:hidden']} aria-label={copy.nav.openMenu} data-open-label={copy.nav.openMenu} data-close-label={copy.nav.closeMenu} aria-controls="mobile-navigation" aria-expanded="false">
           <Menu class="group-open:hidden" size={20} stroke-width={1.8} aria-hidden="true" />
           <X class="hidden group-open:block" size={20} stroke-width={1.8} aria-hidden="true" />
         </summary>
@@ -112,7 +112,11 @@ const isPricing = currentPath === pricingPath
   })
   document.querySelectorAll('[data-mobile-menu]').forEach((menu) => {
     const summary = menu.querySelector('summary')
-    const syncExpanded = () => summary?.setAttribute('aria-expanded', menu.hasAttribute('open') ? 'true' : 'false')
+    const syncExpanded = () => {
+      const expanded = menu.hasAttribute('open')
+      summary?.setAttribute('aria-expanded', expanded ? 'true' : 'false')
+      summary?.setAttribute('aria-label', expanded ? summary.dataset.closeLabel || '' : summary.dataset.openLabel || '')
+    }
     menu.addEventListener('toggle', syncExpanded)
     syncExpanded()
     document.addEventListener('click', (event) => {

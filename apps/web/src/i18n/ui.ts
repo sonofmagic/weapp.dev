@@ -15,6 +15,7 @@ export const siteCopy = {
       pricing: '赞助与服务',
       github: 'GitHub',
       openMenu: '打开导航',
+      closeMenu: '关闭导航',
       theme: '切换主题',
     },
     pricing: {
@@ -247,6 +248,7 @@ export const siteCopy = {
       pricing: 'Sponsorship & services',
       github: 'GitHub',
       openMenu: 'Open navigation',
+      closeMenu: 'Close navigation',
       theme: 'Change theme',
     },
     pricing: {
