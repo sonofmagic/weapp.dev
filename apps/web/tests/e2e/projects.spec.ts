@@ -55,7 +55,7 @@ for (const prefix of ['', '/en']) {
     await expect(page.locator('[data-project-card] [data-project-status]')).toHaveCount(5)
     for (const id of ['weapp-vite', 'weapp-tailwindcss', 'varo', 'weapp-sqlite', 'vite-plugin-taro']) {
       await expect(page.locator(`[data-project-card][data-project-id="${id}"]`)).toHaveAttribute('aria-labelledby', `project-card-${id}`)
-      await expect(page.locator(`[data-project-card][data-project-id="${id}"]`)).toHaveAttribute('aria-describedby', `project-card-description-${id}`)
+      await expect(page.locator(`[data-project-card][data-project-id="${id}"]`)).toHaveAttribute('aria-describedby', new RegExp(`project-card-description-${id} project-card-audience-${id}`))
     }
     await expect(page.locator('[data-project-card]').filter({ hasText: 'weapp-sqlite' })).toContainText(zh ? '2 项路线' : '2 roadmap items')
     await expect(page.locator('[data-project-card][data-project-id="weapp-vite"] .projects-index-quickstart code')).toHaveText('pnpm add -D weapp-vite')
