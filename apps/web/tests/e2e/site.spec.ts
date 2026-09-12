@@ -366,6 +366,8 @@ test('planned project exposes an honest readiness state', async ({ page }) => {
   await expect(page.getByText('周下载')).toHaveCount(0)
   await page.goto('/')
   const releaseRow = page.locator('#releases article').filter({ hasText: 'Varo' })
+  await expect(releaseRow).toHaveAttribute('aria-labelledby', 'release-title-varo')
+  await expect(releaseRow).toHaveAttribute('aria-describedby', 'release-status-varo')
   await expect(releaseRow).toContainText('规划中')
   await expect(releaseRow).not.toContainText('0.0.1')
   await expect(releaseRow.locator('a')).toHaveCount(0)

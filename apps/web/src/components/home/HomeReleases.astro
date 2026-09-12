@@ -27,12 +27,14 @@ const numberLocale = locale === 'zh-CN' ? 'zh-CN' : 'en-US'
       {projects.map(project => {
         const projectMetrics = metrics[project.id]
         const planned = project.data.status === 'planned'
+        const titleId = `release-title-${project.id}`
+        const statusId = `release-status-${project.id}`
         return (
-          <article class="grid min-h-[96px] grid-cols-[48px_1fr_auto_42px] items-center gap-4 border-b border-line max-[520px]:grid-cols-[42px_1fr_auto]">
+          <article class="grid min-h-[96px] grid-cols-[48px_1fr_auto_42px] items-center gap-4 border-b border-line max-[520px]:grid-cols-[42px_1fr_auto]" aria-labelledby={titleId} aria-describedby={statusId}>
             <img class="size-11 object-contain max-[520px]:size-9" src={project.data.logo} width="44" height="44" alt="" loading="lazy" decoding="async" />
             <div>
-              <h3 class="mb-1 text-base font-[650]">{project.data.locales[locale].name}</h3>
-              <p class="mb-0 text-xs text-copy-muted">{planned ? (locale === 'zh-CN' ? '规划中，尚无公开版本' : 'Planned, no public release yet') : `${copy.releases.released} ${formatReleaseDate(projectMetrics!.releasedAt, numberLocale)}`}</p>
+              <h3 id={titleId} class="mb-1 text-base font-[650]">{project.data.locales[locale].name}</h3>
+              <p id={statusId} class="mb-0 text-xs text-copy-muted">{planned ? (locale === 'zh-CN' ? '规划中，尚无公开版本' : 'Planned, no public release yet') : `${copy.releases.released} ${formatReleaseDate(projectMetrics!.releasedAt, numberLocale)}`}</p>
             </div>
             <strong class="font-mono text-sm">{planned ? (locale === 'zh-CN' ? '规划中' : 'Planned') : `v${projectMetrics!.version}`}</strong>
             {!planned ? <a class:list={[iconControl, 'max-[520px]:hidden']} href={`https://www.npmjs.com/package/${project.data.packageName}`} aria-label={`${copy.releases.viewPackage}: ${project.data.packageName}`} target="_blank" rel="noopener noreferrer" data-analytics-event="click_outbound" data-analytics-target="package" data-analytics-project={project.id}>
