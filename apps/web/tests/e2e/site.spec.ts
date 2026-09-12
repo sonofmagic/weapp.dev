@@ -555,7 +555,11 @@ test('announces the desktop project menu state in both locales', async ({ page }
     await summary.click()
     await expect(summary).toHaveAttribute('aria-expanded', 'true')
     await expect(page.locator('#project-navigation')).toBeVisible()
+    await page.keyboard.press('Escape')
+    await expect(summary).toHaveAttribute('aria-expanded', 'false')
+    await expect(summary).toBeFocused()
     await summary.click()
+    await page.locator('main').click({ position: { x: 12, y: 12 } })
     await expect(summary).toHaveAttribute('aria-expanded', 'false')
   }
 })
