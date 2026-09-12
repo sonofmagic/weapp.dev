@@ -18,6 +18,11 @@ for (const prefix of ['', '/en']) {
       await expect(node.locator('.toolchain-status')).toHaveText(statusLabels.planned)
     }
     await expect(links.evaluateAll(items => items.map(item => item.getAttribute('href')))).resolves.toEqual(ids.map(id => `${prefix}/projects/${id}/`))
+    for (const id of ids) {
+      const node = page.locator(`.toolchain-map-list li[data-project-id="${id}"]`)
+      await expect(node).toHaveAttribute('aria-labelledby', `toolchain-project-${id}`)
+      await expect(node.locator(`#toolchain-project-${id}`)).toBeVisible()
+    }
   })
 
   const zh = prefix === ''
