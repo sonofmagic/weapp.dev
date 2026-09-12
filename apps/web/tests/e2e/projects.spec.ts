@@ -123,6 +123,14 @@ for (const prefix of ['', '/en']) {
     expect(collectionSchema.mainEntity.numberOfItems).toBe(5)
   })
 
+  test(`links the project catalog to sponsor support on ${prefix || 'zh-CN'}`, async ({ page }) => {
+    await page.goto(`${prefix}/projects/`)
+    const support = page.locator('[aria-labelledby="projects-support-title"]')
+    await expect(support).toBeVisible()
+    await expect(support).toContainText(prefix ? 'Support the toolchain maintenance' : '支持这套工具链继续维护')
+    await expect(support.getByRole('link')).toHaveAttribute('href', `${prefix}/sponsors/`)
+  })
+
   test(`decodes the project detail logo asynchronously on ${prefix || 'zh-CN'}`, async ({ page }) => {
     await page.goto(`${prefix}/projects/weapp-vite/`)
     await expect(page.locator('main#main-content > section').first().locator('img').first()).toHaveAttribute('decoding', 'async')
