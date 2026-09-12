@@ -1,0 +1,24 @@
+---
+import type { Locale } from '../types/project'
+import type { ProjectEntry } from '../lib/projects'
+import { projectPath } from '../i18n/ui'
+import { buttonPrimary } from '../styles/classes'
+import ProjectStatusBadge from './ProjectStatusBadge.astro'
+
+interface Props { locale: Locale; project: ProjectEntry; role: string; index: number }
+const { locale, project, role, index } = Astro.props
+const content = project.data.locales[locale]
+const roleLabels = locale === 'zh-CN' ? { engineering: '工程与构建', styling: '样式系统', components: '组件与交付', data: '本地数据', migration: 'Taro / React 迁移' } : { engineering: 'Engineering', styling: 'Styling', components: 'Components', data: 'Local data', migration: 'Taro / React migration' }
+const copy = locale === 'zh-CN' ? { docs: '阅读文档', details: '项目详情', roadmap: '项路线' } : { docs: 'Read docs', details: 'Project details', roadmap: 'roadmap items' }
+---
+<article data-project-card data-project-id={project.id} aria-labelledby={`project-card-${project.id}`} aria-describedby={`project-card-description-${project.id}`} data-role={role} data-maturity={project.data.status} data-platforms={project.data.platforms.join('|')} data-roadmap-count={project.data.roadmap?.length ?? 0} data-reveal style={`--reveal-delay:${index * 50}ms`}>
+  <div class="projects-index-number">{String(index + 1).padStart(2, '0')}</div>
+  <img src={project.data.logo} width="52" height="52" alt="" loading="lazy" decoding="async" />
+  <div class="projects-index-copy">
+    <div class="flex flex-wrap items-center gap-2"><span class="font-mono text-xs font-[650] text-brand">{roleLabels[role as keyof typeof roleLabels] || role}</span><ProjectStatusBadge locale={locale} status={project.data.status} /></div>
+    <h2 id={`project-card-${project.id}`}>{content.name}</h2>
+    <p id={`project-card-description-${project.id}`}>{content.description}</p>
+    <div class="flex flex-wrap gap-2">{project.data.platforms.map(platform => <span class="projects-platform">{platform}</span>)}{project.data.roadmap?.length ? <span class="projects-platform">{project.data.roadmap.length} {copy.roadmap}</span> : null}</div>
+  </div>
+  <div class="projects-index-actions"><a class={buttonPrimary} href={project.data.docsUrl} target="_blank" rel="noreferrer" aria-label={`${copy.docs}: ${content.name}`}>{copy.docs}</a><a class="inline-flex min-h-11 items-center justify-center px-2 text-sm font-[650] text-copy-muted hover:text-ink" href={projectPath(locale, project.id)} aria-label={`${copy.details}: ${content.name}`}>{copy.details}</a></div>
+</article>
