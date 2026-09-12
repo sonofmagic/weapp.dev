@@ -7,4 +7,4 @@ import { getProjects } from '../../../lib/projects'
 import { projectListSchema } from '../../../lib/seo'
 const projects = await getProjects()
 ---
-<BaseLayout locale="en" title="Toolchain projects | weapp.dev" description="The five core weapp.dev toolchain projects" schemas={[projectListSchema('en', projects)]}><Header locale="en" projects={projects} currentPath={Astro.url.pathname} /><ProjectsIndexPage locale="en" projects={projects} /><Footer locale="en" projects={projects} /></BaseLayout>
+<BaseLayout locale="en" title="Toolchain projects | weapp.dev" description="The five core weapp.dev toolchain projects" schemas={[projectListSchema('en', projects)]}><Header locale="en" projects={projects} currentPath={Astro.url.pathname} /><ProjectsIndexPage locale="en" projects={projects} /><Footer locale="en" projects={projects} currentPath={Astro.url.pathname} /></BaseLayout>

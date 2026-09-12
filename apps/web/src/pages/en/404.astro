@@ -14,5 +14,5 @@ const projects = await getProjects()
 <BaseLayout locale={locale} title={`${copy.notFound.title} | weapp.dev`} description={copy.notFound.description} noindex>
   <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />
   <NotFoundPage locale={locale} />
-  <Footer locale={locale} projects={projects} />
+  <Footer locale={locale} projects={projects} currentPath={Astro.url.pathname} />
 </BaseLayout>

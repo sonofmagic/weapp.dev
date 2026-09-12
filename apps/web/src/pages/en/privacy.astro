@@ -14,5 +14,5 @@ const projects = await getProjects()
 <BaseLayout locale={locale} title={`${copy.title} | weapp.dev`} description={copy.description}>
   <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />
   <PrivacyPage locale={locale} />
-  <Footer locale={locale} projects={projects} />
+  <Footer locale={locale} projects={projects} currentPath={Astro.url.pathname} />
 </BaseLayout>

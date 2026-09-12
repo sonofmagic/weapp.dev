@@ -15,5 +15,5 @@ const description = 'Sponsorship tiers, the 60/25/15 fund split, and deliverable
 <BaseLayout locale={locale} title={title} description={description} imageAlt="weapp.dev commercial delivery layer" schemas={[pricingSchema(locale)]}>
   <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />
   <PricingPage locale={locale} />
-  <Footer locale={locale} projects={projects} />
+  <Footer locale={locale} projects={projects} currentPath={Astro.url.pathname} />
 </BaseLayout>

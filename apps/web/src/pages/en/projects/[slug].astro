@@ -39,5 +39,5 @@ const projectMetrics = metrics[project.id] ?? { version: 'planned', releasedAt: 
 >
   <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />
   <ProjectPage locale={locale} project={project} projects={projects} metrics={projectMetrics} />
-  <Footer locale={locale} projects={projects} />
+  <Footer locale={locale} projects={projects} currentPath={Astro.url.pathname} />
 </BaseLayout>

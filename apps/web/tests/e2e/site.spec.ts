@@ -278,6 +278,24 @@ for (const prefix of ['', '/en']) {
   })
 }
 
+for (const [route, footerPath] of [
+  ['/projects/', '/projects/'],
+  ['/pricing/', '/pricing/'],
+  ['/contributors/', '/contributors/'],
+  ['/privacy/', '/privacy/'],
+  ['/sponsors/', '/sponsors/'],
+  ['/en/projects/', '/en/projects/'],
+  ['/en/pricing/', '/en/pricing/'],
+  ['/en/contributors/', '/en/contributors/'],
+  ['/en/privacy/', '/en/privacy/'],
+  ['/en/sponsors/', '/en/sponsors/'],
+] as const) {
+  test(`marks the current footer destination on ${route}`, async ({ page }) => {
+    await page.goto(route)
+    await expect(page.locator(`footer a[aria-current="page"][href="${footerPath}"]`)).toHaveCount(1)
+  })
+}
+
 for (const prefix of ['', '/en']) {
   test(`planned projects expose no package or install actions on ${prefix || '/'}`, async ({ page }) => {
     for (const slug of ['varo', 'weapp-sqlite']) {

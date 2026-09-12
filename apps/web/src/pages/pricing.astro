@@ -15,5 +15,5 @@ const description = 'weapp.dev 的开源赞助档位、60/25/15 分账说明，�
 <BaseLayout locale={locale} title={title} description={description} imageAlt="weapp.dev 商业化交付层" schemas={[pricingSchema(locale)]}>
   <Header locale={locale} projects={projects} currentPath={Astro.url.pathname} />
   <PricingPage locale={locale} />
-  <Footer locale={locale} projects={projects} />
+  <Footer locale={locale} projects={projects} currentPath={Astro.url.pathname} />
 </BaseLayout>
