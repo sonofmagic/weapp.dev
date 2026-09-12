@@ -105,6 +105,8 @@ for (const prefix of ['', '/en']) {
     await expect(page.locator('.roadmap-strip')).toBeVisible()
     await expect(page.locator('.roadmap-strip li')).toHaveCount(2)
     await expect(page.locator('.roadmap-status[aria-label]')).toHaveCount(2)
+    await expect(page.locator('.roadmap-strip li').first()).toHaveAttribute('aria-labelledby', 'roadmap-item-weapp-sqlite-1')
+    await expect(page.locator('.roadmap-strip li').first()).toHaveAttribute('aria-describedby', 'roadmap-status-weapp-sqlite-1')
     await expect(page.locator('.roadmap-status').first()).toHaveAttribute('aria-label', prefix ? 'Status: Planned' : '状态: 规划中')
     await expect(page.locator('[data-roadmap-status="planned"]')).toHaveCount(2)
     await expect(page.locator('.roadmap-strip li').first()).toContainText(prefix ? 'Confirm runtime and platform boundaries' : '确认运行时与平台边界')
