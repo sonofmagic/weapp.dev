@@ -1,4 +1,5 @@
 import { z } from 'astro/zod'
+import { isCanonicalNpmPackageUrl } from '../lib/npm'
 
 const httpsUrl = z.url().refine(
   value => new URL(value).protocol === 'https:',
@@ -6,12 +7,7 @@ const httpsUrl = z.url().refine(
 )
 
 const npmPackageUrl = httpsUrl.refine((value) => {
-  const url = new URL(value)
-  return (url.hostname === 'www.npmjs.com' || url.hostname === 'npmjs.com')
-    && url.pathname.startsWith('/package/')
-    && url.pathname.length > '/package/'.length
-    && url.search === ''
-    && url.hash === ''
+  return isCanonicalNpmPackageUrl(value)
 }, 'npmUrl must be a canonical npm package URL')
 
 const localizedContent = z.object({
