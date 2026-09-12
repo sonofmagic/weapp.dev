@@ -72,6 +72,22 @@ const labels = locale === 'zh-CN'
       this.cleanup = () => charts.forEach(chart => chart.dispose())
 
       try {
+        if ('IntersectionObserver' in window) {
+          await new Promise<void>((resolve) => {
+            const observer = new IntersectionObserver((entries) => {
+              if (entries.some(entry => entry.isIntersecting)) {
+                observer.disconnect()
+                resolve()
+              }
+            }, { rootMargin: '600px 0px' })
+            observer.observe(this)
+            signal.addEventListener('abort', () => {
+              observer.disconnect()
+              resolve()
+            }, { once: true })
+          })
+        }
+        if (signal.aborted) return
         const [{ init, use }, { GraphChart, SankeyChart }, { DataZoomComponent, LegendComponent, TooltipComponent }, { CanvasRenderer }] = await Promise.all([
           import('echarts/core'), import('echarts/charts'), import('echarts/components'), import('echarts/renderers'),
         ])
