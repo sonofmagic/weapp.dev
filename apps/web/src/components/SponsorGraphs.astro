@@ -105,7 +105,7 @@ const labels = locale === 'zh-CN'
             type: 'graph', layout: compact ? 'none' : 'force', roam: true,
             ...(compact ? { left: '23%', right: '23%', top: '12%', bottom: '22%' } : {}),
             data: nodes.map((node, index) => ({ id: node.id, name: node.name, value: node.value, ...(compact ? { x: index % 2, y: Math.floor(index / 2) } : {}), symbolSize: node.kind === 'sponsor' ? 24 : 32 })),
-            links: graph.relationEdges.filter(edge => ids.has(edge.source) && ids.has(edge.target)).map(edge => ({ source: edge.source, target: edge.target, value: edge.value })),
+            links: [...graph.edges, ...graph.relationEdges].filter(edge => ids.has(edge.source) && ids.has(edge.target)).map(edge => ({ source: edge.source, target: edge.target, value: edge.value })),
             force: { repulsion: 120, edgeLength: 90, layoutAnimation: !reduce.matches },
             label: { ...labelStyle(), show: true, position: compact ? 'bottom' : 'right', ...(compact ? { width: 120, overflow: 'truncate' } : {}) }, labelLayout: { hideOverlap: true }, emphasis: { focus: 'adjacency' },
           }] }, { notMerge: true })
