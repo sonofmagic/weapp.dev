@@ -136,7 +136,7 @@ for (const prefix of ['', '/en']) {
       if (['varo', 'weapp-sqlite'].includes(slug)) {
         await expect(path.locator('code')).toHaveCount(0)
         await expect(path.locator('.project-selector-planned')).toContainText(zh ? '规划中' : 'planned')
-        await expect(path.locator('.project-selector-planned')).toHaveAttribute('role', 'status')
+        await expect(path.locator('.project-selector-planned')).toHaveAttribute('aria-label', zh ? '项目状态：规划中' : 'Project status: Planned')
       }
       else {
         await expect(path.locator('code')).not.toBeEmpty()
